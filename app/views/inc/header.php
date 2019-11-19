@@ -10,3 +10,4 @@
     </head>
 
     <body>
+        <?php require APPROOT . '/views/inc/navbar.php'; ?>
