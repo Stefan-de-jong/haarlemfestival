@@ -2,7 +2,7 @@
 
     <footer>
         <!-- Hier komt de footer die Pascal maakt -->
-        Footer tekst
+        Footer tekst....
     </footer>
     </body>
 
