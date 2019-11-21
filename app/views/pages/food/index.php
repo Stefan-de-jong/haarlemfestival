@@ -3,7 +3,7 @@
 <head>
     <title>Restaurant overview</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="food.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/food.css">
 </head>
 <body>
 <div class="container">
@@ -28,7 +28,7 @@
     <br>
     <section class="grid-container">
         <div>
-            <img onclick="window.open('info.html')" src="img/goldenbull.jpg">
+            <img onclick="window.open('info.php')" src="img/goldenbull.jpg">
             The Golden bull
             <br>
             <br>
@@ -46,7 +46,7 @@
             <br>
             <br>
             <br>
-            <a href="info.html">More information/reservate---></a>
+            <a href="info.php">More information/reservate---></a>
         </div>
         <div>
             <img src="img/brinkman.jpg">

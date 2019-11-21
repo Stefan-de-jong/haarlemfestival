@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Info & reservate</title>
-    <link rel="stylesheet" type="text/css" href="food.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/food.css">
 </head>
 <body>
 <div class="container">
-    <a href="">Home </a> >  <a href="index.html">Restaurant overview </a> > Info & reservate
+    <a href="">Home </a> >  <a href="index.php">Restaurant overview </a> > Info & reservate
     <article>
         <h1>The golden bull</h1>
         <img class="rest_img "src="img/goldenbull.jpg">
