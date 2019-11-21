@@ -1,0 +1,128 @@
+body{
+    background: url("img/foodbackground.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-size: 20px;
+}
+.rest_img
+{
+    margin-top: -60px;
+    margin-right: 25px;
+    float: right;
+}
+
+.container
+{
+    font-family: Arial;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    background-color: #F2F2F2 ;
+    width: 60%;
+    height: auto;
+    padding-top: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.intro p{
+    margin-top: -25px;
+    padding-left: 100px;
+    padding-right: 100px;
+    text-align: center;
+}
+.intro h2{
+    text-align: center;
+    font-size: 36px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-areas: "a a";
+    grid-gap: 10px;
+}
+
+.grid-container > div {
+    padding-bottom: 5px;
+    height: 200px;
+    width: 425px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+}
+.starImg
+{
+    float: right;
+    margin-top: -5px;
+    margin-right: -10px;
+    width: 40px;
+    height: 40px;
+}
+.cuisineImg
+{
+    margin-right: 10px;
+    margin-top: -5px;
+    float: right;
+    width: 40px;
+    height: 40px;
+}
+div a
+{
+    font-size: 15px;
+
+}
+a:hover{
+    font-weight: bold;
+}
+
+div img
+{
+    margin-top: -5px;
+    margin-right: 5px;
+    float: left;
+    width: 200px;
+    height: 200px;
+}
+
+.avaibility
+{
+    margin-top: -30px;
+    float: right;
+}
+
+
+
+.avaibility > table
+{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.avaibility tr
+{
+    height: 50px;
+}
+
+.avaibility > select
+{
+    float: right;
+    font-size: 18px;
+}
+
+.avaibility > button
+{
+    margin-top: 10px;
+    margin-left: 24%;
+    border-radius: 10px;
+    height: 40px;
+    width: 220px;
+    font-size: 18px;
+    background-color: #99FF99;
+}
+
+iframe
+{
+    border-color: #99FF99;
+    margin-bottom: 10px;
+}
