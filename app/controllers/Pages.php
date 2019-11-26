@@ -19,5 +19,12 @@
 
             $this->view('pages/about', $data);
         }
+        public function CMS(){
+            $data = [
+                'title' => 'Volunteer Login'
+            ];
+
+            $this->view('pages/CMS/index', $data);
+        }
     }
 ?>
