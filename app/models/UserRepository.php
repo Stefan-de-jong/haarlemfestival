@@ -1,9 +1,23 @@
 <?php
+    require_once(APPROOT."/models/User.php");
     class UserRepository {
         private $db;
 
         public function __construct(){
             $this->db = new Database;
+        }
+
+        public function login($email,$pass){
+            $this->db->query("SELECT * FROM user WHERE email=:email and password=:password");
+            $this->db->bind(':email', $email);
+            $this->db->bind(':password',$pass);
+            $row = $this->db->single();
+            if ($row){
+            return $row;
+            }
+            else{
+                throw new Exception("Login Failed");
+            }
         }
 
         public function findId($id){
