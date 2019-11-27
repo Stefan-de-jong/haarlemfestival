@@ -1,0 +1,38 @@
+/* CSS file for styling */
+
+#top-menu {
+    background-color: #ffff99;
+    height: 40px;
+    border-radius: 0 0 15px 15px;
+    border: 1px black solid;
+    border-top: 0;
+    margin-bottom: 20px;
+}
+
+.shadow-sm {
+    box-shadow: 9px 6px 10px rgba(0, 0, 0, .50) !important;
+}
+
+.rounded {
+    border: 1px rgba(0, 0, 0, .75) solid;
+}
+
+.location {
+    display: inline-block;
+    align-self: center;
+}
+
+#tour-route {
+    background-color: #ffff99;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+#tour-route ul {
+    padding: 5px;
+}
+
+#route-list {
+    margin: 10px;
+    padding: 25px;
+}
