@@ -13,7 +13,15 @@
             $this->db->bind(':password',$pass);
             $row = $this->db->single();
             if ($row){
-            return $row;
+            $user = new User(
+                $row->id,
+                $row->first_name,
+                $row->last_name,
+                $row->email,
+                $row->password,
+                $row->role
+            );
+            $_SESSION['activeUser'] = $user;
             }
             else{
                 throw new Exception("Login Failed");
