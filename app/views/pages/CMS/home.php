@@ -1,0 +1,1 @@
+<a href="<?php echo URLROOT."/pages/CMScontent"?>">Site Content</a>

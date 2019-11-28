@@ -1,6 +1,7 @@
 <?php
 require_once(APPROOT."/models/User.php");
 require_once(APPROOT."/models/UserRepository.php");
+require_once(APPROOT."/helpers/url_helper.php");
 if (!isset($_POST["shouldLogin"])){
     //niet inloggen, standaard pagina laten zien
 ?>
@@ -10,7 +11,7 @@ if (!isset($_POST["shouldLogin"])){
 <head>
 <meta charset="UTF-8">
 <title>CMS</title>
-<link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/CMS.css">
+<link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/CMS/CMS.css">
 </head>
 
 <body>
@@ -30,12 +31,15 @@ if (!isset($_POST["shouldLogin"])){
 </html>
 <?php
     }else{
+        session_destroy();
+        session_start();
         $repo = new UserRepository();
         try {
-            $u = $repo->login($_POST["email"],$_POST["password"]);
-            echo "yeah";
+            $repo->login($_POST["email"],$_POST["password"]);
+            redirect("pages/CMS_home");
+            
         }catch(Exception $e){
-            echo "nah";
+            echo "Login Failed";
         }
     }
 
