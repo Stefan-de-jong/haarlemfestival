@@ -1,8 +1,12 @@
 <?php
-var_dump($_POST);
 require_once(APPROOT."/models/Page.php");
 require_once(APPROOT."/models/PageRepository.php");
 $repo=new PageRepository();
+
+if (isset($_POST["newHtml"])){
+  $newpage = new Page(1,"page1",$_POST["newHtml"]);
+  $success = $repo->update($newpage);
+}
 ?>
 
 <!DOCTYPE html>
@@ -15,11 +19,11 @@ $repo=new PageRepository();
 
 <body>
 <div class="navbar">
-  <a id="n1" class="active">1</a>
-  <a id="n2" >2</a>
-  <a id="n3" >3</a>
-  <a id="n4" >4</a>
-  <a id="n5" >5</a>
+  <a id="n1" class="active">Home</a>
+  <a id="n2" >Jazz</a>
+  <a id="n3" >Dance</a>
+  <a id="n4" >Food</a>
+  <a id="n5" >Historic</a>
 </div>
 <script>
 var navbaritems=[];
@@ -42,8 +46,8 @@ function clearActives(){
   <script>tinymce.init({selector:'textarea',init_instance_callback : function(editor){
      
   }});</script>
-  <form method="post" action="CMS/CMScontent">
-  <textarea id="t1" name="t2"><?php echo $repo->findId(1)->html; ?></textarea>
+  <form method="post" action="<?php echo URLROOT."/pages/CMScontent"; ?>">
+  <textarea id="t1" name="newHtml"><?php echo $repo->findId(1)->html; ?></textarea>
   <input type="submit"></input>
 </form>
 </div>
