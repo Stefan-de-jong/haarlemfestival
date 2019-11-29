@@ -26,20 +26,23 @@
 
             $this->view('pages/CMS/index', $data);
         }
-        public function CMS_home(){
+
+        public function CMShome(){
             $data = [
-                'title' => 'Volunteer Home'
+                'title' => 'Volunteer Login'
             ];
 
             $this->view('pages/CMS/home', $data);
         }
+
         public function CMScontent(){
             $data = [
-                'title' => 'Content Manager'
+                'title' => 'Volunteer Login'
             ];
 
             $this->view('pages/CMS/content', $data);
         }
+       
         public function CMStest1(){
             $data = [
                 'title' => 'Content Manager'

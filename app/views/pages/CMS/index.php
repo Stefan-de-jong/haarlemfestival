@@ -36,7 +36,7 @@ if (!isset($_POST["shouldLogin"])){
         $repo = new UserRepository();
         try {
             $repo->login($_POST["email"],$_POST["password"]);
-            redirect("pages/CMS_home");
+            redirect("pages/CMShome");
             
         }catch(Exception $e){
             echo "Login Failed";
