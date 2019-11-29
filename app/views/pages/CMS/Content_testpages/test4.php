@@ -2,5 +2,5 @@
 require_once(APPROOT."/models/Page.php");
 require_once(APPROOT."/models/PageRepository.php");
 $repo=new PageRepository();
-echo $repo->findId(2)->html;
+echo $repo->findId(4)->html;
 ?>

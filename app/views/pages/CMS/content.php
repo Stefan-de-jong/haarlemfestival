@@ -4,7 +4,7 @@ require_once(APPROOT."/models/PageRepository.php");
 $repo=new PageRepository();
 
 if (isset($_POST["newHtml"])){
-  $newpage = new Page(1,"page1",$_POST["newHtml"]);
+  $newpage = new Page($_POST["id"],$_POST["newTitle"],$_POST["newHtml"]);
   $success = $repo->update($newpage);
 }
 ?>
@@ -26,6 +26,14 @@ if (isset($_POST["newHtml"])){
   <a id="n5" >Historic</a>
 </div>
 <script>
+var htmls = [];
+<?php
+$pagesDB = $repo->findAll();
+foreach($pagesDB as $pageDB){
+$page = new Page($pageDB->id,$pageDB->title,json_encode($pageDB->html));
+echo "htmls.push({id: '$page->id',title: '$page->title',html: $page->html});";
+}
+?>
 var navbaritems=[];
 for (i=1;i<=5;i++){
 var navbaritem=document.getElementById("n"+i);
@@ -33,6 +41,7 @@ navbaritems.push(navbaritem);
 navbaritem.addEventListener("click",function(e){
 clearActives();
 event.target.className="active";
+setEditorPage(navbaritems.indexOf(event.target));
 })
 };
 function clearActives(){
@@ -43,12 +52,22 @@ function clearActives(){
 </script>
 <div class="content">
 <script src="https://cdn.tiny.cloud/1/7a6z415bc5uf8mx9kms9qodrcmq4q1r5qsf0qs50kb4brv2o/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-  <script>tinymce.init({selector:'textarea',init_instance_callback : function(editor){
+  <script>tinymce.init({selector:'.editor',init_instance_callback : function(editor){
      
-  }});</script>
+  },
+  valid_elements : '*[*]'});</script>
+  <script>
+  function setEditorPage(index){
+      tinyMCE.activeEditor.setContent(htmls[index].html);
+      document.getElementById("titleField").value=htmls[index].title;
+      document.getElementById("idField").value=htmls[index].id;
+  };
+  </script>
   <form method="post" action="<?php echo URLROOT."/pages/CMScontent"; ?>">
-  <textarea id="t1" name="newHtml"><?php echo $repo->findId(1)->html; ?></textarea>
-  <input type="submit"></input>
+  <input type="hidden" name="id" id="idField"></input>
+  <input type="text" id="titleField" name="newTitle"></input>
+  <textarea class="editor" name="newHtml"></textarea>
+  <input type="submit" value="Update"></input>
 </form>
 </div>
 </body>
