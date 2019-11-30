@@ -11,14 +11,19 @@
                 </div>
                 <form action="<?php echo URLROOT;?>/customers/login" method="post">
                     <div class="row">
-                        <div class="col-md-3"><label class="col-form-label">Email: *</label></div>
-                        <div class="col"><input type="text" class="form-control" value="<?php echo $data['email'];?>">
+                        <div class="col-md-3"><label for="email" class="col-form-label">Email: *</label></div>
+                        <div class="col"><input type="text" name="email"
+                                class="form-control <?php echo (!empty($data['email_error'])) ? 'is-invalid' : '' ;?>"
+                                value="<?php echo $data['email'];?>">
+                            <span class="invalid-feedback"><?php echo $data['email_error']; ?></span>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3"><label class="col-form-label">Password: *</label></div>
-                        <div class="col"><input type="text" class="form-control"
-                                value="<?php echo $data['password'];?>"></div>
+                        <div class="col-md-3"><label for="password" class="col-form-label">Password: *</label></div>
+                        <div class="col"><input type="text" name="password"
+                                class="form-control <?php echo (!empty($data['password_error'])) ? 'is-invalid' : '' ;?>"
+                                value="<?php echo $data['password'];?>">
+                            <span class="invalid-feedback"><?php echo $data['password_error']; ?></span></div>
                     </div>
                     <div class="row">
                         <div class="col-md-3"></div>

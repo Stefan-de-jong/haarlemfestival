@@ -127,7 +127,7 @@
             }
 
             // Check is customer/email exists in db
-            if($this->customerModel->findCustomerByEmail($data['email'])){
+            if($this->repo->findByEmail($data['email'])){
                 // Customer found
             } else{
                 // Customer not found
@@ -138,7 +138,7 @@
             if(empty($data['email_error']) && empty($data['password_error'])){
                 // No errors
                 // Check and set logged in customer
-                $loggedInCustomer = $this->customerModel->login($data['email'], $data['password']);
+                $loggedInCustomer = $this->repo->login($data['email'], $data['password']);
 
                 if($loggedInCustomer){
                     // Create session
@@ -169,10 +169,10 @@
     }
 
     public function createCustomerSession($customer){
-        $_SESSION['customer_id'] = $customer->customerId;
+        $_SESSION['customer_id'] = $customer->id;
+        $_SESSION['customer_firstname'] = $customer->first_name;
+        $_SESSION['customer_lastname'] = $customer->last_ame;
         $_SESSION['customer_email'] = $customer->email;
-        $_SESSION['customer_name'] = $customer->customerName;
-        $_SESSION['customer_role'] = $customer->customerRole;
         redirect('pages/index');
     }
 
