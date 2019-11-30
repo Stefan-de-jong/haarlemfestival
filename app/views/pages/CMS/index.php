@@ -16,6 +16,9 @@ if (!isset($_POST["shouldLogin"])){
 
 <body>
 <div class="login-area">
+    <div class="logo">
+        <img src="http://localhost/haarlemfestival/img/logo.png"></img>
+</div>
 <div class="login-form">
 <form action="CMS/index.php"method="POST">
 <input type="text" placeholder="Email" name="email"></input><br>
@@ -36,7 +39,7 @@ if (!isset($_POST["shouldLogin"])){
         $repo = new UserRepository();
         try {
             $repo->login($_POST["email"],$_POST["password"]);
-            redirect("pages/CMShome");
+            redirect("pages/CMS_home");
             
         }catch(Exception $e){
             echo "Login Failed";

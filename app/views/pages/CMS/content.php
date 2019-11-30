@@ -18,6 +18,8 @@ if (isset($_POST["newHtml"])){
 </head>
 
 <body>
+<a href="<?php echo URLROOT."/pages/CMS_home";?>"><button class="backbutton"><- Back</button></a>
+<div class="content">
 <div class="navbar">
   <a id="n1" class="active">Home</a>
   <a id="n2" >Jazz</a>
@@ -50,7 +52,6 @@ function clearActives(){
     });
 }
 </script>
-<div class="content">
 <script src="https://cdn.tiny.cloud/1/7a6z415bc5uf8mx9kms9qodrcmq4q1r5qsf0qs50kb4brv2o/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
   <script>tinymce.init({selector:'.editor',init_instance_callback : function(editor){
      
