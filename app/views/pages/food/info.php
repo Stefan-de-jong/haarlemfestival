@@ -1,5 +1,10 @@
-<?php require APPROOT . '/views/inc/header.php';
+<?php
+require APPROOT . '/views/inc/header.php';
 
-echo "<br> Hier komt de database html.....";
+require APPROOT . '/controllers/Restaurants.php';
 
-require APPROOT . '/views/inc/footer.php'; ?>
+$controller = new Restaurants();
+$controller->findAllRestaurants();
+
+require APPROOT . '/views/inc/footer.php';
+?>
