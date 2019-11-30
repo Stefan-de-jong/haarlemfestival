@@ -9,10 +9,16 @@
         public function model($model){
             // Require the model file
             require_once '../app/models/' . $model . '.php';
+        }
+
+        public function repo($repo){
+            // Require the repo file
+            require_once '../app/repos/' . $repo . '.php';
 
             // Instantiate and return the model
-            return new $model();
+            return new $repo();
         }
+
 
         // Load view
         public function view($view, $data=[]){
