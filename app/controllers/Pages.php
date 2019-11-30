@@ -43,5 +43,21 @@
 
             $this->view('historic/about', $data);
         }
+
+        public function food(){
+            $data = [
+                'title' => 'Restaurant overview'
+            ];
+
+            $this->view('pages/food/index', $data);
+        }
+
+        public function foodInfo(){
+            $data = [
+                'title' => 'Restaurant info'
+            ];
+
+            $this->view('pages/food/info', $data);
+        }
     }
 ?>
