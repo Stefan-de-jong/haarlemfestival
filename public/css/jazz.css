@@ -1,0 +1,38 @@
+body
+	{
+        color: white;
+        background-color: rgb(5, 47, 126);
+        
+    }
+    
+article
+    {
+        width: 20%;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+
+h1
+    {
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+
+.SeeTickets
+    {
+        margin-left: 20%;
+        margin-right: 20%;
+        margin-top: 20px;
+    }
+
+.firstimage img
+    {
+        margin-right: 20%;
+        float: right;
+    }
+
+.image
+    {
+        width:20%;
+	    height: 450px;
+    }
