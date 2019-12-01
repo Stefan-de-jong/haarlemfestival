@@ -23,18 +23,17 @@
                     register known as Rijksmonuments.</p>
             </div>
             <div class="col d-xl-flex justify-content-xl-center align-items-xl-center d-flex justify-content-center">
-                <img class="rounded img-fluid shadow-sm" src="assets/img/_DSC1661.jpg">todo: echo url vanuit db</div>
+                <img class="rounded img-fluid shadow-sm" src="../img/historic/haarlem1.jpg"></div>
         </div>
         <div class="row">
             <div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><img
-                    class="rounded img-fluid shadow-sm img-center" src="assets/img/20190921_140054.jpg">todo: echo url
-                vanuit db</div>
+                    class="rounded img-fluid shadow-sm img-center" src="../img/historic/haarlem2.jpg"></div>
             <div class="col align-self-center">
                 <p class="text-justify">The city is located on the river Spaarne, giving it its nickname 'Spaarnestad'
                     (Spaarne city). It is situated about 20 km (12 mi) west of Amsterdam and near the coastal dunes.
                     Haarlem has been the historical centre of the tulip bulb-growing
                     district for centuries and bears its other nickname 'Bloemenstad' (flower city) for this
-                    reason.<br><br></p>
+                    reason.</p>
                 <p class="text-justify">Beer brewing has been a very important industry for Haarlem going back to the
                     15th century, when there were no fewer than 100 breweries in the city. When the town's 750th
                     anniversary was celebrated in 1995 a group of enthusiasts re-created
@@ -56,7 +55,7 @@
                     States generally by the 20th century.</p>
             </div>
             <div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><img
-                    class="rounded img-fluid shadow-sm" src="assets/img/20190921_170857.jpg">todo: echo url vanuit db
+                    class="rounded img-fluid shadow-sm" src="../img/historic/haarlem3.jpg">
             </div>
         </div>
     </section>

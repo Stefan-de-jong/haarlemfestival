@@ -32,10 +32,12 @@
                 <p class="text-justify"><?php echo $location->getDescription(); ?></p>
             </div>
             <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
-                <img src="<?php echo URLROOT;?>/img/<?php echo $location->getURL1(); ?>">
+                <img src="<?php echo URLROOT;?>/img/<?php echo $location->getURL1(); ?>"
+                    class="rounded shadow-sm img-fluid">
             </div>
             <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
-                <img src="<?php echo URLROOT;?>/img/<?php echo $location->getURL2(); ?>">
+                <img src="<?php echo URLROOT;?>/img/<?php echo $location->getURL2(); ?>"
+                    class="rounded shadow-sm img-fluid">
             </div>
         </div>
         <?php endforeach; ?>

@@ -35,3 +35,12 @@
     margin: 10px;
     padding: 25px;
 }
+
+.table th {
+    vertical-align: bottom;
+    border-top: 0;
+}
+
+h5 {
+    margin-bottom: 10px;
+}
