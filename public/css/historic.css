@@ -17,19 +17,18 @@
     border: 1px rgba(0, 0, 0, .75) solid;
 }
 
-.location {
-    display: inline-block;
-    align-self: center;
+.route-location {
+    padding-right: 15px;
 }
 
 #tour-route {
     background-color: #ffff99;
     border-radius: 10px;
-    padding: 5px;
+    padding: 10px;
 }
 
 #tour-route ul {
-    padding: 5px;
+    padding: 10px;
 }
 
 #route-list {

@@ -1,10 +1,10 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <div class="container">
     <div class="row">
-        <div class="col-md-4 d-flex flex-grow-1 justify-content-around mx-auto" id="top-menu"><a
-                class="d-inline-block align-self-center" href="<?php echo URLROOT;?>/pages/abouthaarlem">Haarlem</a><a
-                class="align-self-center" href="<?php echo URLROOT;?>/pages/historic">Route</a><a
-                class="align-self-center" href="<?php echo URLROOT;?>/pages/historictickets">Tickets</a></div>
+        <div class="col-md-4 d-flex flex-grow-1 justify-content-around mx-auto" id="top-menu">
+            <a class="d-inline-block align-self-center" href="<?php echo URLROOT;?>/historic/about">Haarlem</a>
+            <a class="align-self-center" href="<?php echo URLROOT;?>/historic">Route</a>
+            <a class="align-self-center" href="<?php echo URLROOT;?>/historic/tickets">Tickets</a></div>
     </div>
     <section>
         <h1><?php echo $data['title']?></h1>

@@ -28,21 +28,7 @@
             $this->view('pages/CMS/index', $data);
         }
 
-        public function historic(){
-            $data = [
-                'title' => 'Historic tour'
-            ];
 
-            $this->view('historic/tour', $data);
-        }
-
-        public function abouthaarlem(){
-            $data = [
-                'title' => 'About Haarlem'
-            ];
-
-            $this->view('historic/about', $data);
-        }
         public function CMS_home(){
             $data = [
                 'title' => 'Volunteer Login'

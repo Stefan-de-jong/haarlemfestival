@@ -13,6 +13,7 @@
             $this->password = $password;
         }
 
+        // getters
         public function getId(){
             return $this->id;
         }
@@ -28,6 +29,14 @@
         public function getPassword(){
             return $this->password;
         }    
+
+        // setters
+        public function setFirstname($firstname){
+            $this->firstname = $firstname;
+        }
+        public function setLastname($lastname){
+            $this->lastname = $lastname;
+        }
     }
 
 ?>
