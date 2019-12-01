@@ -2,20 +2,19 @@
 class RestaurantRepository
 {
     private $db;
-
-    public function __construct()
-    {
+    public function __construct(){
         $this->db = new Database;
     }
 
     public function findAllRestaurants(){
         $this->db->query('SELECT *
-                                FROM restaurant                          
+                                FROM restaurant                                
                                 ');
 
         $results = $this->db->resultSet();
 
-        echo $results;
+        echo "test";
+        //return $results;
     }
 }
 ?>

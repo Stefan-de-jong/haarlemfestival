@@ -2,13 +2,13 @@
 class Restaurants extends Controller
 {
     public function __construct(){
-        $this->restaurantModel = $this->model('RestaurantRepository');
+        $this->restaurantModel= $this->model('Restaurant');
+        $this->restaurantRepository = $this->repo('RestaurantRepository');
     }
 
     public function findAllRestaurants()
     {
-        return "<br> tetsstststsststtstst";
-        //$this->restaurantModel->findAllRestaurants();
+        $this->restaurantRepository->findAllRestaurants();
     }
 }
 ?>
