@@ -31,9 +31,11 @@
             <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
                 <p class="text-justify"><?php echo $location->getDescription(); ?></p>
             </div>
-            <div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><img>todo: echo img url vanuit db
+            <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                <img src="<?php echo URLROOT;?>/img/<?php echo $location->getURL1(); ?>">
             </div>
-            <div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><img>todo: echo img url vanuit db
+            <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                <img src="<?php echo URLROOT;?>/img/<?php echo $location->getURL2(); ?>">
             </div>
         </div>
         <?php endforeach; ?>

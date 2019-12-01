@@ -16,17 +16,45 @@
         }
 
         public function findAll(){ 
+            $locations = array();
             $this->db->query('SELECT *
                                 FROM tourlocation                                
                                 ');
-
             $results = $this->db->resultSet();
-            $locations = array();
             foreach($results as $result){
-                $newLocation = new Location($result->id, $result->name, $result->description);
-                array_push($locations, $newLocation);
+                $location = new Location($result->id, $result->name, $result->description);
+                // add urls to object
+                $this->db->query('SELECT url
+                                    FROM photo
+                                    JOIN linked_photo
+                                    ON linked_photo.linked_id = :resultId
+                                    WHERE id = photo_id                                
+                                    ');
+                $this->db->bind(':resultId', $result->id);
+                $urls = $this->db->resultSet();
+                $location->setURL1($urls[0]->url);
+                $location->setURL2($urls[1]->url);
+                array_push($locations, $location);
             }
             return $locations;
+        }
+
+
+
+        // niet nodig
+        public function findComplete(){
+            $this->db->query('SELECT *
+                                FROM tourlocation
+                                JOIN linked_photo
+                                ON linked_photo.linked_id = tourlocation.id
+                                JOIN photo
+                                ON linked_photo.photo_id = photo.id
+                            ');
+            $results = $this->db->resultSet();    
+            foreach($results as $result){
+                $location = new Location($result->id, $result->name, $result->description);
+                
+            }
         }
 
         public function save(Location $location){
