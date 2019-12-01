@@ -43,5 +43,45 @@
 
             $this->view('historic/about', $data);
         }
+        public function CMS_home(){
+            $data = [
+                'title' => 'Volunteer Login'
+            ];
+
+            $this->view('pages/CMS/home', $data);
+        }
+
+        public function CMS_content(){
+            $data = [
+                'title' => 'Volunteer Login'
+            ];
+
+            $this->view('pages/CMS/content', $data);
+        }
+       
+        public function CMS_testpage1(){
+            $data = [
+                'title' => 'Content Manager'
+            ];
+
+            $this->view('pages/CMS/Content_testpages/test1', $data);
+        }
+       
+
+        public function food(){
+            $data = [
+                'title' => 'Restaurant overview'
+            ];
+
+            $this->view('pages/food/index', $data);
+        }
+
+        public function foodInfo(){
+            $data = [
+                'title' => 'Restaurant info'
+            ];
+
+            $this->view('pages/food/info', $data);
+        }
     }
 ?>
