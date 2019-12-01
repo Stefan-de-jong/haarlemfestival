@@ -8,7 +8,8 @@ class Restaurants extends Controller
 
     public function findAllRestaurants()
     {
-        $this->restaurantRepository->findAllRestaurants();
+        echo "test";
+        //$this->restaurantRepository->findAllRestaurants();
     }
 }
 ?>
