@@ -7,16 +7,16 @@ class RestaurantRepository
     }
 
     public function findAllRestaurants(){
-        echo "test";
-        /*
+       
+        
         $this->db->query('SELECT *
                                 FROM restaurant                                
                                 ');
 
         $results = $this->db->resultSet();
 
-        e
-        //return $results;*/
+        
+        return $results;
     }
 }
 ?>

@@ -6,10 +6,17 @@ class Restaurants extends Controller
         $this->restaurantRepository = $this->repo('RestaurantRepository');
     }
 
-    public function findAllRestaurants()
+    public function index()
     {
-        echo "test";
-        //$this->restaurantRepository->findAllRestaurants();
+        
+        $restaurants = $this->restaurantRepository->findAllRestaurants();
+
+        $data = [
+            'restaurants' => $restaurants
+        ];
+
+        $this->view('pages/food/info', $data);
+    
     }
 }
 ?>

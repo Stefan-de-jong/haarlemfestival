@@ -1,5 +1,4 @@
-<?php
-require APPROOT . '/views/inc/header.php'; ?>
+test stefan
 
 <?php foreach($data['restaurants'] as $restaurant) : ?>
 <div class="card card-body mb-3">
@@ -7,6 +6,3 @@ require APPROOT . '/views/inc/header.php'; ?>
     <p class="card-text"><?php echo $restaunt->kitchen1;?></p>
 </div>
 <?php endforeach; ?>
-
-<?php require APPROOT . '/views/inc/footer.php';
-?>
