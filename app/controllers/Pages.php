@@ -34,6 +34,7 @@
         ];
 
         $this->view('pages/dance/info_page/dance_info', $data);
+    }
 
 
         public function CMS_home(){
@@ -76,7 +77,7 @@
 
             $this->view('pages/food/info', $data);
         }
-    }
+    
 
     public function dance_purchase(){
         $data = [
