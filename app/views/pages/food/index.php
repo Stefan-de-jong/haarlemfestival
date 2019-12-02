@@ -1,197 +1,72 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
-<div class="food_body">
-<div class="food_container">
+    <div class="food_body">
+    <div class="food_container">
     <div class="food_breadcrums"><a href="<?php echo URLROOT;?>">Home </a> > Restaurant overview</div>
     <article class="food_intro">
-    <h2>Haarlem culinaire is al about the culiniare activity!</h2>
+        <h2>Haarlem culinaire is al about the culiniare activity!</h2>
         <br>
-    <p>
-        During the festival, multiple restaurant participate to show their culinair style. Each restaurant has serveral sessions a day that are bookable. It's a great opportunity to have a nice evening and
-        explore the special cuisines with your friend(s), husband, kids or familiy.
-    </p>
+        <p>
+            During the festival, multiple restaurant participate to show their culinair style. Each restaurant has serveral sessions a day that are bookable. It's a great opportunity to have a nice evening and
+            explore the special cuisines with your friend(s), husband, kids or familiy.
+        </p>
         Filter cuisine:
-        <select>
-            <option value="">All</option>
-            <option value="">French</option>
-            <option value="">Dutch</option>
-            <option value="">Asian</option>
-            <option value="">Argentinian</option>
-            <option value="">Steak</option>
-            <option value="">Fish</option>
+        <select onchange="selectedOption(this.value)">
+            <?php $kitchen = $_GET['kitchen'];?>
+            <option value="0">All</option>
+            <option value="1" <?php if($kitchen == 1){ echo "selected";}?>>Dutch</option>
+            <option value="2"<?php if($kitchen == 2){ echo "selected";}?>>French</option>
+            <option value="3"<?php if($kitchen == 3){ echo "selected";}?>>Asian</option>
+            <option value="4"<?php if($kitchen == 4){ echo "selected";}?>>Argentinian</option>
+            <option value="5"<?php if($kitchen == 5){ echo "selected";}?>>Fish</option>
+            <option value="6"<?php if($kitchen == 6){ echo "selected";}?>>Steak</option>
         </select>
+
+        <script>
+            function selectedOption(val)
+            {
+                if (val == 0)
+                    location.href = '<?php echo URLROOT;?>/restaurants/index';
+                else {
+                    <?php $kitchen = "val";?>
+                    location.href = '<?php echo URLROOT;?>/restaurants/specific?kitchen=' +<?php echo $kitchen;?>;
+                }
+            }
+        </script>
+
     </article>
     <br>
     <section class="food_grid-container">
-        <div>
-            <img class="rest_img_overview" src="<?php echo URLROOT; ?>/img/food/goldenbull.jpg">
-            The Golden bull
-            <br>
-            <br>
-            Stars:
-            <img class="starImg" src="<?php echo URLROOT; ?>/img/food/legeSter.png">
-            <img class="starImg" src="<?php echo URLROOT; ?>/img/food/ster.png">
-            <img class="starImg" src="<?php echo URLROOT; ?>/img/food/ster.png">
-            <img class="starImg" src="<?php echo URLROOT; ?>/img/food/ster.png">
-            <img class="starImg" src="<?php echo URLROOT; ?>/img/food/ster.png">
-            <br>
-            <br>
-            Cuisine:
-            <img class="cuisineImg" src="<?php echo URLROOT; ?>/img/food/frans.png">
-            <img class="cuisineImg" src="<?php echo URLROOT; ?>/img/food/azie.gif">
-            <br>
-            <br>
-            <br>
-            <a href="<?php echo URLROOT;?>/pages/foodInfo"  class="food_a"> More information/reservate---></a>
-        </div>
-        <div>
-            <img class="rest_img_overview" src="img/brinkman.jpg">
-            Restaurant Brinkman
-            <br>
-            <br>
-            Stars:
-            <img class="starImg" src="img/legeSter.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <br>
-            <br>
-            Cuisine:
-            <img class="cuisineImg" src="img/steak.png">
-            <img class="cuisineImg" src="img/vis.png">
-            <br>
-            <br>
-            <br>
-            <a href="" class="food_a" >More information/reservate---></a>
-        </div>
-        <div>
-            <img class="rest_img_overview" src="img/fris.jpg">
-            Fris
-            <br>
-            <br>
-            Stars:
-            <img class="starImg" src="img/legeSter.png">
-            <img class="starImg" src="img/legeSter.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <br>
-            <br>
-            Cuisine:
-            <img class="cuisineImg" src="img/nederland.png">
-            <img class="cuisineImg" src="img/argentinie.png">
-            <br>
-            <br>
-            <br>
-            <a href="" class="food_a">More information/reservate---></a>
-        </div>
-        <div>
-            <img class="rest_img_overview" src="img/ml.jpg">
-            ML
-            <br>
-            <br>
-            Stars:
-            <img class="starImg" src="img/legeSter.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <br>
-            <br>
-            Cuisine:
-            <img class="cuisineImg" src="img/steak.png">
-            <img class="cuisineImg" src="img/vis.png">
-            <br>
-            <br>
-            <br>
-            <a href=""class=" food_a">More information/reservate---></a>
-        </div>
-        <div>
-            <img class="rest_img_overview" src="img/mr.mrs.jpg">
-            Mr & MRS
-            <br>
-            <br>
-            Stars:
-            <img class="starImg" src="img/legeSter.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <br>
-            <br>
-            Cuisine:
-            <img class="cuisineImg" src="img/steak.png">
-            <img class="cuisineImg" src="img/vis.png">
-            <br>
-            <br>
-            <br>
-            <a href="" class="food_a">More information/reservate---></a>
-        </div>
-        <div>
-            <img class="rest_img_overview" src="img/ratatouille.jpg">
-            Rataouille
-            <br>
-            <br>
-            Stars:
-            <img class="starImg" src="img/legeSter.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <br>
-            <br>
-            Cuisine:
-            <img class="cuisineImg" src="img/steak.png">
-            <img class="cuisineImg" src="img/vis.png">
-            <br>
-            <br>
-            <br>
-            <a href="" class="food_a">More information/reservate---></a>
-        </div>
-        <div>
-            <img class="rest_img_overview" src="img/specktakel.jpg">
-            Specktakel
-            <br>
-            <br>
-            Stars:
-            <img class="starImg" src="img/legeSter.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <br>
-            <br>
-            Cuisine:
-            <img class="cuisineImg" src="img/steak.png">
-            <img class="cuisineImg" src="img/vis.png">
-            <br>
-            <br>
-            <br>
-            <a href="" class="food_a">More information/reservate---></a>
-        </div>
-        <div>
-            <img class="rest_img_overview" src="img/toujoers.png">
-            Urban french toujours
-            <br>
-            <br>
-            Stars:
-            <img class="starImg" src="img/legeSter.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <img class="starImg" src="img/ster.png">
-            <br>
-            <br>
-            Cuisine:
-            <img class="cuisineImg" src="img/steak.png">
-            <img class="cuisineImg" src="img/vis.png">
-            <br>
-            <br>
-            <br>
-            <a href="" class="food_a">More information/reservate---></a>
-        </div>
+
+<?php
+$rest_images = array("mr.mrs.jpg", "ratatouille.jpg", "ml.jpg", "fris.jpg", "specktakel.jpg", "brinkman.jpg", "toujoers.png", "goldenbull.jpg" );
+$rest_kitchens = array("dutch", "french", "asian", "argentinian", "fish", "steak");
+foreach($data['restaurants'] as $restaurant) :?>
+    <div>
+        <img class="rest_img_overview" src="<?php echo URLROOT; ?>/img/food/<?php echo $rest_images[($restaurant->id) - 1]; ?>">
+        <?php echo $restaurant->name;?>
+        <br>
+        <br>
+        Stars:
+        <img class="starImg" src="<?php echo URLROOT; ?>/img/food/legeSter.png">
+        <?php if($restaurant->stars == 4){?> <img class="starImg" src="<?php echo URLROOT; ?>/img/food/ster.png">
+        <?php } else { ?> <img class="starImg" src="<?php echo URLROOT; ?>/img/food/legeSter.png"><?php }?>
+        <img class="starImg" src="<?php echo URLROOT; ?>/img/food/ster.png">
+        <img class="starImg" src="<?php echo URLROOT; ?>/img/food/ster.png">
+        <img class="starImg" src="<?php echo URLROOT; ?>/img/food/ster.png">
+        <br>
+        <br>
+        Cuisine:
+        <img class="cuisineImg" src="<?php echo URLROOT; ?>/img/food/<?php echo $rest_kitchens[($restaurant->kitchen1) -1 ];?>.png">
+        <?php if($restaurant->kitchen2 != null){?><img class="cuisineImg" src="<?php echo URLROOT; ?>/img/food/<?php echo $rest_kitchens[($restaurant->kitchen2) -1 ];?>.png"> <?php }?>
+
+        <br>
+        <br>
+        <br>
+        <a href="<?php echo URLROOT;?>/restaurants/info?restaurant=<?php echo $restaurant->info_page?>"  class="food_a"> More information/reservate---></a>
+    </div>
+<?php endforeach; ?>
 
     </section>
-</div>
-</div>
+    </div>
+    </div>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

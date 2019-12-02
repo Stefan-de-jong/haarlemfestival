@@ -1,9 +1,11 @@
 <?php
-require APPROOT . '/views/inc/header.php';
+require APPROOT . '/views/inc/header.php'; ?>
 
-require APPROOT . '/controllers/Restaurants.php';
-$controller = new Restaurants();
-$controller->findAllRestaurants();
+<?php foreach($data['page'] as $page) : ?>
 
-require APPROOT . '/views/inc/footer.php';
+  <?php echo $page->html;?>
+
+<?php endforeach; ?>
+
+<?php require APPROOT . '/views/inc/footer.php';
 ?>
