@@ -1,0 +1,68 @@
+body
+	{
+        color: white;
+        background-color: rgb(5, 47, 126);
+        
+    }
+    
+article
+    {
+        width: 20%;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+
+h1
+    {
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+
+.SeeTickets
+    {
+        margin-left: 20%;
+        margin-right: 20%;
+        margin-top: 20px;
+    }
+
+.firstimage img
+    {
+        margin-right: 20%;
+        float: right;
+    }
+
+.image
+    {
+        width:20%;
+	    height: 450px;
+    }
+
+table, th, td
+    {
+        border: 1px solid black;
+        background-color: rgb(255, 255, 255);
+        border-collapse: collapse;
+        text-align:center
+    }
+    
+    
+        
+.title
+    {
+        color: rgb(255, 255, 255);
+    }
+    
+.header
+    {
+        background-color: #999999;
+        width: 800px;
+        height: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        font-size: 160%;
+        color: #000000;
+        border: 2px;
+        border-style: solid none solid none;
+        border-color: #ffffff;
+    }
