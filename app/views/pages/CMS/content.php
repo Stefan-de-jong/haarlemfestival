@@ -64,7 +64,7 @@ function clearActives(){
       document.getElementById("idField").value=htmls[index].id;
   };
   </script>
-  <form method="post" action="<?php echo URLROOT."/pages/CMScontent"; ?>">
+  <form method="post" action="<?php echo URLROOT."/pages/CMS_content"; ?>">
   <input type="hidden" name="id" id="idField"></input>
   <input type="text" id="titleField" name="newTitle"></input>
   <textarea class="editor" name="newHtml"></textarea>
