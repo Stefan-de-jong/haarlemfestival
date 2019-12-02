@@ -1,0 +1,46 @@
+/* CSS file for styling */
+
+#top-menu {
+    background-color: #ffff99;
+    height: 40px;
+    border-radius: 0 0 15px 15px;
+    border: 1px black solid;
+    border-top: 0;
+    margin-bottom: 20px;
+}
+
+.shadow-sm {
+    box-shadow: 9px 6px 10px rgba(0, 0, 0, .50) !important;
+}
+
+.rounded {
+    border: 1px rgba(0, 0, 0, .75) solid;
+}
+
+.route-location {
+    padding-right: 15px;
+}
+
+#tour-route {
+    background-color: #ffff99;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#tour-route ul {
+    padding: 10px;
+}
+
+#route-list {
+    margin: 10px;
+    padding: 25px;
+}
+
+.table th {
+    vertical-align: bottom;
+    border-top: 0;
+}
+
+h5 {
+    margin-bottom: 10px;
+}

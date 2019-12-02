@@ -1,7 +1,8 @@
 <?php 
- class customers extends Controller{
+ class Customers extends Controller{
     public function __construct(){
-        $this->customerModel = $this->model('CustomerRepository');
+        $this->repo = $this->repo('CustomerRepository');
+        $this->model = $this->model('Customer');
     }
 
     public function register(){
@@ -14,11 +15,13 @@
 
             // Init data
             $data =[
-                'name' => trim($_POST['name']),
+                'firstname' => trim($_POST['firstname']),
+                'lastname' => trim($_POST['lastname']),
                 'email' => trim($_POST['email']),
                 'password' => trim($_POST['password']),
                 'confirm_password' => trim($_POST['confirm_password']),
-                'name_error' => '',
+                'firstname_error' => '',
+                'lastname_error' => '',
                 'email_error' => '',
                 'password_error' => '',
                 'confirm_password_error' => ''
@@ -29,13 +32,17 @@
                 $data['email_error'] = 'Please enter email';
             } else{
                 // Check if email exists in db
-                if($this->customerModel->findCustomerByEmail($data['email'])){
+                if($this->repo->findByEmail($data['email'])){
                     $data['email_error'] = 'Email is already taken';
                 }
             }
 
-            if(empty($data['name'])){
-                $data['name_error'] = 'Please enter name';
+            if(empty($data['firstname'])){
+                $data['firstname_error'] = 'Please enter first name';
+            }
+
+            if(empty($data['lastname'])){
+                $data['lastname_error'] = 'Please enter last name';
             }
 
             if(empty($data['password'])){
@@ -53,15 +60,15 @@
             }
 
             // Process only if there are no errors
-            if(empty($data['email_error']) && empty($data['name_error']) && empty($data['password_error']) && empty($data['confirm_password_error'])){
+            if(empty($data['email_error']) && empty($data['firstname_error']) && empty($data['lastname_error']) && empty($data['password_error']) && empty($data['confirm_password_error'])){
                 // no errors
 
                 // Hash password
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
                 // Register customer
-                $customer = new Customer($data['name'],$data['email'],$data['password']);
-                if($this->customerModel->save($customer)){
+                $customer = new Customer($data['firstname'],$data['lastname'],$data['email'],$data['password']);
+                if($this->repo->save($customer)){
                     flash('register_succes', 'You are registered and can log in');
                     redirect('customers/login');
                 } else {
@@ -77,11 +84,13 @@
         } else{
             // Init data
             $data =[
-                'name' => '',
+                'firstname' => '',
+                'lastname' => '',
                 'email' => '',
                 'password' => '',
                 'confirm_password' => '',
-                'name_error' => '',
+                'firstname_error' => '',
+                'lastname_error' => '',
                 'email_error' => '',
                 'password_error' => '',
                 'confirm_password_error' => ''
@@ -118,7 +127,8 @@
             }
 
             // Check is customer/email exists in db
-            if($this->customerModel->findCustomerByEmail($data['email'])){
+            // ToDo: Thijs -> of een 'login object' beter is hier, ivm verdere abstractie tussen app en db.
+            if($this->repo->findByEmail($data['email'])){
                 // Customer found
             } else{
                 // Customer not found
@@ -129,7 +139,7 @@
             if(empty($data['email_error']) && empty($data['password_error'])){
                 // No errors
                 // Check and set logged in customer
-                $loggedInCustomer = $this->customerModel->login($data['email'], $data['password']);
+                $loggedInCustomer = $this->repo->login($data['email'], $data['password']);
 
                 if($loggedInCustomer){
                     // Create session
@@ -159,11 +169,30 @@
         }
     }
 
+    public function forgotpassword(){
+        // ToDo: set up forgot password
+        // check for post
+
+        // POST
+            // sanitize input
+            // check for errors
+
+            // NO ERRORS
+                // process and send email with passrecovlink
+
+            // ERRORS
+                // load forgotpass form with error message
+
+        // NOT POST
+            // load forgotpass form
+
+    }
+
     public function createCustomerSession($customer){
-        $_SESSION['customer_id'] = $customer->customerId;
+        $_SESSION['customer_id'] = $customer->id;
+        $_SESSION['customer_firstname'] = $customer->first_name;
+        $_SESSION['customer_lastname'] = $customer->last_ame;
         $_SESSION['customer_email'] = $customer->email;
-        $_SESSION['customer_name'] = $customer->customerName;
-        $_SESSION['customer_role'] = $customer->customerRole;
         redirect('pages/index');
     }
 
