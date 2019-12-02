@@ -7,21 +7,26 @@ class RestaurantRepository
     }
 
     public function findAllRestaurants(){
-       
-        
+
+        $restaurants = array();
         $this->db->query('SELECT *
                                 FROM restaurant                                
                                 ');
 
         $results = $this->db->resultSet();
 
-        
-        return $results;
+        foreach ($results as $result)
+        {
+            $restaurant = new Restaurant($result->id, $result->name, $result->info_page, $result->kitchen1, $result->kitchen2, $result->stars, $result->price, $result->address);
+            array_push($restaurants, $restaurant);
+        }
+
+        return $restaurants;
     }
 
     public function findAllRestaurantsBySpecificKitchen($kitchen)
     {
-
+        $restaurants = array();
         $this->db->query('SELECT *
                                 FROM restaurant 
                                 WHERE kitchen1 ='.$kitchen.' OR
@@ -29,9 +34,13 @@ class RestaurantRepository
                             );
 
         $results = $this->db->resultSet();
+        foreach ($results as $result)
+        {
+            $restaurant = new Restaurant($result->id, $result->name, $result->info_page, $result->kitchen1, $result->kitchen2, $result->stars, $result->price, $result->address);
+            array_push($restaurants, $restaurant);
+        }
 
-
-        return $results;
+        return $restaurants;
     }
 
     public function getRestaurantInfoPage($page_nr)

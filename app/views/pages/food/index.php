@@ -25,10 +25,10 @@
             function selectedOption(val)
             {
                 if (val == 0)
-                    location.href = '<?php echo URLROOT;?>/restaurants/index';
+                    location.href = '<?php echo URLROOT;?>/food/index';
                 else {
                     <?php $kitchen = "val";?>
-                    location.href = '<?php echo URLROOT;?>/restaurants/specific?kitchen=' +<?php echo $kitchen;?>;
+                    location.href = '<?php echo URLROOT;?>/food/filter?kitchen=' +<?php echo $kitchen;?>;
                 }
             }
         </script>
@@ -42,13 +42,13 @@ $rest_images = array("mr.mrs.jpg", "ratatouille.jpg", "ml.jpg", "fris.jpg", "spe
 $rest_kitchens = array("dutch", "french", "asian", "argentinian", "fish", "steak");
 foreach($data['restaurants'] as $restaurant) :?>
     <div>
-        <img class="rest_img_overview" src="<?php echo URLROOT; ?>/img/food/<?php echo $rest_images[($restaurant->id) - 1]; ?>">
+        <img class="rest_img_overview" src="<?php echo URLROOT; ?>/img/food/<?php echo $rest_images[($restaurant->getId()) - 1]; ?>">
         <?php echo $restaurant->name;?>
         <br>
         <br>
         Stars:
         <img class="starImg" src="<?php echo URLROOT; ?>/img/food/legeSter.png">
-        <?php if($restaurant->stars == 4){?> <img class="starImg" src="<?php echo URLROOT; ?>/img/food/ster.png">
+        <?php if($restaurant->getStars() == 4){?> <img class="starImg" src="<?php echo URLROOT; ?>/img/food/ster.png">
         <?php } else { ?> <img class="starImg" src="<?php echo URLROOT; ?>/img/food/legeSter.png"><?php }?>
         <img class="starImg" src="<?php echo URLROOT; ?>/img/food/ster.png">
         <img class="starImg" src="<?php echo URLROOT; ?>/img/food/ster.png">
@@ -56,13 +56,13 @@ foreach($data['restaurants'] as $restaurant) :?>
         <br>
         <br>
         Cuisine:
-        <img class="cuisineImg" src="<?php echo URLROOT; ?>/img/food/<?php echo $rest_kitchens[($restaurant->kitchen1) -1 ];?>.png">
-        <?php if($restaurant->kitchen2 != null){?><img class="cuisineImg" src="<?php echo URLROOT; ?>/img/food/<?php echo $rest_kitchens[($restaurant->kitchen2) -1 ];?>.png"> <?php }?>
+        <img class="cuisineImg" src="<?php echo URLROOT; ?>/img/food/<?php echo $rest_kitchens[($restaurant->getKitchen1()) -1 ];?>.png">
+        <?php if($restaurant->kitchen2 != null){?><img class="cuisineImg" src="<?php echo URLROOT; ?>/img/food/<?php echo $rest_kitchens[($restaurant->getKitchen2()) -1 ];?>.png"> <?php }?>
 
         <br>
         <br>
         <br>
-        <a href="<?php echo URLROOT;?>/restaurants/info?restaurant=<?php echo $restaurant->info_page?>"  class="food_a"> More information/reservate---></a>
+        <a href="<?php echo URLROOT;?>/food/info?restaurant=<?php echo $restaurant->getInfoPage()?>"  class="food_a"> More information/reservate---></a>
     </div>
 <?php endforeach; ?>
 

@@ -1,5 +1,5 @@
 <?php
-class Restaurants extends Controller
+class Food extends Controller
 {
     public function __construct(){
         $this->restaurantModel= $this->model('Restaurant');
@@ -18,7 +18,7 @@ class Restaurants extends Controller
     
     }
 
-    public function specific()
+    public function filter()
     {
         $kitchen = $_GET['kitchen'];
 
