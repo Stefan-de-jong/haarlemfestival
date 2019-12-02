@@ -28,6 +28,13 @@
             $this->view('pages/CMS/index', $data);
         }
 
+        public function dance(){
+        $data = [
+            'title' => 'dance'
+        ];
+
+        $this->view('pages/dance/info_page/dance_info', $data);
+
 
         public function CMS_home(){
             $data = [
@@ -70,4 +77,13 @@
             $this->view('pages/food/info', $data);
         }
     }
+
+    public function dance_purchase(){
+        $data = [
+            'title' => 'dance'
+        ];
+
+        $this->view('pages/dance/purchase_page/dance_purchase', $data);
+    }
+}
 ?>
