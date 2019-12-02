@@ -1,5 +1,5 @@
-body{
-    background: url("img/foodbackground.jpg") no-repeat center center fixed;
+.food_body{
+    background: url("../img/food/foodbackground.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -8,12 +8,18 @@ body{
 }
 .rest_img
 {
-    margin-top: -60px;
+    height: 250px;
+    width: 250px;
     margin-right: 25px;
     float: right;
 }
 
-.container
+.food_breadcrums
+{
+    font-size: 15px;
+}
+
+.food_container
 {
     font-family: Arial;
     margin-left: auto;
@@ -26,24 +32,25 @@ body{
     padding-left: 25px;
     padding-right: 25px;
 }
-.intro p{
+
+.food_intro p{
     margin-top: -25px;
     padding-left: 100px;
     padding-right: 100px;
     text-align: center;
 }
-.intro h2{
+.food_intro h2{
     text-align: center;
     font-size: 36px;
 }
 
-.grid-container {
+.food_grid-container {
     display: grid;
     grid-template-areas: "a a";
     grid-gap: 10px;
 }
 
-.grid-container > div {
+.food_grid-container > div {
     padding-bottom: 5px;
     height: 200px;
     width: 425px;
@@ -66,16 +73,17 @@ body{
     width: 40px;
     height: 40px;
 }
-div a
+.food_a
 {
+    margin-top: -40px;
+    float: right;
     font-size: 15px;
-
 }
-a:hover{
+.food_a :hover{
     font-weight: bold;
 }
 
-div img
+.rest_img_overview
 {
     margin-top: -5px;
     margin-right: 5px;
@@ -84,33 +92,31 @@ div img
     height: 200px;
 }
 
-.avaibility
+.food_avaibility
 {
-    margin-top: -30px;
     float: right;
 }
 
 
-
-.avaibility > table
+.food_avaibility > table
 {
     text-align: center;
     margin-top: 20px;
     font-size: 18px;
 }
 
-.avaibility tr
+.food_avaibility tr
 {
     height: 50px;
 }
 
-.avaibility > select
+.food_avaibility > select
 {
     float: right;
     font-size: 18px;
 }
 
-.avaibility > button
+.food_avaibility > button
 {
     margin-top: 10px;
     margin-left: 24%;
@@ -121,7 +127,7 @@ div img
     background-color: #99FF99;
 }
 
-iframe
+.food_location
 {
     border-color: #99FF99;
     margin-bottom: 10px;
