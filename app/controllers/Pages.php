@@ -28,21 +28,14 @@
             $this->view('pages/CMS/index', $data);
         }
 
-        public function historic(){
-            $data = [
-                'title' => 'Historic tour'
-            ];
+        public function dance(){
+        $data = [
+            'title' => 'dance'
+        ];
 
-            $this->view('historic/tour', $data);
-        }
+        $this->view('pages/dance/info_page/dance_info', $data);
 
-        public function abouthaarlem(){
-            $data = [
-                'title' => 'About Haarlem'
-            ];
 
-            $this->view('historic/about', $data);
-        }
         public function CMS_home(){
             $data = [
                 'title' => 'Volunteer Login'
@@ -67,5 +60,30 @@
             $this->view('pages/CMS/Content_testpages/test1', $data);
         }
        
+
+        public function food(){
+            $data = [
+                'title' => 'Restaurant overview'
+            ];
+
+            $this->view('pages/food/index', $data);
+        }
+
+        public function foodInfo(){
+            $data = [
+                'title' => 'Restaurant info'
+            ];
+
+            $this->view('pages/food/info', $data);
+        }
     }
+
+    public function dance_purchase(){
+        $data = [
+            'title' => 'dance'
+        ];
+
+        $this->view('pages/dance/purchase_page/dance_purchase', $data);
+    }
+}
 ?>
