@@ -25,110 +25,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Day</td>
-                                    <td>00:00</td>
-                                    <td>Artist</td>
-                                    <td>Location</td>
-                                    <td>Quantity</td>
-                                </tr>
-                                <tr>
-                                    <td>Day</td>
-                                    <td>00:00</td>
-                                    <td>Artist</td>
-                                    <td>Location</td>
-                                    <td>Quantity</td>
-                                </tr>
-                                <tr>
-                                    <td>Day</td>
-                                    <td>00:00</td>
-                                    <td>Artist</td>
-                                    <td>Location</td>
-                                    <td>Quantity</td>
-                                </tr>
-                                <tr>
-                                    <td>Day</td>
-                                    <td>00:00</td>
-                                    <td>Artist</td>
-                                    <td>Location</td>
-                                    <td>Quantity</td>
-                                </tr>
+                            <?php include "newtablerow.php"; ?> <!-- has to add rows equal to the amount of venues the artist performs at -->
+                            <?php include "newtablerow.php"; ?>
+                            <?php include "newtablerow.php"; ?>
+                            <?php include "newtablerow.php"; ?>
+                            <?php include "newtablerow.php"; ?>
+                            
                             </tbody>
                         </table>
                     </div>
                     <p style="position: absolute;padding-left: 845px;padding-top: 320px;"><strong>Select your tickets</strong></p><div id=dropdown>
-<div id=d1>
-<dropdown>
-    <select>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-    </select>
-</dropdown>
-</div>
-</div><button class="btn btn-primary" id="button" type="button" style="position: absolute;margin-top: 350px;margin-left: 912px;height: 50px;">ADD TO CART</button><div id = dropdown>
-<div id=d2>
-<dropdown>
-    <select>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-    </select>
-</dropdown>
-</div>
-</div>
-                    <button
-                        class="btn btn-primary" id="button2" type="button" style="position: absolute;margin-top: 400px;margin-left: 912px;height: 50px;">ADD TO CART</button><div id=dropdown>
-<div id=d3>
-<dropdown>
-    <select>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-    </select>
-</dropdown>
-</div>
-</div><button class="btn btn-primary" id="button3" type="button" style="position: absolute;margin-top: 450px;margin-left: 912px;height: 50px;">ADD TO CART</button><div id=dropdown>
-<div id=d4>
-<dropdown>
-    <select>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-    </select>
-</dropdown>
-</div>
-</div>
-                        <button
-                            class="btn btn-primary" id="button4" type="button" style="position: absolute;margin-top: 500px;margin-left: 912px;height: 50px;">ADD TO CART</button><button class="btn btn-primary" id="back" type="button" style="background-color: rgb(255,184,2);">RETURN TO ARTIST PAGE</button></section>
+                    <div id=buttons>
+                    <?php include "newentry.php"; ?>
+                    <?php include "newentry.php"; ?>
+                    <?php include "newentry.php"; ?>
+                    <?php include "newentry.php"; ?>
+                    <?php include "newentry.php"; ?>
+                    <div>
+<button class="btn btn-primary" id="back" type="button" style="background-color: rgb(255,184,2);">RETURN TO ARTIST PAGE</button></section>
             </div>
     </section>
     <section>

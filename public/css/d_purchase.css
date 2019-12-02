@@ -17,13 +17,12 @@
 
 #d1 {
   position: absolute;
-  margin-top: 350px;
   margin-left: 836px;
 }
 
 #back {
-  position: absolute;
-  margin-top: 600px;
+  position: relative;
+  display: block;
 }
 
 #d4 {
@@ -40,5 +39,10 @@
 
 #dal select {
   width: 200px;
+}
+
+#buttons{
+    position: absolute;
+  margin-top: 350px;
 }
 
