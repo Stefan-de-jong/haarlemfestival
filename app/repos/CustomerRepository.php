@@ -47,11 +47,10 @@
         public function save(Customer $customer){
             $this->db->query('INSERT INTO customer (first_name, last_name, email, password) VALUES (:firstname, :lastname, :email, :password)');
             // Bind values
-            $this->db->bind(':firstname', $customer->firstname);
-            $this->db->bind(':lastname', $customer->lastname);
-            $this->db->bind(':email', $customer->email);
-            $this->db->bind(':password', $customer->password);
-
+            $this->db->bind(':firstname', $customer->getFirstname());
+            $this->db->bind(':lastname', $customer->getLastname());
+            $this->db->bind(':email', $customer->getEmail());
+            $this->db->bind(':password', $customer->getPassword());
             // Execute statement
             if($this->db->execute()){
                 return true;
@@ -61,12 +60,12 @@
         }
 
         public function update(Customer $customer){
-            $this->db->query('UPDATE customer SET name = :name, email = :email WHERE id = :id');
+            $this->db->query('UPDATE customer SET first_name = :firstname, last_name = :lastname, email = :email WHERE id = :id');
             // Bind values
-            $this->db->bind(':id', $customer->id);
-            $this->db->bind(':name', $customer->name);
-            $this->db->bind(':email', $customer->email);
-
+            $this->db->bind(':id', $customer->getId());
+            $this->db->bind(':firstname', $customer->getFirstname());
+            $this->db->bind(':lastname', $customer->getLastname());
+            $this->db->bind(':email', $customer->getEmail());
             // Execute statement
             if($this->db->execute()){
                 return true;
@@ -75,11 +74,10 @@
             }
         }
 
-        public function remove($id){
+        public function remove(Customer $customer){
             $this->db->query('DELETE from customer WHERE id = :id');
             // Bind values
-            $this->db->bind(':id', $id);
-
+            $this->db->bind(':id', $customer->getId());
             // Execute statement
             if($this->db->execute()){
                 return true;
