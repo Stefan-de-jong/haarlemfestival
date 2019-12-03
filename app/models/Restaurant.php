@@ -9,8 +9,9 @@
         public $stars;
         public $price;
         public $address;
+        public $rest_img;
 
-        public function __construct($id, $name, $info_page, $kitchen1, $kitchen2, $stars, $price, $address)
+        public function __construct($id, $name, $info_page, $kitchen1, $kitchen2, $stars, $price, $address, $rest_img)
         {
             $this->id = $id;
             $this->name = $name;
@@ -20,6 +21,7 @@
             $this->stars = $stars;
             $this->price = $price;
             $this->address = $address;
+            $this->rest_img = $rest_img;
         }
 
         /**
@@ -84,6 +86,11 @@
         public function getAddress()
         {
             return $this->address;
+        }
+
+        public function getRestImg()
+        {
+            return $this->rest_img;
         }
 
     }

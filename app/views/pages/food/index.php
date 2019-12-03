@@ -1,5 +1,5 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
-    <div class="food_body">
+    <div id="food_body">
     <div class="food_container">
     <div class="food_breadcrums"><a href="<?php echo URLROOT;?>">Home </a> > Restaurant overview</div>
     <article class="food_intro">
@@ -38,11 +38,10 @@
     <section class="food_grid-container">
 
 <?php
-$rest_images = array("mr.mrs.jpg", "ratatouille.jpg", "ml.jpg", "fris.jpg", "specktakel.jpg", "brinkman.jpg", "toujoers.png", "goldenbull.jpg" );
 $rest_kitchens = array("dutch", "french", "asian", "argentinian", "fish", "steak");
 foreach($data['restaurants'] as $restaurant) :?>
     <div>
-        <img class="rest_img_overview" src="<?php echo URLROOT; ?>/img/food/<?php echo $rest_images[($restaurant->getId()) - 1]; ?>">
+        <img class="rest_img_overview" src="<?php echo URLROOT.$restaurant->getRestImg(); ?>">
         <?php echo $restaurant->name;?>
         <br>
         <br>

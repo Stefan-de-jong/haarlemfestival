@@ -1,4 +1,4 @@
-.food_body{
+#food_body{
     background: url("../img/food/foodbackground.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -132,3 +132,55 @@
     border-color: #99FF99;
     margin-bottom: 10px;
 }
+
+#food_reservate_panel
+{
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    position: fixed;
+    height: 675px;
+    width: 600px;
+    margin-left: 30%;
+    margin-top: -1000px;
+    background-color: #F2F2F2;
+    float: right;
+    font-size: 24px;
+}
+
+#food_reservate_panel > button
+{
+    margin-top: 15px;
+    border-radius: 10px;
+    font-size: 18px;
+    background-color: #99FF99;
+}
+
+#food_reservate_panel > select
+{
+    float: right;
+    font-size: 20px;
+}
+#food_reservate_panel > table
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 23px;
+    margin-left: auto;
+    margin-right: auto;
+    border-color: #99FF99;
+}
+#food_reservate_panel > input
+{
+    float: right;
+    width: 100px;
+    font-size: 20px;
+}
+
+#food_reservate_panel > textarea
+{
+    width: 100%;
+}
+
+
+
