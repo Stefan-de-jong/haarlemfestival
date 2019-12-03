@@ -45,7 +45,7 @@ class RestaurantRepository
         return $restaurants;
     }
 
-    public function getRestaurantInfoPage($page_nr)
+    public function getRestaurantInfoPage($restaurant)
     {
         $this->db->query('select * 
                             from page
@@ -53,7 +53,7 @@ class RestaurantRepository
                             on page.id = restaurant.info_page
                             join photo
                             on restaurant.rest_img = photo.id
-                            where page.id ='. $page_nr
+                            where restaurant.id ='. $restaurant
                             );
 
         $results = $this->db->resultSet();
@@ -61,5 +61,20 @@ class RestaurantRepository
 
         return $results;
     }
+
+    public function getEventInfo($restaurant)
+    {
+        $this->db->query('SELECT * FROM event
+                            JOIN foodevent
+                            on event.id = foodevent.id
+                            where foodevent.restaurant ='. $restaurant
+        );
+
+        $results = $this->db->resultSet();
+
+
+        return $results;
+    }
+
 }
 ?>

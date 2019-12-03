@@ -61,7 +61,7 @@ foreach($data['restaurants'] as $restaurant) :?>
         <br>
         <br>
         <br>
-        <a href="<?php echo URLROOT;?>/food/info?restaurant=<?php echo $restaurant->getInfoPage()?>"  class="food_a"> More information/reservate---></a>
+        <a href="<?php echo URLROOT;?>/food/info?restaurant=<?php echo $restaurant->getId()?>"  class="food_a"> More information/reservate---></a>
     </div>
 <?php endforeach; ?>
 

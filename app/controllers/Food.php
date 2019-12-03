@@ -33,14 +33,15 @@ class Food extends Controller
 
     public function info()
     {
-        $page_nr = $_GET['restaurant'];
+        $restaurant = $_GET['restaurant'];
 
-        $page = $this->restaurantRepository->getRestaurantInfoPage($page_nr);
+        $page = $this->restaurantRepository->getRestaurantInfoPage($restaurant);
+        $event = $this->restaurantRepository->getEventInfo($restaurant);
 
         $data = [
-            'page' => $page
+            'page' => $page,
+            'event'=> $event,
         ];
-
         $this->view('pages/food/info', $data);
     }
 }
