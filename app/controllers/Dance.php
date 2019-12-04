@@ -1,7 +1,7 @@
 <?php
 class Dance extends Controller{
         public function __construct(){
-        $this->danceModel= $this->model('Dance');
+        $this->danceModel = $this->model('Dance');
         $this->danceRepository = $this->repo('DanceRepository');
     }
 
@@ -11,9 +11,9 @@ class Dance extends Controller{
         ];
 
         $this->view('pages/dance/dance_purchase', $data);
-}
+     }
 
-public function dance(){
+    public function dance(){
     $data = [
         'title' => 'dance'
     ];

@@ -25,12 +25,8 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            <?php $id = getCorrectArtist(1) ?>
                             <?php include "newtablerow.php"; ?> <!-- has to add rows equal to the amount of venues the artist performs at -->
-                            <?php include "newtablerow.php"; ?>
-                            <?php include "newtablerow.php"; ?>
-                            <?php include "newtablerow.php"; ?>
-                            <?php include "newtablerow.php"; ?>
-                            
                             </tbody>
                         </table>
                     </div>
