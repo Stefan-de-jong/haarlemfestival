@@ -2,8 +2,9 @@
     <section id="bg-image" style="position: absolute;"><img src="<?php echo URLROOT; ?>/img/dance/bg-left.png" style="position: absolute;"><img style="position: absolute;margin-left: 1539px;" src="<?php echo URLROOT; ?>/img/dance/bg-right.png"></section>
     <section class="text-left" id="main-content" style="position: absolute;background-color: rgb(255,104,104);width: 1156px;height: 979px;margin-left: 384px;">
         <ol class="breadcrumb" style="background-color: rgb(255,255,255);">
-            <li class="breadcrumb-item"><a href="#"><span>Home</span></a></li>
-            <li class="breadcrumb-item"><a href="#"><span>dance information page</span></a></li>
+            <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>"><span>Home</span></a></li>
+            <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/pages/dance"><span>dance information page</span></a></li>
+            <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/pages/dance_purchase"><span>dance purchase page</span></a></li>
         </ol>
         <h4 class="text-center">Click an artist to view information and tickets.<br></h4>
         <section class="text-center"></section><img id="t" src="<?php echo URLROOT; ?>/img/dance/tiesto.png" style="position: absolute;margin-left: 578px;width: 578px;"><img id="nr" src="<?php echo URLROOT; ?>/img/dance/Nicky%20Romoro.png" style="position: absolute;width: 578px;"><img id="aj" src="<?php echo URLROOT; ?>/img/dance/afrojack.png" style="position: absolute;width: 578px;margin-top: 250.859px;">
@@ -25,17 +26,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php $id = getCorrectArtist(1) ?>
                             <?php include "newtablerow.php"; ?> <!-- has to add rows equal to the amount of venues the artist performs at -->
                             </tbody>
                         </table>
                     </div>
                     <p style="position: absolute;padding-left: 845px;padding-top: 320px;"><strong>Select your tickets</strong></p><div id=dropdown>
                     <div id=buttons>
-                    <?php include "newentry.php"; ?>
-                    <?php include "newentry.php"; ?>
-                    <?php include "newentry.php"; ?>
-                    <?php include "newentry.php"; ?>
                     <?php include "newentry.php"; ?>
                     <div>
 <button class="btn btn-primary" id="back" type="button" style="background-color: rgb(255,184,2);">RETURN TO ARTIST PAGE</button></section>

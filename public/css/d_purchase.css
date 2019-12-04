@@ -3,18 +3,6 @@
   height: 50px;
 }
 
-#d3 {
-  position: absolute;
-  margin-top: 450px;
-  margin-left: 836px;
-}
-
-#d2 {
-  position: absolute;
-  margin-top: 400px;
-  margin-left: 836px;
-}
-
 #d1 {
   position: absolute;
   margin-left: 836px;
@@ -23,12 +11,6 @@
 #back {
   position: relative;
   display: block;
-}
-
-#d4 {
-  position: absolute;
-  margin-top: 500px;
-  margin-left: 836px;
 }
 
 #dal {
