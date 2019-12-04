@@ -38,7 +38,7 @@
             </div>
     </section>
     <section>
-        <h1 style="position: absolute;width: 400px;height: 800px;margin-top: 890px;margin-left: 400px;">ALL-ACCESS PASS</h1>
+        <h1 style="position: absolute;width: 400px;margin-top: 890px;margin-left: 400px;">ALL-ACCESS PASS</h1>
     </section>
     <p style="position: absolute;margin-top: 884px;margin-left: 754px;width: 250px;">Get access to all venues!<br>Select a day:</p><div id=dropdown>
 <div id=dal>
