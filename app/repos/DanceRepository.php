@@ -2,8 +2,10 @@
 
 class DanceRepository{
 
-    public function __construct(){
-    $this->db = new Database();
+    private $db;
+    public function __construct()
+    {
+    $this->db = new Database;
     }
 
     public function getArtistVenueAmount($id){
@@ -17,12 +19,17 @@ class DanceRepository{
 
     
     public function getCorrectArtist($id){
-        $this->db->query('SELECT id, name, bio, style FROM artist WHERE id = :id';
-        $this->db->bind(':id', $id);
-
-        $artist_information = $this->db->resultSet();
-
-        return $artist_information;
+       
     }  
+
+    public function getAllArtists(){
+        $this->db->query('SELECT *
+        FROM artist                                
+        ');
+
+       $results = $this->db->resultSet();
+
+        return $results;
+    }
 }
 ?>

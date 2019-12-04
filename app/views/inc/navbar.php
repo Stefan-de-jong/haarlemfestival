@@ -5,4 +5,4 @@
 <a href="<?php echo URLROOT;?>/pages/cms" class="btn btn-light">CMS Login</a>
 <a href="<?php echo URLROOT;?>/historic" class="btn btn-light">Historic</a>
 <a href="<?php echo URLROOT;?>/restaurants/index" class="btn btn-light">Food</a>
-<a href="<?php echo URLROOT;?>/pages/dance" class="btn btn-light">Dance</a>
+<a href="<?php echo URLROOT;?>/Dance/dance_purchase" class="btn btn-light">Dance</a>

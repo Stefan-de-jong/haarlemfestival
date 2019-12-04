@@ -1,23 +1,21 @@
 <?php
 class Dance extends Controller{
-        public function __construct(){
-        $this->danceModel = $this->model('Dance');
-        $this->danceRepository = $this->repo('DanceRepository');
+
+    public function __construct()
+    {
+    $this->danceModel = $this->model('Artist');
+    $this->DanceRepository = $this->repo('DanceRepository');
     }
 
-    public function dance_purchase(){
+    public function dance_purchase()
+    
+        $artists = $this->DanceRepository->getAllArtists();
+      
         $data = [
-            'title' => 'dance'
+            'artist' => $artists;
         ];
 
-        $this->view('pages/dance/dance_purchase', $data);
-     }
-
-    public function dance(){
-    $data = [
-        'title' => 'dance'
-    ];
-
-    $this->view('pages/dance/dance_info', $data);
-    }
+    echo 'test';
+    $this->view('pages/dance/dance_purchase', $data);
+    
 }

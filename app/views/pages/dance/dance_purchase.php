@@ -6,8 +6,15 @@
             <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/pages/dance"><span>dance information page</span></a></li>
             <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/pages/dance_purchase"><span>dance purchase page</span></a></li>
         </ol>
-        <h4 class="text-center">Click an artist to view information and tickets.<br></h4>
-        <section class="text-center"></section><img id="t" src="<?php echo URLROOT; ?>/img/dance/tiesto.png" style="position: absolute;margin-left: 578px;width: 578px;"><img id="nr" src="<?php echo URLROOT; ?>/img/dance/Nicky%20Romoro.png" style="position: absolute;width: 578px;"><img id="aj" src="<?php echo URLROOT; ?>/img/dance/afrojack.png" style="position: absolute;width: 578px;margin-top: 250.859px;">
+        <h4 class="text-center">Click an artist to view information and tickets.
+        <br></h4>
+        <?php $artists = $data['artists'];
+        foreach($artists as $art)
+        {
+            echo $art->name;
+        }
+        ?>
+        <section> class="text-center"></section><img id="t" src="<?php echo URLROOT; ?>/img/dance/tiesto.png" style="position: absolute;margin-left: 578px;width: 578px;"><img id="nr" src="<?php echo URLROOT; ?>/img/dance/Nicky%20Romoro.png" style="position: absolute;width: 578px;"><img id="aj" src="<?php echo URLROOT; ?>/img/dance/afrojack.png" style="position: absolute;width: 578px;margin-top: 250.859px;">
         <img
             id="hw" style="position: absolute;background-color: rgb(255,104,104);width: 578px;height: 250.859px;margin-left: 578px;margin-top: 250.859px;" src="<?php echo URLROOT; ?>/img/dance/hardwell.png"><img id="avb" src="<?php echo URLROOT; ?>/img/dance/armin.png" style="position: absolute;width: 578px;margin-top: 501.718px;"><img id="mx" src="<?php echo URLROOT; ?>/img/dance/martin.png" style="position: absolute;width: 578px;margin-top: 501.718px;margin-left: 578px;">
             <div class="container text-left visible"

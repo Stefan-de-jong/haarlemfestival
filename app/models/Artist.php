@@ -13,5 +13,21 @@
             $this->artist_style = $artist_style;
         }
 
-    }
+        //getters
+        public function getId(){
+            return $this->id;
+        }
+        public function getName(){
+            return $this->artist_name;
+        }
+        public function getBio(){
+            return $this->artist_bio;
+        }
+        public function getStyle()
+        {
+            return $this->artist_style;
+        }
+
+
+
 ?>
