@@ -24,12 +24,10 @@ class DanceRepository{
 
     public function getAllArtists(){
         $this->db->query('SELECT *
-        FROM artist                                
-        ');
-
+        FROM artist'
+        );
        $results = $this->db->resultSet();
-
-        return $results;
+       return $results;
     }
 }
 ?>

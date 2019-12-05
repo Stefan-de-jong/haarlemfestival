@@ -7,15 +7,22 @@ class Dance extends Controller{
     $this->DanceRepository = $this->repo('DanceRepository');
     }
 
-    public function dance_purchase()
-    
+    public function purchase()
+    {
         $artists = $this->DanceRepository->getAllArtists();
       
-        $data = [
-            'artist' => $artists;
+        $data =[
+            'title' => 'dance purchase',
+            'artists' => $artists
         ];
 
-    echo 'test';
     $this->view('pages/dance/dance_purchase', $data);
-    
+    }
+
+    public function index(){
+        $data =[
+            'title' => 'dance'
+        ];
+        $this->view('pages/dance/dance_info', $data);
+        }
 }

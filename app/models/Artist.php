@@ -27,7 +27,5 @@
         {
             return $this->artist_style;
         }
-
-
-
-?>
+    }
+    ?>

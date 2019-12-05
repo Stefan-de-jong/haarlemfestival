@@ -1,16 +1,20 @@
-document.getElementById('nr').onclick = function changeContent() {
-  document.getElementById('nr').style.display = 'none';
-      document.getElementById('t').style.display = 'none';
-  document.getElementById('aj').style.display = 'none';
-      document.getElementById('hw').style.display = 'none';
-  document.getElementById('avb').style.display = 'none';
-      document.getElementById('mx').style.display = 'none';
-  var x = document.getElementById("pnl");
-  if (x.style.display === "none") {
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js";
+
+var image = document.getElementById('nr');
+image.onclick = function changeContent() {
+image.style.display = 'none';
+document.getElementById('t').style.display = 'none';
+document.getElementById('aj').style.display = 'none';
+document.getElementById('hw').style.display = 'none';
+document.getElementById('avb').style.display = 'none';
+document.getElementById('mx').style.display = 'none';
+var x = document.getElementById("pnl");
+if (x.style.display === "none") {
     x.style.display = "block";
-  } else {
+} else {
     x.style.display = "none";
-  }
+}
+$(x).load("../../app/views/pages/dance/panel.php");
 }
 
 document.getElementById('t').onclick = function changeContent() {
