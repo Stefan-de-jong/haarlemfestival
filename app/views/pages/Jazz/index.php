@@ -1,8 +1,10 @@
+<?php require APPROOT . '/views/inc/header.php'; ?>
 <html lang=en>
 <head>
 <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/jazz.css">
 </head>
-<body>
+<body class="blue_bg">
+    <div class="white_text">
     <div class="firstimage">
         <h1>
             Day 1
@@ -22,6 +24,7 @@
 		type="submit"
 		value="See tickets..."
 		class="SeeTickets"
+        onclick="window.location.href='jazzTickets'"
 	/>
     <h1>
         Header 3
@@ -33,7 +36,7 @@
 		type="submit"
 		value="See tickets..."
 		class="SeeTickets"
-        onclick="window.location.href='day.php'"
+        onclick="window.location.href='jazzTickets'"
 	/>
     <h1>
         Header 4
@@ -45,6 +48,7 @@
 		type="submit"
 		value="See tickets..."
 		class="SeeTickets"
+        onclick="window.location.href='jazzTickets'"
 	/>
     <h1>
         Header 5
@@ -56,6 +60,9 @@
 		type="submit"
 		value="See tickets..."
 		class="SeeTickets"
-	/>
+        onclick="window.location.href='jazzTickets'"
+    />
+</div>
+</div>
 </body>
 </html>

@@ -1,10 +1,10 @@
 <html lang=en>
 <head>
-<link rel="stylesheet" type="text/css" href="test.css">
+<link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/jazz.css">
 </head>
-<body>
+<body class="blue_bg">
 <h1 class="title">Shows on [day] [date] [month]</h1>
-<table style="width:100%">
+<table style="width:100%" class="ticket_table">
 <tr>
     <td>   
         <?php echo "12/12/12"; ?>
@@ -28,7 +28,8 @@
         <input
 		    type="submit"
 		    value="Buy tickets"
-		    class="ChooseTicket"
+            class="ChooseTicket"
+            onclick="window.open('jazzticketorder','order tickets', 'width=400,height=425,scrollbars=no,toolbar=no,location=no'); return false"
 	    />
     </td>
 </tr>

@@ -34,7 +34,7 @@
         ];
 
         $this->view('pages/dance/info_page/dance_info', $data);
-
+        }
 
         public function CMS_home(){
             $data = [
@@ -76,7 +76,31 @@
 
             $this->view('pages/food/info', $data);
         }
-    }
+
+        public function jazz(){
+            $data = [
+                'title' => 'Jazz main page'
+            ];
+
+            $this->view('pages/jazz/index', $data);
+        }
+
+        public function jazztickets(){
+            $data = [
+                'title' => 'Jazz tickets'
+            ];
+
+            $this->view('pages/jazz/day', $data);
+        }
+
+        public function jazzticketorder(){
+            $data = [
+                'title' => 'Jazz ticket order'
+            ];
+
+            $this->view('pages/jazz/popup', $data);
+        }
+   
 
     public function dance_purchase(){
         $data = [

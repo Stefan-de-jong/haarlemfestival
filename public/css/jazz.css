@@ -1,33 +1,37 @@
-body
+.blue_bg
 	{
-        color: white;
         background-color: rgb(5, 47, 126);
+    }
+/*
+.emptyspace
+    {
+        Width: 60%;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+*/
+.ticket_table
+    {
+
         
     }
-    
-article
+
+.white_text
     {
-        width: 20%;
-        margin-left: 20%;
-        margin-right: 20%;
+        color: white;
     }
 
-h1
-    {
-        margin-left: 20%;
-        margin-right: 20%;
-    }
+
+
+
 
 .SeeTickets
     {
-        margin-left: 20%;
-        margin-right: 20%;
         margin-top: 20px;
     }
 
 .firstimage img
     {
-        margin-right: 20%;
         float: right;
     }
 
@@ -42,16 +46,20 @@ table, th, td
         border: 1px solid black;
         background-color: rgb(255, 255, 255);
         border-collapse: collapse;
-        text-align:center
-    }
-    
-    
+        text-align:center;
         
+    }
+
+
+    
+
+    
+    
 .title
     {
         color: rgb(255, 255, 255);
     }
-    
+/*    
 .header
     {
         background-color: #999999;
@@ -65,4 +73,4 @@ table, th, td
         border: 2px;
         border-style: solid none solid none;
         border-color: #ffffff;
-    }
+    }*/
