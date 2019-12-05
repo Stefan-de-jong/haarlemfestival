@@ -148,6 +148,14 @@
     font-size: 24px;
 }
 
+#food_reservate_panel >form> button
+{
+    margin-top: 15px;
+    border-radius: 10px;
+    font-size: 18px;
+    background-color: #99FF99;
+}
+
 #food_reservate_panel > button
 {
     margin-top: 15px;
@@ -156,12 +164,12 @@
     background-color: #99FF99;
 }
 
-#food_reservate_panel > select
+#food_reservate_panel >form> select
 {
     float: right;
     font-size: 20px;
 }
-#food_reservate_panel > table
+#food_reservate_panel >form> table
 {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -170,14 +178,14 @@
     margin-right: auto;
     border-color: #99FF99;
 }
-#food_reservate_panel > input
+#food_reservate_panel >form> input
 {
     float: right;
     width: 100px;
     font-size: 20px;
 }
 
-#food_reservate_panel > textarea
+#food_reservate_panel >form> textarea
 {
     width: 100%;
 }

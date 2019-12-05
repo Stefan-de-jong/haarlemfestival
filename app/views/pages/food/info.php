@@ -1,7 +1,6 @@
 <?php
 require APPROOT . '/views/inc/header.php';
 $events = $data['event'];
-$date = "2020-07-26";
 foreach($data['page'] as $page) {
   ?>
 <div id="food_body">
@@ -13,9 +12,6 @@ foreach($data['page'] as $page) {
   echo $page->html;
 }
 ?>
-
-
-
         <br>
         <button onclick="toggleReservationPanel()">Make your reservation</button>
       </section>
@@ -23,71 +19,73 @@ foreach($data['page'] as $page) {
 </div>
 
 <div id="food_reservate_panel" style="display: none">
-  <button onclick="toggleReservationPanel()">Cancel</button>
-  <br>
-  <b>To reservate your ticket(s), select your session and ticket amount.</b><br><br>
+    <button onclick="toggleReservationPanel()">Cancel</button>
+<form action="<?php echo URLROOT;?>/food/reservate?restaurant=<?php echo $events[0]->restaurant?>" method="post">
+  <b>To reservate your ticket(s), select your session and ticket amount.</b><br>
+    <br>
     Date:
-    <select>
-      <option value="">Thursday 26 Juli</option>
-      <option value="">Friday 27 Juli</option>
-      <option value="">Saturday 28 Juli</option>
-      <option value="">Sunday 29 Juli</option>
+    <select id="reservateDate" name ="reservateDate" onchange="reservateDate()">
+        <option value="2020-07-26">Thursday 26 Juli</option>
+        <option value="2020-07-27">Friday 27 Juli</option>
+        <option value="2020-07-28">Saturday 28 Juli</option>
+        <option value="2020-07-29">Sunday 29 Juli</option>
     </select>
     <br>
     Session:
-    <select>
-      <option value="">1</option>
-      <option value="">2</option>
-      <option value="">3</option>
+    <select name ="session">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
     </select>
-  <table border="2">
-    <tr>
-      <th>
-        Session 1
-      </th>
-      <th>
-        Session 2
-      </th>
-      <th>
-        Session 3
-      </th>
-    </tr>
-    <tr>
-      <td>
-        18:00-19:30
-      </td>
-      <td>
-        19:30-21:00
-      </td>
-      <td>
-        21:00-22:30
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Seats available: 40
-      </td>
-      <td>
-        Seats available: 40
-      </td>
-      <td>
-        Seats available: 40
-      </td>
-    </tr>
-  </table>
+
+    <table id="reservateTable" border="1">
+        <tr>
+            <th>
+                Session 1
+            </th>
+            <th>
+                Session 2
+            </th>
+            <th>
+                Session 3
+            </th>
+        </tr>
+        <tr>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+        </tr>
+    </table>
 
   Regular ticket(s):
- <input type="number"><br>
+ <input name= "regularTickets" type="number" value="0" min="0"><br>
   Kids ticket(s):
-  <input type="number"><br>
+  <input name = "childTickets" type="number" value="0" min="0"><br>
   <br>
   Special request? (allergies, wheelchair etc.)
-  <textarea></textarea>
+  <textarea name="specialRequest"></textarea>
 <br>
   <button style="margin-left: 75px">Add to favorites</button>
-  <button style="margin-left: 150px">Add to cart</button>
+  <button type="submit"  style="margin-left: 150px">Add to cart</button>
 </div>
-
+</form>
 
 <?php require APPROOT . '/views/inc/footer.php';
 ?>
@@ -95,8 +93,17 @@ foreach($data['page'] as $page) {
 
 
 <script>
-    createTable();
+  date();
+  function getEvent()
+  {
+      var date = document.getElementById("reservateDate").value;
+      var session = document.getElementById("session").value;
+      var regularTickets = document.getElementById("regularTickets").value;
+      var childTickets = document.getElementById("childTickets").value;
+      var specialRequest = document.getElementById("specialRequest").value;
 
+      alert("date: " + date + " session: " + session + " regulars: " + regularTickets +  " childs: " + childTickets+ " special request: " + specialRequest)
+  }
   function toggleReservationPanel()
   {
     var res_panel = document.getElementById("food_reservate_panel");
@@ -105,6 +112,7 @@ foreach($data['page'] as $page) {
       res_panel.style.display = "block";
       document.getElementById("food_body").style.opacity = 0.2;
       res_panel.style.opacity= 1;
+      reservateDate();
     } else {
       res_panel.style.display = "none";
       document.getElementById("food_body").style.opacity = 1;
@@ -112,29 +120,36 @@ foreach($data['page'] as $page) {
   }
 
   function date() {
-      var x = document.getElementById('date').value;
-      createTable();
+      var date = document.getElementById('date').value;
+      createTable('avaibleTabel', date);
   }
 
-  function createTable()
-  {
-      var date = document.getElementById('date').value;
-      table = document.getElementById('avaibleTabel');
+  function reservateDate() {
+      var date = document.getElementById('reservateDate').value;
+      createTable('reservateTable', date);
+  }
 
-      switch (date) {
+  function createTable(tableId, date)
+  {
+      table = document.getElementById(tableId);
+
+      switch (date ) {
           case "2020-07-26":
-              <?php
-              for($r = 0; $r < 3; $r++)
+          <?php
+          for($r = 0; $r < 3; $r++)
+          {
+          foreach ($events as $event)
+          {
+              if($event->date == "2020-07-26" && $event->session == ($r + 1))
               {
-                  foreach ($events as $event)
-                  {
-                      if($event->date == "2020-07-26" && $event->session == ($r + 1))
-                      {
-                          $seats = $event->n_tickets;
-                      }
-                  }?>
-                    table.rows[2].cells[<?php echo $r;?>].innerHTML = <?php echo $seats;?>;<?php
-              }?>
+                  $begin_time = date_create($event->begin_time);
+                  $end_time = date_create($event->end_time);
+                  $seats = $event->n_tickets;
+              }
+          }?>
+              table.rows[1].cells[<?php echo $r;?>].innerHTML = "<?php echo date_format($begin_time,"H:i"). "-" . date_format($end_time,"H:i");?>";
+              table.rows[2].cells[<?php echo $r;?>].innerHTML = "Seats available: <?php echo $seats;?>";<?php
+          }?>
               break;
           case "2020-07-27":
           <?php
@@ -144,10 +159,13 @@ foreach($data['page'] as $page) {
           {
               if($event->date == "2020-07-27" && $event->session == ($r + 1))
               {
+                  $begin_time = date_create($event->begin_time);
+                  $end_time = date_create($event->end_time);
                   $seats = $event->n_tickets;
               }
           }?>
-              table.rows[2].cells[<?php echo $r;?>].innerHTML = <?php echo $seats;?>;<?php
+              table.rows[1].cells[<?php echo $r;?>].innerHTML = "<?php echo date_format($begin_time,"H:i"). "-" . date_format($end_time,"H:i");?>";
+              table.rows[2].cells[<?php echo $r;?>].innerHTML = "Seats available: <?php echo $seats;?>";<?php
           }?>
               break;
           case "2020-07-28":
@@ -158,10 +176,13 @@ foreach($data['page'] as $page) {
           {
               if($event->date == "2020-07-28" && $event->session == ($r + 1))
               {
+                  $begin_time = date_create($event->begin_time);
+                  $end_time = date_create($event->end_time);
                   $seats = $event->n_tickets;
               }
           }?>
-              table.rows[2].cells[<?php echo $r;?>].innerHTML = <?php echo $seats;?>;<?php
+              table.rows[1].cells[<?php echo $r;?>].innerHTML = "<?php echo date_format($begin_time,"H:i"). "-" . date_format($end_time,"H:i");?>";
+              table.rows[2].cells[<?php echo $r;?>].innerHTML = "Seats available: <?php echo $seats;?>";<?php
           }?>
               break;
           case "2020-07-29":
@@ -172,13 +193,17 @@ foreach($data['page'] as $page) {
           {
               if($event->date == "2020-07-29" && $event->session == ($r + 1))
               {
+                  $begin_time = date_create($event->begin_time);
+                  $end_time = date_create($event->end_time);
                   $seats = $event->n_tickets;
               }
           }?>
-              table.rows[2].cells[<?php echo $r;?>].innerHTML = <?php echo $seats;?>;<?php
+              table.rows[1].cells[<?php echo $r;?>].innerHTML = "<?php echo date_format($begin_time,"H:i"). "-" . date_format($end_time,"H:i");?>";
+              table.rows[2].cells[<?php echo $r;?>].innerHTML = "Seats available: <?php echo $seats;?>";<?php
           }?>
               break;
       }
   }
+
 </script>
 

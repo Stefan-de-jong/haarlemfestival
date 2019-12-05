@@ -3,6 +3,7 @@ class Food extends Controller
 {
     public function __construct(){
         $this->restaurantModel= $this->model('Restaurant');
+        $this->ticketModel= $this->model('Ticket');
         $this->restaurantRepository = $this->repo('RestaurantRepository');
     }
 
@@ -40,9 +41,40 @@ class Food extends Controller
 
         $data = [
             'page' => $page,
-            'event'=> $event,
+            'event'=> $event
         ];
         $this->view('pages/food/info', $data);
+    }
+
+    public function reservate()
+    {
+        $restaurant = $_GET['restaurant'];
+
+        $date =$_POST['reservateDate'];
+        $session = $_POST['session'];
+        $regularTickets = $_POST['regularTickets'];
+        $childTickets = $_POST['childTickets'];
+        $specialRequest = $_POST['specialRequest'];
+
+        $event = $this->restaurantRepository->getEventByInfo($date, $session, $restaurant);
+
+        $tickets = array();
+        for($i = 0; $i < $regularTickets; $i++)
+        {
+            $ticket =  new Ticket($event[0]->id, 1, $event[0]->price);
+            array_push($tickets, $ticket);
+        }
+
+        for($i = 0; $i < $childTickets; $i++)
+        {
+            $ticket = new Ticket($event[0]->id, 2, $event[0]->price);
+            array_push($tickets, $ticket);
+        }
+
+        foreach ($tickets as $ticket) {
+            echo $ticket->getEvent(), $ticket->getType(), $ticket->getPrice() . "<br>";
+        }
+
     }
 }
 ?>

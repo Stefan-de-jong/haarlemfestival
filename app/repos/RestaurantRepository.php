@@ -76,5 +76,20 @@ class RestaurantRepository
         return $results;
     }
 
+    public function getEventByInfo($date, $session, $restaurant)
+    {
+        $this->db->query('SELECT foodevent.id as id, event.price  as price FROM event
+                            JOIN foodevent
+                            on event.id = foodevent.id
+                            where foodevent.restaurant ='.$restaurant.' 
+                            AND event.date = "'.$date.' "
+                            AND foodevent.session = '.$session
+        );
+        $results = $this->db->resultSet();
+
+
+        return $results;
+    }
+
 }
 ?>
