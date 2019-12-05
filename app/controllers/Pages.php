@@ -68,12 +68,5 @@
 
             $this->view('pages/food/info', $data);
         }
-        
-        public function dance(){
-        $data =[
-            'title' => 'dance'
-        ];
-        $this->view('pages/dance/dance_info', $data);
-        }
     }
 ?>

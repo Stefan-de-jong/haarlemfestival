@@ -14,7 +14,7 @@ if (x.style.display === "none") {
 } else {
     x.style.display = "none";
 }
-$(x).load("../../app/views/pages/dance/panel.php");
+$(x).load("../public/inc/dance/panel_1.php");
 }
 
 document.getElementById('t').onclick = function changeContent() {
@@ -95,41 +95,3 @@ document.getElementById('mx').onclick = function changeContent() {
 window.onload = function() {
 document.getElementById('pnl').style.display = 'none';
 };
-
-document.getElementById('back').onclick = function changeContent() {
-    document.getElementById('nr').style.display = 'block';
-        document.getElementById('t').style.display = 'block';
-    document.getElementById('aj').style.display = 'block';
-        document.getElementById('hw').style.display = 'block';
-    document.getElementById('avb').style.display = 'block';
-        document.getElementById('mx').style.display = 'block';
-    var x = document.getElementById("pnl");
-    x.style.display = "none";
-               var change = document.getElementById("button");
-     change.innerHTML = "ADD TO CART";
-                var change = document.getElementById("button2");
-     change.innerHTML = "ADD TO CART";
-               var change = document.getElementById("button3");
-     change.innerHTML = "ADD TO CART";
-                var change = document.getElementById("button4");
-     change.innerHTML = "ADD TO CART";
-}
-
- document.getElementById("button").onclick = function myFunction() {
-                var change = document.getElementById("button");
-     change.innerHTML = "ADDED TO CART";
-            }
-
- document.getElementById("button2").onclick = function myFunction() {
-                var change = document.getElementById("button2");
-     change.innerHTML = "ADDED TO CART";
-            }
- document.getElementById("button3").onclick = function myFunction() {
-                var change = document.getElementById("button3");
-     change.innerHTML = "ADDED TO CART";
-            }
- document.getElementById("button4").onclick = function myFunction() {
-                var change = document.getElementById("button4");
-     change.innerHTML = "ADDED TO CART";
-            }
-

@@ -1,30 +1,31 @@
 #dropdown select {
-  width: 76px;
-  height: 50px;
-}
-
-#d1 {
-  position: absolute;
-  margin-left: 836px;
-}
-
-#back {
-  position: relative;
-  display: block;
-}
-
-#dal {
-  position: absolute;
-  margin-top: 889px;
-  margin-left: 1000px;
-}
-
-#dal select {
-  width: 200px;
-}
-
-#buttons{
+    width: 76px;
+    height: 50px;
+  }
+  
+  #d1 {
     position: absolute;
-  margin-top: 350px;
-}
-
+    margin-left: 836px;
+  }
+  
+  #back {
+    position: relative;
+    display: block;
+  }
+  
+  #dal {
+    position: absolute;
+    margin-top: 889px;
+    margin-left: 1000px;
+  }
+  
+  #dal select {
+    width: 200px;
+  }
+  
+  #buttons{
+      position: absolute;
+    margin-top: 350px;
+  }
+  
+  
