@@ -23,5 +23,7 @@
       position: absolute;
     margin-top: 350px;
   }
-  
+  td{
+      height: 74px;
+  }
   

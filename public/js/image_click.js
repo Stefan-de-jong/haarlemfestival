@@ -8,7 +8,6 @@ var mx = document.getElementById('mx');
 var t = document.getElementById('t');
 var pnl = document.getElementById("pnl");
 var back = document.getElementById('back');
-var main = document.getElementById('main');
 var currentpic;
 
 nr.onclick = function setCurrentPicNr(){ //set clicked picture as the current picture, then execute the function ChangeContent to hide elements and show the panel
