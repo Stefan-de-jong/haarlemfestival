@@ -39,9 +39,9 @@ selection.onchange = function getValueDropdown(){
 var selected = selection.options[selection.selectedIndex].value;
 var amount = document.getElementById('q' + number);
 var quantity = amount.innerHTML;
-if (selected > quantity) //this is currently bugged. I checked the values, even if selected is less than quantity it will still pretend it's not
+var difference = quantity - selected;
+if (difference < 0)
 {
-alert(selected + quantity);
 alert("The requested amount of tickets is greater than the amount of tickets available, please choose less tickets");
 disableButton(number);
 }
@@ -62,5 +62,8 @@ function enableButton(number){
 var button = document.getElementById('b' + number);
 button.innerHTML = "ADD TO CART";
 button.disabled = false;
+button.onclick = function changeButtonText(){
+button.innerHTML = "ADDED TO CART";
+}
 }
 
