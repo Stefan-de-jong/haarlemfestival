@@ -1,17 +1,13 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
-<html lang=en>
-<head>
-<link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/jazz.css">
-</head>
-<body>
-    <div class="emptyspace">
+<div class="blue_bg">     
+<div class="emptyspace">
     <div class="white_text">
     <div class="firstimage">
+       
         <h1>
             All access passes
         </h1>
         <img src="<?php echo URLROOT;?>/img/jazz/JazzImage1.png" alt="JazzGuy">
-    </div>
     <article>
         For each day, an all access pass will be available. With this pass you can go to all shows on a day. See tickets for a specific day to order. We also offer a all access pas that allows access to all shows on the three days. This will be available under tickets of the days below
     </article>
@@ -27,7 +23,7 @@
 		value="See tickets..."
 		class="SeeTickets"
         onclick="window.location.href='jazzTickets'"
-	/>
+    />
     <h1>
         Friday 27 July
     </h1>
@@ -67,6 +63,8 @@
 		class="SeeTickets"
         onclick="window.location.href='jazzTickets'"
     />
+</div>
+</div>
 </div>
 </div>
 </body>
