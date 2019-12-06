@@ -21,7 +21,6 @@ foreach ($events as $e) //get events, filter by ID = 1 to find all the events ni
 if ($e->artist == $dance_id)
 {$event_count++;}
 }
-$id = $e->artist;
 ?>
 <link rel="stylesheet" type="text/css" href="../public/css/d_panel.css">
 <img style="position: absolute;width: 576px;height: 250px;" src="<?php echo URLROOT; ?>/img/dance/765-default-avatar.png" width="250px" height="250px">
