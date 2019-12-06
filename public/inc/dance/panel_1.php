@@ -1,10 +1,15 @@
 <?php if(!isset($_SESSION)) {
     session_start();
 }
-$_SESSION["dance_id"] = 1; //this line identifies which artist the database needs to search for, and must be changed for every other panel
-foreach ($_SESSION["artists"] as $ar)
+$dance = $_SESSION["dance"]; //this session ID contains all information the panel needs to get the dance information
+$artists = $dance[0];
+$events = $dance[1];
+$eventdata = $dance[2];
+$venues = $dance[3];
+$dance_id = 1;
+foreach ($artists as $ar)
 {
-if ($ar->id == $_SESSION["dance_id"])
+if ($ar->id == $dance_id)
 {
 $name = $ar->name;
 $bio = $ar->bio;
@@ -12,9 +17,9 @@ $style = $ar->style;
 }
 }
 $event_count = 0;
-foreach ($_SESSION["events"] as $e) //get events, filter by ID = 1 to find all the events nicky Romero will perform at and then count those events
+foreach ($events as $e) //get events, filter by ID = 1 to find all the events nicky Romero will perform at and then count those events
 {
-if ($e->artist == $_SESSION["dance_id"])
+if ($e->artist == $dance_id)
 {$event_count++;}
 }
 $id = $e->artist;

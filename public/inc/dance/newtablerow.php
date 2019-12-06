@@ -8,7 +8,7 @@ $price = array();
 $quantity = array();
 $place = array();
 $address = array();
-foreach ($_SESSION["eventdata"] as $ed)
+foreach ($eventdata as $ed)
 {
 $date[] = $ed->date;
 $time_b[] = $ed->begin_time;
@@ -16,11 +16,11 @@ $time_e[] = $ed->end_time;
 $price[] = $ed->price;
 $quantity[] = $ed->n_tickets;
 }
-foreach ($_SESSION["events"] as $e)
+foreach ($events as $e)
 {
     if ($e->artist == $id)
     {
-        foreach ($_SESSION["venues"] as $v)
+        foreach ($venues as $v)
         {
         if ($e->location = $v->id)
         {

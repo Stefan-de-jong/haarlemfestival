@@ -2,10 +2,18 @@
 if(!isset($_SESSION)) {
     session_start();
 }
-$_SESSION["artists"] = $data['artists'];
-$_SESSION["events"] = $data['events'];
-$_SESSION["eventdata"] = $data['eventdata'];
-$_SESSION["venues"] = $data['venues'];
+$artists = $data['artists'];
+$events = $data['events'];
+$eventdata = $data['eventdata'];
+$venues = $data['venues'];
+$dance = array(
+    $artists,
+    $events,
+    $eventdata,
+    $venues
+);
+$_SESSION["dance"] = $dance; //all dance data is put into a global SESSION array
+
 ?>
     <section id="bg-image" style="position: absolute;"><img src="<?php echo URLROOT; ?>/img/dance/bg-left.png" style="position: absolute;"><img style="position: absolute;margin-left: 1539px;" src="<?php echo URLROOT; ?>/img/dance/bg-right.png"></section>
     <section class="text-left" id="main-content" style="position: absolute;background-color: rgb(255,104,104);width: 1156px;height: 979px;margin-left: 384px;">
