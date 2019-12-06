@@ -1,3 +1,4 @@
+<?php require APPROOT . '/views/inc/header.php'; ?>
 <html lang=en>
 <head>
 <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/jazz.css">

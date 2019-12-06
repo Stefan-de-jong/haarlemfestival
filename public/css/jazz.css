@@ -1,20 +1,22 @@
-.blue_bg
-	{
+body
+    {
         background-color: rgb(5, 47, 126);
     }
-/*
+
+.headerInfo
+    {
+        background-color: rgb(61, 112, 207);
+    }
+
 .emptyspace
     {
-        Width: 60%;
         margin-left: 20%;
         margin-right: 20%;
-    }
-*/
-.ticket_table
-    {
-
+        width:60%;
         
     }
+
+
 
 .white_text
     {
@@ -28,11 +30,14 @@
 .SeeTickets
     {
         margin-top: 20px;
+        margin-bottom: 30px;
     }
 
 .firstimage img
     {
         float: right;
+        height: 280px;
+        width: 430px;
     }
 
 .image

@@ -3,4 +3,25 @@
         width: 25%;
         height: 85px;
         float: left;
+        padding-top: 0px;
+    }
+
+#DanceBut
+    {
+        background-color: red;
+    }
+
+#FoodBut
+    {
+        background-color: green;
+    }
+
+#HistoryBut
+    {
+        background-color: yellow;
+    }
+
+#JazzBut
+    {
+        background-color: blue;
     }
