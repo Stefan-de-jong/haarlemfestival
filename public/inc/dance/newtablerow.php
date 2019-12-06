@@ -11,8 +11,8 @@ $address = array();
 foreach ($eventdata as $ed)
 {
 $date[] = $ed->date;
-$time_b[] = $ed->begin_time;
-$time_e[] = $ed->end_time;
+$time_b[] = substr($ed->begin_time, 0, 5);
+$time_e[] = substr($ed->end_time, 0, 5);
 $price[] = $ed->price;
 $quantity[] = $ed->n_tickets;
 }
@@ -33,7 +33,7 @@ foreach ($events as $e)
 ?>
                                 <tr>
                                     <td><?php echo $date[$count] ?></td>
-                                    <td><?php echo $time_b[$count] . " - " . $time_e[$count] ?></td>
+                                    <td><?php echo $time_b[$count] . "-" . $time_e[$count] ?></td>
                                     <td><?php echo $name ?></td>
                                     <td><?php echo $place[$count]?></td>
                                     <td><?php echo $address[$count]?></td>

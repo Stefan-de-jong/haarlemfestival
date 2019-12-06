@@ -1,12 +1,11 @@
 <?php if(!isset($_SESSION)) {
     session_start();
 }
-$dance = $_SESSION["dance"]; //this session ID contains all information the panel needs to get the dance information
+$dance = $_SESSION["dance"];
 $artists = $dance[0];
 $events = $dance[1];
 $eventdata = $dance[2];
 $venues = $dance[3];
-$dance_id = 1;
 foreach ($artists as $ar)
 {
 if ($ar->id == $dance_id)
@@ -24,9 +23,10 @@ if ($e->artist == $dance_id)
 }
 $id = $e->artist;
 ?>
+<link rel="stylesheet" type="text/css" href="../public/css/d_panel.css">
 <img style="position: absolute;width: 576px;height: 250px;" src="<?php echo URLROOT; ?>/img/dance/765-default-avatar.png" width="250px" height="250px">
-<h5 style="margin-left:600px;"> <?php echo $name ?> <h5>
-<p style="position: absolute;margin-left: 600px;margin-bottom: 600px;"><?php echo $bio ?></p>
+<h5 style="margin-left:600px;">  <?php if(isset($name)){echo $name;}?> <h5>
+<p style="position: absolute;margin-left: 600px;margin-bottom: 600px;"><?php if(isset($bio)){echo $bio;} ?></p>
                 <section>
                     <div class="table-responsive" style="position: absolute;overflow: visible;margin-top: 302px;width: 836px;height: 200px;">
                         <table class="table">
@@ -52,3 +52,4 @@ $id = $e->artist;
                     <div>
 <button class="btn btn-primary" id="back" type="button" style="background-color: rgb(255,184,2);">RETURN TO ARTIST PAGE</button></section>
             </div>
+<script src="../public/js/panel_script.js"> </script>

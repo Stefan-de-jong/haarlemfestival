@@ -1,4 +1,4 @@
-<?php require APPROOT . '/views/inc/header.php';
+<?php require_once APPROOT . '/views/inc/header.php';
 if(!isset($_SESSION)) {
     session_start();
 }
@@ -12,9 +12,9 @@ $dance = array(
     $eventdata,
     $venues
 );
-$_SESSION["dance"] = $dance; //all dance data is put into a global SESSION array
-
+$_SESSION["dance"] = $dance;
 ?>
+    <section id = "main">
     <section id="bg-image" style="position: absolute;"><img src="<?php echo URLROOT; ?>/img/dance/bg-left.png" style="position: absolute;"><img style="position: absolute;margin-left: 1539px;" src="<?php echo URLROOT; ?>/img/dance/bg-right.png"></section>
     <section class="text-left" id="main-content" style="position: absolute;background-color: rgb(255,104,104);width: 1156px;height: 979px;margin-left: 384px;">
         <ol class="breadcrumb" style="background-color: rgb(255,255,255);">
@@ -47,4 +47,5 @@ $_SESSION["dance"] = $dance; //all dance data is put into a global SESSION array
 </dropdown>
 </div>
 </div><button class="btn btn-primary" type="button" style="position: absolute;margin-top: 889px;margin-left: 1210px;height: 50px;">BUY ALL ACCESS-PASS</button>
+</section>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

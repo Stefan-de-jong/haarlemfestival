@@ -14,4 +14,4 @@
     </select>
 </dropdown>
 </div>
-<button class="btn btn-primary" id="button" type="button" style="position: relative;margin-left: 912px;height: 50px;">ADD TO CART</button><div id = dropdown>
+<button class="btn btn-primary" id="button" type="button" style="position: relative;margin-left: 912px;height: 74px;">ADD TO CART</button><div id = dropdown>
