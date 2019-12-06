@@ -42,7 +42,24 @@ var quantity = price.innerHTML;
 if (selected > quantity || selected == 10) //for some reason (selected > quantity) did not work with the amount ten, so I had to add the || selected == 10 statement to make it work
 {
 alert("The requested amount of tickets is greater than the amount of tickets available, please choose less tickets");
+disableButton(number);
+}
+else
+{
+enableButton(number);
 }
 }
+}
+
+function disableButton(number){
+var button = document.getElementById('b' + number);
+button.innerHTML = "INSUFFICIENT TICKETS";
+button.disabled = true;
+}
+
+function enableButton(number){
+var button = document.getElementById('b' + number);
+button.innerHTML = "ADD TO CART";
+button.disabled = false;
 }
 
