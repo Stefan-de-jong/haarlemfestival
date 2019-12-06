@@ -1,6 +1,7 @@
+<?php if (!isset($entry_counter)){$entry_counter = 0;} ?>
 <div id=d1>
 <dropdown>
-    <select>
+    <select id=<?php echo "s" . $entry_counter?>>
       <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
@@ -14,4 +15,5 @@
     </select>
 </dropdown>
 </div>
+<?php $entry_counter++ ?>
 <button class="btn btn-primary" id="button" type="button" style="position: relative;margin-left: 912px;height: 74px;">ADD TO CART</button><div id = dropdown>

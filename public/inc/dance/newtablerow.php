@@ -1,6 +1,7 @@
 <?php
 if (!isset($count))
 {$count = 0;}
+if (!isset($table_counter)){$table_counter = 0;}
 $date = array();
 $time_b = array();
 $time_e = array();
@@ -40,7 +41,7 @@ foreach ($events as $e) //loop through each event
                                     <td><?php echo $name ?></td>
                                     <td><?php echo $place[$count]?></td>
                                     <td><?php echo $address[$count]?></td>
-                                    <td><?php echo $quantity[$count]?></td>
+                                    <td id = <?php echo "q" . $table_counter; $table_counter++;?>><?php echo $quantity[$count]?></td>
                                     <td><?php echo $price[$count]?></td>
-                                    <?php $count++ ?>
+                                    <?php $count++; ?>
                                 </tr>

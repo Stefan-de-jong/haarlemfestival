@@ -23,7 +23,7 @@ if ($e->artist == $dance_id)
 }
 ?>
 <link rel="stylesheet" type="text/css" href="../public/css/d_panel.css">
-<img style="position: absolute;width: 576px;height: 250px;" src="<?php echo URLROOT; ?>/img/dance/765-default-avatar.png" width="250px" height="250px">
+<img style="position: absolute;width: 576px;height: 250px;" src="../public/img/dance/765-default-avatar.png" width="250px" height="250px">
 <h5 style="margin-left:600px;">  <?php if(isset($name)){echo $name;}?> <h5>
 <p style="position: absolute;margin-left: 600px;margin-bottom: 600px;"><?php if(isset($bio)){echo $bio;} ?></p>
                 <section>
