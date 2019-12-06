@@ -18,8 +18,8 @@ class JazzRepository{
     }
 
     public function getEvents(){
-        $this->db->query('SELECT *
-        FROM jazzevent'
+        $this->db->query('SELECT je.location, je.artist, ev.price, ev.begin_time, ev.end_time, ev.date, ev.n_tickets
+        FROM event AS ev JOIN jazzevent AS je ON ev.id = je.id'
         );
        $results = $this->db->resultSet();
        return $results;

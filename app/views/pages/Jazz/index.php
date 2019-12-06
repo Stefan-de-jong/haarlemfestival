@@ -18,11 +18,12 @@
     <article>
         The first day will start off in the Patronaat with the first Gumbo Kings and wicked Jazz sounds at 18:00. The last show ends 22:00 with Jonna Frazer and Ntjam Rosie. For more details about the artists, times and tickets click the button below.
     </article>
+    <form action="jazztickets" method="post">
     <input
 		type="submit"
 		value="See tickets..."
-		class="SeeTickets"
-        onclick="window.location.href='jazzTickets'"
+        class="SeeTickets"
+        name="thursday"
     />
     <h1>
         Friday 27 July
@@ -34,7 +35,7 @@
 		type="submit"
 		value="See tickets..."
 		class="SeeTickets"
-        onclick="window.location.href='jazzTickets'"
+        name="friday"
     />
     <div class="firstimage">
     <h1>
@@ -49,7 +50,7 @@
 		type="submit"
 		value="See tickets..."
 		class="SeeTickets"
-        onclick="window.location.href='jazzTickets'"
+        name="saturday"
 	/>
     <h1>
         Sunday 29 July
@@ -61,8 +62,9 @@
 		type="submit"
 		value="See tickets..."
 		class="SeeTickets"
-        onclick="window.location.href='jazzTickets'"
+        name="sunday"
     />
+    </form>
 </div>
 </div>
 </div>
