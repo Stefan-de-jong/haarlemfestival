@@ -43,5 +43,13 @@ class DanceRepository{
         $results = $this->db->resultSet();
         return $results;
     }
+
+    public function getStyles(){
+        $this->db->query('SELECT *
+        FROM style'
+        );
+        $results = $this->db->resultSet();
+        return $results;
+    }
 }
 ?>

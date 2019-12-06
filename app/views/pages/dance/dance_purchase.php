@@ -6,11 +6,13 @@ $artists = $data['artists'];
 $events = $data['events'];
 $eventdata = $data['eventdata'];
 $venues = $data['venues'];
+$styles = $data['styles'];
 $dance = array(
     $artists,
     $events,
     $eventdata,
-    $venues
+    $venues,
+    $styles
 );
 $_SESSION["dance"] = $dance;
 ?>
@@ -18,8 +20,8 @@ $_SESSION["dance"] = $dance;
     <section class="text-left" id="main-content" style="position: absolute;background-color: rgb(255,104,104);width: 1156px;height: 979px;margin-left: 384px;">
         <ol class="breadcrumb" style="background-color: rgb(255,255,255);">
             <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>"><span>Home</span></a></li>
-            <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/pages/dance"><span>dance information page</span></a></li>
-            <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/pages/dance_purchase"><span>dance purchase page</span></a></li>
+            <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/dance/index"><span>dance information page</span></a></li>
+            <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/dance/purchase"><span>dance purchase page</span></a></li>
         </ol>
         <h4 class="text-center">Click an artist to view information and tickets.
         <br></h4>

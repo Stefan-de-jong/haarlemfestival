@@ -6,13 +6,21 @@ $artists = $dance[0];
 $events = $dance[1];
 $eventdata = $dance[2];
 $venues = $dance[3];
+$styles = $dance[4];
+$artist_style = $artists[$dance_id-1]->style;
+foreach ($styles as $st)
+{
+if ($st->id == $artist_style)
+{
+    $style = $st->name;
+}
+}
 foreach ($artists as $ar)
 {
 if ($ar->id == $dance_id)
 {
 $name = $ar->name;
 $bio = $ar->bio;
-$style = $ar->style;
 }
 }
 $event_count = 0;
@@ -25,7 +33,7 @@ if ($e->artist == $dance_id)
 <link rel="stylesheet" type="text/css" href="../public/css/d_panel.css">
 <img style="position: absolute;width: 576px;height: 250px;" src="../public/img/dance/765-default-avatar.png" width="250px" height="250px">
 <h5 style="margin-left:600px;">  <?php if(isset($name)){echo $name;}?> <h5>
-<p style="position: absolute;margin-left: 600px;margin-bottom: 600px;"><?php if(isset($bio)){echo $bio;} ?></p>
+<p style="position: absolute;margin-left: 600px;margin-bottom: 600px;"><?php if(isset($bio)&&(isset($style))){echo $bio . $style;} ?></p>
                 <section>
                     <div class="table-responsive" style="position: absolute;overflow: visible;margin-top: 302px;width: 836px;height: 200px;">
                         <table class="table">

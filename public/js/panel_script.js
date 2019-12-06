@@ -17,7 +17,7 @@ pnl.style.display = "block";
 
 window.onload = getAmountOfRows();
 
-function getAmountOfRows() //gets the row amount for later use
+function getAmountOfRows() //gets the amount of dropdowns
 {
 number = 0;
 var dropdown = document.getElementById('s' + number);
@@ -33,14 +33,15 @@ initTicketWarning(i);
 }
 }
 
-function initTicketWarning(number){ //for every dropdown make sure that if the selection of the dropdown is changed a warning is returned
+function initTicketWarning(number){ //for every dropdown make sure that if the selection of the dropdown is changed a warning is returned if necessary
 var selection = document.getElementById('s' + number);
 selection.onchange = function getValueDropdown(){
 var selected = selection.options[selection.selectedIndex].value;
-var price = document.getElementById('q' + number);
-var quantity = price.innerHTML;
-if (selected > quantity || selected == 10) //for some reason (selected > quantity) did not work with the amount ten, so I had to add the || selected == 10 statement to make it work
+var amount = document.getElementById('q' + number);
+var quantity = amount.innerHTML;
+if (selected > quantity) //this is currently bugged. I checked the values, even if selected is less than quantity it will still pretend it's not
 {
+alert(selected + quantity);
 alert("The requested amount of tickets is greater than the amount of tickets available, please choose less tickets");
 disableButton(number);
 }

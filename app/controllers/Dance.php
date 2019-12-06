@@ -13,13 +13,15 @@ class Dance extends Controller{
         $events = $this->DanceRepository->getAllEvents();
         $eventdata = $this->DanceRepository->getEventData();
         $venues = $this->DanceRepository->getVenues();
+        $styles = $this->DanceRepository->getStyles();
       
         $data =[
             'title' => 'dance purchase',
             'artists' => $artists,
             'events' => $events,
             'eventdata' => $eventdata,
-            'venues' => $venues
+            'venues' => $venues,
+            'styles' => $styles
         ];
 
     $this->view('pages/dance/dance_purchase', $data);

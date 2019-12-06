@@ -8,7 +8,7 @@
     <section id="main-content" style="position: absolute;background-color: rgb(255,104,104);width: 1154px;margin-top: 63px;height: 916px;margin-left: 384px;">
         <ol class="breadcrumb" style="background-color: rgb(255,255,255);">
             <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>"><span>Home</span></a></li>
-            <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/dance"><span>dance information page</span></a></li>
+            <li class="breadcrumb-item"><a href="<?php echo URLROOT; ?>/dance/index"><span>dance information page</span></a></li>
         </ol>
         <h4 class="text-center">During Haarlem Festival famous DJs from the Netherlands will perform on various venues.<br>It's a great way to get familiar with the Dutch dance culture that is so famous all aroundthe globe.</h4>
         <section><img src="<?php echo URLROOT; ?>/img/dance/artist%20image.png" style="position: absolute;width: 537px;"></section>
