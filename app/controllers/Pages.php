@@ -60,6 +60,14 @@
 
             $this->view('pages/CMS/Content_testpages/test1', $data);
         }
+
+        public function CMS_users(){
+            $data = [
+                'title' => 'User Manager'
+            ];
+
+            $this->view('pages/CMS/users', $data);
+        }
        
 
         public function food(){

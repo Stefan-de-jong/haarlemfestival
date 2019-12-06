@@ -13,9 +13,9 @@ require_once(APPROOT."/helpers/url_helper.php");
 
 <body>
 <div class="content">
-<a href="<?php echo URLROOT."/pages/CMS_content"?>"><button class="btn"><i class="fa fa-bars"></i> Website Content</button></a><br>
+<a href="<?php echo URLROOT."/CMS/content" ?>"><button class="btn"><i class="fa fa-bars"></i> Website Content</button></a><br>
 <button class="btn"><i class="fa fa-bars"></i> Search Users</button><br>
-<button class="btn"><i class="fa fa-bars"></i> Manage Users</button><br>
+<a href="<?php echo URLROOT."/pages/CMS_users"?>"><button class="btn"><i class="fa fa-bars"></i> Manage Users</button></a><br>
 <button class="btn"><i class="fa fa-bars"></i> Reservations</button><br>
 <button class="btn"><i class="fa fa-bars"></i> Media Manager</button><br>
 <button class="btn"><i class="fa fa-bars"></i> Event Manager</button><br>
