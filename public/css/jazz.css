@@ -1,3 +1,8 @@
+#gray
+    {
+        background-color: rgb(93, 93, 93);
+    }
+
 body
     {
         background-color: rgb(5, 47, 126);
@@ -16,14 +21,25 @@ body
         
     }
 
+.dropjazz
+    {
+        margin-bottom: 350px;
+    }
 
+.centered
+    {
+        text-align: center;
+    }
 
 .white_text
     {
         color: white;
     }
 
-
+.titlespace
+    {
+        margin-bottom: 100px;
+    }
 
 
 

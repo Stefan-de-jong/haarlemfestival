@@ -11,6 +11,7 @@
         line-height: 200px;
         padding-bottom: 0px;
         margin-bottom: 0px;
+        margin-top: 0px;
     }
     
 .header_image
@@ -18,4 +19,9 @@
         float: left;
         width: 200px;
         height: 200px;
+    }
+
+.right
+    {
+        float: right;
     }

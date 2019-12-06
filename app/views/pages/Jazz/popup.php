@@ -2,8 +2,11 @@
 <head>
 <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/jazz.css">
 </head>
-<body>
-    <p>choose the amount of tickets</p>
+<body class="centered", id="gray">
+  <h1 class="titlespace">
+    Ticketname
+  </h1>  
+  <p>choose the amount of tickets</p>
     <dropdown>
     <select>
       <option value="1">1</option>
@@ -18,5 +21,20 @@
       <option value="10">10</option>
     </select>
     </dropdown>
+    <div class="titlespace">
+    </div>
+    <p>Price: 00,00<p>
+    <input
+		type="submit"
+		value="add to cart"
+		class="jazzcart"
+    onclick="javascript:window.close()"
+    />
+    <input
+		type="submit"
+		value="add & go to cart"
+		class="jazzcart"
+    onclick="window.location.href='no'"
+    />
 </body>
 </html>
