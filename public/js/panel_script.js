@@ -34,16 +34,17 @@ initTicketWarning(i);
 }
 
 function initTicketWarning(number){ //for every dropdown make sure that if the selection of the dropdown is changed a warning is returned if necessary
+window.onload = disableButton(number, "SELECT YOUR TICKETS");
 var selection = document.getElementById('s' + number);
 selection.onchange = function getValueDropdown(){
 var selected = selection.options[selection.selectedIndex].value;
 var amount = document.getElementById('q' + number);
 var quantity = amount.innerHTML;
 var difference = quantity - selected;
-if (difference < 0)
+if (difference <= 0)
 {
-alert("The requested amount of tickets is greater than the amount of tickets available, please choose less tickets");
-disableButton(number);
+alert("The requested amount of tickets is greater than the amount of tickets available");
+disableButton(number, "INSUFFICIENT TICKETS");
 }
 else
 {
@@ -52,9 +53,9 @@ enableButton(number);
 }
 }
 
-function disableButton(number){
+function disableButton(number, message){
 var button = document.getElementById('b' + number);
-button.innerHTML = "INSUFFICIENT TICKETS";
+button.innerHTML = message;
 button.disabled = true;
 }
 
@@ -63,7 +64,7 @@ var button = document.getElementById('b' + number);
 button.innerHTML = "ADD TO CART";
 button.disabled = false;
 button.onclick = function changeButtonText(){
-button.innerHTML = "ADDED TO CART";
+button.innerHTML = "ADDED TO CART"
 }
 }
 
