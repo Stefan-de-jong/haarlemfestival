@@ -16,7 +16,7 @@
             $day = "2018-07-29";
             }
 
-            $array = explode("-", $day);
+            $array = explode("-", $day); //kleine change
     ?>
 <h1 class="title">Shows on <?php echo end($array) . "/" . prev($array); ?></h1>
 <table style="width:100%" class="ticket_table">
