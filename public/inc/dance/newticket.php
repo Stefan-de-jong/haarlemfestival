@@ -8,7 +8,7 @@ $price = $_POST['price'];
 //anders moet ik een andere manier vinden
 //officeel gezien moet namelijk de controller de repo aanroepen maar deze php page mag niet onderdeel zijn van de controller
 
-foreach ($ticket as $ti)
+for ($i = 0; $i < $ticket, i++)
 {
 //query die tickets aanmaakt
 //bijv maakTicket($id ,#$price);
