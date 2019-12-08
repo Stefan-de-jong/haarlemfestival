@@ -2,13 +2,7 @@
 if (!isset($count))
 {$count = 0;}
 if (!isset($table_counter)){$table_counter = 0;}
-$date = array();
-$time_b = array();
-$time_e = array();
-$price = array();
-$quantity = array();
-$place = array();
-$address = array();
+$date = array(); $time_b = array(); $time_e = array(); $price = array(); $quantity = array(); $place = array(); $address = array();
 foreach ($events as $e) //loop through each event
 {
     if ($e->artist == $dance_id) //if at an event the current selected artist plays...
@@ -25,12 +19,7 @@ foreach ($events as $e) //loop through each event
         {
         if ($ed->id == $e->id)
         {
-        $date[] = $ed->date;
-        $time_b[] = substr($ed->begin_time, 0, 5);
-        $time_e[] = substr($ed->end_time, 0, 5);
-        $price[] = $ed->price;
-        $quantity[] = $ed->n_tickets;
-        $id[] = $ed->id;
+        $date[] = $ed->date; $time_b[] = substr($ed->begin_time, 0, 5); $time_e[] = substr($ed->end_time, 0, 5); $price[] = $ed->price; $quantity[] = $ed->n_tickets; $id[] = $ed->id;
         }
 }
     }
@@ -50,9 +39,7 @@ foreach ($events as $e) //loop through each event
 
 <script>
 if (row == undefined)
-{
-var row = [];
-}
+{var row = [];}
 var value = '<?php echo $id[$count-1] ;?>';
 row.push(value);
 </script>
