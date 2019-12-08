@@ -29,27 +29,29 @@ var dropdown = document.getElementById('s' + number);
 var i;
 for (i = 0; i < number; i++)
 {
-initTicketWarning(i);
+initButtons(i);
 }
 }
 
-function initTicketWarning(number){ //for every dropdown make sure that if the selection of the dropdown is changed a warning is returned if necessary
+function initButtons(number){ //for every dropdown make sure that if the selection of the dropdown is changed a warning is returned if necessary
 window.onload = disableButton(number, "SELECT YOUR TICKETS");
 var selection = document.getElementById('s' + number);
 selection.onchange = function getValueDropdown(){
 var selected = selection.options[selection.selectedIndex].value;
 var amount = document.getElementById('q' + number);
+var price = document.getElementById('q' + number);
 var quantity = amount.innerHTML;
 var difference = quantity - selected;
-if (difference <= 0)
+if (difference < 0)
 {
 alert("The requested amount of tickets is greater than the amount of tickets available");
 disableButton(number, "INSUFFICIENT TICKETS");
 }
 else
 {
-enableButton(number);
+enableButton(number, selected, price);
 }
+giveButtonScript(number);
 }
 }
 
@@ -59,12 +61,20 @@ button.innerHTML = message;
 button.disabled = true;
 }
 
-function enableButton(number){
+function enableButton(number, selected, pay){
 var button = document.getElementById('b' + number);
 button.innerHTML = "ADD TO CART";
 button.disabled = false;
 button.onclick = function changeButtonText(){
-button.innerHTML = "ADDED TO CART"
+danceid = row[number];
+$(document).ready(function () {
+button.innerHTML = "ADDED TO CART";
+$.ajax({  
+    type: 'POST',  
+    url: '../public/inc/dance/newticket.php', 
+    data: {id:danceid, tickets:selected, price:pay}, //this line should send data to newticket.php but can't for some reason...
+    //I think it has something to do with Ajax caching
+});
+});
 }
 }
-

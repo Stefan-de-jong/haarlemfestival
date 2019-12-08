@@ -15,4 +15,4 @@
     </select>
 </dropdown>
 </div>
-<button class="btn btn-primary" id=<?php echo "b" . $entry_counter; $entry_counter++;?> type="button" style="position: relative;margin-left: 912px;height: 74px;">ADD TO CART</button>
+<button class="btn btn-primary" id=<?php echo "b" . $entry_counter; $entry_counter++;?> type="button" style="position: relative;margin-left: 912px;height: 74px;" >ADD TO CART</button>

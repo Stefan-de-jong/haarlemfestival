@@ -30,18 +30,29 @@ foreach ($events as $e) //loop through each event
         $time_e[] = substr($ed->end_time, 0, 5);
         $price[] = $ed->price;
         $quantity[] = $ed->n_tickets;
+        $id[] = $ed->id;
         }
 }
     }
 }
-?>
+?> 
+                                <?php $row_id = $id[$count]; ?>
                                 <tr>
-                                    <td><?php echo $date[$count] ?></td>
-                                    <td><?php echo $time_b[$count] . "-" . $time_e[$count] ?></td>
-                                    <td><?php echo $name ?></td>
-                                    <td><?php echo $place[$count]?></td>
-                                    <td><?php echo $address[$count]?></td>
-                                    <td id = <?php echo "q" . $table_counter; $table_counter++;?>><?php echo $quantity[$count]?></td>
-                                    <td><?php echo $price[$count]?></td>
+                                    <td><?php echo $date[$count]; ?></td>
+                                    <td><?php echo $time_b[$count] . "-" . $time_e[$count]; ?></td>
+                                    <td><?php echo $name; ?></td>
+                                    <td><?php echo $place[$count];?></td>
+                                    <td><?php echo $address[$count];?></td>
+                                    <td id = <?php echo "q" . $table_counter; $table_counter++;?>><?php echo $quantity[$count];?></td>
+                                    <td id = <?php echo "p" . $table_counter; ?>><?php echo $price[$count];?></td>
                                     <?php $count++; ?>
                                 </tr>
+
+<script>
+if (row == undefined)
+{
+var row = [];
+}
+var value = '<?php echo $id[$count-1] ;?>';
+row.push(value);
+</script>
