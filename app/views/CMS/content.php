@@ -18,7 +18,7 @@ if (isset($_POST["newHtml"])){
 </head>
 
 <body>
-<a href="<?php echo URLROOT."/pages/CMS_home";?>"><button class="backbutton"><- Back</button></a>
+<a href="<?php echo URLROOT."/CMS/home";?>"><button class="backbutton"><- Back</button></a>
 <div class="content">
 <div class="navbar">
   <a id="n1" class="active">Home</a>
