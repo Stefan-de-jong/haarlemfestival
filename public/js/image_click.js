@@ -58,7 +58,7 @@ $(pnl).load("../public/inc/dance/load_t.php");
 });
 }
 
-function changeContent() {
+function changeContent() { //makes the panel show up, and the selection images hidden
 nr.style.display = 'none';
 t.style.display = 'none';
 aj.style.display = 'none';

@@ -1,7 +1,7 @@
 src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js";
 
 var back = document.getElementById('back');
-back.onclick = function goBack(){
+back.onclick = function goBack(){ //when someone presses the back button hide the panel
 nr.style.display = 'block';
 t.style.display = 'block';
 aj.style.display = 'block';
@@ -15,7 +15,7 @@ pnl.style.display = "block";
 }
 }
 
-window.onload = getAmountOfRows();
+window.onload = getAmountOfRows(); //count the amount of rows on window load
 
 function getAmountOfRows() //gets the amount of dropdowns
 {
@@ -55,13 +55,13 @@ giveButtonScript(number);
 }
 }
 
-function disableButton(number, message){
+function disableButton(number, message){ //disable a button to prevent wrong values from being sent to php
 var button = document.getElementById('b' + number);
 button.innerHTML = message;
 button.disabled = true;
 }
 
-function enableButton(number, selected, pay){
+function enableButton(number, selected, pay){ //enable button, and use javascript to determine what values the button needs to send to php to generate a ticket
 var button = document.getElementById('b' + number);
 button.innerHTML = "ADD TO CART";
 button.disabled = false;
@@ -74,6 +74,7 @@ $.ajax({
     url: '../public/inc/dance/newticket.php', 
     data: {id:danceid, tickets:selected, price:pay}, //this line should send data to newticket.php but can't for some reason...
     //I think it has something to do with Ajax caching
+    //If I can fix this line everything else should work
 });
 });
 }
