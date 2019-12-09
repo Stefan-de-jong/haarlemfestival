@@ -72,4 +72,5 @@ if (pnl.style.display == "none") {
 
 window.onload = function() {
 document.getElementById('pnl').style.display = 'none';
+var row = [];
 };

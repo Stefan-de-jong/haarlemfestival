@@ -15,6 +15,7 @@ pnl.style.display = "none";
 } else {
 pnl.style.display = "block";
 }
+row.length = 0;
 }
 
 window.onload = getAmountOfRows(); //count the amount of rows on window load
@@ -72,6 +73,7 @@ button.onclick = function changeButtonText(){
 $(document).ready(function () {
 button.innerHTML = "ADDED TO CART";
 executeAjax(id, quantity, pay);
+row.length = 0;
 });
 }
 }
