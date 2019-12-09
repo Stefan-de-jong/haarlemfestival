@@ -45,7 +45,6 @@ var price = document.getElementById('p' + number).innerHTML;
 id = row[number];
 quantity = amount;
 pay = price;
-console.log(id, quantity, price);
 var difference = quantity - selected;
 if (difference < 0)
 {
