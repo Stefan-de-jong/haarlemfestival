@@ -43,8 +43,8 @@ var selected = selection.options[selection.selectedIndex].value;
 var amount = document.getElementById('q' + number).innerHTML;
 var price = document.getElementById('p' + number).innerHTML;
 id = row[number];
-selected = amount;
-pay = price;
+quantity = selected;
+pay = price; 
 var difference = amount - selected;
 if (difference < 0)
 {
