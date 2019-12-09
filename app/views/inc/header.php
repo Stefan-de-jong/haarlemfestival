@@ -27,8 +27,8 @@
             <?php
             $url = $_SERVER['REQUEST_URI'];
             $array = explode("/",$url);
-            echo end($array);
-            //echo prev($array);
+            end($array);
+            echo prev($array);
             ?>
         </h1>   
     <?php require APPROOT . '/views/inc/navbar.php'; ?>

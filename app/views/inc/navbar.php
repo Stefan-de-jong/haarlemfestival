@@ -33,5 +33,5 @@
 		value="Jazz"
         class="big_button"
         id="JazzBut"
-        onclick="window.location.href='<?php echo URLROOT;?>/pages/jazz'"
+        onclick="window.location.href='<?php echo URLROOT;?>/jazz/jazz'"
     />
