@@ -1,0 +1,29 @@
+#dropdown select {
+    width: 76px;
+    height: 74px;
+  }
+  
+  #d1 {
+    position: absolute;
+    margin-left: 836px;
+  }
+
+  
+  #dal {
+    position: absolute;
+    margin-top: 889px;
+    margin-left: 1000px;
+  }
+  
+  #dal select {
+    width: 200px;
+  }
+  
+  #buttons{
+      position: absolute;
+    margin-top: 350px;
+  }
+  td{
+      height: 74px;
+  }
+  
