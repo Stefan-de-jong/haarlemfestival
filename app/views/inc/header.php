@@ -12,6 +12,9 @@
         <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/jazz.css">
         <!--<link rel="stylesheet" href="<?php echo URLROOT; ?>/css/.css">-->
         <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style.css">
+        <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/food.css">
+        <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/d_purchase.css">
+        <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/d_info.css">
 
 
         <title><?php echo SITENAME; ?></title>

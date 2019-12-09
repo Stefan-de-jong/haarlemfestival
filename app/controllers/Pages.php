@@ -28,14 +28,6 @@
             $this->view('pages/CMS/index', $data);
         }
 
-        public function dance(){
-        $data = [
-            'title' => 'dance'
-        ];
-
-        $this->view('pages/dance/info_page/dance_info', $data);
-        }
-
         public function CMS_home(){
             $data = [
                 'title' => 'Volunteer Login'
@@ -59,55 +51,5 @@
 
             $this->view('pages/CMS/Content_testpages/test1', $data);
         }
-       
-
-        public function food(){
-            $data = [
-                'title' => 'Restaurant overview'
-            ];
-
-            $this->view('pages/food/index', $data);
-        }
-
-        public function foodInfo(){
-            $data = [
-                'title' => 'Restaurant info'
-            ];
-
-            $this->view('pages/food/info', $data);
-        }
-
-        public function jazz(){
-            $data = [
-                'title' => 'Jazz main page'
-            ];
-
-            $this->view('pages/jazz/index', $data);
-        }
-
-        public function jazztickets(){
-            $data = [
-                'title' => 'Jazz tickets'
-            ];
-
-            $this->view('pages/jazz/day', $data);
-        }
-
-        public function jazzticketorder(){
-            $data = [
-                'title' => 'Jazz ticket order'
-            ];
-
-            $this->view('pages/jazz/popup', $data);
-        }
-   
-
-    public function dance_purchase(){
-        $data = [
-            'title' => 'dance'
-        ];
-
-        $this->view('pages/dance/purchase_page/dance_purchase', $data);
     }
-}
 ?>
