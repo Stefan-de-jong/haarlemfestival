@@ -2,9 +2,7 @@
 <div class="blue_bg"> 
 <div class="emptyspace">
 <?php
-    include APPROOT . '/controllers/Jazz.php';
-    //$controller = new Jazz;
-    $controller->loadTickets();
+echo $data['tickets']
 ?>
 <p></p>
 <table style="width:100%">
