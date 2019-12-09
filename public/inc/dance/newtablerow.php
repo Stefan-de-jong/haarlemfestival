@@ -25,15 +25,14 @@ foreach ($events as $e) //loop through each event
     }
 }
 ?> 
-                                <?php $row_id = $id[$count]; ?>
                                 <tr>
                                     <td><?php echo $date[$count]; ?></td>
                                     <td><?php echo $time_b[$count] . "-" . $time_e[$count]; ?></td>
                                     <td><?php echo $name; ?></td>
                                     <td><?php echo $place[$count];?></td>
                                     <td><?php echo $address[$count];?></td>
-                                    <td id = <?php echo "q" . $table_counter; $table_counter++;?>><?php echo $quantity[$count];?></td>
-                                    <td id = <?php echo "p" . $table_counter; ?>><?php echo $price[$count];?></td>
+                                    <td id = <?php echo "q" . $table_counter;?>><?php echo $quantity[$count];?></td>
+                                    <td id = <?php echo "p" . $table_counter; $table_counter++;?>><?php echo $price[$count];?></td>
                                     <?php $count++; ?>
                                 </tr>
 

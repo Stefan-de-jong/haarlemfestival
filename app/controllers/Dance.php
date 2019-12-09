@@ -33,4 +33,6 @@ class Dance extends Controller{
         ];
         $this->view('pages/dance/dance_info', $data);
         }
+
+
 }
