@@ -69,7 +69,6 @@ var button = document.getElementById('b' + number);
 button.innerHTML = "ADD TO CART";
 button.disabled = false;
 button.onclick = function changeButtonText(){
-danceid = row[number];
 $(document).ready(function () {
 button.innerHTML = "ADDED TO CART";
 executeAjax(id, quantity, pay);

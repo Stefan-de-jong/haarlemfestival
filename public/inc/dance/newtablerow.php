@@ -19,13 +19,14 @@ foreach ($events as $e) //loop through each event
         {
         if ($ed->id == $e->id)
         {
-        $date[] = $ed->date; $time_b[] = substr($ed->begin_time, 0, 5); $time_e[] = substr($ed->end_time, 0, 5); $price[] = $ed->price; $quantity[] = $ed->n_tickets; $id[] = $ed->id;
+        $date[] = $ed->date; $time_b[] = substr($ed->begin_time, 0, 5); $time_e[] = substr($ed->end_time, 0, 5); $price[] = $ed->price; $quantity[] = $ed->n_tickets; $id[] = $e->id;
         }
 }
     }
 }
 ?> 
                                 <tr>
+                                    <?php $venue_id = $id[$count]; ?>
                                     <td><?php echo $date[$count]; ?></td>
                                     <td><?php echo $time_b[$count] . "-" . $time_e[$count]; ?></td>
                                     <td><?php echo $name; ?></td>
@@ -39,6 +40,6 @@ foreach ($events as $e) //loop through each event
 <script>
 if (row == undefined)
 {var row = [];}
-var value = '<?php echo $id[$count-1] ;?>';
+var value = '<?php echo $venue_id ;?>';
 row.push(value);
 </script>
