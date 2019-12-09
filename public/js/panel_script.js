@@ -43,9 +43,9 @@ var selected = selection.options[selection.selectedIndex].value;
 var amount = document.getElementById('q' + number).innerHTML;
 var price = document.getElementById('p' + number).innerHTML;
 id = row[number];
-quantity = amount;
+selected = amount;
 pay = price;
-var difference = quantity - selected;
+var difference = amount - selected;
 if (difference < 0)
 {
 alert("The requested amount of tickets is greater than the amount of tickets available");
