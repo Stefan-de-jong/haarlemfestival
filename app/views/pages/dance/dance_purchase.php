@@ -49,3 +49,4 @@ $_SESSION["dance"] = $dance;
 </div>
 </div><button class="btn btn-primary" type="button" style="position: absolute;margin-top: 889px;margin-left: 1210px;height: 50px;">BUY ALL ACCESS-PASS</button>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
+<script src="<?php echo URLROOT; ?>/js/image_click.js"></script>

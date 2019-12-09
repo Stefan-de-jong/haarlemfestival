@@ -1,5 +1,3 @@
-src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js";
-
 var nr = document.getElementById('nr');
 var aj = document.getElementById('aj');
 var hw = document.getElementById('hw');

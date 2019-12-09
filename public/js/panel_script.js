@@ -1,4 +1,6 @@
-src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js";
+var id = 0;
+var quantity = 0;
+var pay = 0;
 
 var back = document.getElementById('back');
 back.onclick = function goBack(){ //when someone presses the back button hide the panel
@@ -38,9 +40,12 @@ window.onload = disableButton(number, "SELECT YOUR TICKETS");
 var selection = document.getElementById('s' + number);
 selection.onchange = function getValueDropdown(){
 var selected = selection.options[selection.selectedIndex].value;
-var amount = document.getElementById('q' + number);
-var price = document.getElementById('q' + number);
-var quantity = amount.innerHTML;
+var amount = document.getElementById('q' + number).innerHTML;
+var price = document.getElementById('p' + number).innerHTML;
+id = row[number];
+quantity = amount;
+pay = price;
+console.log(id, quantity, price);
 var difference = quantity - selected;
 if (difference < 0)
 {
@@ -49,9 +54,8 @@ disableButton(number, "INSUFFICIENT TICKETS");
 }
 else
 {
-enableButton(number, selected, price);
+enableButton(number);
 }
-giveButtonScript(number);
 }
 }
 
@@ -61,7 +65,7 @@ button.innerHTML = message;
 button.disabled = true;
 }
 
-function enableButton(number, selected, pay){ //enable button, and use javascript to determine what values the button needs to send to php to generate a ticket
+function enableButton(number){ //enable button, and use javascript to determine what values the button needs to send to php to generate a ticket
 var button = document.getElementById('b' + number);
 button.innerHTML = "ADD TO CART";
 button.disabled = false;
@@ -69,13 +73,23 @@ button.onclick = function changeButtonText(){
 danceid = row[number];
 $(document).ready(function () {
 button.innerHTML = "ADDED TO CART";
-$.ajax({  
-    type: 'POST',  
-    url: '../public/inc/dance/newticket.php', 
-    data: {id:danceid, tickets:selected, price:pay}, //this line should send data to newticket.php but can't for some reason...
-    //I think it has something to do with Ajax caching
-    //If I can fix this line everything else should work
-});
+executeAjax(id, quantity, pay);
 });
 }
+}
+
+
+function executeAjax(id, quantity, pay) //use ajax to send the values required for a ticket to newticket.php
+{
+    $(document).ready(function(){
+
+              $.ajax({
+                type: 'POST',
+                url: '../public/inc/dance/newticket.php',
+                data: {venue:id, amount:quantity, price:pay},
+                success: function(response) {
+                    alert(response);
+                }
+            });
+});
 }

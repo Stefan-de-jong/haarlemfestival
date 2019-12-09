@@ -1,13 +1,15 @@
 <?php
-
+//the task of this file is to read the ticket data, and then save it in a session variable
 if (!isset($_SESSION['dance_ticket']))
 {
 session_start();
 }
 
-$id = $_POST['id'];
-$ticket = $_POST['tickets'];
+$id = $_POST['venue'];
+$ticket = $_POST['amount'];
 $price = $_POST['price'];
+
+echo $id . $ticket . $price; //currently for developing purposes
 
 $ticket_info = array();
 $ticket_info[] = $id; //sla event id op om later te gebruiken
@@ -16,10 +18,7 @@ $ticket_info[] = $price; //sla ticket prijs op om later te gebruiken
 
 if (!isset($_SESSION['dance_ticket']))
 {
-$_SESSION['dance_ticket'] = array(); //als er nog geen bestelling is geplaatst maak een array
+$_SESSION['dance_ticket'] = array(); //als er nog geen bestelling is geplaatst, maak een array
 }
-$_SESSION['dance_ticket'] = $ticket_info;
-//het idee is om bij de kassa de global variable dance_ticket in te lezen, en daar alle kaartjes uit te halen die voor dance nodig zijn
-//dus van de array worden steeds drie velden uitgelezen, en met deze drie velden kan steeds één bestelling naar de database gestuurd worden
-//aangezien je het event_id, vereiste aantal tickets en de prijs hebt. Het enige dat nog toegevoegd moet worden is email van de klant
+$_SESSION['dance_ticket'] = $ticket_info; //plaatst de bestelling in de dance_ticket array, die zelf een array is (waarbij elke entry een bestelling is)
 ?>
