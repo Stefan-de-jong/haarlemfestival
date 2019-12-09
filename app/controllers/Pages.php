@@ -34,6 +34,7 @@
         ];
 
         $this->view('pages/dance/info_page/dance_info', $data);
+    }
 
 
         public function CMS_home(){
@@ -59,6 +60,14 @@
 
             $this->view('pages/CMS/Content_testpages/test1', $data);
         }
+
+        public function CMS_users(){
+            $data = [
+                'title' => 'User Manager'
+            ];
+
+            $this->view('pages/CMS/users', $data);
+        }
        
 
         public function food(){
@@ -76,7 +85,7 @@
 
             $this->view('pages/food/info', $data);
         }
-    }
+    
 
     public function dance_purchase(){
         $data = [
