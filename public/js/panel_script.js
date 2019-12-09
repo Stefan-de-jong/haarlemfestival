@@ -37,11 +37,16 @@ initButtons(i);
 }
 
 function initButtons(number){ //for every dropdown make sure that if the selection of the dropdown is changed a warning is returned if necessary
-window.onload = disableButton(number, "SELECT YOUR TICKETS");
+
+var amount = document.getElementById('q' + number).innerHTML;
 var selection = document.getElementById('s' + number);
+if (amount == 0)
+{
+disableButton(number, "INSUFFICIENT TICKETS");
+selection.disabled = true;
+}
 selection.onchange = function getValueDropdown(){
 var selected = selection.options[selection.selectedIndex].value;
-var amount = document.getElementById('q' + number).innerHTML;
 var price = document.getElementById('p' + number).innerHTML;
 id = row[number];
 quantity = selected;
