@@ -18,7 +18,7 @@ if (isset($_POST["newHtml"])){
 </head>
 
 <body>
-<a href="<?php echo URLROOT."/pages/CMS_home";?>"><button class="backbutton"><- Back</button></a>
+<a href="<?php echo URLROOT."/CMS/home";?>"><button class="backbutton"><- Back</button></a>
 <div class="content">
 <div class="navbar">
   <a id="n1" class="active">Home</a>
@@ -64,7 +64,7 @@ function clearActives(){
       document.getElementById("idField").value=htmls[index].id;
   };
   </script>
-  <form method="post" action="<?php echo URLROOT."/pages/CMScontent"; ?>">
+  <form method="post" action="<?php echo URLROOT."/pages/CMS_content"; ?>">
   <input type="hidden" name="id" id="idField"></input>
   <input type="text" id="titleField" name="newTitle"></input>
   <textarea class="editor" name="newHtml"></textarea>
