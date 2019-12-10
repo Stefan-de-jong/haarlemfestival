@@ -32,8 +32,10 @@
                                     ');
                 $this->db->bind(':resultId', $result->id);
                 $urls = $this->db->resultSet();
-                $location->setURL1($urls[0]->url);
-                $location->setURL2($urls[1]->url);
+                if($this->db->rowCount() > 0){
+                    $location->setURL1($urls[0]->url);
+                    $location->setURL2($urls[1]->url);
+                }
                 array_push($locations, $location);
             }
             return $locations;

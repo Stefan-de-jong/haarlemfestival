@@ -31,14 +31,18 @@
             <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
                 <p class="text-justify"><?php echo $location->getDescription(); ?></p>
             </div>
+            <?php if($location->getURL1() != '') : ?>
             <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
                 <img src="<?php echo URLROOT;?>/img/<?php echo $location->getURL1(); ?>"
                     class="rounded shadow-sm img-fluid">
             </div>
+            <?php endif; ?>
+            <?php if($location->getURL1() != '') : ?>
             <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
                 <img src="<?php echo URLROOT;?>/img/<?php echo $location->getURL2(); ?>"
                     class="rounded shadow-sm img-fluid">
             </div>
+            <?php endif; ?>
         </div>
         <?php endforeach; ?>
     </section>
