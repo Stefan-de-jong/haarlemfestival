@@ -2,7 +2,9 @@
     class Historic extends Controller{
         public function __construct(){
             $this->locationRepo = $this->repo('LocationRepository');
-            $this->locationModel = $this->model('Location');   
+            $this->locationModel = $this->model('Location');
+            $this->tourRepo = $this->repo('TourRepository');
+            $this->tourModel = $this->model('Tour');      
         }
 
         public function index(){
@@ -24,8 +26,10 @@
         }
 
         public function tickets(){
+            $events = $this->tourRepo->findAll();
             $data = [
-                'title' => 'Historic Tickets'
+                'title' => 'Historic Tickets',
+                'events' => $events
             ];
 
             $this->view('historic/tickets', $data);

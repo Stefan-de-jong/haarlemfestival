@@ -122,5 +122,6 @@
             </div>
         </div>
     </section>
+    <?php print_r($data['events']) ; ?>
 </div>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

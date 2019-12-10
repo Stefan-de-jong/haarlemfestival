@@ -5,23 +5,23 @@
     // define('DB_PASSWORD', 'Festival123');
     // define('DB_NAME', 'hfa4_HF');
 
-    // Database parameters LOCAL
-     define('DB_HOST', 'localhost');
-     define('DB_USER', 'root');
-     define('DB_PASSWORD', '');
-     define('DB_NAME', 'hfa4_HF');
+    // // Database parameters LOCAL
+    //  define('DB_HOST', 'localhost');
+    //  define('DB_USER', 'root');
+    //  define('DB_PASSWORD', '');
+    //  define('DB_NAME', 'hfa4_HF');
 
     // Database parameters LOCAL Stefan
-    // define('DB_HOST', 'localhost');
-    // define('DB_USER', 'root');
-    // define('DB_PASSWORD', '123456');
-    // define('DB_NAME', 'hfa4_HF');
-
-    //database parameters LOCAL Jim
     define('DB_HOST', 'localhost');
     define('DB_USER', 'root');
-    define('DB_PASSWORD', '');
+    define('DB_PASSWORD', '123456');
     define('DB_NAME', 'hfa4_HF');
+
+    // //database parameters LOCAL Jim
+    // define('DB_HOST', 'localhost');
+    // define('DB_USER', 'root');
+    // define('DB_PASSWORD', '');
+    // define('DB_NAME', 'hfa4_HF');
     
 
     // App Root

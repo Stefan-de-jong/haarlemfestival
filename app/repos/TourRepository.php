@@ -1,5 +1,5 @@
 <?php
-    class HistoricEventRepository {
+    class TourRepository {
         private $db;
 
         public function __construct(){
@@ -21,7 +21,7 @@
                                 FROM event                                
                                 JOIN historicevent
                                 ON historicevent.id = event.id
-                                JOIN languea
+                                JOIN language
                                 ON language.id = historicevent.language
                                 JOIN guide
                                 ON guide.id = historicevent.guide
@@ -30,7 +30,7 @@
             $this->db->bind(':event_type', 3);
             $results = $this->db->resultSet();
             foreach($results as $result){
-                $event = new HistoricEvent($result->date, $result->begintTime, $result->endTime, $result->eventType,  $result->price, $result->n_tickets, $result->language, $result->guide);      
+                $event = new Tour($result->date, $result->begin_time, $result->end_time, $result->event_type,  $result->price, $result->n_tickets, $result->language, $result->guide);      
                 array_push($events, $event);
             }
             return $events;

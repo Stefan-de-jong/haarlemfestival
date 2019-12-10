@@ -1,5 +1,5 @@
 <?php
-    class HistoricEvent{
+    class Tour{
         private $id;
         private $date;
         private $beginTime;
