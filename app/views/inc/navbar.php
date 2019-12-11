@@ -13,14 +13,14 @@
 		value="Dance"
         class="big_button"
         id="DanceBut"
-        onclick="window.location.href='<?php echo URLROOT;?>/pages/dance'"
+        onclick="window.location.href='<?php echo URLROOT;?>/dance/index'"
     />
     <input
 		type="submit"
 		value="Food"
         class="big_button"
         id="FoodBut"
-        onclick="window.location.href='<?php echo URLROOT;?>/restaurants/index'"
+        onclick="window.location.href='<?php echo URLROOT;?>/food/index'"
     />
     <input
 		type="submit"

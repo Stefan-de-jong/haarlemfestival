@@ -31,6 +31,16 @@
             $this->view('pages/jazz/popup', $data);
         }
 
+        public function artists()
+        {
+            $data = [
+                'title' => 'Jazz artists',
+                'artistlist' => $this->loadJazzArtists()
+            ];
+
+            $this->view('pages/jazz/artistfind', $data);
+        }
+
         public function loadTickets()
         {
             $day = 2;
@@ -49,6 +59,16 @@
             
             
             return $this->JazzRepository->getEventsByDate($day);
+        }
+
+        public function loadJazzArtists()
+        {
+            return $this->JazzRepository->getArtistNames();
+        }
+
+        public function getImage1()
+        {
+            //WIP
         }
     }
 ?>

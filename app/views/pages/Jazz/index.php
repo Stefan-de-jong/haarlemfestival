@@ -7,7 +7,7 @@
         <h1>
             All access passes
         </h1>
-        <img src="<?php echo URLROOT;?>/img/jazz/JazzImage1.png" alt="JazzGuy">
+        <img src="<?php URLROOT ?>/img/jazz/JazzImage1.png" alt="JazzGuy">
     <article>
         For each day, an all access pass will be available. With this pass you can go to all shows on a day. See tickets for a specific day to order. We also offer a all access pas that allows access to all shows on the three days. This will be available under tickets of the days below
     </article>

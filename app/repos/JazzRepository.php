@@ -9,9 +9,9 @@ class JazzRepository{
         $this->db = new Database;
     }
 
-    public function getArtist(){ 
+    public function getArtists(){ 
         $this->db->query('SELECT *
-        FROM artist WHERE artist.'
+        FROM artist WHERE style = 6'
         );
        $results = $this->db->resultSet();
        return $results;
@@ -31,7 +31,7 @@ class JazzRepository{
        return $results;
     }
 
-    public function getEventData(){ 
+    public function getEventDataByDay(){ 
         $this->db->query('SELECT ev.date, ev.begin_time, ev.end_time, ev.price, ev.n_tickets, ar.name AS artistname, ve.name AS eventlocation
                         FROM event AS ev 
                         LEFT JOIN jazzevent AS je ON ev.id = je.id 
@@ -48,11 +48,15 @@ class JazzRepository{
         $array = explode("-", $date);
         $table = "<h1 class='title'>Shows on " . end($array) . " / " . prev($array) . "</h1><br/><table style='width:100%' class='ticket_table'>"; 
  
-        $events = $this->getEventData();
+        $events = $this->getEventDataByDay();
         foreach ($events as $event)
         {
             if ($event->date == $date) //artist & location moeten nog 
             {
+                if ($event->price == 0)
+                {
+                    $event->price = "free";
+                }
                 $table = $table . "<tr> <td>" . $event->date . "</td> 
                 <td>" . $event->artistname . "</td> <td>" . $event->eventlocation . "</td> <td>" . $event->begin_time . " until " . $event->end_time . "</td> <td> " . $event->price . " </td> <td> <input type='submit' value='Buy tickets' class='ChooseTicket'/> </td> </tr>";
             }
@@ -60,6 +64,41 @@ class JazzRepository{
         $table = $table . "</table>";
         return $table;
             
-        }
     }
+
+    public function getArtistsJazz()
+    {
+        $artists = $this->getArtists();
+        $artistlist = null;
+        foreach ($artists as $artist)
+        {
+            if ($artist->style == 6)
+            {
+                $newArtist = new Artist($artist->id, $artist->name, $artist->bio, $artist->style);
+                array_push($artistlist, $newArtist);
+            }
+        }
+
+        return $artistlist;
+    }
+
+    public function getArtistNames()
+    {
+        $artistlist = $this->getArtistsJazz();
+        $artistNameList = "";
+        foreach ($artistlist as $artist)
+        {
+            $artistNameList = $artistNameList . "<a location.href = '" . URLROOT . "/jazz/jazztickets?artist='" . $artist->getName . "'</a><br/>";
+        }
+        return $artistNameList;
+    }
+
+
+    public function GetImageJazzOne()
+    {
+        //echo URLROOT . "/img/jazz/JazzImage1.png"
+    }
+}
+
+    
 ?>
