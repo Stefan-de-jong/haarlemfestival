@@ -46,7 +46,7 @@
             if(isset($_POST["sunday"])) {
                 $day = "2018-07-29";
             }
-            $array = explode("-", $day); 
+            
             
             return $this->JazzRepository->getEventsByDate($day);
         }
