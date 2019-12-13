@@ -88,40 +88,65 @@
             <div class="col-auto mx-auto" id="tickets_table">
                 <h5 class="text-center">Tickets available:</h5>
                 <div class="table-responsive">
+                    <!-- ToDo ombouwen naar 2d array? -->
                     <table class="table">
                         <thead>
                             <tr>
                                 <th></th>
-                                <th class="text-center">Dutch</th>
-                                <th class="text-center">English</th>
-                                <th class="text-center">Chinese</th>
+                                <?php //foreach distinct language in $data['events'] ?>
+                                <th class="text-center"><?php // echo language ?>Dutch</th>
+                                <th class="text-center"><?php // echo language ?>English</th>
+                                <th class="text-center"><?php // echo language ?>Chinese</th>
+                                <?php //endforeach ?>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach($data['events'] as $event) : ?>
                             <tr>
-                                <td>10:00</td>
-                                <td name="dutch_10">Cell 1</td>
-                                <td name="english_10">Cell 2</td>
-                                <td name="chinese_10">Cell 2</td>
+                                <th><?php // echo time ?>10:00</th>
+                                <td><?php if(($event->getBeginTime() == '10:00:00') && ($event->getLanguage() == 'Nederlands')) : ?>
+                                    <?php echo $event->getNTickets(); ?>
+                                    <?php endif; ?>
+                                </td>
+                                <td><?php if(($event->getBeginTime() == '10:00:00') && ($event->getLanguage() == 'English')) : ?>
+                                    <?php echo $event->getNTickets(); ?>
+                                    <?php endif; ?></td>
+                                <td><?php if(($event->getBeginTime() == '10:00:00') && ($event->getLanguage() == 'Chinese')) : ?>
+                                    <?php echo $event->getNTickets(); ?>
+                                    <?php endif; ?></td>
+                            </tr>
+                            <?php //endforeach ?>
+
+                            <tr>
+                                <th>13:00</th>
+                                <td><?php if(($event->getBeginTime() == '13:00:00') && ($event->getLanguage() == 'Nederlands')) : ?>
+                                    <?php echo $event->getNTickets(); ?>
+                                    <?php endif; ?></td>
+                                <td><?php if(($event->getBeginTime() == '13:00:00') && ($event->getLanguage() == 'English')) : ?>
+                                    <?php echo $event->getNTickets(); ?>
+                                    <?php endif; ?></td>
+                                <td><?php if(($event->getBeginTime() == '13:00:00') && ($event->getLanguage() == 'Chinese')) : ?>
+                                    <?php echo $event->getNTickets(); ?>
+                                    <?php endif; ?></td>
                             </tr>
                             <tr>
-                                <td>13:00</td>
-                                <td name="dutch_13">Cell 3</td>
-                                <td name="english_13">Cell 4</td>
-                                <td name="chinese_13">Cell 4</td>
+                                <th>16:00</th>
+                                <td><?php if(($event->getBeginTime() == '16:00:00') && ($event->getLanguage() == 'Nederlands')) : ?>
+                                    <?php echo $event->getNTickets(); ?>
+                                    <?php endif; ?></td>
+                                <td><?php if(($event->getBeginTime() == '16:00:00') && ($event->getLanguage() == 'English')) : ?>
+                                    <?php echo $event->getNTickets(); ?>
+                                    <?php endif; ?></td>
+                                <td><?php if(($event->getBeginTime() == '16:00:00') && ($event->getLanguage() == 'Chinese')) : ?>
+                                    <?php echo $event->getNTickets(); ?>
+                                    <?php endif; ?></td>
                             </tr>
-                            <tr>
-                                <td>16:00</td>
-                                <td name="dutch_16">Cell 3</td>
-                                <td name="english_16">Cell 4</td>
-                                <td name="chinese_16">Cell 4</td>
-                            </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </section>
-    <?php print_r($data['events']) ; ?>
 </div>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

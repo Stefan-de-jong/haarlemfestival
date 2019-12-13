@@ -10,7 +10,8 @@
         private $language;
         private $guide;
 
-        public function __construct($date, $beginTime, $endTime, $eventType, $price, $nTickets, $language, $guide){
+        public function __construct($id, $date, $beginTime, $endTime, $eventType, $price, $nTickets, $language, $guide){
+            $this->id = $id;
             $this->date = $date;
             $this->beginTime = $beginTime;
             $this->endTime = $endTime;
@@ -26,27 +27,27 @@
             return $this->id;
         }
         public function getDate(){
-            return $this->price;
+            return $this->date;
         }
         public function getBeginTime(){
-            return $this->nTickets;
+            return $this->beginTime;
         }
         public function getEndTime(){
-            return $this->language;
+            return $this->endTime;
         }
         public function getEventType(){
-            return $this->guide;
+            return $this->eventType;
         }    
-        public function getprice(){
+        public function getPrice(){
             return $this->price;
         }
-        public function getnTickets(){
+        public function getNTickets(){
             return $this->nTickets;
         }
-        public function getlanguage(){
+        public function getLanguage(){
             return $this->language;
         }
-        public function getguide(){
+        public function getGuide(){
             return $this->guide;
         }    
 
