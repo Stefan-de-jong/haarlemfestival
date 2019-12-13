@@ -69,13 +69,13 @@ class JazzRepository{
     public function getArtistsJazz()
     {
         $artists = $this->getArtists();
-        $artistlist = null;
+        $artistlist = [];
         foreach ($artists as $artist)
         {
             if ($artist->style == 6)
             {
-                $newArtist = new Artist($artist->id, $artist->name, $artist->bio, $artist->style);
-                array_push($artistlist, $newArtist);
+                //$newArtist = new Artist($artist->id, $artist->name, $artist->bio, $artist->style);
+                array_push($artistlist, $artist);
             }
         }
 
@@ -88,7 +88,7 @@ class JazzRepository{
         $artistNameList = "";
         foreach ($artistlist as $artist)
         {
-            $artistNameList = $artistNameList . "<a location.href = '" . URLROOT . "/jazz/jazztickets?artist='" . $artist->getName . "'</a><br/>";
+            $artistNameList = $artistNameList . "<p location.href = '" . URLROOT . "/jazz/jazztickets?artist='" . $artist->name . "'</p><br/>";
         }
         return $artistNameList;
     }

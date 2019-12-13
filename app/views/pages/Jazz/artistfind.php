@@ -3,6 +3,6 @@
 <div class="emptyspace">
 <div class="white_text">
 <p>please select an artist below:</p>
-<?php echo $data[artistlist] ?>
+<?php echo $data[artistlist]; ?>
 </div>
 </div>
