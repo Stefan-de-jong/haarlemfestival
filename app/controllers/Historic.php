@@ -9,6 +9,7 @@
 
         public function index(){
             $locations = $this->locationRepo->findAll();
+            
             $data = [
                 'title' => 'Historic tour',
                 'locations' => $locations
@@ -25,11 +26,13 @@
             $this->view('historic/about', $data);
         }
 
-        public function tickets(){
-            $events = $this->tourRepo->findAll();
+        public function tickets($date = '2020-07-24'){            
+            
+            $events = $this->tourRepo->findByDate($date);            
+            
             $data = [
                 'title' => 'Historic Tickets',
-                'events' => $events
+                'events' => $events                
             ];
 
             $this->view('historic/tickets', $data);

@@ -11,6 +11,7 @@
             <div class="col">
                 <h4>Tickets</h4>
             </div>
+
         </div>
     </section>
     <section>
@@ -19,11 +20,13 @@
                 <div class="row">
                     <div class="col d-xl-flex align-items-xl-center"><label class="col-form-label">Which day would you
                             like to take the tour?</label></div>
-                    <div class="col-4 d-xl-flex align-items-xl-center"><select>
+                    <div class="col-4 d-xl-flex align-items-xl-center"><select name="selected_day" id="daySelect"
+                            onchange="daySelected()">
                             <optgroup label="Tour day">
-                                <option value="12" selected="">This is item 1</option>
-                                <option value="13">This is item 2</option>
-                                <option value="14">This is item 3</option>
+                                <!-- ToDo laat dag route default staan -->
+                                <option value="2020-07-24">Friday</option>
+                                <option value="2020-07-25">Saturday</option>
+                                <option value="2020-07-26">Sunday</option>
                             </optgroup>
                         </select></div>
                 </div>
@@ -101,47 +104,52 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach($data['events'] as $event) : ?>
+                            <?php // foreach($data['events'] as $event) : ?>
+                            <?php // AJAX call with GET request on selected value of date? ?>
                             <tr>
                                 <th><?php // echo time ?>10:00</th>
-                                <td><?php if(($event->getBeginTime() == '10:00:00') && ($event->getLanguage() == 'Nederlands')) : ?>
-                                    <?php echo $event->getNTickets(); ?>
-                                    <?php endif; ?>
-                                </td>
-                                <td><?php if(($event->getBeginTime() == '10:00:00') && ($event->getLanguage() == 'English')) : ?>
-                                    <?php echo $event->getNTickets(); ?>
-                                    <?php endif; ?></td>
-                                <td><?php if(($event->getBeginTime() == '10:00:00') && ($event->getLanguage() == 'Chinese')) : ?>
-                                    <?php echo $event->getNTickets(); ?>
-                                    <?php endif; ?></td>
+                                <?php foreach($data['events'] as $event) : ?>
+                                <?php if(($event->getBeginTime() == '10:00:00') && ($event->getLanguage() == 'Nederlands')) : ?>
+                                <td><?php echo $event->getNTickets(); ?></td>
+                                <?php endif; ?>
+                                <?php if(($event->getBeginTime() == '10:00:00') && ($event->getLanguage() == 'English')) : ?>
+                                <td> <?php echo $event->getNTickets(); ?></td>
+                                <?php endif; ?>
+                                <?php if(($event->getBeginTime() == '10:00:00') && ($event->getLanguage() == 'Chinese')) : ?>
+                                <td> <?php echo $event->getNTickets(); ?></td>
+                                <?php endif; ?>
+                                <?php endforeach; ?>
                             </tr>
-                            <?php //endforeach ?>
-
                             <tr>
                                 <th>13:00</th>
-                                <td><?php if(($event->getBeginTime() == '13:00:00') && ($event->getLanguage() == 'Nederlands')) : ?>
-                                    <?php echo $event->getNTickets(); ?>
-                                    <?php endif; ?></td>
-                                <td><?php if(($event->getBeginTime() == '13:00:00') && ($event->getLanguage() == 'English')) : ?>
-                                    <?php echo $event->getNTickets(); ?>
-                                    <?php endif; ?></td>
-                                <td><?php if(($event->getBeginTime() == '13:00:00') && ($event->getLanguage() == 'Chinese')) : ?>
-                                    <?php echo $event->getNTickets(); ?>
-                                    <?php endif; ?></td>
+                                <?php foreach($data['events'] as $event) : ?>
+                                <?php if(($event->getBeginTime() == '13:00:00') && ($event->getLanguage() == 'Nederlands')) : ?>
+                                <td> <?php echo $event->getNTickets(); ?></td>
+                                <?php endif; ?>
+                                <?php if(($event->getBeginTime() == '13:00:00') && ($event->getLanguage() == 'English')) : ?>
+                                <td> <?php echo $event->getNTickets(); ?></td>
+                                <?php endif; ?>
+                                <?php if(($event->getBeginTime() == '13:00:00') && ($event->getLanguage() == 'Chinese')) : ?>
+                                <td> <?php echo $event->getNTickets(); ?></td>
+                                <?php endif; ?>
+                                <?php endforeach; ?>
                             </tr>
                             <tr>
                                 <th>16:00</th>
-                                <td><?php if(($event->getBeginTime() == '16:00:00') && ($event->getLanguage() == 'Nederlands')) : ?>
-                                    <?php echo $event->getNTickets(); ?>
-                                    <?php endif; ?></td>
-                                <td><?php if(($event->getBeginTime() == '16:00:00') && ($event->getLanguage() == 'English')) : ?>
-                                    <?php echo $event->getNTickets(); ?>
-                                    <?php endif; ?></td>
-                                <td><?php if(($event->getBeginTime() == '16:00:00') && ($event->getLanguage() == 'Chinese')) : ?>
-                                    <?php echo $event->getNTickets(); ?>
-                                    <?php endif; ?></td>
+                                <?php foreach($data['events'] as $event) : ?>
+                                <?php if(($event->getBeginTime() == '16:00:00') && ($event->getLanguage() == 'Nederlands')) : ?>
+                                <td><?php echo $event->getNTickets(); ?></td>
+                                <?php endif; ?>
+                                <?php if(($event->getBeginTime() == '16:00:00') && ($event->getLanguage() == 'English')) : ?>
+                                <td><?php echo $event->getNTickets(); ?></td>
+                                <?php endif; ?>
+                                <?php if(($event->getBeginTime() == '16:00:00') && ($event->getLanguage() == 'Chinese')) : ?>
+                                <td><?php echo $event->getNTickets(); ?></td>
+                                <?php endif; ?>
+                                <?php endforeach; ?>
                             </tr>
-                            <?php endforeach; ?>
+                            <?php  ?>
+
                         </tbody>
                     </table>
                 </div>
@@ -149,4 +157,12 @@
         </div>
     </section>
 </div>
+<script>
+    function daySelected() {
+        var selector = document.getElementById("daySelect");
+        var date = selector.options[selector.selectedIndex].value;
+        window.location.href = "http://localhost/haarlemfestival/historic/tickets/" + date;
+    }
+</script>
+
 <?php require APPROOT . '/views/inc/footer.php'; ?>
