@@ -41,16 +41,30 @@ for(i=0;i<checkboxes.length;i++) {
     <td><b>Options</b></td>
   </tr>
   <?php
-  foreach($data as $user)
-  echo str_replace("%ID%",$user->id,str_replace("%URL%",URLROOT."/CMS/user","<tr>
-    <td>$user->id</td>
+  foreach($data as $user){
+    $id = $user->id;
+    $actionview = URLROOT."/CMS/user";
+    $actiondelete = URLROOT."/CMS/deleteuser/";
+    $viewbuttontext = ($_SESSION["cms_role"]=="ADMIN"||$_SESSION["cms_role"]=="SUPERADMIN" ? "View/Edit" : "View");
+    $isNonuser = $_SESSION["cms_role"]=="ADMIN"||$_SESSION["cms_role"]=="SUPERADMIN";
+
+    $html=
+    "<tr><td>$user->id</td>
     <td>$user->first_name</td>
     <td>$user->last_name</td>
     <td>$user->email</td>
     <td>$user->role</td>
-    <td><form method='GET' action=%URL%><input type='hidden' name='id' value='%ID%'> <input type='submit' value='view'></form></td>
-    <td></td>
-  </tr>"));
+    <td><form action='$actionview' method='GET'>
+    <input type='hidden' name='id' value='$id'></input>
+    <input type='submit' value='$viewbuttontext'</input></form>";
+
+    if ($isNonuser){
+      $html.="<form action='$actiondelete' method='POST'><input type='hidden' name='id' value='$id'></input>
+      <input type='submit' value='Delete'></input></form>";
+    }
+    $html.="</form></td></tr>";
+  echo $html;
+  }
   ?>
 </table>
 <?php }?>

@@ -62,8 +62,48 @@ class UserRepository{
             return false;
         }
     }
-    public function updateUser($params){
-       return true;
+    public function updateUser($user){
+        $role="";
+        if ($user->role==null){
+            //geen role meegegeven
+            $role=$this->findUserById($user->id)->role;
+        }else{
+            //wel role meegegeven
+             $role=$user->role;
+        }
+        $this->db->query('UPDATE user SET first_name = :fn, last_name = :ln, email = :em, role = :role WHERE id = :id');
+        $this->db->bind(':fn', $user->firstname);
+        $this->db->bind(':ln', $user->lastname);
+        $this->db->bind(':em', $user->email);
+        $this->db->bind(':role', $role);
+        $this->db->bind(':id', $user->id);
+        if ($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function findUserById($id){
+        $this->db->query('SELECT * FROM user WHERE id = :id');
+        $this->db->bind(':id', $id);
+        $row = $this->db->single();
+        if ($row){
+            $user = new User($row->id,$row->first_name,$row->last_name,$row->email,$row->password,$row->role);
+            return $user;
+        }else{
+            return false;
+        }
+    }
+
+    public function deleteById($id){
+        $this->db->query('DELETE FROM user WHERE id = :id');
+        $this->db->bind(':id', $id);
+        if ($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 ?>

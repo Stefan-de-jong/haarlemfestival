@@ -22,6 +22,9 @@ Welcome, <b><?php echo $_SESSION["cms_fn"];?></b>
 <button class="btn"><i class="fa fa-bars"></i> Event Manager</button><br>
 <button class="btn"><i class="fa fa-bars"></i> Ticket Scan</button><br>
 <button class="btn"><i class="fa fa-bars"></i> Ticket Sell</button><br>
+<form action="<?php echo URLROOT;?>/CMS/logout" method="post">
+<button class="btn"><i class="fa fa-bars"></i> Logout</button><br>
+</form>
 </div>
 </body>
 
