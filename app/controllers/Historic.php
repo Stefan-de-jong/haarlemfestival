@@ -49,7 +49,7 @@
                 'amount_error' => ''
             ];
 
-            if($data['single_tickets'] == 0 || $data['fam_tickets'] == 0){
+            if($data['single_tickets'] == 0 && $data['fam_tickets'] == 0){
                 flash('ticketNotAdded_alert', 'Please select a number of tickets', 'alert alert-danger');
                 redirect('historic/tickets');
             }
@@ -63,12 +63,12 @@
                         // enough tickets available, process and create ticket objects
                         for($i = 0; $i < $data['single_tickets']; $i++)
                         {
-                            $ticket =  new Ticket($tour->getId(), 3, $tour->getPrice());
+                            $ticket =  new Ticket($tour, 3, $tour->getPrice());
                             array_push($tickets, $ticket);
                         }
                         for($i = 0; $i < $data['fam_tickets']; $i++)
                         {
-                            $ticket =  new Ticket($tour->getId(), 3, $tour->getPrice());
+                            $ticket =  new Ticket($tour, 3, $tour->getPrice());
                             array_push($tickets, $ticket);
                         }
                         // add ticket to session
