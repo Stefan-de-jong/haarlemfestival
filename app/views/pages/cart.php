@@ -57,16 +57,8 @@ require APPROOT . '/views/inc/header.php';
         ---------------------------------------------------------Test van
         Stefan-------------------------------------------------------------------------------------<br>
         <?php 
+            
         
-        $i;
-        for ($i=0; $i < count($_SESSION['tickets']); $i++) {
-
-             echo 'Event ID: ' . $_SESSION['tickets'][$i][0]->getEventId();
-             echo '<br>';
-             
-             
-
-            } print_r($_SESSION['tickets']);       ;
         ?>
         <button style="float: right">Continue to order</button>
     </div>

@@ -1,16 +1,15 @@
 <?php
-class HistoricTicket
+class Ticket
 {
     public $id; // In DB after sale
-    public $event; // Event OBJECT
-    public $ticket_type; // hist_single_ticket, hist_fam_ticket -> reference that type for price    
+    public $eventId; 
+    public $price;    
     public $buyer_email; // In DB after sale
 
 
-    public function __construct(Tour $event, $ticketType)
+    public function __construct($eventId)
     {
-        $this->event = $event;
-        $this->ticket_type = $ticketType;
+        $this->eventId = $eventId;        
     }
 
     public function getId()
@@ -20,7 +19,7 @@ class HistoricTicket
 
     public function getEventId()
     {
-        return $this->event->getId();
+        return $this->eventId();
     }
 
     public function getTicketType()

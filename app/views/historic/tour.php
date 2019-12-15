@@ -12,8 +12,8 @@
         <div class="row">
             <div class="col">
                 <p class="text-justify"><?php 
-                if(!empty($_SESSION['tickets'])){
-                    print_r($_SESSION['tickets']);
+                if(!empty($_SESSION['cart'])){
+                    print_r($_SESSION['cart']);
                     };?>
                 </p>
             </div>

@@ -59,27 +59,28 @@
                 if($tour != null){
                     $tickets = array();
                     // Check if ordered single tickets and fam tickets combined are not more then the available ammount for tour
-                    if($tour->getNTickets() >= $data['single_tickets']+($data['fam_tickets']*4)){
-                        // enough tickets available, process and create ticket objects
-                        for($i = 0; $i < $data['single_tickets']; $i++)
-                        {
-                            $ticket =  new HistoricTicket($tour, 'single_ticket');
-                            array_push($tickets, $ticket);
-                        }
-                        for($i = 0; $i < $data['fam_tickets']; $i++)
-                        {
-                            $ticket =  new HistoricTicket($tour, 'fam_ticket');
-                            array_push($tickets, $ticket);
-                        }
-                        // add ticket to session
-                        $_SESSION['tickets'][] = $tickets;
-                        flash('ticketAdded_succes', 'Ticket(s) added to your cart');
-                        redirect('historic');
-                    }
-                    else{
+                    if(!$tour->getNTickets() >= $data['single_tickets']+($data['fam_tickets']*4)){
                         // not enough tickets available
                         flash('ticketNotAdded_alert', 'Not enough tickets available', 'alert alert-danger');
                         redirect('historic/tickets');
+                    } else{
+                        $id = $tour->getId();
+                        $n_single = $data['single_tickets'];
+                        $n_fam = $data['fam_tickets'];
+                        $cart_item = array(
+                            'single_tickets' => $n_single,
+                            'family_tickets' => $n_fam
+                        );
+
+                        if(!isset($_SESSION['cart'])){
+                            $_SESSION['cart'] = array();
+                        }
+
+                        if(!array_key_exists($id, $_SESSION['cart'])){
+                            $_SESSION['cart'][$id]=$cart_item;
+                            flash('ticketAdded_succes', 'Ticket(s) added to cart', 'alert alert-success');
+                            redirect('historic/tour');
+                        }
                     }
                 }      
             }                     
