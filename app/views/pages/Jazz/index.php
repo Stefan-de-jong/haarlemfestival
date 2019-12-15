@@ -3,7 +3,7 @@
 <div class="emptyspace">
     <div class="white_text">
     <div class="firstimage">
-       
+       <a href=" <?php echo URLROOT ?> /jazz/jazzticketorder?eventid=7">test</a>
         <h1>
             All access passes
         </h1>

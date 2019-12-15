@@ -8,8 +8,8 @@
   </h1>  
   <p>choose the amount of tickets</p>
     <dropdown>
-    <select>
-      <option value="1">1</option>
+    <select id="TicketAmount">
+      <option value="1" selected="selected">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
       <option value="4">4</option>
@@ -23,8 +23,25 @@
     </dropdown>
     <div class="titlespace">
     </div>
-    <p>Price: 00,00<p>
-    <input
+    <script>
+    function GetAmountTickets() 
+    {
+      var e = document.getElementById("TicketAmount");
+      var option = e.options[e.selectedIndex].value;
+      return option;
+    }
+
+    var selection = document.getElementById(Ticket);
+    selection.onchange = function updatetotalprice()
+    </script>
+    <p id="calculatePrice"></p>
+    <script> 
+    function updatetotalprice()
+    {
+      document.getElementById("calculatePrice").innerHTML = GetAmountTickets() * <?php $artist = $data['ticketinfo']; echo $artist[0]->price; ?> 
+    }
+    </script>
+      <input
 		type="submit"
 		value="add to cart"
 		class="jazzcart"

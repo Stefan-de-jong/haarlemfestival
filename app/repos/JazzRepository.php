@@ -17,9 +17,29 @@ class JazzRepository{
        return $results;
     }
 
+    public function getTicket($id)
+    {
+        $this->db->query('SELECT ev.id AS eventid, ev.date, ev.begin_time, ev.end_time, ev.price, ev.n_tickets, ar.name AS artistname, ve.name AS eventlocation
+                        FROM event AS ev 
+                        LEFT JOIN jazzevent AS je ON ev.id = je.id 
+                        LEFT JOIN artist AS ar ON je.artist = ar.id 
+                        LEFT JOIN venue AS ve ON je.location = ve.id 
+                        WHERE ev.id = ' . $id);
+        $results = $this->db->resultSet();
+        return $results;
+    }
+
+    public function MakeTicket($id)
+    {
+        $Ticketinfo = $this->getTicket($id);
+        $Ticket = new Ticket($id, 4, $Ticketinfo->price);
+        return $Ticket;
+    }
+
     public function getEvents(){
-        $this->db->query('SELECT je.location, je.artist, ev.price, ev.begin_time, ev.end_time, ev.date, ev.n_tickets
-            FROM event AS ev JOIN jazzevent AS je ON ev.id = je.id'
+        $this->db->query('SELECT ev.id AS eventid, je.location, je.artist, ev.price, ev.begin_time, ev.end_time, ev.date, ev.n_tickets
+            FROM event AS ev 
+            JOIN jazzevent AS je ON ev.id = je.id'
         );
        $results = $this->db->resultSet();
        return $results;
@@ -32,7 +52,7 @@ class JazzRepository{
     }
 
     public function getEventDataByDay(){ 
-        $this->db->query('SELECT ev.date, ev.begin_time, ev.end_time, ev.price, ev.n_tickets, ar.name AS artistname, ve.name AS eventlocation
+        $this->db->query('SELECT ev.id AS eventid, ev.date, ev.begin_time, ev.end_time, ev.price, ev.n_tickets, ar.name AS artistname, ve.name AS eventlocation
                         FROM event AS ev 
                         LEFT JOIN jazzevent AS je ON ev.id = je.id 
                         LEFT JOIN artist AS ar ON je.artist = ar.id 
@@ -51,14 +71,14 @@ class JazzRepository{
         $events = $this->getEventDataByDay();
         foreach ($events as $event)
         {
-            if ($event->date == $date) //artist & location moeten nog 
+            if ($event->date == $date)
             {
                 if ($event->price == 0)
                 {
                     $event->price = "free";
                 }
                 $table = $table . "<tr> <td>" . $event->date . "</td> 
-                <td>" . $event->artistname . "</td> <td>" . $event->eventlocation . "</td> <td>" . $event->begin_time . " until " . $event->end_time . "</td> <td> " . $event->price . " </td> <td> <input type='submit' value='Buy tickets' class='ChooseTicket'/> </td> </tr>";
+                <td>" . $event->artistname . "</td> <td>" . $event->eventlocation . "</td> <td>" . $event->begin_time . " until " . $event->end_time . "</td> <td> " . $event->price . " </td> <td> <input type='submit' value='Buy tickets' name='" . $event.id ."' class='ChooseTicket'/> </td> </tr>";
             }
         }
         $table = $table . "</table>";
@@ -66,31 +86,46 @@ class JazzRepository{
             
     }
 
-    public function getArtistsJazz()
+    public function getArtistsByID($id)
     {
-        $artists = $this->getArtists();
-        $artistlist = [];
-        foreach ($artists as $artist)
-        {
-            if ($artist->style == 6)
-            {
-                //$newArtist = new Artist($artist->id, $artist->name, $artist->bio, $artist->style);
-                array_push($artistlist, $artist);
-            }
-        }
-
-        return $artistlist;
+        $this->db->query('SELECT ev.id AS eventid, ev.date, ev.begin_time, ev.end_time, ev.price, ev.n_tickets, ar.name AS artistname, ve.name AS eventlocation
+                        FROM event AS ev 
+                        LEFT JOIN jazzevent AS je ON ev.id = je.id 
+                        LEFT JOIN artist AS ar ON je.artist = ar.id 
+                        LEFT JOIN venue AS ve ON je.location = ve.id 
+                        WHERE ar.id = ' . $id);
+        $results = $this->db->resultSet();
+        return $results;
     }
+
+    public function getArtistTable($id)
+    {
+        $table = "<table style='width:100%' class='ticket_table'>"; 
+        $events = $this->getArtistsByID($id);
+        foreach ($events as $event)
+        {
+                if ($event->price == 0)
+                {
+                    $event->price = "free";
+                }
+                $table = $table . "<tr> <td>" . $event->date . "</td> 
+                <td>" . $event->artistname . "</td> <td>" . $event->eventlocation . "</td> <td>" . $event->begin_time . " until " . $event->end_time . "</td> <td> " . $event->price . " </td> <td> <input type='submit' value='Buy tickets' name='" . $event->artistname . "' class='ChooseTicket' onclick='window.open('" . URLROOT . "/jazz/jazzticketorder')'/> </td> </tr>";
+
+        }
+        $table = $table . "</table>";
+        return $table;
+    }
+    
 
     public function getArtistNames()
     {
-        $artistlist = $this->getArtistsJazz();
-        $artistNameList = "";
+        $artistlist = $this->getArtists();
+        $artistHtml = "";
         foreach ($artistlist as $artist)
         {
-            $artistNameList = $artistNameList . "<p location.href = '" . URLROOT . "/jazz/jazztickets?artist='" . $artist->name . "'</p><br/>";
+            $artistHtml = $artistHtml . "<a href = " . URLROOT . "/jazz/jazztickets?artist=" . $artist->id . ">" . $artist->name . "</a><br/>";
         }
-        return $artistNameList;
+        return $artistHtml;
     }
 
 

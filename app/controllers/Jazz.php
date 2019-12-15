@@ -3,7 +3,7 @@
         
         public function __construct(){
             $this->JazzRepository = $this->repo('JazzRepository');
-            //$this->JazzModel = $this->model('Jazz');   
+            $this->ArtistModel = $this->model('Artist');   
         }
 
         public function Jazz(){
@@ -25,7 +25,8 @@
 
         public function jazzticketorder(){
             $data = [
-                'title' => 'Jazz ticket order'
+                'title' => 'Jazz ticket order',
+                'ticketinfo' => $this->getSelectedTicket()
             ];
 
             $this->view('pages/jazz/popup', $data);
@@ -40,6 +41,8 @@
 
             $this->view('pages/jazz/artistfind', $data);
         }
+
+
 
         public function loadTickets()
         {
@@ -57,8 +60,19 @@
                 $day = "2018-07-29";
             }
             
-            
-            return $this->JazzRepository->getEventsByDate($day);
+            if ($day != 2)
+            {
+                return $this->JazzRepository->getEventsByDate($day);
+            }
+            else
+            {
+                return $this->JazzRepository->getArtistTable($_GET['artist']);
+            }
+        }
+
+        public function getSelectedTicket()
+        {
+            return $this->JazzRepository->getTicket($_GET['eventid']);
         }
 
         public function loadJazzArtists()
