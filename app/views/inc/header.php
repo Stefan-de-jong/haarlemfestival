@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/food.css">
         <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/d_purchase.css">
         <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/d_info.css">
+        <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/form.css">
 
         <title><?php echo SITENAME; ?></title>
     </head>
