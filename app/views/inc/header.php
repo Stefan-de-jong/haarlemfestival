@@ -10,8 +10,10 @@
         <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/historic.css">
         <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style.css">
         <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/food.css">
+        <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/cart.css">
         <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/d_purchase.css">
         <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/d_info.css">
+
 
         <title><?php echo SITENAME; ?></title>
     </head>
