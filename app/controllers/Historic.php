@@ -5,7 +5,7 @@
             $this->locationModel = $this->model('Location');
             $this->tourRepo = $this->repo('TourRepository');
             $this->tourModel = $this->model('Tour');
-            $this->ticketModel = $this->model('HistoricTicket');      
+            $this->ticketModel = $this->model('Ticket');      
         }
 
         public function index(){
