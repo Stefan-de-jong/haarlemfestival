@@ -58,6 +58,30 @@
             }
             return $events;
         }
+
+        public function find($date, $time, $language){             
+            $this->db->query('SELECT *
+                                FROM event                                
+                                JOIN historicevent
+                                ON historicevent.id = event.id
+                                JOIN language
+                                ON language.id = historicevent.language
+                                JOIN guide
+                                ON guide.id = historicevent.guide
+                                WHERE event_type = :event_type
+                                AND date = :date
+                                AND begin_time = :time
+                                AND language.language = :language
+                                ');
+            $this->db->bind(':event_type', 3);
+            $this->db->bind(':date', $date);
+            $this->db->bind(':time', $time);
+            $this->db->bind(':language', $language);
+            $row = $this->db->single();
+            $event = new Tour($row->id, $row->date, $row->begin_time, $row->end_time, $row->event_type, $row->price, $row->n_tickets, $row->language, $row->guide);
+            return $event;
+        }
+
         
         public function save(Location $location){
             $this->db->query('INSERT INTO event (name, description) VALUES (:name, :description)');

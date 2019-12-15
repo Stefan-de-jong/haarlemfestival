@@ -7,10 +7,15 @@
             <a class="align-self-center" href="<?php echo URLROOT;?>/historic/tickets">Tickets</a></div>
     </div>
     <section>
+        <?php flash('ticketAdded_succes'); ?>
         <h1><?php echo $data['title']?></h1>
         <div class="row">
             <div class="col">
-                <p class="text-justify">Paragraph</p>
+                <p class="text-justify"><?php 
+                if(!empty($_SESSION['tickets'])){
+                    print_r($_SESSION['tickets']);
+                    };?>
+                </p>
             </div>
             <div class="col-md-4">
                 <h4>#HaarlemHistoric</h4>

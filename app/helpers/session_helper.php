@@ -1,4 +1,6 @@
 <?php
+
+    require_once APPROOT . '/models/Ticket.php';
     session_start();
 
     // Flash message helper
