@@ -5,7 +5,7 @@
             $this->locationModel = $this->model('Location');
             $this->tourRepo = $this->repo('TourRepository');
             $this->tourModel = $this->model('Tour');
-            $this->ticketModel = $this->model('Ticket');      
+            $this->ticketModel = $this->model('HistoricTicket');      
         }
 
         public function index(){
@@ -63,12 +63,12 @@
                         // enough tickets available, process and create ticket objects
                         for($i = 0; $i < $data['single_tickets']; $i++)
                         {
-                            $ticket =  new Ticket($tour, 3, $tour->getPrice());
+                            $ticket =  new HistoricTicket($tour, 'single_ticket');
                             array_push($tickets, $ticket);
                         }
                         for($i = 0; $i < $data['fam_tickets']; $i++)
                         {
-                            $ticket =  new Ticket($tour, 3, $tour->getPrice());
+                            $ticket =  new HistoricTicket($tour, 'fam_ticket');
                             array_push($tickets, $ticket);
                         }
                         // add ticket to session
