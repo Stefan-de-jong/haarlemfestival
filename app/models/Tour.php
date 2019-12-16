@@ -47,9 +47,27 @@
         }    
 
         // setters
-        public function setnTickets($nTickets){
-            $this->nTickets = $nTickets;
+        public function setDate($date){
+            $this->date = $date
         }
+        public function setBeginTime($beginTime){
+            $this->beginTime = $beginTime
+        }
+        public function setEndTime($endTime){
+            $this->endTime = $endTime;
+        }
+        public function setEventType($eventType){
+            $this->eventType = $eventType
+        }    
+        public function setNTickets($nTickets){
+            $this->nTickets = $nTickets
+        }
+        public function setLanguage($language){
+            $this->language = $language
+        }
+        public function setGuide($guide){
+            $this->guide = $guide
+        }    
     }
 
 ?>
