@@ -4,19 +4,17 @@
         private $date;
         private $beginTime;
         private $endTime;
-        private $eventType;
-        private $price;
+        private $eventType;        
         private $nTickets;
         private $language;
         private $guide;
 
-        public function __construct($id, $date, $beginTime, $endTime, $eventType, $price, $nTickets, $language, $guide){
+        public function __construct($id, $date, $beginTime, $endTime, $eventType, $nTickets, $language, $guide){
             $this->id = $id;
             $this->date = $date;
             $this->beginTime = $beginTime;
             $this->endTime = $endTime;
-            $this->eventType = $eventType;
-            $this->price = $price;
+            $this->eventType = $eventType;            
             $this->nTickets = $nTickets;
             $this->language = $language;
             $this->guide = $guide;
@@ -38,9 +36,6 @@
         public function getEventType(){
             return $this->eventType;
         }    
-        public function getPrice(){
-            return $this->price;
-        }
         public function getNTickets(){
             return $this->nTickets;
         }
@@ -52,12 +47,27 @@
         }    
 
         // setters
-        public function setprice($price){
-            $this->price = $price;
+        public function setDate($date){
+            $this->date = $date;
         }
-        public function setnTickets($nTickets){
+        public function setBeginTime($beginTime){
+            $this->beginTime = $beginTime;
+        }
+        public function setEndTime($endTime){
+            $this->endTime = $endTime;
+        }
+        public function setEventType($eventType){
+            $this->eventType = $eventType;
+        }    
+        public function setNTickets($nTickets){
             $this->nTickets = $nTickets;
         }
+        public function setLanguage($language){
+            $this->language = $language;
+        }
+        public function setGuide($guide){
+            $this->guide = $guide;
+        }    
     }
 
 ?>
