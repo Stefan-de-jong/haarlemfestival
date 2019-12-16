@@ -5,7 +5,6 @@
             $this->locationModel = $this->model('Location');
             $this->tourRepo = $this->repo('TourRepository');
             $this->tourModel = $this->model('Tour');
-            $this->ticketModel = $this->model('Ticket');      
         }
 
         public function index(){
@@ -56,8 +55,7 @@
             else{
                 $tour = $this->tourRepo->find($data['tour_date'], $data['tour_time'], $data['tour_language']); // ToDo als gekozen id meegegeven kan worden vanuit tickets page -> zoeken naar ID
             
-                if($tour != null){
-                    $tickets = array();
+                if($tour != null){                    
                     // Check if ordered single tickets and fam tickets combined are not more then the available ammount for tour
                     if(!$tour->getNTickets() >= $data['single_tickets']+($data['fam_tickets']*4)){
                         // not enough tickets available
@@ -68,8 +66,8 @@
                         $n_single = $data['single_tickets'];
                         $n_fam = $data['fam_tickets'];
                         $cart_item = array(
-                            'single_tickets' => $n_single,
-                            'family_tickets' => $n_fam
+                            'historic_single_ticket' => $n_single,
+                            'historic_fam_ticket' => $n_fam
                         );
 
                         if(!isset($_SESSION['cart'])){
@@ -78,6 +76,11 @@
 
                         if(!array_key_exists($id, $_SESSION['cart'])){
                             $_SESSION['cart'][$id]=$cart_item;
+                            flash('ticketAdded_succes', 'Ticket(s) added to cart', 'alert alert-success');
+                            redirect('historic/tour');
+                        } else {
+                            $_SESSION['cart'][$id]['historic_single_ticket']+=$cart_item['historic_single_ticket'];
+                            $_SESSION['cart'][$id]['historic_fam_ticket']+=$cart_item['historic_fam_ticket'];
                             flash('ticketAdded_succes', 'Ticket(s) added to cart', 'alert alert-success');
                             redirect('historic/tour');
                         }

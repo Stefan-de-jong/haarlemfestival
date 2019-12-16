@@ -7,11 +7,18 @@
         }
 
         public function findById($id){
-            $this->db->query('SELECT * FROM event WHERE id = :id');
+            $this->db->query('SELECT * 
+                                FROM event                                
+                                JOIN historicevent
+                                ON historicevent.id = event.id
+                                JOIN language
+                                ON language.id = historicevent.language                                
+                                WHERE event_type = :event_type
+                                AND id = :idd
+                                ');
+            $this->db->bind(':event_type', 3);
             $this->db->bind(':id', $id);
-
             $row = $this->db->single();
-
             return $row;
         }
 
