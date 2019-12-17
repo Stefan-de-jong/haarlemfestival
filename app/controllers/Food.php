@@ -5,6 +5,8 @@ class Food extends Controller
         $this->restaurantModel= $this->model('Restaurant');
         $this->ticketModel= $this->model('Ticket');
         $this->restaurantRepository = $this->repo('RestaurantRepository');
+        $this->eventModel = $this->model('Event');
+        $this->foodEventModel = $this->model('FoodEvent');
     }
 
     public function index()
@@ -37,11 +39,11 @@ class Food extends Controller
         $restaurant = $_GET['restaurant'];
 
         $page = $this->restaurantRepository->getRestaurantInfoPage($restaurant);
-        $event = $this->restaurantRepository->getEventInfo($restaurant);
+        $events = $this->restaurantRepository->getEventByRestaurant($restaurant);
 
         $data = [
             'page' => $page,
-            'event'=> $event
+            'event'=> $events
         ];
         $this->view('pages/food/info', $data);
     }
@@ -61,18 +63,19 @@ class Food extends Controller
         $tickets = array();
         for($i = 0; $i < $regularTickets; $i++)
         {
-            $ticket =  new Ticket($event[0]->id, 1, $event[0]->price);
+            $ticket =  new Ticket($event->getId(), 1, $event->getPrice());
             array_push($tickets, $ticket);
         }
 
         for($i = 0; $i < $childTickets; $i++)
         {
-            $ticket = new Ticket($event[0]->id, 2, $event[0]->price);
+            $ticket =  new Ticket($event->getId(), 2, $event->getPrice());
             array_push($tickets, $ticket);
         }
 
+        echo "<h1> De tickets</h1>";
         foreach ($tickets as $ticket) {
-            echo $ticket->getEvent(), $ticket->getType(), $ticket->getPrice() . "<br>";
+            echo "Event id: ".$ticket->getEvent()."<br> Ticket type: ". $ticket->getType(), "<br> Prijs: ".$ticket->getPrice(), "<br> Datum:  ".$date . "<br> <br>";
         }
 
     }
