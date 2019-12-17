@@ -1,17 +1,17 @@
 <?php
-class Cart extends Controller
-{
+class Cart extends Controller{
     public function __construct(){                
         // $this->tourRepo = $this->repo('TourRepository');
         // $this->tourModel = $this->model('Tour');      
         $this->cartitemRepo = $this->repo('CartItemRepository');
-        $this->cartitemModel = $this->model('CartItem');      
+        $this->cartitemModel = $this->model('CartItem');
+        $this->historicItemModel = $this->model('HistoricCartItem');      
     }
 
     public function index()
     {
         $cart_items = [];
-        // if session cart niet bestaat, maken
+        // if session cart doesn't exist, create it
         if(!isset($_SESSION['cart'])){
             $_SESSION['cart'] = array();
         }
@@ -22,26 +22,25 @@ class Cart extends Controller
                 array_push($ids, $id);
             }
             foreach ($ids as $id){
-                // is single niet leeg? dan single cart item aanmaken
+                // creating cart items for historic single tickets (if set)
                 if(!empty($_SESSION['cart'][$id]['historic_single_ticket'])){                    
                     $nSingle = $_SESSION['cart'][$id]['historic_single_ticket'];
                     $type = 'historic_single_ticket';
-                    $cart_item = $this->cartitemRepo->findById($id, $nSingle, $type);
+                    $cart_item = $this->cartitemRepo->findHistoric($id, $nSingle, $type);
                     $cart_items[] = $cart_item;
                 }                
-                // is fam niet leeg? dan fam cart item aanmaken
+                // creating cart items for historic family tickets (if set)
                 if(!empty($_SESSION['cart'][$id]['historic_fam_ticket'])){                    
                     $nFamily = $_SESSION['cart'][$id]['historic_fam_ticket'];
                     $type = 'historic_fam_ticket';
-                    $cart_item = $this->cartitemRepo->findById($id, $nFamily, $type);
+                    $cart_item = $this->cartitemRepo->findHistoric($id, $nFamily, $type);
                     $cart_items[] = $cart_item;
                 }
-                // fam cart item toevoegen aan array
-                // $singleTickets = $_SESSION['cart'][$id]['single_tickets'];
-                // $familyTickets = $_SESSION['cart'][$id]['family_tickets'];
+                // creating cart items for food tickets (if set)
 
-                // flash('ticketAdded_succes', 'Ticket(s) added to cart', 'alert alert-success');
-                //  redirect('historic/tour');, $type, $qty);
+
+                // creating cart items for dance tickets (if set)
+                
             }
             $data = [
                 'title' => 'Shopping Cart',
