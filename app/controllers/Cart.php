@@ -48,12 +48,11 @@ class Cart extends Controller
                 'cart_items' => $cart_items
             ];
             $this->view('pages/cart', $data);
-        }
-        // cartrepo opzetten
-        // foreach id in ids cartitems aanmaken (quantity komt uit session etc)
-        // cartitems doorgeven naar cart page
-           
-
+        }           
+        $data = [
+            'title' => 'Shopping Cart',
+            'cart_items' => $cart_items
+        ];
         $this->view('pages/cart');
     }
 }

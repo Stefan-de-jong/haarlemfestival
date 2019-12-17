@@ -54,9 +54,11 @@ require APPROOT . '/views/inc/header.php';
                 <td colspan="2" align="right">Verwijderen</td>
             </tr>
         </table>
+
+
+        <?php if(!empty($data['cart_items'])) : ?>
         ---------------------------------------------------------Test van
         Stefan-------------------------------------------------------------------------------------<br>
-
         <?php foreach($data['cart_items'] as $item) : ?>
 
         <table border="1">
@@ -67,8 +69,8 @@ require APPROOT . '/views/inc/header.php';
                 <td width="100px">
                     <select>
                         <?php for ($i=0; $i < 12; $i++) {                             
-                            echo '<option value="'.$i.'" '.(($i==$item->getAmount())?'selected="selected"':"").'>'.$i.'</option>';
-                        };?>
+                                            echo '<option value="'.$i.'" '.(($i==$item->getAmount())?'selected="selected"':"").'>'.$i.'</option>';
+                                        };?>
                     </select>
                 </td>
             </tr>
@@ -85,6 +87,10 @@ require APPROOT . '/views/inc/header.php';
         </table>
         <br>
         <?php endforeach; ?>
+        <?php endif; ?>
+
+
+
         <button style="float: right">Continue to order</button>
     </div>
 </div>
