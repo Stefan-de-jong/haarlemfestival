@@ -127,6 +127,8 @@
             }
 
             // Check is customer/email exists in db
+            // ToDo: Thijs -> of een 'login object' beter is hier, ivm verdere abstractie tussen app en db.
+            // ToDo: Mag zo laten, aanpassen kan.
             if($this->repo->findByEmail($data['email'])){
                 // Customer found
             } else{
@@ -166,6 +168,25 @@
             // Load view
             $this->view('customers/login', $data);
         }
+    }
+
+    public function forgotpassword(){
+        // ToDo: set up forgot password
+        // check for post
+
+        // POST
+            // sanitize input
+            // check for errors
+
+            // NO ERRORS
+                // process and send email with passrecovlink
+
+            // ERRORS
+                // load forgotpass form with error message
+
+        // NOT POST
+            // load forgotpass form
+
     }
 
     public function createCustomerSession($customer){

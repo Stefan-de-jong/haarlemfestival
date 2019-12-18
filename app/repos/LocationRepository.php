@@ -7,50 +7,46 @@
         }
 
         public function findById($id){
-            $this->db->query('SELECT * FROM location WHERE id = :id');
+            $this->db->query('SELECT * FROM tourlocation WHERE id = :id');
             $this->db->bind(':id', $id);
 
             $row = $this->db->single();
 
             return $row;
-        }  
-        
-        public function findByEmail($email){
-            $this->db->query('SELECT * FROM location WHERE email = :email');
-            $this->db->bind(':email', $email);
-
-            $row = $this->db->single();
-
-            return $row;
-        }   
-
-        public function login($email, $password){
-            $row = $this->findByEmail($email);
-            $hashed_password = $row->password;
-            if(password_verify($password, $hashed_password)){
-                return $row;
-            } else{
-                return false;
-            }
         }
 
         public function findAll(){ 
+            $locations = array();
             $this->db->query('SELECT *
-                                FROM location                                
+                                FROM tourlocation                                
                                 ');
-
             $results = $this->db->resultSet();
-
-            return $results;
+            foreach($results as $result){
+                $location = new Location($result->id, $result->name, $result->description);
+                // add urls to object
+                $this->db->query('SELECT url
+                                    FROM photo
+                                    JOIN linked_photo
+                                    ON linked_photo.linked_id = :resultId
+                                    WHERE id = photo_id                                
+                                    ');
+                $this->db->bind(':resultId', $result->id);
+                $urls = $this->db->resultSet();
+                if($this->db->rowCount() > 0){
+                    $location->setURL1($urls[0]->url);
+                    $location->setURL2($urls[1]->url);
+                }
+                array_push($locations, $location);
+            }
+            return $locations;
         }
 
-        public function save(location $location){
-            $this->db->query('INSERT INTO location (first_name, last_name, email, password) VALUES (:firstname, :lastname, :email, :password)');
+
+        public function save(Location $location){
+            $this->db->query('INSERT INTO tourlocation (name, description) VALUES (:name, :description)');
             // Bind values
-            $this->db->bind(':firstname', $location->getFirstname());
-            $this->db->bind(':lastname', $location->getLastname());
-            $this->db->bind(':email', $location->getEmail());
-            $this->db->bind(':password', $location->getPassword());
+            $this->db->bind(':name', $location->getName());
+            $this->db->bind(':description', $location->getDescription());
             // Execute statement
             if($this->db->execute()){
                 return true;
@@ -59,13 +55,13 @@
             }
         }
 
-        public function update(location $location){
-            $this->db->query('UPDATE location SET first_name = :firstname, last_name = :lastname, email = :email WHERE id = :id');
+        public function update(Location $location){
+            $this->db->query('UPDATE tourlocation SET name = :name, description = :description WHERE id = :id');
             // Bind values
-            $this->db->bind(':id', $location->getId());
-            $this->db->bind(':firstname', $location->getFirstname());
-            $this->db->bind(':lastname', $location->getLastname());
-            $this->db->bind(':email', $location->getEmail());
+            $this->db->bind(':id', $tourlocation->getId());
+            $this->db->bind(':name', $tourlocation->getName());
+            $this->db->bind(':description', $tourlocation->getDescription());
+
             // Execute statement
             if($this->db->execute()){
                 return true;
@@ -74,18 +70,16 @@
             }
         }
 
-        public function remove(location $location){
-            $this->db->query('DELETE from location WHERE id = :id');
+        public function remove(Customer $tourlocation){
+            $this->db->query('DELETE from tourlocation WHERE id = :id');
             // Bind values
-            $this->db->bind(':id', $location->getId());
+            $this->db->bind(':id', $tourlocation->getId());
             // Execute statement
             if($this->db->execute()){
                 return true;
             } else {
                 return false;
             }
-        }
-
-     
+        } 
     }
 ?>
