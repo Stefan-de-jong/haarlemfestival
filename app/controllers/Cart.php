@@ -5,7 +5,8 @@ class Cart extends Controller{
         // $this->tourModel = $this->model('Tour');      
         $this->cartitemRepo = $this->repo('CartItemRepository');
         $this->cartitemModel = $this->model('CartItem');
-        $this->historicItemModel = $this->model('HistoricCartItem');      
+        $this->historicItemModel = $this->model('HistoricCartItem');
+        $this->foodModel = $this->model('FoodCartItem');
     }
 
     public function index()
@@ -36,11 +37,24 @@ class Cart extends Controller{
                     $cart_item = $this->cartitemRepo->findHistoric($id, $nFamily, $type);
                     $cart_items[] = $cart_item;
                 }
-                // creating cart items for food tickets (if set)
 
-
+                //Food regular
+                if(!empty($_SESSION['cart'][$id]['food_regular_ticket'])){
+                    $regular_tickets = $_SESSION['cart'][$id]['food_regular_ticket'];
+                    $request = $_SESSION['cart'][$id]['food_request'];
+                    $type = 'food_regular';
+                    $cart_item = $this->cartitemRepo->findFood($id, $regular_tickets, $type, $request);
+                    $cart_items[] = $cart_item;
+                }
+                //food kids
+                if(!empty($_SESSION['cart'][$id]['food_kids_ticket'])){
+                    $kids_tickets = $_SESSION['cart'][$id]['food_kids_ticket'];
+                    $request = $_SESSION['cart'][$id]['food_request'];
+                    $type = 'food_kids';
+                    $cart_item = $this->cartitemRepo->findFood($id, $kids_tickets, $type, $request);
+                    $cart_items[] = $cart_item;
+                }
                 // creating cart items for dance tickets (if set)
-                
             }
             $data = [
                 'title' => 'Shopping Cart',

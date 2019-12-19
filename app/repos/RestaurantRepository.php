@@ -9,18 +9,32 @@ class RestaurantRepository
     public function findAllRestaurants(){
         try {
             $restaurants = array();
-            $this->db->query('SELECT * FROM `restaurant` 
-                            JOIN photo
-                            ON photo.id = restaurant.rest_img');
+            $this->db->query('SELECT *, restaurant.id as rest_id FROM `restaurant` JOIN photo ON photo.id = restaurant.rest_img ');
 
             $results = $this->db->resultSet();
 
             foreach ($results as $result)
             {
-                $restaurant = new Restaurant($result->id, $result->name, $result->info_page, $result->kitchen1, $result->kitchen2, $result->stars, $result->price, $result->address, $result->url);
+                $restaurant = new Restaurant($result->rest_id, $result->name, $result->info_page, $result->kitchen1, $result->kitchen2, $result->stars, $result->price, $result->address, $result->url);
                 array_push($restaurants, $restaurant);
             }
             return $restaurants;
+        }
+        catch (Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
+        }
+    }
+
+    public function findRestaurantById($id)
+    {
+        try {
+            $this->db->query('SELECT * FROM `restaurant` where id ='. $id);
+            //$this->db->bind(':id', $id);
+            $this->db->execute();
+            if($this->db->rowCount() == 0)
+                return false;
+            else
+                return true;
         }
         catch (Exception $e) {
             echo 'Caught exception: ',  $e->getMessage(), "\n";
@@ -31,7 +45,7 @@ class RestaurantRepository
     {
         try {
             $restaurants = array();
-            $this->db->query('SELECT * FROM `restaurant` 
+            $this->db->query('SELECT *, restaurant.id as rest_id FROM `restaurant` 
                             JOIN photo
                             ON photo.id = restaurant.rest_img
                                 WHERE kitchen1 =:kitchen OR
@@ -42,7 +56,7 @@ class RestaurantRepository
 
             foreach ($results as $result)
             {
-                $restaurant = new Restaurant($result->id, $result->name, $result->info_page, $result->kitchen1, $result->kitchen2, $result->stars, $result->price, $result->address, $result->url);
+                $restaurant = new Restaurant($result->rest_id, $result->name, $result->info_page, $result->kitchen1, $result->kitchen2, $result->stars, $result->price, $result->address, $result->url);
                 array_push($restaurants, $restaurant);
             }
             return $restaurants;
@@ -86,7 +100,7 @@ class RestaurantRepository
             foreach ($results as $result)
             {
                 //$id, $date, $begin_time, $end_time, $event_type, $price, $n_tickets, $restaurant, $session
-                $event = new FoodEvent($result->id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->price, $result->n_tickets, $result->restaurant, $result->session);
+                $event = new FoodEvent($result->id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->n_tickets, $result->restaurant, $result->session);
                 array_push($events, $event);
             }
 
@@ -112,7 +126,7 @@ class RestaurantRepository
 
             $result = $this->db->single();
 
-            $event = new FoodEvent($result->id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->price, $result->n_tickets, $result->restaurant, $result->session);
+            $event = new FoodEvent($result->id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->n_tickets, $result->restaurant, $result->session);
 
             return $event;
         }
