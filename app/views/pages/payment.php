@@ -1,5 +1,6 @@
 <?php
 require APPROOT . '/views/inc/header.php';
+$data['total'] = 0;
 ?>
 
     <div class="payment_body">
@@ -44,24 +45,37 @@ require APPROOT . '/views/inc/header.php';
                 <h3>❸ Check your order and pay</h3>
                 <hr style="background-color: white">
 
-
+<div style="overflow: scroll; height: 600px">
                 <?php if(!empty($data['cart_items'])) : ?>
                     <?php foreach($data['cart_items'] as $item) : ?>
                         <?php if($item->getEventType() == 'Haarlem Food') : ?>
+                            <img height="50px" width="50px"src="<?php echo URLROOT; ?>/img/food.jpg">
                             <?php   $date = date_create($item->getDate());
                             $time = date_create($item->getTime());
-                            echo $item->getEventType(). ", <br>".
-                                $item->getTicketType(). ", <br>".
-                                $item->getAmount(). ", <br>".
-                                $item->getRestName(). ", <br>".
-                                $item->getPrice() . ', <br>'.
-                                $item->getRequest()
+                            echo $item->getEventType(). "<br> ".
+                                $item->getRestName(). ", <br> Request: ".
+                                $item->getRequest() . '<br> Ticket type: '.
+                                $item->getTicketType(). "<br> amount: ".
+                                $item->getAmount(). ", price: ".
+                                ($item->getPrice() * $item->getAmount()). ' <br><br>';
+                            $data['total'] += $item->getPrice() * $item->getAmount();
                             ?>
                         <?php endif; ?>
+
+                        <?php if($item->getEventType() == 'Haarlem Dance') : ?>
+                            <img height="50px" width="50px"src="<?php echo URLROOT; ?>/img/dance.jpg">
+
+                        <?php endif; ?>
+
+                        <?php if($item->getEventType() == 'Haarlem Historic') : ?>
+                            <img height="50px" width="50px"src="<?php echo URLROOT; ?>/img/historic.jpg">
+                        <?php endif; ?>
+
                     <?php endforeach; ?>
                 <?php endif; ?>
-
-
+</div>
+                Total: € <?php echo $data['total'];?><br>
+                <button style="width: 100px; float: right; margin-right: 125px">Pay</button>
             </div>
         </div>
     </div>

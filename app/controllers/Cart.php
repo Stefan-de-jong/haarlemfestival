@@ -11,6 +11,16 @@ class Cart extends Controller{
 
     public function index()
     {
+        $this->getCartItems('cart');
+    }
+
+    public function payment()
+    {
+        $this->getCartItems('payment');
+    }
+
+    private function getCartItems($page)
+    {
         $this->cart_items = [];
         // if session cart doesn't exist, create it
         if(!isset($_SESSION['cart'])){
@@ -24,14 +34,14 @@ class Cart extends Controller{
             }
             foreach ($ids as $id){
                 // creating cart items for historic single tickets (if set)
-                if(!empty($_SESSION['cart'][$id]['historic_single_ticket'])){                    
+                if(!empty($_SESSION['cart'][$id]['historic_single_ticket'])){
                     $nSingle = $_SESSION['cart'][$id]['historic_single_ticket'];
                     $type = 'historic_single_ticket';
                     $cart_item = $this->cartitemRepo->findHistoric($id, $nSingle, $type);
                     $cart_items[] = $cart_item;
-                }                
+                }
                 // creating cart items for historic family tickets (if set)
-                if(!empty($_SESSION['cart'][$id]['historic_fam_ticket'])){                    
+                if(!empty($_SESSION['cart'][$id]['historic_fam_ticket'])){
                     $nFamily = $_SESSION['cart'][$id]['historic_fam_ticket'];
                     $type = 'historic_fam_ticket';
                     $cart_item = $this->cartitemRepo->findHistoric($id, $nFamily, $type);
@@ -54,23 +64,18 @@ class Cart extends Controller{
                     $cart_item = $this->cartitemRepo->findFood($id, $kids_tickets, $type, $request);
                     $cart_items[] = $cart_item;
                 }
+
                 // creating cart items for dance tickets (if set)
+                //dance
+                //dance
+                //dance
             }
             $data = [
                 'title' => 'Shopping Cart',
                 'cart_items' => $cart_items
             ];
-            $this->view('pages/cart', $data);
+            $this->view('pages/'.$page, $data);
         }
-        $this->view('pages/cart');
-    }
-
-    public function payment()
-    {
-        $data = [
-            'title' => 'Shopping Cart',
-        ];
-        $this->view('pages/payment', $data);
     }
 }
 ?>
