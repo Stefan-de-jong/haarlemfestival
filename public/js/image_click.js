@@ -1,76 +1,54 @@
-var nr = document.getElementById('nr');
-var aj = document.getElementById('aj');
-var hw = document.getElementById('hw');
-var avb = document.getElementById('avb');
-var mx = document.getElementById('mx');
-var t = document.getElementById('t');
 var pnl = document.getElementById("pnl");
-var back = document.getElementById('back');
-var currentpic;
+pics = [];
+var content;
 
-nr.onclick = function setCurrentPicNr(){ //set clicked picture as the current picture, then execute the function ChangeContent to hide elements and show the panel
-currentpic = nr;
-changeContent();
+function loadPanel(id){ //set clicked picture as the current picture, then execute the function ChangeContent to hide elements and show the panel
+getPics();
+console.log(id);
 $(pnl).ready(function(){
-$(pnl).load("../public/inc/dance/load_nr.php");
+sendIDWithAjax(id);
+$(pnl).show();
 });
 }
 
-aj.onclick = function setCurrentPicAj(){
-  currentpic = aj;
-  changeContent();
-  $(pnl).ready(function(){
-  $(pnl).load("../public/inc/dance/load_aj.php");
-  });
-}
+function sendIDWithAjax(id)
+{
+    $(document).ready(function(){
 
-hw.onclick = function setCurrentPicHw(){
-currentpic = hw;
-changeContent();
-$(pnl).ready(function(){
-$(pnl).load("../public/inc/dance/load_hw.php");
+              $.ajax({
+                type: 'POST',
+                url: '../public/inc/dance/panel.php',
+                data: {panelid:id},
+                success: function(response) {
+                  $(pnl).append(response)
+                  content = response;
+                }
+            });
 });
 }
 
-avb.onclick = function setCurrentPicAvb(){
-currentpic = avb;
-changeContent();
-$(pnl).ready(function(){
-$(pnl).load("../public/inc/dance/load_avb.php");
-});
+function showPics(pics)
+{
+for (p in pics)
+{
+pics[p].style.display = "block";
+}
 }
 
-mx.onclick = function setCurrentPicMx(){
-currentpic = mx;
-changeContent();
-$(pnl).ready(function(){
-$(pnl).load("../public/inc/dance/load_mx.php");
-});
+function getPics(){
+for (i = 0; i < piccount; i++)
+{
+var pic = document.getElementById('pic' + (i+1));
+hidePic(pic);
+pics.push(pic); 
+}
 }
 
-t.onclick = function setCurrentPicT(){
-currentpic = t;
-changeContent();
-$(pnl).ready(function(){
-$(pnl).load("../public/inc/dance/load_t.php");
-});
-}
-
-function changeContent() { //makes the panel show up, and the selection images hidden
-nr.style.display = 'none';
-t.style.display = 'none';
-aj.style.display = 'none';
-hw.style.display = 'none';
-avb.style.display = 'none';
-mx.style.display = 'none';
-if (pnl.style.display == "none") {
-    pnl.style.display = "block";
-} else {
-    pnl.style.display = "none";
-}
+function hidePic(pic)
+{
+pic.style.display = 'none';
 }
 
 window.onload = function() {
-document.getElementById('pnl').style.display = 'none';
-var row = [];
+$(pnl).hide();
 };

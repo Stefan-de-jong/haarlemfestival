@@ -15,6 +15,7 @@ $dance = array(
     $styles
 );
 $_SESSION["dance"] = $dance;
+$pic_count = 0;
 ?>
     <section id="bg-image" style="position: absolute;"><img src="<?php echo URLROOT; ?>/img/dance/bg-left.png" style="position: absolute;"><img style="position: absolute;margin-left: 1539px;" src="<?php echo URLROOT; ?>/img/dance/bg-right.png"></section>
     <section class="text-left" id="main-content" style="position: absolute;background-color: rgb(255,104,104);width: 1156px;height: 979px;margin-left: 384px;">
@@ -26,12 +27,12 @@ $_SESSION["dance"] = $dance;
         <h4 class="text-center">Click an artist to view information and tickets.
         <br></h4>
         <section class="text-center"></section>
-        <img id="t" src="<?php echo URLROOT; ?>/img/dance/tiesto.png" style="position: absolute;margin-left: 578px;width: 578px;">
-        <img id="nr" src="<?php echo URLROOT; ?>/img/dance/Nicky%20Romoro.png" style="position: absolute;width: 578px;">
-        <img id="aj" src="<?php echo URLROOT; ?>/img/dance/afrojack.png" style="position: absolute;width: 578px;margin-top: 250.859px;">
-        <img id="hw" src="<?php echo URLROOT; ?>/img/dance/hardwell.png" style="position: absolute;background-color: rgb(255,104,104);width: 578px;height: 250.859px;margin-left: 578px;margin-top: 250.859px;">
-        <img id="avb" src="<?php echo URLROOT; ?>/img/dance/armin.png" style="position: absolute;width: 578px;margin-top: 501.718px;">
-        <img id="mx" src="<?php echo URLROOT; ?>/img/dance/martin.png" style="position: absolute;width: 578px;margin-top: 501.718px;margin-left: 578px;">
+        <img id="pic1" src="<?php echo URLROOT; $pic_count++; ?>/img/dance/tiesto.png" style="position: absolute;margin-left: 578px;width: 578px;" onclick = "loadPanel(1)">
+        <img id="pic2" src="<?php echo URLROOT; $pic_count++; ?>/img/dance/Nicky%20Romoro.png" style="position: absolute;width: 578px;" onclick = "loadPanel(2)">
+        <img id="pic3" src="<?php echo URLROOT; $pic_count++; ?>/img/dance/afrojack.png" style="position: absolute;width: 578px;margin-top: 250.859px;" onclick = "loadPanel(3)">
+        <img id="pic4" src="<?php echo URLROOT; $pic_count++;?>/img/dance/hardwell.png" style="position: absolute;background-color: rgb(255,104,104);width: 578px;height: 250.859px;margin-left: 578px;margin-top: 250.859px;" onclick = "loadPanel(4)">
+        <img id="pic5" src="<?php echo URLROOT; $pic_count++; ?>/img/dance/armin.png" style="position: absolute;width: 578px;margin-top: 501.718px;" onclick = "loadPanel(5)">
+        <img id="pic6" src="<?php echo URLROOT; $pic_count++; ?>/img/dance/martin.png" style="position: absolute;width: 578px;margin-top: 501.718px;margin-left: 578px;" onclick = "loadPanel(6)">
             <div class="container text-left visible" id="pnl" style="width: 1152px;height: 750px;display: block;margin-left: 50px;margin-right: 0px;">
     </section>
     <section>
@@ -50,3 +51,4 @@ $_SESSION["dance"] = $dance;
 </div><button class="btn btn-primary" type="button" style="position: absolute;margin-top: 889px;margin-left: 1210px;height: 50px;">BUY ALL ACCESS-PASS</button>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 <script src="<?php echo URLROOT; ?>/js/image_click.js"></script>
+<script> var piccount = '<?php echo $pic_count?>'</script>

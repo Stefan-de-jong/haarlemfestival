@@ -1,21 +1,12 @@
 var id = 0;
 var quantity = 0;
 var pay = 0;
+var info = document.getElementById('artistinfo');
 
 var back = document.getElementById('back');
 back.onclick = function goBack(){ //when someone presses the back button hide the panel
-nr.style.display = 'block';
-t.style.display = 'block';
-aj.style.display = 'block';
-hw.style.display = 'block';
-avb.style.display = 'block';
-mx.style.display = 'block';
-if (pnl.style.display == "block") {
-pnl.style.display = "none";
-} else {
-pnl.style.display = "block";
-}
-row.length = 0;
+showPics(pics);
+hidePanel();
 }
 
 window.onload = getAmountOfRows(); //count the amount of rows on window load
@@ -36,6 +27,12 @@ initButtons(i);
 }
 }
 
+function hidePanel() {
+    $(pnl).hide();
+    $(pnl).empty(content);
+    }
+
+    
 function initButtons(number){ //for every dropdown make sure that if the selection of the dropdown is changed a warning is returned if necessary
 
 var amount = document.getElementById('q' + number).innerHTML;
