@@ -116,9 +116,7 @@ require APPROOT . '/views/inc/header.php';
         <?php endforeach; ?>
         <?php endif; ?>
 
-
-
-        <button style="float: right">Continue to order</button>
+        <button onclick="window.location.href='<?php echo URLROOT;?>/cart/payment'" style="float: right">Continue to order</button>
     </div>
 </div>
 

@@ -1,6 +1,6 @@
 <?php
 class Cart extends Controller{
-    public function __construct(){                
+    public function __construct(){
         // $this->tourRepo = $this->repo('TourRepository');
         // $this->tourModel = $this->model('Tour');      
         $this->cartitemRepo = $this->repo('CartItemRepository');
@@ -11,7 +11,7 @@ class Cart extends Controller{
 
     public function index()
     {
-        $cart_items = [];
+        $this->cart_items = [];
         // if session cart doesn't exist, create it
         if(!isset($_SESSION['cart'])){
             $_SESSION['cart'] = array();
@@ -61,13 +61,16 @@ class Cart extends Controller{
                 'cart_items' => $cart_items
             ];
             $this->view('pages/cart', $data);
-        }           
-        $data = [
-            'title' => 'Shopping Cart',
-            'cart_items' => $cart_items
-        ];
+        }
         $this->view('pages/cart');
     }
-}
 
+    public function payment()
+    {
+        $data = [
+            'title' => 'Shopping Cart',
+        ];
+        $this->view('pages/payment', $data);
+    }
+}
 ?>
