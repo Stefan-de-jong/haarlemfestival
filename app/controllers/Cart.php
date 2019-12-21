@@ -76,6 +76,7 @@ class Cart extends Controller{
             ];
             $this->view('pages/'.$page, $data);
         }
+        $this->view('pages/'.$page);
     }
 }
 ?>
