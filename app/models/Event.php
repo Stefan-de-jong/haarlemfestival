@@ -6,7 +6,6 @@ class Event
     public $begin_time;
     public $end_time;
     public $event_type;
-    public $price;
     public $n_tickets;
 
     /**
@@ -19,14 +18,13 @@ class Event
      * @param $price
      * @param $n_tickets
      */
-    public function __construct($id, $date, $begin_time, $end_time, $event_type, $price, $n_tickets)
+    public function __construct($id, $date, $begin_time, $end_time, $event_type, $n_tickets)
     {
         $this->id = $id;
         $this->date = $date;
         $this->begin_time = $begin_time;
         $this->end_time = $end_time;
         $this->event_type = $event_type;
-        $this->price = $price;
         $this->n_tickets = $n_tickets;
     }
 
@@ -70,13 +68,6 @@ class Event
         return $this->event_type;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
 
     /**
      * @return mixed

@@ -31,8 +31,29 @@
             return $cartItem;
         }
         
-        public function findFood(){
+        public function findFood($id, $amount, $ticket_type, $request){
+            $this->db->query('SELECT * 
+                                FROM event                                
+                                JOIN foodevent
+                                ON foodevent.id = event.id  
+                                JOIN restaurant
+                                ON restaurant.id = foodevent.restaurant
+                                WHERE event_type = :event_type
+                                AND event.id = :id
+                                ');
+            $this->db->bind(':event_type', 2);
+            $this->db->bind(':id', $id);
+            $event = $this->db->single();
 
+            $this->db->query('SELECT *
+                                FROM tickettype
+                                WHERE name = :ticket_type
+                                ');
+            $this->db->bind(':ticket_type', $ticket_type);
+            $ticket = $this->db->single();
+
+            $cartItem = new FoodCartItem($event->id, $event->event_type, $ticket_type, $amount, $event->date, $event->begin_time, $ticket->price, $request, $event->name);
+            return $cartItem;
         }
 
         public function findDance(){

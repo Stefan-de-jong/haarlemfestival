@@ -10,9 +10,9 @@ class FoodEvent extends Event
      * @param $restaurant
      * @param $session
      */
-    public function __construct($id, $date, $begin_time, $end_time, $event_type, $price, $n_tickets, $restaurant, $session)
+    public function __construct($id, $date, $begin_time, $end_time, $event_type, $n_tickets, $restaurant, $session)
     {
-        parent::__construct($id, $date, $begin_time, $end_time, $event_type, $price, $n_tickets);
+        parent::__construct($id, $date, $begin_time, $end_time, $event_type, $n_tickets);
         $this->restaurant = $restaurant;
         $this->session = $session;
     }

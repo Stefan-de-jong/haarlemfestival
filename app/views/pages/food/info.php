@@ -5,12 +5,12 @@ $page = $data['page'];?>
 
 <div id="food_body">
   <div class="food_container">
+      <div class="food_errorMessage"><?php echo $data['error_message']; ?></div>
     <div class="food_breadcrums"><a href="<?php echo URLROOT;?>">Home </a> >  <a href="<?php echo URLROOT;?>/food/index">Restaurant overview </a> > Info & reservate</div>
     <article>
       <img class="rest_img" src="<?php echo URLROOT.$page->url; ?>">
 <?php
   echo $page->html;
-
 ?>
         <br>
         <button onclick="toggleReservationPanel()">Make your reservation</button>
@@ -94,7 +94,7 @@ $page = $data['page'];?>
   <input name = "childTickets" type="number" value="0" min="0"><br>
   <br>
   Special request? (allergies, wheelchair etc.)
-  <textarea name="specialRequest"></textarea>
+  <textarea maxlength="55" name="specialRequest"></textarea>
 <br>
   <button style="margin-left: 75px">Add to favorites</button>
   <button type="submit"  style="margin-left: 150px">Add to cart</button>
