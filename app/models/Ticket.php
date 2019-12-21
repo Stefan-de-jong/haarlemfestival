@@ -1,32 +1,36 @@
 <?php
 class Ticket
 {
-    public $id; // In DB after sale
-    public $eventId; 
-    public $price;    
-    public $buyer_email; // In DB after sale
+    public $id;
+    public $event;
+    public $type;
+    public $price;
+    public $buyer_email;
 
-
-    public function __construct($eventId)
+    public function __construct($event, $type, $price)
     {
-        $this->eventId = $eventId;        
+        $this->event = $event;
+        $this->type = $type;
+        $this->price = $price;
     }
+
 
     public function getId()
     {
         return $this->id;
     }
-
-    public function getEventId()
+    public function getEvent()
     {
-        return $this->eventId();
+        return $this->event;
     }
-
-    public function getTicketType()
+    public function getType()
     {
-        return $this->ticket_type;
+        return $this->type;
     }
-
+    public function getPrice()
+    {
+        return $this->price;
+    }
     public function getBuyerEmail()
     {
         return $this->buyer_email;
