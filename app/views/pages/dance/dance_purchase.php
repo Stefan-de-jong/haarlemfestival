@@ -27,28 +27,38 @@ $pic_count = 0;
         <h4 class="text-center">Click an artist to view information and tickets.
         <br></h4>
         <section class="text-center"></section>
-        <img id="pic1" src="<?php echo URLROOT; $pic_count++; ?>/img/dance/tiesto.png" style="position: absolute;margin-left: 578px;width: 578px;" onclick = "loadPanel(1)">
-        <img id="pic2" src="<?php echo URLROOT; $pic_count++; ?>/img/dance/Nicky%20Romoro.png" style="position: absolute;width: 578px;" onclick = "loadPanel(2)">
-        <img id="pic3" src="<?php echo URLROOT; $pic_count++; ?>/img/dance/afrojack.png" style="position: absolute;width: 578px;margin-top: 250.859px;" onclick = "loadPanel(3)">
-        <img id="pic4" src="<?php echo URLROOT; $pic_count++;?>/img/dance/hardwell.png" style="position: absolute;background-color: rgb(255,104,104);width: 578px;height: 250.859px;margin-left: 578px;margin-top: 250.859px;" onclick = "loadPanel(4)">
-        <img id="pic5" src="<?php echo URLROOT; $pic_count++; ?>/img/dance/armin.png" style="position: absolute;width: 578px;margin-top: 501.718px;" onclick = "loadPanel(5)">
-        <img id="pic6" src="<?php echo URLROOT; $pic_count++; ?>/img/dance/martin.png" style="position: absolute;width: 578px;margin-top: 501.718px;margin-left: 578px;" onclick = "loadPanel(6)">
-            <div class="container text-left visible" id="pnl" style="width: 1152px;height: 750px;display: block;margin-left: 50px;margin-right: 0px;">
+        <?php $x = 0; $y = 0; $count = 0; $rows_2_photos = 0;?>
+        <?php foreach ($data['artists'] as $artist) :?>
+        <?php $rows_2_photos = intval($count / 2);
+        $x = 250.86 * $rows_2_photos; ?>
+        <img id="pic<?php echo $artist->getId();?>" src="<?php echo URLROOT; ?>/img/dance/<?php echo $artist->getId();?>.png" style="position: absolute; width: 578px; margin-top: <?php echo $x ?>px; margin-left: <?php echo $y ?>px;" onclick = "loadPanel(<?php echo $artist->getId();?>)"> <?php $count++; ?>
+        <?php
+        if ($y == 0)
+        {$y = 578;}
+        else
+        {$y = 0;}
+        ?>
+         <?php endforeach; ?>
+            <div class="container text-left visible" id="pnl" style="width: 1152px;height: 750px;display: block;margin-left: 50px; margin-right: 0px;">
+    </section>
+    <?php echo $rows_2_photos; ?>
+    <?php $adjustment = $rows_2_photos - 3; if ($adjustment < 1) {$pxadjustment = 124 + ($adjustment * 250.86);} else {$pxadjustment = $adjustment * 250.86;}?>
+    <section style = "background-color: rgb(255,104,104); padding-left: 200px; padding-right: 578px; padding-top:<?php echo $pxadjustment; ?>px; padding-bottom:<?php echo $pxadjustment?>px; margin-top: 979px; position: block;">
     </section>
     <section>
-        <h1 style="position: absolute;width: 400px;margin-top: 890px;margin-left: 400px;">ALL-ACCESS PASS</h1>
+        <h1 style="position: relative;width: 400px; margin-top:-100px;margin-left: 400px;">ALL-ACCESS PASS</h1>
     </section>
-    <p style="position: absolute;margin-top: 884px;margin-left: 754px;width: 250px;">Get access to all venues!<br>Select a day:</p><div id=dropdown>
+    <p style="position: relative;margin-top: -50px;margin-left: 754px;width: 250px;">Get access to all venues!<br>Select a day:</p><div id=dropdown>
 <div id=dal>
-<dropdown>
-    <select>
+<dropdown style = "margin-left: 950px; margin-top: -57px; position: absolute;">
+    <select style = "padding: 7.5px;">
       <option value="fri">Friday</option>
       <option value="sat">Saturday</option>
       <option value="sun">Sunday</option>
     </select>
 </dropdown>
 </div>
-</div><button class="btn btn-primary" type="button" style="position: absolute;margin-top: 889px;margin-left: 1210px;height: 50px;">BUY ALL ACCESS-PASS</button>
+</div><button class="btn btn-primary" type="button" style="position: relative;margin-top: -105px;margin-left: 1100px;height: 50px;">BUY ALL ACCESS-PASS</button>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 <script src="<?php echo URLROOT; ?>/js/image_click.js"></script>
-<script> var piccount = '<?php echo $pic_count?>'</script>
+<script> var piccount = '<?php echo $count?>'</script>

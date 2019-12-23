@@ -4,7 +4,6 @@ var content;
 
 function loadPanel(id){ //set clicked picture as the current picture, then execute the function ChangeContent to hide elements and show the panel
 getPics();
-console.log(id);
 $(pnl).ready(function(){
 sendIDWithAjax(id);
 $(pnl).show();

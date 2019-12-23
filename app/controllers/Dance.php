@@ -14,8 +14,6 @@ class Dance extends Controller{
         $eventdata = $this->DanceRepository->getEventData();
         $venues = $this->DanceRepository->getVenues();
         $styles = $this->DanceRepository->getStyles();
-        
-        Artist = new Artist($artists->id, $artists->name, $artists->bio, $artist->style);
       
         $data =[
             'title' => 'dance purchase',

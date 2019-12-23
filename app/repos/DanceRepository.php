@@ -17,7 +17,13 @@ class DanceRepository{
         FROM artist'
         );
        $results = $this->db->resultSet();
-       return $results;
+       $artists = array();
+       foreach ($results as $result)
+       {
+       $artist = new Artist($result->id, $result->name, $result->bio, $result->style);
+       array_push($artists, $artist);
+       }
+       return $artists;
     }
 
     public function getAllEvents(){ //gets all events
