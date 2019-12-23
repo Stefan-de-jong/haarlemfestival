@@ -58,9 +58,9 @@ require APPROOT . '/views/inc/header.php';
                             //voor iedere kolom (tijden 10u tot 24u) wordt er gekeken is er een event???-> geeft de goede datum en een tijd mee
                         for ($i = 1; $i < 16; $i++)
                         {
-                            $danceEvent = "dance event dag 1";//TO DO maak getter voor event met datum en tijd en return een div met daarin data over event ->zie food
-                            $foodEvent = getFoodEvent($data['foodEvent'], "2020-07-26", ($i + 9));
-                            $historicEvent = "Historic event dag 1";//TO DOmaak getter voor event met datum en tijd en return een div met daarin data over event ->zie food
+                            $danceEvent = "dance event dag 1";//      get($data['danceEvent'], "2020-07-26", ($i+9));   //TO DO maak getter voor event met datum en tijd en return een div met daarin data over event ->zie food
+                            $foodEvent = getEvent($data['foodEvent'], "2020-07-26", ($i + 9));
+                            $historicEvent = "Historic event dag 1";// get($data['historicEvent'], "2020-07-26", ($i+9));  //TO DOmaak getter voor event met datum en tijd en return een div met daarin data over event ->zie food
 
                             //voor de kolom het mogelijk opgehaalde event tonen.
                             ?>table.rows[1].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";<?php
@@ -74,7 +74,7 @@ require APPROOT . '/views/inc/header.php';
                         for ($i = 1; $i < 16; $i++)
                         {
                             $danceEvent = "dance event dag 2";
-                            $foodEvent = getFoodEvent($data['foodEvent'], "2020-07-27", ($i + 9));
+                            $foodEvent = getEvent($data['foodEvent'], "2020-07-27", ($i + 9));
                             $historicEvent = "Historic event dag 2";
 
                             ?>table.rows[1].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";<?php
@@ -88,7 +88,7 @@ require APPROOT . '/views/inc/header.php';
                         for ($i = 1; $i < 16; $i++)
                         {
                             $danceEvent = "dance event dag 3";
-                            $foodEvent = getFoodEvent($data['foodEvent'], "2020-07-28", ($i + 9));
+                            $foodEvent = getEvent($data['foodEvent'], "2020-07-28", ($i + 9));
                             $historicEvent = "Historic event dag 3";
 
                             ?>table.rows[1].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";<?php
@@ -102,7 +102,7 @@ require APPROOT . '/views/inc/header.php';
                         for ($i = 1; $i < 16; $i++)
                         {
                             $danceEvent = "dance event dag 4";
-                            $foodEvent = getFoodEvent($data['foodEvent'], "2020-07-29", ($i + 9));
+                            $foodEvent = getEvent($data['foodEvent'], "2020-07-29", ($i + 9));
                             $historicEvent = "Historic event dag 4";
 
                             ?>table.rows[1].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";<?php
@@ -120,7 +120,7 @@ require APPROOT . '/views/inc/header.php';
 
 <?php require APPROOT . '/views/inc/footer.php';
 
-function getFoodEvent($events, $date, $time)
+function getEvent($events, $date, $time)
 {
     //array om alle opgehaalde event in op te slaan.
     $eventsToShow = array();
@@ -129,15 +129,41 @@ function getFoodEvent($events, $date, $time)
         //kijken of er een event begint op het tijdstip
         if ($event->getDate() == $date && ($event->getBeginTime() == $time.":00:00"|| $event->getBeginTime() == $time.":30:00" ))
         {
-            //maak een div voor het event
-            $eventToShow = getFoodShowDiv($event, "START");
+            switch ($event->getEventType())
+            {
+                case "1";
+                    //dance make div
+                    break;
+                case "2";
+                    $eventToShow = getFoodShowDiv($event, "START");
+                    break;
+                case "3":
+                    //historic make div
+                    break;
+                    case "4";
+                    //not implemented
+                    break;
+            }
             array_push($eventsToShow, $eventToShow);
         }
         //kijken of er een event eindigd op het tijdstip
         if ($event->getDate() == $date && ($event->getEndTime() == $time.":00:00"|| $event->getEndTime() == $time.":30:00" ))
         {
-            //maak div voor het event
-            $eventToShow = getFoodShowDiv($event, "END");
+            switch ($event->getEventType())
+            {
+                case "1";
+                    //dance make div
+                    break;
+                case "2";
+                    $eventToShow = getFoodShowDiv($event, "END");
+                    break;
+                case "3":
+                    //historic make div
+                    break;
+                case "4";
+                    //not implemented
+                    break;
+            }
             array_push($eventsToShow, $eventToShow);
         }
     }
