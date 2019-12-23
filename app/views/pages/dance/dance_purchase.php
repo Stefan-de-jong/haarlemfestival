@@ -41,7 +41,6 @@ $pic_count = 0;
          <?php endforeach; ?>
             <div class="container text-left visible" id="pnl" style="width: 1152px;height: 750px;display: block;margin-left: 50px; margin-right: 0px;">
     </section>
-    <?php echo $rows_2_photos; ?>
     <?php $adjustment = $rows_2_photos - 3; if ($adjustment < 1) {$pxadjustment = 124 + ($adjustment * 250.86);} else {$pxadjustment = $adjustment * 250.86;}?>
     <section style = "background-color: rgb(255,104,104); padding-left: 200px; padding-right: 578px; padding-top:<?php echo $pxadjustment; ?>px; padding-bottom:<?php echo $pxadjustment?>px; margin-top: 979px; position: block;">
     </section>
