@@ -6,6 +6,7 @@ var info = document.getElementById('artistinfo');
 var back = document.getElementById('back');
 back.onclick = function goBack(){ //when someone presses the back button hide the panel
 showPics(pics);
+showPicturePadding();
 hidePanel();
 }
 
@@ -87,7 +88,7 @@ function executeAjax(id, quantity, pay) //use ajax to send the values required f
 
               $.ajax({
                 type: 'POST',
-                url: '../public/inc/dance/newticket.php',
+                url: 'newticket',
                 data: {venue:id, amount:quantity, price:pay},
                 success: function(response) {
                     alert(response);

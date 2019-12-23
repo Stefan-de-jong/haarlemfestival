@@ -1,9 +1,12 @@
 var pnl = document.getElementById("pnl");
 pics = [];
 var content;
+var padding = document.getElementById("padding");
+var dropdown = document.getElementById("pass-dropdown");
 
 function loadPanel(id){ //set clicked picture as the current picture, then execute the function ChangeContent to hide elements and show the panel
 getPics();
+hidePicturePadding(padding, dropdown);
 $(pnl).ready(function(){
 sendIDWithAjax(id);
 $(pnl).show();
@@ -16,7 +19,7 @@ function sendIDWithAjax(id)
 
               $.ajax({
                 type: 'POST',
-                url: '../public/inc/dance/panel.php',
+                url: 'panel',
                 data: {panelid:id},
                 success: function(response) {
                   $(pnl).append(response)
@@ -30,8 +33,20 @@ function showPics(pics)
 {
 for (p in pics)
 {
-pics[p].style.display = "block";
+$(pics[p]).show();
 }
+}
+
+function hidePicturePadding()
+{
+$(padding).hide();
+$(dropdown).hide();
+}
+
+function showPicturePadding()
+{
+$(padding).show();
+$(dropdown).show();
 }
 
 function getPics(){
@@ -45,7 +60,7 @@ pics.push(pic);
 
 function hidePic(pic)
 {
-pic.style.display = 'none';
+$(pic).hide();
 }
 
 window.onload = function() {

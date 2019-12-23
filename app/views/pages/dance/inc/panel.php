@@ -1,3 +1,37 @@
+<?php
+if (!isset($_POST['panelid'])) //if someone tries to access the panel using the website URL in the browser they will be redirected
+{
+header('Location:index');
+}
+$dance_id = $_POST['panelid'];
+$artists = $data['artists'];
+$events = $data['events'];
+$eventdata = $data['eventdata'];
+$venues = $data['venues'];
+$styles = $data['styles'];
+$artist_style = $artists[$dance_id-1]->getStyle();
+foreach ($styles as $st)
+{
+if ($st->id == $artist_style)
+{
+    $style = $st->name;
+}
+}
+foreach ($artists as $ar)
+{
+if ($ar->getId() == $dance_id)
+{
+$name = $ar->getName();
+$bio = $ar->getBio();
+}
+}
+$event_count = 0;
+foreach ($events as $e) //get events, filter by ID = 1 to find all the events nicky Romero will perform at and then count those events
+{
+if ($e->artist == $dance_id)
+{$event_count++;}
+}
+?>
 <section id = artistinfo>
 <link rel="stylesheet" type="text/css" href="../public/css/d_panel.css">
 <img style="position: absolute;width: 576px;height: 250px;" src="../public/img/dance/765-default-avatar.png" width="250px" height="250px">
