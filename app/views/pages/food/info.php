@@ -101,18 +101,12 @@ $page = $data['page'];?>
 </div>
 </form>
 
-<?php require APPROOT . '/views/inc/footer.php';
-
-?>
+<?php require APPROOT . '/views/inc/footer.php'; ?>
 
 
 
 <script>
   date();
-  function getEvent()
-  {
-        alert("hoi");
-  }
   function toggleReservationPanel()
   {
     var res_panel = document.getElementById("food_reservate_panel");
@@ -144,7 +138,7 @@ $page = $data['page'];?>
   {
       table = document.getElementById(tableId);
 
-      switch (date ) {
+      switch (date) {
           case "2020-07-26":
           <?php
           for($r = 0; $r < 3; $r++)
@@ -215,6 +209,8 @@ $page = $data['page'];?>
               break;
       }
   }
-
 </script>
+
+
+
 

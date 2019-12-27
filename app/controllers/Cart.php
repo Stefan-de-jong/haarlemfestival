@@ -21,7 +21,7 @@ class Cart extends Controller{
 
     private function getCartItems($page)
     {
-        $this->cart_items = [];
+        $cart_items = [];
         // if session cart doesn't exist, create it
         if(!isset($_SESSION['cart'])){
             $_SESSION['cart'] = array();

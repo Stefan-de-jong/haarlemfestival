@@ -2,11 +2,13 @@
 Class FoodCartItem extends CartItem{
     private $request;
     private $rest_name;
+    private $session;
 
-    public function __construct($event_id, $event_type, $ticket_type, $amount, $date, $time, $price, $request, $name){
+    public function __construct($event_id, $event_type, $ticket_type, $amount, $date, $time, $price, $request, $name, $session){
         parent::__construct($event_id, $event_type, $ticket_type, $amount, $date, $time, $price);
         $this->request = $request;
         $this->rest_name = $name;
+        $this->session = $session;
     }
 
     public function getTicketType(){
@@ -16,6 +18,10 @@ Class FoodCartItem extends CartItem{
             return 'Kids ticket';
         } else
             return $this->ticket_type;
+    }
+    public function getSession()
+    {
+        return $this->session;
     }
 
     public function getRequest(){
