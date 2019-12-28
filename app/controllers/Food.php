@@ -101,12 +101,29 @@ class Food extends Controller
             if(!array_key_exists($id, $_SESSION['cart'])){
                 $_SESSION['cart'][$id]=$cart_item;
             } else {
-                // ToDo check if ordered tickets + cart tickets are nog more then available
-
-
-                $_SESSION['cart'][$id]['food_regular_ticket']+=$cart_item['food_regular_ticket'];
-                $_SESSION['cart'][$id]['food_kids_ticket']+=$cart_item['food_kids_ticket'];
-                $_SESSION['cart'][$id]['food_request']=$cart_item['food_request'];
+                if(empty($_SESSION['cart'][$id]['food_regular_ticket']) && empty($_SESSION['cart'][$id]['food_kids_ticket']))
+                {
+                    $_SESSION['cart'][$id]['food_regular_ticket'] = $cart_item['food_regular_ticket'];
+                    $_SESSION['cart'][$id]['food_kids_ticket'] = $cart_item['food_kids_ticket'];
+                    $_SESSION['cart'][$id]['food_request'] = $cart_item['food_request'];
+                }
+                else if(empty($_SESSION['cart'][$id]['food_regular_ticket']))
+                {
+                    $_SESSION['cart'][$id]['food_regular_ticket'] = $cart_item['food_regular_ticket'];
+                    $_SESSION['cart'][$id]['food_kids_ticket'] += $cart_item['food_kids_ticket'];
+                    $_SESSION['cart'][$id]['food_request'] = $cart_item['food_request'];
+                }
+                else if(empty($_SESSION['cart'][$id]['food_kids_ticket']))
+                {
+                    $_SESSION['cart'][$id]['food_regular_ticket'] += $cart_item['food_regular_ticket'];
+                    $_SESSION['cart'][$id]['food_kids_ticket'] = $cart_item['food_kids_ticket'];
+                    $_SESSION['cart'][$id]['food_request'] = $cart_item['food_request'];
+                }
+                else {
+                    $_SESSION['cart'][$id]['food_regular_ticket'] += $cart_item['food_regular_ticket'];
+                    $_SESSION['cart'][$id]['food_kids_ticket'] += $cart_item['food_kids_ticket'];
+                    $_SESSION['cart'][$id]['food_request'] = $cart_item['food_request'];
+                }
             }
             $this->info($restaurant);
             echo "<script>

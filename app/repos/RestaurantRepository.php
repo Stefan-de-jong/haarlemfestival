@@ -118,7 +118,7 @@ class RestaurantRepository
                             JOIN foodevent
                             on event.id = foodevent.id
                             where foodevent.restaurant = :restaurant 
-                            AND event.date = "'.$date.' "
+                            AND event.date = "'.$date.'"
                             AND foodevent.session = :session'
             );
             $this->db->bind(':restaurant', $restaurant);

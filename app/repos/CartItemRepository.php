@@ -32,8 +32,8 @@
         }
         
         public function findFood($id, $amount, $ticket_type, $request){
-            $this->db->query('SELECT * 
-                                FROM event                                
+            $this->db->query('SELECT *, event.id as eventId
+                                FROM event                               
                                 JOIN foodevent
                                 ON foodevent.id = event.id  
                                 JOIN restaurant
@@ -52,7 +52,7 @@
             $this->db->bind(':ticket_type', $ticket_type);
             $ticket = $this->db->single();
 
-            $cartItem = new FoodCartItem($event->id, $event->event_type, $ticket_type, $amount, $event->date, $event->begin_time, $ticket->price, $request, $event->name);
+            $cartItem = new FoodCartItem($event->eventId, $event->event_type, $ticket_type, $amount, $event->date, $event->begin_time, $ticket->price, $request, $event->name, $event->session);
             return $cartItem;
         }
 
