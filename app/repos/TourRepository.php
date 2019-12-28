@@ -37,7 +37,7 @@
             $this->db->bind(':event_type', 3);
             $results = $this->db->resultSet();
             foreach($results as $result){
-                $event = new Tour($result->id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->n_tickets, $result->language, $result->guide);      
+                $event = new HistoricEvent($result->id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->n_tickets, $result->language, $result->guide);      
                 array_push($events, $event);
             }
             return $events;
@@ -60,7 +60,7 @@
             $this->db->bind(':date', $date);
             $results = $this->db->resultSet();
             foreach($results as $result){
-                $event = new Tour($result->id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->n_tickets, $result->language, $result->guide);      
+                $event = new HistoricEvent($result->id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->n_tickets, $result->language, $result->guide);      
                 array_push($events, $event);
             }
             return $events;
@@ -85,7 +85,7 @@
             $this->db->bind(':time', $time);
             $this->db->bind(':language', $language);
             $row = $this->db->single();
-            $event = new Tour($row->id, $row->date, $row->begin_time, $row->end_time, $row->event_type, $row->n_tickets, $row->language, $row->guide);
+            $event = new HistoricEvent($row->id, $row->date, $row->begin_time, $row->end_time, $row->event_type, $row->n_tickets, $row->language, $row->guide);
             return $event;
         }
 

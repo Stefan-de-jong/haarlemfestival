@@ -1,8 +1,6 @@
 <?php
 class Cart extends Controller{
-    public function __construct(){
-        // $this->tourRepo = $this->repo('TourRepository');
-        // $this->tourModel = $this->model('Tour');      
+    public function __construct(){   
         $this->cartitemRepo = $this->repo('CartItemRepository');
         $this->cartitemModel = $this->model('CartItem');
         $this->historicItemModel = $this->model('HistoricCartItem');
