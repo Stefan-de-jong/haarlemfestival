@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/d_purchase.css">
         <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/d_info.css">
         <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/form.css">
+        <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/footer.css">
 
         <title><?php echo SITENAME; ?></title>
     </head>

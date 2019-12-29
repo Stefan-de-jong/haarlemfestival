@@ -1,5 +1,5 @@
 
-<?php require APPROOT . '/views/inc/header.php'; ?>
+<?php require_once APPROOT . '/views/inc/header.php'; ?>
 <container class="text-center">
     <section id="bg-image" style="position: absolute;"><img src="<?php echo URLROOT; ?>/img/dance/bg-left.png" style="position: absolute;"><img style="position: absolute;margin-left: 1536px;" src="<?php echo URLROOT; ?>/img/dance/bg-right.png"></section>
     <section class="text-center" id="welcome-message" style="width: 1154px;background-color: rgb(255,69,69);height: 64px;margin-left: 384px;position: absolute;">
