@@ -5,8 +5,8 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-require_once ("mollie/vendor/autoload.php");
-require_once ("mollie/examples/functions.php");
+//require_once ("mollie/vendor/autoload.php");
+//require_once ("mollie/examples/functions.php");
 /*
  * Initialize the Mollie API library with your API key.
  *
@@ -16,14 +16,18 @@ $mollie = new \Mollie\Api\MollieApiClient();
 $mollie->setApiKey("test_Ds3fz4U9vNKxzCfVvVHJT2sgW5ECD8");
 
 // print_r($mollie);
+$amount = 0;
+foreach ($data['cart_items'] as $item) {
+    $amount += $item->getPrice() * $item->getAmount();
+}
 
 $payment = $mollie->payments->create([
     "amount" => [
         "currency" => "EUR",
-        "value" => "69.69"
+        "value" => "" . number_format($amount, 2)
     ],
-    "description" => "Kratjes bier",
-    "redirectUrl" => "http://thijsotter.infhaarlem.nl/payment-inf2b/redirect.php",
+    "description" => "Haarlem Festival Tickets",
+    "redirectUrl" => "" . URLROOT . '/cart/succes',
     "webhookUrl"  => "http://thijsotter.infhaarlem.nl/payment-inf2b/webhook.php",
 ]);
 

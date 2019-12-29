@@ -207,7 +207,8 @@ require APPROOT . '/views/inc/header.php';
         <?php endforeach; ?>
         <?php endif; ?>
 
-        <button onclick="window.location.href='<?php echo URLROOT;?>/cart/payment'" style="float: right">Continue to
+        <button onclick="window.location.href='<?php echo URLROOT;?>/cart/paymentdetails'" style="float: right">Continue
+            to
             order</button>
     </div>
 </div>

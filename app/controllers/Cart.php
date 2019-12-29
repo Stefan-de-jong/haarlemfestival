@@ -9,12 +9,26 @@ class Cart extends Controller{
 
     public function index()
     {
-        $this->getCartItems('cart');
+        $this->getCartItems('pages/cart');
+    }
+
+    public function paymentdetails()
+    {
+        $this->getCartItems('pages/payment-details');
     }
 
     public function payment()
     {
-        $this->getCartItems('payment');
+        if(empty($data['cart_items'])){
+            flash('emptyCart_alert', 'Your cart is empty, no items to checkout', 'alert alert-danger');
+            redirect('cart/paymentdetails');
+        }
+        $this->getCartItems('payment/mollie');
+    }
+
+    public function succes()
+    {
+        $this->getCartItems('payment/process');
     }
 
     private function getCartItems($page)
@@ -68,13 +82,15 @@ class Cart extends Controller{
                 //dance
                 //dance
             }
-            $data = [
-                'title' => 'Shopping Cart',
+            $data = [                
                 'cart_items' => $cart_items
             ];
-            $this->view('pages/'.$page, $data);
+            $this->view($page, $data);
         }
-        $this->view('pages/'.$page);
+        $data = [                
+            'cart_items' => $cart_items
+        ];
+        $this->view($page);
     }
 }
 ?>

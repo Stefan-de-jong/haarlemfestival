@@ -1,10 +1,11 @@
 <?php
 require APPROOT . '/views/inc/header.php';
-$data['total'] = 0;
-?>
+$data['total'] = 0;?>
 
 <div class="payment_body">
+    <div class='container pt-3'><?php flash('emptyCart_alert'); ?></div>
     <div class="cart_container" style="  display: flex;  flex-wrap: wrap; height: auto;">
+
         <div style="width: 33.3%; padding-left: 10px">
             <h3> ❶ Email or login </h3>
             <hr style="background-color: white">
@@ -38,9 +39,7 @@ $data['total'] = 0;
             <hr style="background-color: white">
             <div style="background-color: azure; float:right; width: 1px; height: 100%"></div>
 
-            <input type="radio" name="pay_method">iDEAL<br>
-            <input type="radio" name="pay_method">MasterCard<br>
-            <input type="radio" name="pay_method">VISA<br>
+            <input type="radio" name="pay_method" checked>Mollie<br>
         </div>
 
         <div style="width: 33.3%; padding-left: 10px">
@@ -84,7 +83,7 @@ $data['total'] = 0;
                 <?php endif; ?>
             </div>
             Total: € <?php echo $data['total'];?><br>
-            <input type="button" onclick="location.href='<?php echo URLROOT;?>/payment'" value="Pay"
+            <input type="button" onclick="location.href='<?php echo URLROOT;?>/cart/payment'" value="Pay"
                 style="width: 100px; float: right; margin-right: 125px">
         </div>
     </div>
