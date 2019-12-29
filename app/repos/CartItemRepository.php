@@ -7,7 +7,9 @@
         }
 
         public function findHistoric($id, $amount, $ticket_type){
-            $this->db->query('SELECT * 
+            $this->db->query('SELECT *,
+                                event.id as id,
+                                language.language as language                                
                                 FROM event                                
                                 JOIN historicevent
                                 ON historicevent.id = event.id

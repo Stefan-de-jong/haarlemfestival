@@ -23,17 +23,34 @@
                         <div class="col d-xl-flex align-items-xl-center"><label class="col-form-label">Which day would
                                 you
                                 like to take the tour?</label></div>
-                        <div class="col-4 d-xl-flex align-items-xl-center"><select name="selected_day" id="daySelect"
-                                onchange="daySelected()">
+                        <div class="col-4 d-xl-flex align-items-xl-center">
+                            <select name="selected_day" id="daySelect" onchange="selectedOption(this.value)">
+                                <?php $tourdate = $_GET['tourdate'];?>
                                 <optgroup label="Tour day">
-                                    <!-- ToDo laat gekozen dag staan na JS refresh-->
-                                    <!-- ToDo pakt id van tour die overeenkomt met dag,tijd,taal na OnChange -->
-                                    <!-- ToDo id vervolgens gebruiken om betreffende tour mee te geven bij POST naar order -->
-                                    <option value="2020-07-24">Friday</option>
-                                    <option value="2020-07-25">Saturday</option>
-                                    <option value="2020-07-26">Sunday</option>
-                                </optgroup>
+                                    <option value="2020-07-24" <?php if($tourdate == "2020-07-24"){ echo "selected";}?>>
+                                        Friday</option>
+                                    <option value="2020-07-25" <?php if($tourdate == "2020-07-25"){ echo "selected";}?>>
+                                        Saturday</option>
+                                    <option value="2020-07-26" <?php if($tourdate == "2020-07-26"){ echo "selected";}?>>
+                                        Sunday</option>
                             </select></div>
+
+                        <script>
+                            /* beautify preserve:start */
+                            function selectedOption(value)
+                            {
+                                if (value == 0)
+                                    location.href = '<?php echo URLROOT;?>/historic/tickets';
+                                else {
+                                    <?php $tourdate = "value";?>
+                                    location.href = '<?php echo URLROOT;?>/historic/tickets?tourdate=' +<?php echo $tourdate;?>;
+                                }
+                            }
+
+                    /* beautify preserve:end */
+                        </script>
+
+
                     </div>
                     <div class="row">
                         <div class="col d-xl-flex align-items-xl-center"><label class="col-form-label">What time would
@@ -43,7 +60,7 @@
                                 <optgroup label="Tour time">
                                     <!-- ToDo pakt id van tour die overeenkomt met dag,tijd,taal na OnChange -->
                                     <!-- ToDo id vervolgens gebruiken om betreffende tour mee te geven bij POST naar order -->
-                                    <option value="10:00:00" selected="">10:00</option>
+                                    <option value="10:00:00">10:00</option>
                                     <option value="13:00:00">13:00</option>
                                     <option value="16:00:00">16:00</option>
                                 </optgroup>
@@ -175,11 +192,12 @@
     </section>
 </div>
 <script>
-    function daySelected() {
-        var selector = document.getElementById("daySelect");
-        var date = selector.options[selector.selectedIndex].value;
-        window.location.href = "http://localhost/haarlemfestival/historic/tickets/" + date;
+    /* beautify preserve:start */
+    function selectedDay(value) {
+        <?php $tourdate = "value"; ?>
+        location.href = '<?php echo URLROOT;?>/historic/tickets/' + <?php echo $tourdate; ?> ;
     }
+    /* beautify preserve:end */
 </script>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
