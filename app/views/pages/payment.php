@@ -7,6 +7,7 @@ $data['total'] = 0;
         <div class="cart_container" style="  display: flex;  flex-wrap: wrap; height: auto;">
              <div style="width: 33.3%; padding-left: 10px">
                  <h3> ❶ Email or login </h3>
+                 <br>
                  <hr style="background-color: white">
                  <div style="background-color: azure; float:right; width: 1px; height: 100%"></div>
                  Do you have an account?<br>
