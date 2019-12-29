@@ -92,7 +92,30 @@ foreach($data['cart_items'] as $item) {
 }
 ob_clean();
 
-$pdf->Output('tickets.pdf', 'I');
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+$attachment = $pdf->Output('tickets.pdf', 'I');
+
+
+
+$mail = new PHPMailer(TRUE);
+        $mail->setFrom("info@haarlem-festival.nl", "Haarlem Festival");
+        $mail->addAddress('sjf.de.jong@gmail.com', 'Stefan de Jong');
+        $mail->Subject = "Your Haarlem Festival Tickets";
+        $mail->Body = 
+        "Thank you for purchasing tickets for the Haarlem Festival.
+        You can find your tickets below as an attachment.";
+        $mail->addStringAttachment($attachment, "YourTickets.pdf");
+
+        try {
+            $mail->send();
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+
 
 ?>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
