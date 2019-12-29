@@ -12,9 +12,9 @@ class Payment extends Controller{
         // process the payment by mollie
     }
 
-    public function success()
+    public function index()
     {
-        $this->getCartItems('success');
+        $this->getCartItems('payment/success');
     }
 
     private function getCartItems($page)
@@ -68,9 +68,13 @@ class Payment extends Controller{
                 'title' => 'Payment succesfull',
                 'cart_items' => $cart_items
             ];
-            $this->view('pages/'.$page, $data);
+            $this->view($page, $data);
         }
-        $this->view('pages/'.$page);
+        $data = [
+            'title' => 'You didn\'t have any items', // aanpassen naar degelijke oplossing
+            'cart_items' => $cart_items
+        ];
+        $this->view($page, $data);
     }
 }
 ?>

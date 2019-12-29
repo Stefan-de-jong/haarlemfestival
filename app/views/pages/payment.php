@@ -84,7 +84,8 @@ $data['total'] = 0;
                 <?php endif; ?>
             </div>
             Total: € <?php echo $data['total'];?><br>
-            <button style="width: 100px; float: right; margin-right: 125px">Pay</button>
+            <input type="button" onclick="location.href='<?php echo URLROOT;?>/payment'" value="Pay"
+                style="width: 100px; float: right; margin-right: 125px">
         </div>
     </div>
 </div>
