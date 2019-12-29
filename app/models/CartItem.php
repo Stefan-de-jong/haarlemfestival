@@ -33,6 +33,10 @@
             $this->time = $time;            
             $this->price = $price;            
         }
+        public function getEventId()
+        {
+            return $this->event_id;
+        }
 
         // Parent (general) getters
         public function getEventType(){

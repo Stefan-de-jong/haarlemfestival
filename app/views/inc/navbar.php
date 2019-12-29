@@ -7,3 +7,4 @@
 <a href="<?php echo URLROOT;?>/dance/index" class="btn btn-light">Dance</a>
 <a href="<?php echo URLROOT;?>/food/index" class="btn btn-light">Food</a>
 <a href="<?php echo URLROOT;?>/cart/index" class="btn btn-light">Cart----Test</a>
+<a href="<?php echo URLROOT;?>/program/index" class="btn btn-light">Program----Test</a>

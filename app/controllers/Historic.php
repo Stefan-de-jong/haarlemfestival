@@ -4,7 +4,8 @@
             $this->locationRepo = $this->repo('LocationRepository');
             $this->locationModel = $this->model('Location');
             $this->tourRepo = $this->repo('TourRepository');
-            $this->tourModel = $this->model('Tour');
+            $this->eventModel = $this->model('Event');
+            $this->historicEventModel = $this->model('HistoricEvent');
         }
 
         public function index(){
