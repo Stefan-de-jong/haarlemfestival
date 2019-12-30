@@ -5,10 +5,24 @@ if (!isset($_POST['venue'])) //if someone tries to access the panel using the we
 {
 header('Location:index');
 }
+else
+{
 
 $id = $_POST['venue'];
-$ticket = $_POST['amount'];
-$price = $_POST['price'];
+$amount = $_POST['amount'];
 
-echo $id . $ticket . $price; //currently for developing purposes
+if(!isset($_SESSION['cart'])){
+    $_SESSION['cart'] = array();
+}
+
+$cart_item = array(
+'dance_ticket' => $amount
+);
+
+if(!array_key_exists($id, $_SESSION['cart'])){
+    $_SESSION['cart'][$id]=$cart_item;
+}
+
+echo $id . $amount;
+}
 ?>

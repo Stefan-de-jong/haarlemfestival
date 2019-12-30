@@ -58,31 +58,36 @@
             return $cartItem;
         }
 
-        public function findDance($id, $amount, $ticket_type, $artist){
-            $this->db->query('SELECT *,
-            event.id as id,
-            language.language as language                                
-            FROM event                                
-            JOIN danceevent
-            ON danceevent.id = event.id
-            JOIN artist
-            ON artist.id = danceevent.id                               
-            WHERE event_type = :event_type
-            AND event.id = :id
-            ');
+        public function findDance($id, $amount, $ticket_type){
+            $this->db->query(
+                'SELECT *,
+                            event.id as id                               
+                            FROM event                                
+                            INNER JOIN danceevent as DE
+                            ON DE.id = event.id
+                            INNER JOIN artist
+                            ON artist.id = DE.artist                               
+                            WHERE event_type = :event_type
+                            AND event.id = :id');
             $this->db->bind(':event_type', 1);
-$           this->db->bind(':id', $id);
+            $this->db->bind(':id', $id);
             $event = $this->db->single();
 
             $this->db->query('SELECT *
             FROM tickettype
-            WHERE ticket_type = :ticket_type
+            WHERE tickettype.name LIKE :ticket_type
             ');
+            $ticket_type = $ticket_type . "_" . $id;
             $this->db->bind(':ticket_type', $ticket_type);
             $ticket = $this->db->single();
-
-$cartItem = new HistoricCartItem($event->id, $event->event_type, $ticket_type, $amount, $event->date, $event->begin_time, $event->language, $ticket->ticket_price);
-return $cartItem;
+            $this->db->query('SELECT * FROM venue
+            INNER JOIN danceevent ON danceevent.location = venue.id WHERE danceevent.id = :id'
+            );
+            $this->db->bind(':id', $id);
+            $location = $this->db->single();
+            $cartItem = new DanceCartItem($event->id, $event->event_type, $ticket_type, $amount, $event->date, $event->begin_time, $event->name, $ticket->price, $location->name, $location->address);
+            echo $event->id . " " . $event->event_type . " " . $ticket_type . " " . $amount . " " . $event->date . " " . $event->begin_time . " " . $event->name . " " . $ticket->price . " " . $location->name . " " . $location->address;
+            return $cartItem;
         }
 
         public function findJazz(){

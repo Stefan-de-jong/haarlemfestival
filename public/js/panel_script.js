@@ -1,6 +1,5 @@
 var id = 0;
 var quantity = 0;
-var pay = 0;
 var info = document.getElementById('artistinfo');
 
 var back = document.getElementById('back');
@@ -45,10 +44,11 @@ selection.disabled = true;
 }
 selection.onchange = function getValueDropdown(){
 var selected = selection.options[selection.selectedIndex].value;
-var price = document.getElementById('p' + number).innerHTML;
-id = row[number];
+if (id == 0)
+{id = row[number];}
+localStorage.setItem("row", id);
+id = localStorage.getItem("row");
 quantity = selected;
-pay = price; 
 var difference = amount - selected;
 if (difference < 0)
 {
@@ -75,21 +75,21 @@ button.disabled = false;
 button.onclick = function changeButtonText(){
 $(document).ready(function () {
 button.innerHTML = "ADDED TO CART";
-executeAjax(id, quantity, pay);
+executeAjax(id, quantity);
 row.length = 0;
 });
 }
 }
 
 
-function executeAjax(id, quantity, pay) //use ajax to send the values required for a ticket to newticket.php
+function executeAjax(id, quantity) //use ajax to send the values required for a ticket to newticket.php
 {
     $(document).ready(function(){
 
               $.ajax({
                 type: 'POST',
                 url: 'newticket',
-                data: {venue:id, amount:quantity, price:pay},
+                data: {venue:id, amount:quantity},
                 success: function(response) {
                     alert(response);
                 }
