@@ -1,16 +1,13 @@
 <?php
-    class Venue{
+    class Styles{
         private $id;
         private $name;
-        private $address;
 
-        public function __construct($id, $name, $address)
+        public function __construct($id, $name)
         {
             $this->id = $id;
             $this->name = $name;
-            $this->address = $address;
         }
-
 
         //getters
         public function getId(){
@@ -19,9 +16,5 @@
         public function getName(){
             return $this->name;
         }
-        public function getAddress(){
-            return $this->address;
-        }
-
     }
-?>
+    ?>

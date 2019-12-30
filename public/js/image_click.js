@@ -2,7 +2,6 @@ var pnl = document.getElementById("pnl");
 pics = [];
 var content;
 var padding = document.getElementById("padding");
-var dropdown = document.getElementById("pass-dropdown");
 
 function loadPanel(id){ //set clicked picture as the current picture, then execute the function ChangeContent to hide elements and show the panel
 getPics();
@@ -40,13 +39,11 @@ $(pics[p]).show();
 function hidePicturePadding()
 {
 $(padding).hide();
-$(dropdown).hide();
 }
 
 function showPicturePadding()
 {
 $(padding).show();
-$(dropdown).show();
 }
 
 function getPics(){

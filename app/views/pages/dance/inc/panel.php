@@ -12,9 +12,9 @@ $styles = $data['styles'];
 $artist_style = $artists[$dance_id-1]->getStyle();
 foreach ($styles as $st)
 {
-if ($st->id == $artist_style)
+if ($st->getId() == $artist_style)
 {
-    $style = $st->name;
+    $style = $st->getName();
 }
 }
 foreach ($artists as $ar)
@@ -26,9 +26,9 @@ $bio = $ar->getBio();
 }
 }
 $event_count = 0;
-foreach ($events as $e) //get events, filter by ID = 1 to find all the events nicky Romero will perform at and then count those events
+foreach ($events as $e)
 {
-if ($e->artist == $dance_id)
+if ($e->getArtist() == $dance_id)
 {$event_count++;}
 }
 ?>

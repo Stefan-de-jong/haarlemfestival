@@ -2,9 +2,13 @@
 class Dance extends Controller{
 
     public function __construct()
-    {
-    $this->danceModel = $this->model('Artist');
-    $this->DanceRepository = $this->repo('DanceRepository');
+    {   $this->danceModel = $this->model('Artist');
+        $this->danceModel = $this->model('Venue');
+        $this->danceModel = $this->model('EventData');
+        $this->danceModel = $this->model('Styles');
+        $this->eventModel = $this->model('Event');
+        $this->danceEventModel = $this->model('DanceEvent');
+        $this->DanceRepository = $this->repo('DanceRepository');
     }
 
     public function purchase()
