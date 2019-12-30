@@ -1,62 +1,93 @@
 <?php
 require APPROOT . '/views/inc/header.php';
+$dance = true;
+$food = true;
+$historic = true;
+
 ?>
 <div class="program_body">
     <div class="program_container" style="height: auto">
         <br>
-        <button onclick="showTable(this.value)" value="2020-07-26" style="margin-left: 27%;">Thursday 26 juli</button>
+        <button onclick="showTable(this.value)" value="2020-07-26" style="margin-left: 325px;">Thursday 26 juli</button>
         <button onclick="showTable(this.value)" value="2020-07-27">Friday 27 juli</button>
         <button onclick="showTable(this.value)" value="2020-07-28">Saturday 28 juli</button>
-        <button onclick="showTable(this.value)" value="2020-07-29">Sunday 29 juli</button>
-        <br>
-        <br>
+        <button onclick="showTable(this.value)" value="2020-07-29">Sunday 29 juli</button><br>
+
+        <input onchange="selectChange(this)" type="checkbox" name="dance" value="dance" <?php if(!$dance == false) echo "checked";?>>Dance<br>
+        <input onchange="selectChange(this)" type="checkbox" name="food" value="food" <?php if(!$food == false) echo "checked";?>>Food<br>
+        <input onchange="selectChange(this)" type="checkbox" name="historic" value="historic" <?php if(!$historic == false) echo "checked";?>>Historic<br>
+        <input onchange="selectChange(this)" type="checkbox" name="jazz" value="jazz" checked>Jazz<br>
+        <script>
+            function selectChange(option) {
+                if(option.checked == false)
+                {
+                    var table = document.getElementById(option.value+"Table");
+                    table.style.display = "none";
+                }
+                else
+                {
+                    var table = document.getElementById(option.value+"Table");
+                    table.style.display = "table";
+                }
+            }
+        </script>
+
+
         <h1 id="title">title</h1>
-        <table id="programTable" style="margin-left: 75px; font-size: 10px" border="1">
+        <table border="1" style="font-size: 16px; table-layout: fixed">
             <tr>
-                <th></th>
-                <?php for($i = 10; $i < 25; $i++)
-                    {
-                        echo "<td >$i:00</td>";
-                    }?>
-            </tr>
-            <tr>
-                <th>Dance</th>
+                <th width='75px'></th>
                 <?php for($i = 10; $i < 25; $i++)
                 {
-                    echo "<td></td>";
+                    echo "<td width='75px'>$i:00</td>";
                 }?>
             </tr>
+        </table>
+        <table id="danceTable" style="font-size: 10px" border="1">
             <tr>
-                <th>Food</th>
+                <th width='75px'>Dance</th>
+                <?php for($i = 10; $i < 25; $i++)
+                {
+                    echo "<td width='75px'></td>";
+                }?>
+            </tr>
+        </table>
+        <table id="foodTable" border="1" style="font-size: 10px; table-layout: fixed">
+            <tr>
+                <th width='75px'>Food</th>
             </tr>
             <?php
-                $used_res = "";
-                $rest_count = 0;
-                foreach ($data['foodEvent'] as $restaurant)
-                {
-                    if($used_res == $restaurant->getRestaurant())
-                        continue;
-                    echo "<tr><td width='10%' height='30px'>".$restaurant->getRestaurant()."</td>";
-                    for ($i = 10; $i < 25; $i++) {
-                    echo "<td></td>";
-                    }
-                    echo "</tr>";
-                    $rest_count+=1;
-                    $used_res = $restaurant->getRestaurant();
+            $used_res = "";
+            $rest_count = 0;
+            foreach ($data['foodEvent'] as $restaurant)
+            {
+                if($used_res == $restaurant->getRestaurant())
+                    continue;
+                echo "<tr><td width='75px' height='30px'>".$restaurant->getRestaurant()."</td>";
+                for ($i = 10; $i < 25; $i++) {
+                    echo "<td width='75px'></td>";
                 }
+                echo "</tr>";
+                $rest_count+=1;
+                $used_res = $restaurant->getRestaurant();
+            }
             ?>
+        </table>
+        <table id="historicTable" style="font-size: 10px" border="1">
             <tr>
-                <th>Historic</th>
+                <th width='75px'>Historic</th>
                 <?php for($i = 10; $i < 25; $i++)
                 {
-                    echo "<td></td>";
+                    echo "<td width='75px'></td>";
                 }?>
             </tr>
+        </table>
+        <table id="jazzTable" style="font-size: 10px" border="1">
             <tr>
-                <th>Dance</th>
+                <th width='75px'>Jazz</th>
                 <?php for($i = 10; $i < 25; $i++)
                 {
-                    echo "<td></td>";
+                    echo "<td width='75px'>Jazz not implemented</td>";
                 }?>
             </tr>
         </table>
@@ -67,11 +98,10 @@ require APPROOT . '/views/inc/header.php';
             showTable("2020-07-26");
             function showTable(date) {
                 //als er op een button gedrukt wordt, word deze datum meegegeven...
-                table = document.getElementById('programTable');
-
-
-                title = document.getElementById("title");
-
+                var title = document.getElementById("title");
+                var danceTable = document.getElementById('danceTable');
+                var foodTable = document.getElementById('foodTable');
+                var historicTable = document.getElementById('historicTable');
 
                 //afhankelijk van de datum wordt een event gezocht....
                 switch (date) {
@@ -83,15 +113,14 @@ require APPROOT . '/views/inc/header.php';
                             $historicEvent = "Historic event dag 1";// get($data['historicEvent'], "2020-07-26", ($i+9)); (als id netzoals ik bij restaurant dee, de talen doen) //TO DOmaak getter voor event met datum en tijd en return een div met daarin data over event ->zie food
 
                             //voor de kolom het mogelijk opgehaalde event tonen.
-                            ?>table.rows[1].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";<?php
+                            ?>danceTable.rows[0].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";<?php
+                            //food table vullen
                             for($id = 1; $id <= $rest_count; $id++)
                             {
                                 $foodEvent = getEvent($data['foodEvent'], "2020-07-26", ($i + 9), $id);
-                                //id + 2 omdat de eerste 2 rijen voor iets anders zijn
-                                ?>table.rows[<?php echo $id + 2;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent;?>";<?php
+                                ?>foodTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent;?>";<?php
                             }
-                            ?>table.rows[11].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent;?>";<?php
-                            ?>table.rows[12].cells[<?php echo $i;?>].innerHTML = "jazz-not inplemented";
+                            ?>historicTable.rows[0].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent;?>";
                             title.innerHTML = "Thursday 26 Juli";
                             <?php
                         }
@@ -101,57 +130,67 @@ require APPROOT . '/views/inc/header.php';
                         $date = "27 Juli";
                         for ($i = 1; $i < 16; $i++)
                         {
-                            $danceEvent = "dance event dag 2";
-                            $historicEvent = "Historic event dag 2";
-
-                            ?>table.rows[1].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";<?php
+                        $danceEvent = "dance event dag 2";
+                        $historicEvent = "Historic event dag 2";
+                        //voor de kolom het mogelijk opgehaalde event tonen.
+                        ?>danceTable.rows[0].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";
+                        <?php
+                            //food table vullen
                             for($id = 1; $id <= $rest_count; $id++)
                             {
                                 $foodEvent = getEvent($data['foodEvent'], "2020-07-27", ($i + 9), $id);
-                                ?>table.rows[<?php echo $id + 2;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent;?>";<?php
+                                ?>foodTable.rows[<?php echo($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent;?>";
+                        <?php
                             }
-                            ?>table.rows[11].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent;?>";<?php
-                            ?>table.rows[12].cells[<?php echo $i;?>].innerHTML = "jazz-not inplemented";
-                            title.innerHTML = "Friday 27 Juli";
-                            <?php
-                        }
-                        ?>
+                            ?>historicTable.rows[0].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent;?>";
+                        title.innerHTML = "Friday 27 Juli";
+                    <?php
+                    }
+                    ?>
                         break;
                     case "2020-07-28":<?php
                         for ($i = 1; $i < 16; $i++)
                         {
-                            $danceEvent = "dance event dag 3";
-                            $historicEvent = "Historic event dag 3";
+                        $danceEvent = "dance event dag 3";
+                        $historicEvent = "Historic event dag 3";
 
-                            ?>table.rows[1].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";<?php
+                        //voor de kolom het mogelijk opgehaalde event tonen.
+                        ?>danceTable.rows[0].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";
+                        <?php
+                            //food table vullen
                             for($id = 1; $id <= $rest_count; $id++)
                             {
                                 $foodEvent = getEvent($data['foodEvent'], "2020-07-28", ($i + 9), $id);
-                                ?>table.rows[<?php echo $id + 2;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent;?>";<?php
+                                ?>foodTable.rows[<?php echo($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent;?>";
+                        <?php
                             }
-                            ?>table.rows[11].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent;?>";<?php
-                            ?>table.rows[12].cells[<?php echo $i;?>].innerHTML = "jazz-not inplemented";
-                            title.innerHTML = "Saturday 28 Juli";<?php
-                        }
-                        ?>
+                            ?>historicTable.rows[0].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent;?>";
+                        title.innerHTML = "Saturday 28 Juli";
+                    <?php
+                    }
+                    ?>
                         break;
                     case "2020-07-29":<?php
                         for ($i = 1; $i < 16; $i++)
                         {
-                            $danceEvent = "dance event dag 4";
-                            $historicEvent = "Historic event dag 4";
+                        $danceEvent = "dance event dag 4";
+                        $historicEvent = "Historic event dag 4";
 
-                            ?>table.rows[1].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";<?php
+                        //voor de kolom het mogelijk opgehaalde event tonen.
+                        ?>danceTable.rows[0].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";
+                        <?php
+                            //food table vullen
                             for($id = 1; $id <= $rest_count; $id++)
                             {
-                                $foodEvent = getEvent($data['foodEvent'], "2020-07-29", ($i + 9), $id);
-                                ?>table.rows[<?php echo $id + 2;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent;?>";<?php
+                                $foodEvent = getEvent($data['foodEvent'], "2020-07-26", ($i + 9), $id);
+                                ?>foodTable.rows[<?php echo($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent;?>";
+                        <?php
                             }
-                            ?>table.rows[11].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent;?>";<?php
-                            ?>table.rows[12].cells[<?php echo $i;?>].innerHTML = "jazz-not inplemented";
-                            title.innerHTML = "Sunday 29 Juli";<?php
-                        }
-                        ?>
+                            ?>historicTable.rows[0].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent;?>";
+                        title.innerHTML = "Sunday 29 Juli";
+                    <?php
+                    }
+                    ?>
                         break;
                 }
             }
@@ -237,7 +276,7 @@ function getFoodShowDiv($event, $time_path)
         $margin = 50;
 
     $eventShow =
-        "<div id='rest_div' style='background-color: " . $bgColor . "; margin-left:".$margin."%; width: ".($duration * 100)."% '>Session: ".$event->getSession()."<br></div>";
+        "<div id='rest_div' style='background-color: " . $bgColor . "; margin-left:".$margin."%; width: ".($duration * 103)."% '>Session: ".$event->getSession()."<br></div>";
 
     return $eventShow;
 }
