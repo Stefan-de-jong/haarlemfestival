@@ -1,8 +1,6 @@
 <?php
 class Cart extends Controller{
-    public function __construct(){
-        // $this->tourRepo = $this->repo('TourRepository');
-        // $this->tourModel = $this->model('Tour');      
+    public function __construct(){   
         $this->cartitemRepo = $this->repo('CartItemRepository');
         $this->cartitemModel = $this->model('CartItem');
         $this->historicItemModel = $this->model('HistoricCartItem');
@@ -11,12 +9,32 @@ class Cart extends Controller{
 
     public function index()
     {
-        $this->getCartItems('cart');
+        $this->getCartItems('pages/cart');
+    }
+
+    public function paymentdetails()
+    {
+        $this->getCartItems('pages/payment-details');
     }
 
     public function payment()
     {
-        $this->getCartItems('payment');
+        if(empty($data['cart_items'])){
+            flash('emptyCart_alert', 'Your cart is empty, no items to checkout', 'alert alert-danger');
+            redirect('cart/paymentdetails');
+        }
+
+        if($_SERVER['REQUEST_METHOD']=== 'POST'){            
+            // Sanitize customer inputs
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);           
+            $_SESSION['emailaddress'] = trim($_POST['emailaddress']);        
+        }
+        $this->getCartItems('payment/mollie');
+    }
+
+    public function succes()
+    {
+        $this->getCartItems('payment/process');
     }
 
     private function getCartItems($page)
@@ -70,13 +88,15 @@ class Cart extends Controller{
                 //dance
                 //dance
             }
-            $data = [
-                'title' => 'Shopping Cart',
+            $data = [                
                 'cart_items' => $cart_items
             ];
-            $this->view('pages/'.$page, $data);
+            $this->view($page, $data);
         }
-        $this->view('pages/'.$page);
+        $data = [                
+            'cart_items' => $cart_items
+        ];
+        $this->view($page);
     }
 }
 ?>

@@ -2,9 +2,9 @@
 require APPROOT . '/views/inc/header.php';
 ?>
 <div class="program_body">
-    <div class="program_container"  style="height: auto">
+    <div class="program_container" style="height: auto">
         <br>
-        <button onclick="showTable(this.value)"  value="2020-07-26" style="margin-left: 27%;">Thursday 26 juli</button>
+        <button onclick="showTable(this.value)" value="2020-07-26" style="margin-left: 27%;">Thursday 26 juli</button>
         <button onclick="showTable(this.value)" value="2020-07-27">Friday 27 juli</button>
         <button onclick="showTable(this.value)" value="2020-07-28">Saturday 28 juli</button>
         <button onclick="showTable(this.value)" value="2020-07-29">Sunday 29 juli</button>
@@ -26,7 +26,8 @@ require APPROOT . '/views/inc/header.php';
                     echo "<td></td>";
                 }?>
             </tr>
-            <tr><th>Food</th>
+            <tr>
+                <th>Food</th>
             </tr>
             <?php
                 $used_res = "";
@@ -37,7 +38,7 @@ require APPROOT . '/views/inc/header.php';
                         continue;
                     echo "<tr><td width='10%' height='30px'>".$restaurant->getRestaurant()."</td>";
                     for ($i = 10; $i < 25; $i++) {
-                    echo "<td style='width: 5%; '></td>";
+                    echo "<td></td>";
                     }
                     echo "</tr>";
                     $rest_count+=1;
@@ -61,6 +62,8 @@ require APPROOT . '/views/inc/header.php';
         </table>
         <br>
         <script>
+            /* beautify preserve:start */ // This comment is needed to leave PHP code intact inside this JS script tag (due to vs code addon beautify)
+
             showTable("2020-07-26");
             function showTable(date) {
                 //als er op een button gedrukt wordt, word deze datum meegegeven...
@@ -152,6 +155,7 @@ require APPROOT . '/views/inc/header.php';
                         break;
                 }
             }
+            /* beautify preserve:end */ // This comment is needed to leave PHP code intact inside this JS script tag (due to vs code addon beautify)
         </script>
     </div>
 </div>

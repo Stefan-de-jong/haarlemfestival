@@ -27,5 +27,27 @@ class programRepository
             echo 'Caught exception: ',  $e->getMessage(), "\n";
         }
     }
+
+    public function findAllHistoricEvents()
+    {
+        $events = array();
+        $this->db->query('SELECT *
+                            FROM event                                
+                            JOIN historicevent
+                            ON historicevent.id = event.id
+                            JOIN language
+                            ON language.id = historicevent.language
+                            JOIN guide
+                            ON guide.id = historicevent.guide
+                            WHERE event_type = :event_type                                
+                            ');
+        $this->db->bind(':event_type', 3);
+        $results = $this->db->resultSet();
+        foreach($results as $result){
+            $event = new HistoricEvent($result->id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->n_tickets, $result->language, $result->guide);      
+            array_push($events, $event);
+        }
+        return $events;
+    }
 }
 ?>
