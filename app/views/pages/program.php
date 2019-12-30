@@ -31,6 +31,7 @@ require APPROOT . '/views/inc/header.php';
             </tr>
             <?php
                 $used_res = "";
+                $rest_count = 0;
                 foreach ($data['foodEvent'] as $restaurant)
                 {
                     if($used_res == $restaurant->getRestaurant())
@@ -40,6 +41,7 @@ require APPROOT . '/views/inc/header.php';
                     echo "<td></td>";
                     }
                     echo "</tr>";
+                    $rest_count+=1;
                     $used_res = $restaurant->getRestaurant();
                 }
             ?>
@@ -82,7 +84,7 @@ require APPROOT . '/views/inc/header.php';
 
                             //voor de kolom het mogelijk opgehaalde event tonen.
                             ?>table.rows[1].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";<?php
-                            for($id = 1; $id < 9; $id++)
+                            for($id = 1; $id <= $rest_count; $id++)
                             {
                                 $foodEvent = getEvent($data['foodEvent'], "2020-07-26", ($i + 9), $id);
                                 //id + 2 omdat de eerste 2 rijen voor iets anders zijn
@@ -103,7 +105,7 @@ require APPROOT . '/views/inc/header.php';
                             $historicEvent = "Historic event dag 2";
 
                             ?>table.rows[1].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";<?php
-                            for($id = 1; $id < 9; $id++)
+                            for($id = 1; $id <= $rest_count; $id++)
                             {
                                 $foodEvent = getEvent($data['foodEvent'], "2020-07-27", ($i + 9), $id);
                                 ?>table.rows[<?php echo $id + 2;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent;?>";<?php
@@ -122,7 +124,7 @@ require APPROOT . '/views/inc/header.php';
                             $historicEvent = "Historic event dag 3";
 
                             ?>table.rows[1].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";<?php
-                            for($id = 1; $id < 9; $id++)
+                            for($id = 1; $id <= $rest_count; $id++)
                             {
                                 $foodEvent = getEvent($data['foodEvent'], "2020-07-28", ($i + 9), $id);
                                 ?>table.rows[<?php echo $id + 2;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent;?>";<?php
@@ -140,7 +142,7 @@ require APPROOT . '/views/inc/header.php';
                             $historicEvent = "Historic event dag 4";
 
                             ?>table.rows[1].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";<?php
-                            for($id = 1; $id < 9; $id++)
+                            for($id = 1; $id <= $rest_count; $id++)
                             {
                                 $foodEvent = getEvent($data['foodEvent'], "2020-07-29", ($i + 9), $id);
                                 ?>table.rows[<?php echo $id + 2;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent;?>";<?php
