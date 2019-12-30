@@ -10,8 +10,7 @@
     </div>
     <div class="col-md-12 pt-3 d-flex flex-grow-1 justify-content-around mx-auto">
 
-        <p>Your tickets will download shortly<br>
-            They will also be sent by mail with the invoice</p>
+        <p>Your tickets will be sent by mail with the invoice</p>
     </div>
 
 </div>
@@ -20,13 +19,68 @@
 $pdf = new TCPDF();
 
 foreach($data['cart_items'] as $item) {
-    if($item->getEventType() == 'Haarlem Dance'){    
-        
+    if($item->getEventType() == 'Haarlem Dance'){            
         // Insert code for ticket generatie
     }
-    if($item->getEventType() == 'Haarlem Food'){    
+    if($item->getEventType() == 'Haarlem Food'){        
+        $eventId = $item->getEventId();
+        $eventType = $item->getEventType();
+        $ticketType = $item->getTicketType();
+        $eventDate = date_format(date_create($item->getDate()),"d F Y");
+        $eventTime = date_format(date_create($item->getTime()),"H:i") . ' uur';
+        $eventSession = $item->getSession();
+        $ticketPrice = $item->getPrice();
+        $eventRestaurant = $item->getRestName();
+
+        $pdf->addPage();
+
+        //$barcode = "{$eventId} {$ticketType} {$eventLanguage}";
+        $qrcode = "{$eventId} {$ticketType} {$eventLanguage}";
+    
+        $html = "
+        <ul>
+            <li>Event ID: {$eventId}</li>
+            <li>Name: {$eventType}</li>
+            <li>Type: {$ticketType}</li>
+            <li>Date: {$eventDate}</li>
+            <li>Time: {$eventTime}</li>
+            <li>Session: {$eventSession}</li>
+            <li>Restaurant: {$eventRestaurant}</li>
+            <li>Price: € {$ticketPrice}</li>
+        </ul>
+        <style>
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        ";
+    
+        //line spacing
+        $pdf->Ln(2);
+    
+        //write html
+        $pdf->writeHTML($html);
+    
+        //line spacing
+        $pdf->Ln(2);
+
+        $style = array(
+            'border' => 2,
+            'vpadding' => 'auto',
+            'hpadding' => 'auto',
+            'fgcolor' => array(0,0,0),
+            'bgcolor' => false, //array(255,255,255)
+            'module_width' => 1, // width of a single module in points
+            'module_height' => 1 // height of a single module in points
+        );
+    
+        // BARCODE
+        //$pdf->write1DBarcode($barcode, "C39");
         
-        // Insert code for ticket generatie
+        // QRCODE
+        $pdf->write2DBarcode($qrcode, 'QRCODE,H', 20, 210, 50, 50, $style, 'N');
     }
     if($item->getEventType() == 'Haarlem Historic'){    
         $eventId = $item->getEventId();
@@ -39,11 +93,12 @@ foreach($data['cart_items'] as $item) {
 
         $pdf->addPage();
 
-        $barcode = "{$eventId} {$ticketType} {$eventLanguage}";
+        //$barcode = "{$eventId} {$ticketType} {$eventLanguage}";
         $qrcode = "{$eventId} {$ticketType} {$eventLanguage}";
     
         $html = "
         <ul>
+            <li>Event ID: {$eventId}</li>
             <li>Name: {$eventType}</li>
             <li>Type: {$ticketType}</li>
             <li>Date: {$eventDate}</li>
@@ -85,7 +140,7 @@ foreach($data['cart_items'] as $item) {
         // QRCODE
         $pdf->write2DBarcode($qrcode, 'QRCODE,H', 20, 210, 50, 50, $style, 'N');
     }
-    if($item->getEventType() == 'Haarlem Jazz'){    
+    if($item->getEventType() == 'Haarlem Jazz'){   
         
         // Insert code for ticket generatie
     }
@@ -98,10 +153,10 @@ use PHPMailer\PHPMailer\Exception;
 $attachment = $pdf->Output('tickets.pdf', 'I');
 
 
-
+// Mailer doesn't work yet, probably needs smtp settings
 $mail = new PHPMailer(TRUE);
-        $mail->setFrom("info@haarlem-festival.nl", "Haarlem Festival");
-        $mail->addAddress('sjf.de.jong@gmail.com', 'Stefan de Jong');
+        $mail->setFrom("info@haarlem-festival.nl", "Haarlem Festival"); // From who
+        $mail->addAddress('sjf.de.jong@gmail.com', 'Stefan de Jong');   // To who (hardcoded for testing)
         $mail->Subject = "Your Haarlem Festival Tickets";
         $mail->Body = 
         "Thank you for purchasing tickets for the Haarlem Festival.
