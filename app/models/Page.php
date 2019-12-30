@@ -10,6 +10,30 @@
             $this->html = $html;
         }
 
+        /**
+         * @return mixed
+         */
+        public function getId()
+        {
+            return $this->id;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getTitle()
+        {
+            return $this->title;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getHtml()
+        {
+            return $this->html;
+        }
+
         
     }
 

@@ -128,6 +128,7 @@
 
             // Check is customer/email exists in db
             // ToDo: Thijs -> of een 'login object' beter is hier, ivm verdere abstractie tussen app en db.
+            // ToDo: Mag zo laten, aanpassen kan.
             if($this->repo->findByEmail($data['email'])){
                 // Customer found
             } else{

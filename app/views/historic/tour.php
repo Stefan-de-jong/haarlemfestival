@@ -7,10 +7,15 @@
             <a class="align-self-center" href="<?php echo URLROOT;?>/historic/tickets">Tickets</a></div>
     </div>
     <section>
+        <?php flash('ticketAdded_succes'); ?>
         <h1><?php echo $data['title']?></h1>
         <div class="row">
             <div class="col">
-                <p class="text-justify">Paragraph</p>
+                <p class="text-justify"><?php 
+                if(!empty($_SESSION['cart'])){
+                    print_r($_SESSION['cart']);
+                    };?>
+                </p>
             </div>
             <div class="col-md-4">
                 <h4>#HaarlemHistoric</h4>
@@ -31,14 +36,18 @@
             <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
                 <p class="text-justify"><?php echo $location->getDescription(); ?></p>
             </div>
+            <?php if($location->getURL1() != '') : ?>
             <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
                 <img src="<?php echo URLROOT;?>/img/<?php echo $location->getURL1(); ?>"
                     class="rounded shadow-sm img-fluid">
             </div>
+            <?php endif; ?>
+            <?php if($location->getURL1() != '') : ?>
             <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
                 <img src="<?php echo URLROOT;?>/img/<?php echo $location->getURL2(); ?>"
                     class="rounded shadow-sm img-fluid">
             </div>
+            <?php endif; ?>
         </div>
         <?php endforeach; ?>
     </section>
