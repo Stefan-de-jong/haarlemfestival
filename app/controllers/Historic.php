@@ -4,7 +4,8 @@
             $this->locationRepo = $this->repo('LocationRepository');
             $this->locationModel = $this->model('Location');
             $this->tourRepo = $this->repo('TourRepository');
-            $this->tourModel = $this->model('Tour');
+            $this->eventModel = $this->model('Event');
+            $this->historicEventModel = $this->model('HistoricEvent');
         }
 
         public function index(){
@@ -25,9 +26,15 @@
 
             $this->view('historic/about', $data);
         }
-
-        public function tickets($date = '2020-07-24'){                        
-            $tours = $this->tourRepo->findByDate($date);            
+        
+        public function tickets(){
+            if(isset($_GET['tourdate'])){
+                $tourdate = $_GET['tourdate'];
+            } else{
+                $tourdate = '2020-07-24';
+            }
+            
+            $tours = $this->tourRepo->findByDate($tourdate);            
         
             $data = [
                 'title' => 'Tickets',
@@ -55,9 +62,9 @@
             else{
                 $tour = $this->tourRepo->find($data['tour_date'], $data['tour_time'], $data['tour_language']); // ToDo als gekozen id meegegeven kan worden vanuit tickets page -> zoeken naar ID
             
-                if($tour != null){                    
+                if($tour != null){                                                             
                     // Check if ordered single tickets and fam tickets combined are not more then the available ammount for tour
-                    if(!$tour->getNTickets() >= $data['single_tickets']+($data['fam_tickets']*4)){
+                    if($tour->getNTickets() < ($data['single_tickets']+($data['fam_tickets']*4))){
                         // not enough tickets available
                         flash('ticketNotAdded_alert', 'Not enough tickets available', 'alert alert-danger');
                         redirect('historic/tickets');

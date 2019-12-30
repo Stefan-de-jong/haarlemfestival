@@ -1,0 +1,31 @@
+#programTable{
+    width: 90%;
+    table-layout: fixed;
+}
+
+.program_body {
+    background: url("../img/cart_background.png") no-repeat center center fixed;
+    width: 100%;
+    color: white;
+    font-size: 20px;
+}
+#rest_div
+{
+    float: left;
+    height: 30px;
+    text-align: center;
+    padding-top: 8px;
+}
+
+.program_container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    background-color: #3C2381;
+    opacity: 90%;
+}
+#title
+{
+    margin-left: 10%;
+}
+

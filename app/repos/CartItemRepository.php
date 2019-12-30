@@ -7,7 +7,9 @@
         }
 
         public function findHistoric($id, $amount, $ticket_type){
-            $this->db->query('SELECT * 
+            $this->db->query('SELECT *,
+                                event.id as id,
+                                language.language as language                                
                                 FROM event                                
                                 JOIN historicevent
                                 ON historicevent.id = event.id
@@ -31,8 +33,29 @@
             return $cartItem;
         }
         
-        public function findFood(){
+        public function findFood($id, $amount, $ticket_type, $request){
+            $this->db->query('SELECT *, event.id as eventId
+                                FROM event                               
+                                JOIN foodevent
+                                ON foodevent.id = event.id  
+                                JOIN restaurant
+                                ON restaurant.id = foodevent.restaurant
+                                WHERE event_type = :event_type
+                                AND event.id = :id
+                                ');
+            $this->db->bind(':event_type', 2);
+            $this->db->bind(':id', $id);
+            $event = $this->db->single();
 
+            $this->db->query('SELECT *
+                                FROM tickettype
+                                WHERE name = :ticket_type
+                                ');
+            $this->db->bind(':ticket_type', $ticket_type);
+            $ticket = $this->db->single();
+
+            $cartItem = new FoodCartItem($event->eventId, $event->event_type, $ticket_type, $amount, $event->date, $event->begin_time, $ticket->price, $request, $event->name, $event->session);
+            return $cartItem;
         }
 
         public function findDance(){

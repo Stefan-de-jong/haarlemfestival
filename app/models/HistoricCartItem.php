@@ -7,14 +7,18 @@
             $this->language = $language;                        
         }        
         
-        public function getTicketType(){
+        public function getTicketType(){            
+            return $this->ticket_type;
+        }
+
+        public function printTicketType(){
             if($this->ticket_type == 'historic_single_ticket'){
                 return 'Single ticket';
             } elseif($this->ticket_type == 'historic_fam_ticket'){
                 return 'Family ticket';
             } else
             return $this->ticket_type;
-        }
+        }        
 
         public function getLanguage(){
             return $this->language;

@@ -103,6 +103,7 @@
     text-align: center;
     margin-top: 20px;
     font-size: 18px;
+    color: black;
 }
 
 .food_avaibility tr
@@ -177,6 +178,7 @@
     margin-left: auto;
     margin-right: auto;
     border-color: #99FF99;
+    color: black;
 }
 #food_reservate_panel >form> input
 {
@@ -188,6 +190,13 @@
 #food_reservate_panel >form> textarea
 {
     width: 100%;
+}
+
+.food_errorMessage
+{
+    color: red;
+    background-color: bisque;
+    border-color: red;
 }
 
 
