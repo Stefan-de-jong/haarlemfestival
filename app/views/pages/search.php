@@ -13,6 +13,7 @@ if ($h_number > 0)
 {
 $search->executeQuery($h_number, $historic, $query, $page);
 $historic = 'Post your own pictures on Instagram, along with #HaarlemHistoric #HaarlemFestival and a hashtag corresponding to your location, and you might win a dinner for two at one of our partner restaurants!';
+$h_number = substr_count(strtoupper($historic), strtoupper($query));
 $page = "historic";
 $search->executeQuery($h_number, $historic, $query, $page);
 }
@@ -32,8 +33,8 @@ class search{
     for ($i = 0; $i < $number; $i++)
     {
     $pos = stripos($string, $query, $pos);
-    $pos += $querylength;
     array_push($searchresults, substr($string, $pos, 30));
+    $pos += $querylength;
     array_push($linenumber, $pos);
     }
     for($i = 0; $i < $number; $i++)
