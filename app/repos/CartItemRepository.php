@@ -75,7 +75,7 @@
 
             $this->db->query('SELECT *
             FROM tickettype
-            WHERE tickettype.name LIKE :ticket_type
+            WHERE tickettype.name = :ticket_type
             ');
             $ticket_type = $ticket_type . "_" . $id;
             $this->db->bind(':ticket_type', $ticket_type);
