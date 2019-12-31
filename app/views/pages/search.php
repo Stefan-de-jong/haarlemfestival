@@ -1,5 +1,8 @@
 <?php
+if (!isset($search))
+{
 $search = new search();
+}
 $query = $_GET['q'];
 $historic = 'Haarlem is a city and municipality in the Netherlands. It is the capital of the province of North Holland and is situated at the northern edge of the Randstad, one of the most populated metropolitan areas in Europe.
 Haarlem has a rich history dating back to pre-medieval times. Haarlem became wealthy with toll revenues that it collected from ships and travellers moving on the busy North-South route. However, as shipping became increasingly important economically, the city of Amsterdam became the main Dutch city of North Holland during the Dutch Golden Age. The town of Halfweg became a suburb, and Haarlem became a quiet bedroom community, and for this reason Haarlem still has many of its central medieval buildings intact. Nowadays many of them are on the Dutch Heritage register known as Rijksmonuments.
