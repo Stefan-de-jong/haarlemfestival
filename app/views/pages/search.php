@@ -9,21 +9,16 @@ In 1658, Peter Stuyvesant, the Director-General of the Dutch colony of Nieuw Ned
 After the English capture of New Netherland in 1664, the new English colonial administration renamed both the colony and its principal city "New York," but left the name of Haarlem more or less unchanged. The spelling changed to Harlem in keeping with contemporary English usage, and the district grew (as part of the borough of Manhattan) into the vibrant centre of African American culture in New York City and the United States generally by the 20th century.';
 $h_number = substr_count(strtoupper($historic), strtoupper($query));
 $page = "historic/about";
-if ($h_number > 0)
-{
 $search->executeQuery($h_number, $historic, $query, $page);
 $historic = 'Post your own pictures on Instagram, along with #HaarlemHistoric #HaarlemFestival and a hashtag corresponding to your location, and you might win a dinner for two at one of our partner restaurants!';
 $h_number = substr_count(strtoupper($historic), strtoupper($query));
 $page = "historic";
 $search->executeQuery($h_number, $historic, $query, $page);
-}
-else
-{
-echo "No results found for the historic pages";
-}
 
 class search{
     function executeQuery($number, $string, $query, $page)
+    {
+    if ($number > 0)
     {
     echo "We found " . $number . " results for '" . $query . "' on the page " . $page;
     $pos = 0;
@@ -46,5 +41,7 @@ class search{
     echo '<a href=../' . $page . '>Go to ' . $page . '</a>';
     echo '<br>';
     }
+}
+
 }
 ?>
