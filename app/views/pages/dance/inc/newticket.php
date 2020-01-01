@@ -7,22 +7,25 @@ header('Location:index');
 }
 else
 {
-
 $id = $_POST['venue'];
 $amount = $_POST['amount'];
-
+if (isset($_POST['remove']))
+{
+unset($_SESSION['cart'][$id]);
+}
 if(!isset($_SESSION['cart'])){
     $_SESSION['cart'] = array();
 }
-
 $cart_item = array(
 'dance_ticket' => $amount
 );
-
 if(!array_key_exists($id, $_SESSION['cart'])){
     $_SESSION['cart'][$id]=$cart_item;
+    echo "true";
 }
-
-echo $id . $amount;
+else
+{
+    echo "false";
+}
 }
 ?>

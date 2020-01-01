@@ -91,7 +91,23 @@ function executeAjax(id, quantity) //use ajax to send the values required for a 
                 url: 'newticket',
                 data: {venue:id, amount:quantity},
                 success: function(response) {
-                    alert(response);
+                    if (response == 'true')
+                    {
+                    alert("Ticket was added");
+                    }
+                    else if (response == 'false')
+                    {
+                        var txt;
+                        var r = confirm("It seems this ticket is already in your cart. Do you want to replace it with this new ticket?");
+                        if (r == true) {
+                            $.ajax({
+                            type: 'POST',
+                            url: 'newticket',
+                            data: {venue:id, amount:quantity, remove:r},
+                            })
+                            alert("Ticket was updated!");
+}
+                    }
                 }
             });
 });

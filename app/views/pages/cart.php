@@ -97,9 +97,8 @@ require APPROOT . '/views/inc/header.php';
                                         {
                                             $id = $item->getEventId();
                                             $type = $item->getEventType();
-                                            unset($_SESSION['cart'][$id][$type]);
+                                            unset($_SESSION['cart'][$id]);
                                             echo "<meta http-equiv=\"refresh\" content=\"0\">";
-                                            //delete knop doet het niet? Type en id zijn correct (gechekt met var dump)
                                         }
                                         ?>
                     </form>
