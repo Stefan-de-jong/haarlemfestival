@@ -18,7 +18,7 @@ class Food extends Controller
             'restaurants' => $restaurants
         ];
 
-        $this->view('pages/food/index', $data);
+        $this->view('food/index', $data);
     
     }
 
@@ -32,7 +32,7 @@ class Food extends Controller
             'restaurants' => $restaurants
         ];
 
-        $this->view('pages/food/index', $data);
+        $this->view('food/index', $data);
     }
 
     public function info($restaurant)
@@ -47,7 +47,7 @@ class Food extends Controller
             'event'=> $events,
             'error_message' =>$this->message
         ];
-        $this->view('pages/food/info', $data);
+        $this->view('food/info', $data);
     }
 
     public function reservate()
@@ -126,14 +126,16 @@ class Food extends Controller
                 }
             }
             $this->info($restaurant);
-            echo "<script>
-            var txt;
-            var option = confirm('Reservation has been added to the cart!');
-            if (option == true) {
-               
-            } else {
-              
-            }</script>";
+
+            echo "
+            <div id='continueReservationPanel'>
+            <img style='margin-left: 20px; height='110px' width='110px' src='".URLROOT."/img/cart.png'>
+            <p style='float: right; width: 570px'>Ticket(s) has succesfully been added to your shopping cart. Would you like to continue the reservation and pay?</p>
+            <br><br><br>
+            <button onclick=window.location.href='".URLROOT."/food/info/".$restaurant."'>Stay</button>
+            <button onclick=window.location.href='".URLROOT."/cart/index'>Continue reservation</button>
+            </div>          
+            ";
         }
     }
 }
