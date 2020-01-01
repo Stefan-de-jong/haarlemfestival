@@ -44,22 +44,22 @@ selection.disabled = true;
 }
 selection.onchange = function getValueDropdown(){
 var selected = selection.options[selection.selectedIndex].value;
-console.log(localStorage.getItem("row"));
-if (localStorage.getItem("row") == 0)
-{localStorage.setItem("row", row);}
-row = localStorage.getItem("row");
+console.log(row);
+localStorage.setItem("row", row);
+var srow = localStorage.getItem("row");
+console.log(srow);
+console.log(srow);
 switch (number){ //need to get the right values from the string since the array row has been stored as a string instead of an array because of localstorage
 case 0:
-id = row[0] + row[1] + row[2];
+id = srow[0] + srow[1] + srow[2];
 break;
 case 1:
-id = row[4] + row[5] + row[6];
+id = srow[4] + srow[5] + srow[6];
 break;
 case 2:
-id = row[8] + row[9] + row[10];
+id = srow[8] + srow[9] + srow[10];
 break;
 }
-console.log(id);
 quantity = selected;
 var difference = amount - selected;
 if (difference < 0)

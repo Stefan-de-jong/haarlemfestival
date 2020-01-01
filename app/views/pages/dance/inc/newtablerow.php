@@ -36,7 +36,7 @@ foreach ($events as $e) //loop through each event
                                     <?php $count++; ?>
                                 </tr>
 <script>
-if (row == undefined)
+if (row == undefined || row.length == 3)
 {var row = []}
 var string = '<?php echo $id[$count-1] ;?>';
 var number = parseInt(string);
