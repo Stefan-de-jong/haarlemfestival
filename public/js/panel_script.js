@@ -45,6 +45,7 @@ selection.disabled = true;
 selection.onchange = function getValueDropdown(){
 var selected = selection.options[selection.selectedIndex].value;
 console.log(row);
+if (row.length != 0)
 localStorage.setItem("row", row);
 var srow = localStorage.getItem("row");
 console.log(srow);
@@ -96,6 +97,7 @@ row.length = 0;
 
 function executeAjax(id, quantity) //use ajax to send the values required for a ticket to newticket.php
 {
+    console.log(id);
     $(document).ready(function(){
 
               $.ajax({
