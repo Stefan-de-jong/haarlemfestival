@@ -16,6 +16,7 @@
     // Load PHPMailer
     require_once 'libraries/PHPMailer/PHPMailer.php';
     require_once 'libraries/PHPMailer/Exception.php';
+    require_once 'libraries/PHPMailer/SMTP.php';
     
     // Autoload all core libraries
     spl_autoload_register(function($className){
