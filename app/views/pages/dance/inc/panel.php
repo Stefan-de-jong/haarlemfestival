@@ -23,6 +23,7 @@ if ($ar->getId() == $dance_id)
 {
 $name = $ar->getName();
 $bio = $ar->getBio();
+$pic_id = $ar->getId();
 }
 }
 $event_count = 0;
@@ -34,7 +35,7 @@ if ($e->getArtist() == $dance_id)
 ?>
 <section id = artistinfo>
 <link rel="stylesheet" type="text/css" href="../public/css/d_panel.css">
-<img style="position: absolute;width: 576px;height: 250px;" src="../public/img/dance/765-default-avatar.png" width="250px" height="250px">
+<img style="position: absolute;width: 576px;height: 250px;" src="../img/dance/artist_image_<?php echo $pic_id;?>.png" width="250px" height="250px">
 <h5 style="margin-left:600px;">  <?php if(isset($name)){echo $name;}?> <h5>
 <p style="position: absolute;margin-left: 600px;margin-bottom: 600px;"><?php if(isset($bio)&&(isset($style))){echo $bio . " Style: " . $style;} ?></p>
                 <section>
@@ -64,3 +65,4 @@ if ($e->getArtist() == $dance_id)
             </div>
 <script src="../public/js/panel_script.js"> </script>
 </section>
+<style> footer{margin-top: 979.031px;}</style>

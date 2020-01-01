@@ -15,7 +15,7 @@
         }
 
         public function printTicketType(){
-            if(strpos($this->ticket_type, "dance_ticket"))
+            if(strpos($this->ticket_type, "dance_ticket") !== false)
             {
                 return 'Dance Ticket';
             }

@@ -7,8 +7,7 @@ bottom: 0;
 footer{
 background-color: lightsteelblue;
 width: 1920px;
-position: fixed;
-bottom: 0;
+position: absolute;
 }
 
 footer #socials{

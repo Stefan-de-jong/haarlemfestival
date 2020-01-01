@@ -4,9 +4,10 @@ var info = document.getElementById('artistinfo');
 
 var back = document.getElementById('back');
 back.onclick = function goBack(){ //when someone presses the back button hide the panel
-showPics(pics);
-showPicturePadding();
+showPass();
 hidePanel();
+showPicturePadding();
+showPics(pics);
 }
 
 window.onload = getAmountOfRows(); //count the amount of rows on window load
@@ -44,12 +45,9 @@ selection.disabled = true;
 }
 selection.onchange = function getValueDropdown(){
 var selected = selection.options[selection.selectedIndex].value;
-console.log(row);
 if (row.length != 0)
 localStorage.setItem("row", row);
 var srow = localStorage.getItem("row");
-console.log(srow);
-console.log(srow);
 switch (number){ //need to get the right values from the string since the array row has been stored as a string instead of an array because of localstorage
 case 0:
 id = srow[0] + srow[1] + srow[2];
