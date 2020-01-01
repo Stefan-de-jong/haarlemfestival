@@ -7,11 +7,11 @@
         }
         
         public function updateTickets($id, $ticketType){
-            if($ticketType == 'historic_single_ticket'){
-                $amount = 1;
-            }
-            elseif($ticketType == 'historic_fam_ticket'){
+            if($ticketType == 'historic_fam_ticket'){
                 $amount = 4;
+            }
+            else{
+                $amount = 1;
             }            
             $this->db->query('UPDATE event SET n_tickets = n_tickets - :amount WHERE id = :id');
             // Bind values
