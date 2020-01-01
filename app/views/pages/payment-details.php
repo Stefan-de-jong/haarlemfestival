@@ -4,7 +4,7 @@ $data['total'] = 0;?>
 
 <div class="payment_body">
     <div class='container pt-3'><?php flash('emptyCart_alert'); ?></div>
-    <form action="<?php echo URLROOT;?>/cart/payment" method="post">
+    <form action="<?php echo URLROOT;?>/payment" method="post">
         <div class="cart_container" style="  display: flex;  flex-wrap: wrap; height: auto;">
             <div style="width: 33.3%; padding-left: 10px">
                 <h3> ❶ Email or login </h3>
