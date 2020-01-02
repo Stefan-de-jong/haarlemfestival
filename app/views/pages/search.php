@@ -114,9 +114,9 @@ class search{
     echo '<br>';
     echo "..." . $searchresults[$i] . "..." . " char:" . $linenumber[$i];
     echo '<br>';
+    }   
     echo '<a href=../' . $page . '>Go to ' . $page . '</a>';
-    echo '<br>';
-    }    
+    echo '<br>'; 
     }
     }
     }
