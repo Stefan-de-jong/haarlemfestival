@@ -199,5 +199,27 @@
     border-color: red;
 }
 
+#continueReservationPanel{
+    height: 341px;
+    width: 728px;
+    font-size: 28px;
+    position: absolute;
+    margin-top: -800px;
+    background-color: #F2F2F2;
+    margin-left: 400px;
+    border-color: #99FF99;
+    border-style: solid;
+    padding-top: 50px;
+
+}
+
+#continueReservationPanel > button
+{
+    background-color: #99FF99;
+    width: 280px;
+    margin-left: 50px;
+    border-radius: 15px;
+}
+
 
 
