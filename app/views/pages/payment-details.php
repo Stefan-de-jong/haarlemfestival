@@ -4,7 +4,7 @@ $data['total'] = 0;?>
 
 <div class="payment_body">
     <div class='container pt-3'><?php flash('emptyCart_alert'); ?></div>
-    <form action="<?php echo URLROOT;?>/cart/payment" method="post">
+    <form action="<?php echo URLROOT;?>/payment" method="post">
         <div class="cart_container" style="  display: flex;  flex-wrap: wrap; height: auto;">
             <div style="width: 33.3%; padding-left: 10px">
                 <h3> ❶ Email or login </h3>
@@ -67,6 +67,14 @@ $data['total'] = 0;?>
 
                     <?php if($item->getEventType() == 'Haarlem Dance') : ?>
                     <img height="50px" width="50px" src="<?php echo URLROOT; ?>/img/dance.jpg">
+                    <?php       
+                    echo $item->getEventType(). "<br> ".
+                    date_format(date_create($item->getDate()),"d F Y") . ', ' . date_format(date_create($item->getTime()),"H:i") . " uur<br>
+                    Artist: " . $item->getArtist() . '<br>
+                    Ticket type: ' . $item->printTicketType(). "<br>
+                    Amount: " . $item->getAmount(). ", Price: " . ($item->getPrice() * $item->getAmount()). ' <br><br>';
+                    $data['total'] += $item->getPrice() * $item->getAmount();
+                ?>
                     <?php endif; ?>
 
                     <?php if($item->getEventType() == 'Haarlem Historic') : ?>

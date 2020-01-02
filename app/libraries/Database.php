@@ -81,6 +81,23 @@
         public function rowCount(){
             return $this->statement->rowCount();
         }
+
+        public function lastInsertedId(){
+            return $this->dbhandler->lastInsertId();
+        }
+
+        public function beginTransaction(){
+            return $this->dbhandler->beginTransaction();
+        }
+
+        public function commit(){
+            return $this->dbhandler->commit();
+        }
+
+        public function rollback(){
+            return $this->dbhandler->rollback();
+        }
+
     }
 
 ?>
