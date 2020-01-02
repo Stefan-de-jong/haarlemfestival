@@ -1,41 +1,63 @@
 <?php
 class Ticket
 {
-    public $id;
-    public $event;
-    public $type;
-    public $price;
+    public $ticket_id;
+    public $event_id;
+    public $ticket_type;
+    public $ticket_price;
     public $buyer_email;
+    public $event_type;
+    public $date;
+    public $time;
 
-    public function __construct($event, $type, $price)
+    public function __construct($event_id, $ticket_type, $ticket_price, $buyer_email, $event_type, $date, $time)
     {
-        $this->event = $event;
-        $this->type = $type;
-        $this->price = $price;
+        $this->event_id = $event_id;
+        $this->ticket_type = $ticket_type;
+        $this->ticket_price = $ticket_price;
+        $this->buyer_email = $buyer_email;
+        $this->event_type = $event_type;
+        $this->date = $date;
+        $this->time = $time;
     }
 
-
-    public function getId()
+    public function getTicketId()
     {
-        return $this->id;
+        return $this->ticket_id;
     }
-    public function getEvent()
+    public function getEventID()
     {
-        return $this->event;
+        return $this->event_id;
     }
-    public function getType()
+    public function getTicketType()
     {
-        return $this->type;
-    }
-    public function getPrice()
+        return $this->ticket_type;
+    }          
+    public function getTicketPrice()
     {
-        return $this->price;
+        return $this->ticket_price;
     }
     public function getBuyerEmail()
     {
         return $this->buyer_email;
     }
+    public function getEventtype()
+    {
+        return $this->event_type;
+    }
+    public function getDate()
+    {
+        return $this->date;
+    }
+    public function getTime()
+    {
+        return $this->time;
+    }
 
 
+    public function setTicketId($id)
+    {
+        $this->ticket_id = $id;
+    }
 }
 ?>

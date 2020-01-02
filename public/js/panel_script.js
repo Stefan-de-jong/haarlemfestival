@@ -1,18 +1,13 @@
-src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js";
+var id = 0;
+var quantity = 0;
+var info = document.getElementById('artistinfo');
 
 var back = document.getElementById('back');
 back.onclick = function goBack(){ //when someone presses the back button hide the panel
-nr.style.display = 'block';
-t.style.display = 'block';
-aj.style.display = 'block';
-hw.style.display = 'block';
-avb.style.display = 'block';
-mx.style.display = 'block';
-if (pnl.style.display == "block") {
-pnl.style.display = "none";
-} else {
-pnl.style.display = "block";
-}
+showPass();
+hidePanel();
+showPicturePadding();
+showPics(pics);
 }
 
 window.onload = getAmountOfRows(); //count the amount of rows on window load
@@ -33,15 +28,39 @@ initButtons(i);
 }
 }
 
+function hidePanel() {
+    $(pnl).hide();
+    $(pnl).empty(content);
+    }
+
+    
 function initButtons(number){ //for every dropdown make sure that if the selection of the dropdown is changed a warning is returned if necessary
-window.onload = disableButton(number, "SELECT YOUR TICKETS");
+
+var amount = document.getElementById('q' + number).innerHTML;
 var selection = document.getElementById('s' + number);
+if (amount == 0)
+{
+disableButton(number, "INSUFFICIENT TICKETS");
+selection.disabled = true;
+}
 selection.onchange = function getValueDropdown(){
 var selected = selection.options[selection.selectedIndex].value;
-var amount = document.getElementById('q' + number);
-var price = document.getElementById('q' + number);
-var quantity = amount.innerHTML;
-var difference = quantity - selected;
+if (row.length != 0)
+localStorage.setItem("row", row);
+var srow = localStorage.getItem("row");
+switch (number){ //need to get the right values from the string since the array row has been stored as a string instead of an array because of localstorage
+case 0:
+id = srow[0] + srow[1] + srow[2];
+break;
+case 1:
+id = srow[4] + srow[5] + srow[6];
+break;
+case 2:
+id = srow[8] + srow[9] + srow[10];
+break;
+}
+quantity = selected;
+var difference = amount - selected;
 if (difference < 0)
 {
 alert("The requested amount of tickets is greater than the amount of tickets available");
@@ -49,9 +68,8 @@ disableButton(number, "INSUFFICIENT TICKETS");
 }
 else
 {
-enableButton(number, selected, price);
+enableButton(number);
 }
-giveButtonScript(number);
 }
 }
 
@@ -61,21 +79,48 @@ button.innerHTML = message;
 button.disabled = true;
 }
 
-function enableButton(number, selected, pay){ //enable button, and use javascript to determine what values the button needs to send to php to generate a ticket
+function enableButton(number){ //enable button, and use javascript to determine what values the button needs to send to php to generate a ticket
 var button = document.getElementById('b' + number);
 button.innerHTML = "ADD TO CART";
 button.disabled = false;
 button.onclick = function changeButtonText(){
-danceid = row[number];
 $(document).ready(function () {
 button.innerHTML = "ADDED TO CART";
-$.ajax({  
-    type: 'POST',  
-    url: '../public/inc/dance/newticket.php', 
-    data: {id:danceid, tickets:selected, price:pay}, //this line should send data to newticket.php but can't for some reason...
-    //I think it has something to do with Ajax caching
-    //If I can fix this line everything else should work
-});
+executeAjax(id, quantity);
+row.length = 0;
 });
 }
+}
+
+
+function executeAjax(id, quantity) //use ajax to send the values required for a ticket to newticket.php
+{
+    console.log(id);
+    $(document).ready(function(){
+
+              $.ajax({
+                type: 'POST',
+                url: 'newticket',
+                data: {venue:id, amount:quantity},
+                success: function(response) {
+                    if (response == 'true')
+                    {
+                    alert("Ticket was added");
+                    }
+                    else if (response == 'false')
+                    {
+                        var txt;
+                        var r = confirm("It seems this ticket is already in your cart. Do you want to replace it with this new ticket?");
+                        if (r == true) {
+                            $.ajax({
+                            type: 'POST',
+                            url: 'newticket',
+                            data: {venue:id, amount:quantity, remove:r},
+                            })
+                            alert("Ticket was updated!");
+}
+                    }
+                }
+            });
+});
 }
