@@ -15,12 +15,10 @@ class Dance extends Controller{
     public function purchase()
     {
         $artists = $this->DanceRepository->getAllArtists();
-        $passes = $this->DanceRepository->getAllPasses();
       
         $data =[
             'title' => 'dance purchase',
-            'artists' => $artists,
-            'passes' => $passes
+            'artists' => $artists
         ];
 
     $this->view('pages/dance/dance_purchase', $data);

@@ -1,6 +1,5 @@
 <?php require_once APPROOT . '/views/inc/header.php';
 $artists = $data['artists'];
-$passes = $data['passes'];
 $pic_count = 0;
 ?>
     <section id="bg-image" style="position: absolute;"><img src="<?php echo URLROOT; ?>/img/dance/bg-left.png" style="position: absolute;"><img style="position: absolute;margin-left: 1539px;" src="<?php echo URLROOT; ?>/img/dance/bg-right.png"></section>
