@@ -16,18 +16,15 @@ $mollie = new \Mollie\Api\MollieApiClient();
 $mollie->setApiKey("test_Ds3fz4U9vNKxzCfVvVHJT2sgW5ECD8");
 
 // print_r($mollie);
-$amount = 0;
-foreach ($data['cart_items'] as $item) {
-    $amount += $item->getPrice() * $item->getAmount();
-}
+
 
 $payment = $mollie->payments->create([
     "amount" => [
         "currency" => "EUR",
-        "value" => "" . number_format($amount, 2)
+        "value" => "" . number_format($data['total_price'], 2)
     ],
     "description" => "Haarlem Festival Tickets",
-    "redirectUrl" => "" . URLROOT . '/cart/succes',
+    "redirectUrl" => "" . URLROOT . '/payment/succes',
     "webhookUrl"  => "http://thijsotter.infhaarlem.nl/payment-inf2b/webhook.php",
 ]);
 

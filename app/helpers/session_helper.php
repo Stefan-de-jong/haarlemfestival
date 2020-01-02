@@ -1,4 +1,7 @@
 <?php
+    require_once APPROOT . '/models/CartItem.php';
+    require_once APPROOT . '/models/HistoricCartItem.php';
+
     session_start();
 
     // Flash message helper

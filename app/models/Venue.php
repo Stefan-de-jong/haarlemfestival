@@ -1,14 +1,26 @@
 <?php
     class Venue{
         private $id;
-        private $venue_name;
-        private $address = $address;
+        private $name;
+        private $address;
 
-        public function __construct($id, $venue_name, $address)
+        public function __construct($id, $name, $address)
         {
             $this->id = $id;
-            $this->venue_name = $venue_name;
-            $this->$address = $address;
+            $this->name = $name;
+            $this->address = $address;
+        }
+
+
+        //getters
+        public function getId(){
+            return $this->id;
+        }
+        public function getName(){
+            return $this->name;
+        }
+        public function getAddress(){
+            return $this->address;
         }
 
     }

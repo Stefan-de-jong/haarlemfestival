@@ -1,16 +1,16 @@
 <?php
     class Artist{
         private $id;
-        private $artist_name;
-        private $artist_bio;
-        private $artist_style;
+        private $name;
+        private $bio;
+        private $style;
 
-        public function __construct($id, $artist_name, $artist_bio, $artist_style)
+        public function __construct($id, $name, $bio, $style)
         {
             $this->id = $id;
-            $this->artist_name = $artist_name;
-            $this->artist_bio = $artist_bio;
-            $this->artist_style = $artist_style;
+            $this->name = $name;
+            $this->bio = $bio;
+            $this->style = $style;
         }
 
         //getters
@@ -18,14 +18,14 @@
             return $this->id;
         }
         public function getName(){
-            return $this->artist_name;
+            return $this->name;
         }
         public function getBio(){
-            return $this->artist_bio;
+            return $this->bio;
         }
         public function getStyle()
         {
-            return $this->artist_style;
+            return $this->style;
         }
     }
     ?>
