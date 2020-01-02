@@ -1,0 +1,14 @@
+nav > a{
+    width: 20%;
+    float: left;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+}
+ a.hover
+ {
+     font-weight: normal;
+ }
