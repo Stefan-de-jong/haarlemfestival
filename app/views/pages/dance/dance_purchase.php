@@ -2,6 +2,7 @@
 $artists = $data['artists'];
 $pic_count = 0;
 ?>
+<style> footer{margin-top: <?php $pxadjustment ?>}</style>
     <section id="bg-image" style="position: absolute;"><img src="<?php echo URLROOT; ?>/img/dance/bg-left.png" style="position: absolute;"><img style="position: absolute;margin-left: 1539px;" src="<?php echo URLROOT; ?>/img/dance/bg-right.png"></section>
     <section class="text-left" id="main-content" style="position: absolute;background-color: rgb(255,104,104);width: 1156px;height: 979px;margin-left: 384px;">
         <ol class="breadcrumb" style="background-color: rgb(255,255,255);">

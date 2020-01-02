@@ -27,7 +27,7 @@
     define('DB_HOST', 'localhost');
     define('DB_USER', 'root');
     define('DB_PASSWORD', '');
-    define('DB_NAME', 'haarlem_festival_v2');
+    define('DB_NAME', 'hfa4_HF');
     
 
     // App Root
