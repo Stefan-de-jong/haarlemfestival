@@ -1,5 +1,5 @@
 <?php $url = $_SERVER['REQUEST_URI'];
-$color = "rgb(242, 242, 242)";
+$color = " darksalmon";
 $title = "Haarlem Festival";
 if (strpos($url, 'food'))
 {$color = "rgb(152,255,153)";
@@ -10,31 +10,40 @@ else if (strpos($url, 'dance'))
 $title = $title . " - Dance";
 }
 else if (strpos($url, 'historic'))
-{$color = "yellow";
+{$color = "#ffff99";
 $title = $title . " - Historic";
 }
 else if (strpos($url, 'volunteer'))
 {$color = "rgb(162,22,174)";
 $title = $title . " - Volunteer";
 }
+else if (strpos($url, 'cart'))
+{
+    $color= "#3C2381";
+    $title = $title . " - Cart";
+}
+else if (strpos($url, 'program'))
+{
+    $color= "#3C2381";
+    $title = $title . " - Program";
+}
 ?>
-<header style="background-color: <?php echo $color; ?>; width: 100%">
-<h1> <?php echo $title; ?> </h1>
-    <img onclick="location.href='<?php echo URLROOT;?>'" src="<?php echo URLROOT; ?>/img/header/logo_bold-outline.png">
-    <img onclick="location.href='<?php echo URLROOT;?>/program/index'" src="<?php echo URLROOT; ?>/img/header/programme.png">
-    <img onclick="location.href='<?php echo URLROOT;?>/customers/login'" src="<?php echo URLROOT; ?>/img/header/log%20in.png">
-    <img onclick="" src="<?php echo URLROOT; ?>/img/header/en_flag.png">
-    <img onclick="" src="<?php echo URLROOT; ?>/img/header/nl_flag.png">
-    <img onclick="location.href='<?php echo URLROOT;?>/cart/index'" src="<?php echo URLROOT; ?>/img/header/cart.png">
+<header style="background-color: <?php echo $color; ?>; width: 100%; height: 200px">
+    <img height="175x" onclick="location.href='<?php echo URLROOT;?>'" src="<?php echo URLROOT; ?>/img/header/logo_bold-outline.png">
+    <img style="margin-left: 35px; margin-top: 50px" onclick="location.href='<?php echo URLROOT;?>/program/index'" src="<?php echo URLROOT; ?>/img/header/programme.png">
+    <h1 style="float:left; margin-left: 100px; margin-top: 75px"> <?php echo $title; ?> </h1>
+    <img style="margin-left: 150px; margin-top: 50px" onclick="location.href='<?php echo URLROOT;?>/customers/login'" src="<?php echo URLROOT; ?>/img/header/log%20in.png">
+    <img style="float:right; margin-top: 15px; margin-right: 25px" onclick="" src="<?php echo URLROOT; ?>/img/header/en_flag.png">
+    <img style="float: right; margin-top: 15px; margin-right: 5px" onclick="" src="<?php echo URLROOT; ?>/img/header/nl_flag.png">
+    <img height="103px" width="120px" style="float:right; margin-top: 75px; margin-right: -135px" onclick="location.href='<?php echo URLROOT;?>/cart/index'" src="<?php echo URLROOT; ?>/img/cart.png">
 
-    <nav>
+    <nav style="clear:both;">
         <a style="background-color: rgb(255,104,104)" href="<?php echo URLROOT;?>/dance/index">Dance</a>
         <a style="background-color: rgb(152,255,153)" href="<?php echo URLROOT;?>/food/index">Food</a>
-        <a style="background-color: yellow" href="<?php echo URLROOT;?>/historic">Historic</a>
-        <a style="background-color: blue" href="<?php echo URLROOT;?>">Jazz</a>
+        <a style="background-color: #ffff99" href="<?php echo URLROOT;?>/historic">Historic</a>
+        <a style="background-color: #2C88BF" href="<?php echo URLROOT;?>">Jazz</a>
         <a style="background-color: rgb(162,22,174)" href="<?php echo URLROOT;?>/volunteer/index">Volunteer</a>
     </nav>
-
-    <br style="clear:both;">
 </header>
+<br style="clear:both;">
 

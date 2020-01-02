@@ -1,22 +1,24 @@
 footer h4{
-padding-left: 42%;
-position: absolute;
-bottom: 0;
+    float: left;
+    margin-left: 300px;
+    margin-top: 10px;
 }
 
 footer{
-background-color: lightsteelblue;
+background-color: #E4E4E4;
 width: 100%;
-position: absolute;
+height: 50px;
+    color: black;
 }
 
 footer #socials{
-margin-top: 10px;
-padding-left: 25%;
-position: absolute;
+    float: left;
+    margin-left: 90px;
+    padding-top: 5px;
 }
 
 footer #logo{
 float: right;
-padding-right: 25%;
+margin-right: 100px;
+    height: 50px;
 }

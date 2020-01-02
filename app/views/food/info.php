@@ -24,10 +24,10 @@ $page = $data['page'];?>
     <br>
     Date:
     <select id="reservateDate" style="float: right" onchange="reservateDate()">
-        <option value="2020-07-26">Thursday 26 Juli</option>
-        <option value="2020-07-27">Friday 27 Juli</option>
-        <option value="2020-07-28">Saturday 28 Juli</option>
-        <option value="2020-07-29">Sunday 29 Juli</option>
+        <option value="2020-07-23">Thursday 23 Juli</option>
+        <option value="2020-07-24">Friday 24 Juli</option>
+        <option value="2020-07-25">Saturday 25 Juli</option>
+        <option value="2020-07-26">Sunday 26 Juli</option>
     </select>
     <br>
     <form action="<?php echo URLROOT;?>/food/reservate?restaurant=<?php echo $events[0]->getRestaurant()?>" method="post">
@@ -98,13 +98,11 @@ $page = $data['page'];?>
 <br>
   <button style="margin-left: 75px">Add to favorites</button>
   <button type="submit"  style="margin-left: 150px">Add to cart</button>
+    </form>
 </div>
-</form>
+
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
-
-
-
 <script>
   date();
   function toggleReservationPanel()
@@ -139,13 +137,13 @@ $page = $data['page'];?>
       table = document.getElementById(tableId);
 
       switch (date) {
-          case "2020-07-26":
+          case "2020-07-23":
           <?php
           for($r = 0; $r < 3; $r++)
           {
           foreach ($events as $event)
           {
-              if($event->getDate() == "2020-07-26" && $event->getSession() == ($r + 1))
+              if($event->getDate() == "2020-07-23" && $event->getSession() == ($r + 1))
               {
                   $begin_time = date_create($event->getBeginTime());
                   $end_time = date_create($event->getEndTime());
@@ -156,13 +154,13 @@ $page = $data['page'];?>
               table.rows[2].cells[<?php echo $r;?>].innerHTML = "Seats available: <?php echo $seats;?>";<?php
           }?>
               break;
-          case "2020-07-27":
+          case "2020-07-24":
           <?php
           for($r = 0; $r < 3; $r++)
           {
           foreach ($events as $event)
           {
-              if($event->getDate() == "2020-07-27" && $event->getSession() == ($r + 1))
+              if($event->getDate() == "2020-07-24" && $event->getSession() == ($r + 1))
               {
                   $begin_time = date_create($event->getBeginTime());
                   $end_time = date_create($event->getEndTime());
@@ -173,13 +171,13 @@ $page = $data['page'];?>
               table.rows[2].cells[<?php echo $r;?>].innerHTML = "Seats available: <?php echo $seats;?>";<?php
           }?>
               break;
-          case "2020-07-28":
+          case "2020-07-25":
           <?php
           for($r = 0; $r < 3; $r++)
           {
           foreach ($events as $event)
           {
-              if($event->getDate() == "2020-07-28" && $event->getSession() == ($r + 1))
+              if($event->getDate() == "2020-07-25" && $event->getSession() == ($r + 1))
               {
                   $begin_time = date_create($event->getBeginTime());
                   $end_time = date_create($event->getEndTime());
@@ -190,13 +188,13 @@ $page = $data['page'];?>
               table.rows[2].cells[<?php echo $r;?>].innerHTML = "Seats available: <?php echo $seats;?>";<?php
           }?>
               break;
-          case "2020-07-29":
+          case "2020-07-26":
           <?php
           for($r = 0; $r < 3; $r++)
           {
           foreach ($events as $event)
           {
-              if($event->getDate() == "2020-07-29" && $event->getSession() == ($r + 1))
+              if($event->getDate() == "2020-07-26" && $event->getSession() == ($r + 1))
               {
                   $begin_time = date_create($event->getBeginTime());
                   $end_time = date_create($event->getEndTime());

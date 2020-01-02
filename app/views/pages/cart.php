@@ -2,7 +2,7 @@
 require APPROOT . '/views/inc/header.php';
 ?>
 <div class="payment_body">
-    <div class="cart_container">
+    <div class="cart_container" style="padding-bottom: 40px">
         ---------------------------------------------------------statisch
         voorbeeld---------------------------------------------------------------------------------------
         <table border="1">
@@ -290,12 +290,3 @@ require APPROOT . '/views/inc/header.php';
 <?php
 require APPROOT . '/views/inc/footer.php'; ?>
 
-<script>
-    function destroy() {
-        <
-        ?
-        php
-            //session_destroy();
-        ; ? >
-    }
-</script>
