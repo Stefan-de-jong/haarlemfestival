@@ -16,6 +16,14 @@
         public function getGuide(){
             return $this->guide;
         }    
+        public function getLanguageId(){
+            if($this->language == 'Nederlands'){
+                return 1;
+            } elseif($this->language == 'English'){
+                return 2;
+            } else
+            return 3;
+        }        
 
         // Setters
         public function setLanguage($language){
@@ -23,7 +31,9 @@
         }
         public function setGuide($guide){
             $this->guide = $guide;
-        }    
+        }   
+        
+        
     }
 
 ?>

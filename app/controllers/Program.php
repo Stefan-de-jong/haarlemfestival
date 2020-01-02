@@ -2,7 +2,7 @@
 class Program extends Controller
 {
     public function __construct(){
-    $this->programRepository = $this->repo('programRepository');
+    $this->programRepository = $this->repo('ProgramRepository');
     $this->eventModel = $this->model('Event');
     $this->foodEventModel = $this->model('FoodEvent');
     $this->historicEventModel = $this->model('HistoricEvent');
