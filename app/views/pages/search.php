@@ -94,11 +94,10 @@ require_once APPROOT . '/views/inc/footer.php';
 class search{
     function executeQuery($string, $page, $query)
     {
-    
     $number = substr_count(strtoupper($string), strtoupper($query));
     if ($number > 0)
     {
-    echo "<section style='background-color:gainsboro; width:40%;'> We found " . $number . " results for '" . $query . "' on the page " . $page;
+    echo " We found " . $number . " results for '" . $query . "' on the page " . $page;
     $pos = 0;
     $querylength = strlen($query);
     $searchresults = array();
@@ -116,7 +115,7 @@ class search{
     echo "..." . $searchresults[$i] . "..." . " char:" . $linenumber[$i];
     echo '<br>';
     echo '<a href=../' . $page . '>Go to ' . $page . '</a>';
-    echo '<br></section>';
+    echo '<br>';
     }    
     }
     }
