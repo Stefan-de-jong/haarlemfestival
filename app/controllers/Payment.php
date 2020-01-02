@@ -8,9 +8,10 @@ class Payment extends Controller{
         $this->cartitemModel = $this->model('CartItem');
         $this->historicItemModel = $this->model('HistoricCartItem');
         $this->foodModel = $this->model('FoodCartItem');
+        $this->danceModel = $this->model('DanceCartItem');
 
         $this->ticketModel = $this->model('Ticket');
-        //$this->dticketModel = $this->model('DanceTicket');
+        $this->dticketModel = $this->model('DanceTicket');
         $this->hticketModel = $this->model('FoodTicket');
         $this->fticketModel = $this->model('HistoricTicket');
         //$this->jticketModel = $this->model('JazzTicket');  
@@ -70,7 +71,7 @@ class Payment extends Controller{
                 $ticket;
                 switch ($item->getEventType()) {
                     case 'Haarlem Dance':
-                        //$ticket = new DanceTicket($item->getEventId(),$item->getTicketType(),$item->getPrice(),$data['customer_email'], $item->getEventType(), $item->getDate(), $item->getTime());
+                        $ticket = new DanceTicket($item->getEventId(),$item->getTicketType(),$item->getPrice(),$data['customer_email'], $item->getEventType(), $item->getDate(), $item->getTime(), $item->getPrice(), $item->getVenue());
                         break;
                     case 'Haarlem Food':
                         $ticket = new FoodTicket($item->getEventId(),$item->getTicketType(),$item->getPrice(),$data['customer_email'], $item->getEventType(), $item->getDate(), $item->getTime(), $item->getRestName(), $item->getSession());
@@ -109,8 +110,32 @@ class Payment extends Controller{
             $eventDate = date_format(date_create($ticket->getDate()),"d F Y");
             $eventTime = date_format(date_create($ticket->getTime()),"H:i") . ' uur';
             
-            if($eventType == 'Haarlem Dance'){            
-                // Insert code for ticket generatie
+            if($eventType == 'Haarlem Dance'){
+                if (strpos($ticketType, 'dance_ticket') !== false)          
+                {$eventArtist = $ticket->getArtist();
+                $eventVenue = $ticket->getVenue();}
+                else if (strpos($ticketType, 'all-access') !== false)
+                {$eventArtist = "Multiple artist"; $eventVenue = "Multiple venues";}
+                $html = "
+                        <ul>
+                            <li>Ticket ID: {$ticketId}</li>
+                            <li>Event ID: {$eventId}</li>
+                            <li>Name: {$eventType}</li>
+                            <li>Type: {$ticketType}</li>
+                            <li>Date: {$eventDate}</li>
+                            <li>Time: {$eventTime}</li>
+                            <li>Artist: {$eventRestaurant}</li>
+                            <li>Venue: {$eventSession}</li>
+                            <li>Price: € {$ticketPrice}</li>
+                        </ul>
+                        <style>
+                        ul {
+                            list-style-type: none;
+                            padding: 0;
+                            margin: 0;
+                        }
+                        </style>
+                        ";
             }
             if($eventType == 'Haarlem Food'){                   
                 $eventSession = $ticket->getSession();
@@ -233,7 +258,21 @@ class Payment extends Controller{
                 $type = 'food_kids';
                 $cart_item = $this->cartitemRepo->findFood($id, $kids_tickets, $type, $request);
                 $cart_items[] = $cart_item;
-            }                 
+            } 
+            //dance_ticket
+            if(!empty($_SESSION['cart'][$id]['dance_ticket'])){
+                $general = $_SESSION['cart'][$id]['dance_ticket'];
+                $type = 'dance_ticket';
+                $cart_item = $this->cartitemRepo->findDance($id, $general, $type);
+                $cart_items[] = $cart_item;
+            }
+            //all-access
+            if(!empty($_SESSION['cart'][$id]['all_access'])){
+                $general = $_SESSION['cart'][$id]['all_access'];
+                $type = 'all_access';
+                $cart_item = $this->cartitemRepo->findDance($id, $general, $type);
+                $cart_items[] = $cart_item;
+            }
         }
         return $cart_items;           
     }            

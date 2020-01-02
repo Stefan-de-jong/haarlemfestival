@@ -1,5 +1,6 @@
 
 <?php require_once APPROOT . '/views/inc/header.php'; ?>
+<style> footer{margin-top: 979.031px;}</style>
 <container class="text-center">
     <section id="bg-image" style="position: absolute;"><img src="<?php echo URLROOT; ?>/img/dance/bg-left.png" style="position: absolute;"><img style="position: absolute;margin-left: 1536px;" src="<?php echo URLROOT; ?>/img/dance/bg-right.png"></section>
     <section class="text-center" id="welcome-message" style="width: 1154px;background-color: rgb(255,69,69);height: 64px;margin-left: 384px;position: absolute;">
@@ -31,4 +32,3 @@
     </section>
 </container>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
-
