@@ -11,8 +11,8 @@ class Payment extends Controller{
 
         $this->ticketModel = $this->model('Ticket');
         //$this->dticketModel = $this->model('DanceTicket');
-        $this->hticketModel = $this->model('FoodTicket');
-        $this->fticketModel = $this->model('HistoricTicket');
+        $this->fticketModel = $this->model('FoodTicket');
+        $this->hticketModel = $this->model('HistoricTicket');
         //$this->jticketModel = $this->model('JazzTicket');  
     }
 
@@ -62,12 +62,10 @@ class Payment extends Controller{
         $data = $_SESSION['data'];
                
         $tickets = [];              
-        foreach ($data['cart_items'] as $item) {                     
-
-            for ($i=0; $i < $item->getAmount(); $i++) {                         
+        foreach ($data['cart_items'] as $item) {
+            for ($i=0; $i < $item->getAmount(); $i++) {
                 // update available tickets
-                $this->eventRepo->updateTickets($item->getEventId(), $item->getTicketType());                
-                $ticket;
+                $this->eventRepo->updateTickets($item->getEventId(), $item->getTicketType());
                 switch ($item->getEventType()) {
                     case 'Haarlem Dance':
                         //$ticket = new DanceTicket($item->getEventId(),$item->getTicketType(),$item->getPrice(),$data['customer_email'], $item->getEventType(), $item->getDate(), $item->getTime());
