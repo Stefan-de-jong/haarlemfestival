@@ -92,9 +92,9 @@ class Cart extends Controller{
                     $cart_items[] = $cart_item;
                 }
 
-                if(!empty($_SESSION['cart'][$id]['all-access'])){
-                    $general = $_SESSION['cart'][$id]['all-access'];
-                    $type = 'all-access';
+                if(!empty($_SESSION['cart'][$id]['all_access'])){
+                    $general = $_SESSION['cart'][$id]['all_access'];
+                    $type = 'all_access';
                     $cart_item = $this->cartitemRepo->findDance($id, $general, $type);
                     $cart_items[] = $cart_item;
                 }

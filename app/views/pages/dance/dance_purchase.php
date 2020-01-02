@@ -29,15 +29,16 @@ $pic_count = 0;
     </section>
     <p style="position: relative;margin-top: -50px;margin-left: 754px;width: 250px;">Get access to all venues!<br>Select a day:</p><div id=dropdown>
 <div id=dal>
-<dropdown id='pass-dropdown'; style = "margin-left: 950px; margin-top: -57px; position: absolute;">
-    <select style = "padding: 7.5px;">
+<dropdown style = "margin-left: 950px; margin-top: -57px; position: absolute;">
+    <select style = "padding: 7.5px;" id="pass-select">
       <option value="fri">Friday</option>
       <option value="sat">Saturday</option>
       <option value="sun">Sunday</option>
+      <option value="all">All</option>
     </select>
 </dropdown>
 </div>
-</div><button class="btn btn-primary" type="button" style="position: relative;margin-top: -105px;margin-left: 1100px;height: 50px;">BUY ALL ACCESS-PASS</button>
+</div><button id='pass-button' class="btn btn-primary" type="button" style="position: relative;margin-top: -105px;margin-left: 1100px;height: 50px;" onclick = "addPass()">BUY ALL ACCESS-PASS</button>
 </section>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 <style> footer{margin-top: <?php $pxadjustment ?>}</style>

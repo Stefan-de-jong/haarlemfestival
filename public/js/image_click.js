@@ -1,10 +1,15 @@
 var pnl = document.getElementById("pnl");
 pics = [];
 var content;
+var day;
 var padding = document.getElementById("padding");
 var pass = document.getElementById("pass");
+var footer = document.getElementsByTagName('footer');
+var selection = document.getElementById("pass-select");
 
 function loadPanel(id){ //set clicked picture as the current picture, then execute the function ChangeContent to hide elements and show the panel
+$(footer).hide();
+setTimeout(function(){$(footer).show();}, 100); //footer needs some time to change it's position
 hidePAll();
 getPics();
 $(pnl).ready(function(){
@@ -13,7 +18,6 @@ $(pnl).show();
 smoothAnimation(pnl);
 });
 }
-
 function sendIDWithAjax(id)
 {
     $(document).ready(function(){
@@ -28,6 +32,21 @@ function sendIDWithAjax(id)
                 }
             });
 });
+}
+
+function addPass()
+{
+  $(document).ready(function(){
+    $.ajax({
+    type: 'POST',
+    url: 'newticket',
+    data: {passday:day},
+    success: function(response)
+    {
+    alert(response);
+    }
+    });
+    });
 }
 
 function smoothAnimation(element)
@@ -86,4 +105,8 @@ $(pic).hide();
 
 window.onload = function() {
 $(pnl).hide();
-};
+}
+
+selection.onchange = function getValueDropdown(){
+day = selection.options[selection.selectedIndex].value;
+}

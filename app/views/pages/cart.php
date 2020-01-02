@@ -39,18 +39,19 @@ require APPROOT . '/views/inc/header.php';
         <?php if($item->getEventType() == 'Haarlem Dance') : ?>
             <?php   $date = date_create($item->getDate());
                     $time = date_create($item->getTime());
+
                     ?>
         <table border="1">
             <tr>
                 <td rowspan="3"><img height="200px" width="200px" src="<?php echo URLROOT; ?>/img/dance.jpg"></td>
-                <td width="450px"><?php echo $item->getEventType(); ?></td>
-                <td width="450px"><?php if (strpos($item->getTicketType(), "dance_ticket") !== false){echo "Dance Ticket";}else if($item->getTicketType='all=access'){echo "All-Access";} ?></td>
+                <td width="450px"><?php echo $item->getEventType();?></td>
+                <td width="450px"><?php echo $item->getArtist(); ?></td>
                 <td width="100px">
                     <form method="post">
-                        <?php if(strpos($item->getTicketType(), "dance_ticket"))
+                        <?php if(strpos($item->getTicketType(), "dance_ticket") !== false)
                                             $name = "dance_ticket_amount" . $item->getEventId();
-                                        else if ($item->getTicketType() == "all-access")
-                                            $name = "all-access_amount" . $item->getEventId();
+                                        else if (strpos($item->getTicketType(), "all_access") !== false)
+                                            $name = "all_access_amount" . $item->getEventId();
                                         ?>
                         <select name="<?php echo $name;?>" onchange="this.form.submit()">
                             <?php for ($i = 0; $i < 12; $i++) {
@@ -66,12 +67,12 @@ require APPROOT . '/views/inc/header.php';
                                                 $_SESSION['cart'][$id]["dance_ticket"] = $amount;
                                                 echo "<meta http-equiv=\"refresh\" content=\"0\">";
                                             }
-                                            if(isset($_POST['all-access_amount'.$item->getEventId()]))
+                                            if(isset($_POST['all_access_amount'.$item->getEventId()]))
                                             {
                                                 $id = $item->getEventId();
-                                                $amount = $_POST['all-access_amount'.$item->getEventId()];
+                                                $amount = $_POST['all_access_amount'.$item->getEventId()];
 
-                                                $_SESSION['cart'][$id]["all-access"] = $amount;
+                                                $_SESSION['cart'][$id]["all_access"] = $amount;
                                                 echo "<meta http-equiv=\"refresh\" content=\"0\">";
                                             }
                                         ?>
@@ -79,13 +80,14 @@ require APPROOT . '/views/inc/header.php';
                 </td>
             </tr>
             <tr>
-                <td><?php echo $item->getArtist(). "<br>". date_format($date,"d F Y") ; ?></td>
-                <td><?php echo 'Time: '. date_format($time,"H:i") .'<br> Venue: '. $item->getVenue();?></td>
+                <td><?php if(strpos($item->getTicketType(), "all_access") !== false){if ($item->getEventId() != 117){echo date_format($date,"d F Y");}else{echo "No specific date";}} else{echo date_format($time, "H:i") . "<br>". date_format($date,"d F Y");} ?></td>;
+                <td><?php if(strpos($item->getTicketType(), "dance_ticket") !== false){echo $item->getVenue() . "<br>" . $item->getAddress();}?></td>
                 <td><?php echo 'p/s: ' . $item->getPrice() . '<br>'; ?>
                     <?php echo 'total: ' . $item->getSubTotal(); ?></td>
             </tr>
             <tr>
                 <td>
+                    <?php $item->printTicketType() . " "; if($item->getTicketType() == 114){echo "Friday";}else if($item->getEventId() == 115){echo "Saturday";}else if($item->getEventId() == 116){echo "Sunday";}else if($item->getEventId() == 117){echo "All festival days";}?>
                 </td>
                 <td colspan="2" align="right">
                     <form method="post">
@@ -96,7 +98,6 @@ require APPROOT . '/views/inc/header.php';
                                         if(isset($_POST['delete'.$item->getEventId()]))
                                         {
                                             $id = $item->getEventId();
-                                            $type = $item->getEventType();
                                             unset($_SESSION['cart'][$id]);
                                             echo "<meta http-equiv=\"refresh\" content=\"0\">";
                                         }
@@ -121,8 +122,8 @@ require APPROOT . '/views/inc/header.php';
                     <form method="post">
                         <?php if(strpos($item->getTicketType(), "dance_ticket"))
                                             $name = "regularTicket_amount" . $item->getEventId();
-                                        else if ($item->getTicketType() == 'all-access')
-                                            $name = "all-access" . $item->getEventId();
+                                        else if ($item->getTicketType() == 'all_access')
+                                            $name = "all_access" . $item->getEventId();
                                         ?>
                         <select name="<?php echo $name;?>" onchange="this.form.submit()">
                             <?php for ($i = 0; $i < 12; $i++) {
