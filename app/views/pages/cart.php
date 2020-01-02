@@ -37,7 +37,7 @@ require APPROOT . '/views/inc/header.php';
         <?php foreach($data['cart_items'] as $item) : ?>
 
         <?php if($item->getEventType() == 'Haarlem Dance') : ?>
-            <?php   $date = date_create($item->getDate());
+        <?php   $date = date_create($item->getDate());
                     $time = date_create($item->getTime());
 
                     ?>
@@ -80,8 +80,10 @@ require APPROOT . '/views/inc/header.php';
                 </td>
             </tr>
             <tr>
-                <td><?php if(strpos($item->getTicketType(), "all_access") !== false){if ($item->getEventId() != 117){echo date_format($date,"d F Y");}else{echo "No specific date";}} else{echo date_format($time, "H:i") . "<br>". date_format($date,"d F Y");} ?></td>;
-                <td><?php if(strpos($item->getTicketType(), "dance_ticket") !== false){echo $item->getVenue() . "<br>" . $item->getAddress();}?></td>
+                <td><?php if(strpos($item->getTicketType(), "all_access") !== false){if ($item->getEventId() != 117){echo date_format($date,"d F Y");}else{echo "No specific date";}} else{echo date_format($time, "H:i") . "<br>". date_format($date,"d F Y");} ?>
+                </td>;
+                <td><?php if(strpos($item->getTicketType(), "dance_ticket") !== false){echo $item->getVenue() . "<br>" . $item->getAddress();}?>
+                </td>
                 <td><?php echo 'p/s: ' . $item->getPrice() . '<br>'; ?>
                     <?php echo 'total: ' . $item->getSubTotal(); ?></td>
             </tr>
@@ -120,11 +122,11 @@ require APPROOT . '/views/inc/header.php';
                 <td width="450px"><?php echo $item->getTicketType(); ?></td>
                 <td width="100px">
                     <form method="post">
-                        <?php if(strpos($item->getTicketType(), "dance_ticket"))
-                                            $name = "regularTicket_amount" . $item->getEventId();
-                                        else if ($item->getTicketType() == 'all_access')
-                                            $name = "all_access" . $item->getEventId();
-                                        ?>
+                        <?php if($item->getTicketType() == "Regular ticket")
+                                          $name = "regularTicket_amount" . $item->getEventId();
+                                          else
+                                              $name = "kidsTicket_amount" . $item->getEventId();
+                                          ?>
                         <select name="<?php echo $name;?>" onchange="this.form.submit()">
                             <?php for ($i = 0; $i < 12; $i++) {
                                                 echo '<option value="' . $i . '" ' . (($i == $item->getAmount()) ? 'selected="selected"' : "") . '>' . $i . '</option>';
