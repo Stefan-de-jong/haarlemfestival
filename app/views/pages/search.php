@@ -1,5 +1,4 @@
 <?php
-//dit bestand gebruikt statische waarde dus als je een event toevoegt of veranderd in de database vergeet hem niet hier ook nog aan te passen!
 //uitleg variabelen: $string is de string die je wilt doorzoeken met $query, de $page is de pagina waar je klanten heen wilt sturen als er zoekresultaten gevonden zijn
 //als je zelf nog zoektermen voor een bepaalde pagina wilt gebruiken kan je die zelf in de string toevoegen. Er staat nu in elk geval tekst die op de pagina zo ie zo staat.
 require_once APPROOT . '/views/inc/header.php';
