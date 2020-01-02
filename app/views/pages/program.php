@@ -1,9 +1,8 @@
 <?php
-require APPROOT . '/views/inc/header.php';
-$dance = true;
-$food = true;
-$historic = true;
-
+    require APPROOT . '/views/inc/header.php';
+    $dance = true;
+    $food = true;
+    $historic = true;
 ?>
 <div class="program_body">
     <div class="program_container" style="height: auto">
@@ -31,9 +30,6 @@ $historic = true;
                 }
             }
         </script>
-
-
-        <h1 id="title">title</h1>
         <table border="1" style="font-size: 16px; table-layout: fixed">
             <tr>
                 <th width='75px'></th>
