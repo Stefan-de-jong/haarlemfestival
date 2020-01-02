@@ -24,6 +24,4 @@
     </div>
 
 </section>
-
-<style> footer{margin-top: 979.031px;}</style> 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
