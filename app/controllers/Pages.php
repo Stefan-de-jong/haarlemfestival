@@ -51,5 +51,13 @@
 
             $this->view('pages/CMS/Content_testpages/test1', $data);
         }
+
+        public function search(){
+            $data = [
+                'title' => 'search'
+            ];
+
+            $this->view('pages/search', $data);
+        }
     }
 ?>
