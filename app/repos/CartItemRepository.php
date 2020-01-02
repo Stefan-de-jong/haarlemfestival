@@ -75,12 +75,14 @@
             $this->db->bind(':id', $id);
             $event = $this->db->single();
             }
+            $ticket_type = $ticket_type . "_" . $id;
             if (strpos($ticket_type, 'dance_ticket') !== false)
             {
             $this->db->query('SELECT *
             FROM tickettype
             WHERE tickettype.name = :ticket_type
             ');
+            $this->db->bind(':ticket_type', $ticket_type);
             }
             else if (strpos($ticket_type, 'all_access') !== false)
             {
@@ -88,10 +90,9 @@
             FROM tickettype
             WHERE tickettype.id = :ticket_type
             ');
-            }
             $this->db->bind(':ticket_type', $id);
+            }
             $ticket = $this->db->single();
-            $ticket_type = $ticket_type . $ticket->name;
             $this->db->query('SELECT * FROM venue
             INNER JOIN danceevent ON danceevent.location = venue.id WHERE danceevent.id = :id'
             );
@@ -102,6 +103,7 @@
             $cartItem = new DanceCartItem($event->id, $event->event_type, $ticket_type, $amount, $event->date, $event->begin_time, $event->name, $ticket->price, $location->name, $location->address);
             }
             else if (strpos($ticket_type, 'all_access') !== false)
+            {
             $stringdate = "";
             {
             switch(substr($ticket->name, -3))
@@ -123,6 +125,7 @@
             $time = DateTime::createFromFormat('H:i:s', '00:00:00');
             $cartItem = new DanceCartItem($id, 1, $ticket_type, $amount, $date->format('d-m-Y'), $time->format('H:i:s'), "Multiple Artist", $ticket->price, 0, 0);
             }
+        }
             return $cartItem;
         }
 
