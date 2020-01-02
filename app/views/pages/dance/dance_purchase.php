@@ -41,6 +41,6 @@ $pic_count = 0;
 </div><button id='pass-button' class="btn btn-primary" type="button" style="position: relative;margin-top: -105px;margin-left: 1100px;height: 50px;" onclick = "addPass()">BUY ALL ACCESS-PASS</button>
 </section>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
-<style> footer{margin-top: <?php $pxadjustment ?>}</style>
+
 <script src="<?php echo URLROOT; ?>/js/image_click.js"></script>
 <script> var piccount = '<?php echo $count?>'; </script>

@@ -1,5 +1,5 @@
 <?php
-class programRepository
+class ProgramRepository
 {
     private $db;
 
@@ -31,7 +31,10 @@ class programRepository
     public function findAllHistoricEvents()
     {
         $events = array();
-        $this->db->query('SELECT *
+        $this->db->query('SELECT *,
+                            historicevent.id as id,
+                            language.language as language,
+                            guide.name as guide
                             FROM event                                
                             JOIN historicevent
                             ON historicevent.id = event.id
