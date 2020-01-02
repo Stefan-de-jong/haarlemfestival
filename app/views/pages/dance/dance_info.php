@@ -31,4 +31,4 @@
     </section>
 </container>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
-<style> footer{margin-top: 979.031px;}</style>
+

@@ -1,0 +1,16 @@
+nav > a{
+    width: 20%;
+    float: left;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    padding: 13px 15px;
+}
+
+header > img
+{
+    float: left;
+}
+
