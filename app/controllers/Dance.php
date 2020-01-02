@@ -7,6 +7,7 @@ class Dance extends Controller{
         $this->danceModel = $this->model('EventData');
         $this->danceModel = $this->model('Styles');
         $this->eventModel = $this->model('Event');
+        $this->eventModel = $this->model('Pass');
         $this->danceEventModel = $this->model('DanceEvent');
         $this->DanceRepository = $this->repo('DanceRepository');
     }
@@ -53,9 +54,11 @@ class Dance extends Controller{
 
         public function newticket()
         {
-          
+            $passes = $this->DanceRepository->getAllPasses();
+
             $data =[
                 'title' => 'newticket',
+                'passes' => $passes
             ];
     
         $this->view('pages/dance/inc/newticket', $data);

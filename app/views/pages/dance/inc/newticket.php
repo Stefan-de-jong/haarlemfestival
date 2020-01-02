@@ -9,6 +9,8 @@ if (!isset($_POST['venue']) && (!isset($_POST['passday']))) //if someone tries t
 else
 {
 
+$passes = $data['passes'];
+
 if (isset($_POST['passday']))
 {
 $day = $_POST['passday'];
@@ -52,14 +54,13 @@ else
 
 if (isset($day))
 {
-if ($day == 'fri')
-{$id = 114;}
-else if ($day == 'sat')
-{$id = 115;}
-else if ($day == 'sun')
-{$id = 116;}
-else if ($day == 'all')
-{$id = 117;}
+foreach ($passes as $pass)
+{
+if ($pass->getName() == $day)
+{
+$id = $pass->getId();
+}
+}
 
 $cart_item = array(
     'all_access' => 1
@@ -67,12 +68,16 @@ $cart_item = array(
 
 if(!array_key_exists($id, $_SESSION['cart'])){
     $_SESSION['cart'][$id]=$cart_item;
-    var_dump($cart_item);
-    echo $id;
+    switch ($day)
+    { case 'fri': $day = 'Friday'; break;
+    case 'sat': $day = 'Saturday'; break;
+    case 'sun': $day = 'Sunday'; break;
+    case 'all'; $day = 'all days'; break;}
+    echo "Added an All-Access Pass for " . $day;
 }
 else
 {
-echo "You already ordered an all-access pass on this day";
+echo "You already ordered an all-Access Pass on this day";
 }
 }
 ?>
