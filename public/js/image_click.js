@@ -1,77 +1,112 @@
-src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js";
-
-var nr = document.getElementById('nr');
-var aj = document.getElementById('aj');
-var hw = document.getElementById('hw');
-var avb = document.getElementById('avb');
-var mx = document.getElementById('mx');
-var t = document.getElementById('t');
 var pnl = document.getElementById("pnl");
-var back = document.getElementById('back');
-var currentpic;
+pics = [];
+var content;
+var day;
+var padding = document.getElementById("padding");
+var pass = document.getElementById("pass");
+var footer = document.getElementsByTagName('footer');
+var selection = document.getElementById("pass-select");
 
-nr.onclick = function setCurrentPicNr(){ //set clicked picture as the current picture, then execute the function ChangeContent to hide elements and show the panel
-currentpic = nr;
-changeContent();
+function loadPanel(id){ //set clicked picture as the current picture, then execute the function ChangeContent to hide elements and show the panel
+$(footer).hide();
+setTimeout(function(){$(footer).show();}, 100); //footer needs some time to change it's position
+hidePAll();
+getPics();
 $(pnl).ready(function(){
-$(pnl).load("../public/inc/dance/load_nr.php");
+sendIDWithAjax(id);
+$(pnl).show();
+smoothAnimation(pnl);
+});
+}
+function sendIDWithAjax(id)
+{
+    $(document).ready(function(){
+
+              $.ajax({
+                type: 'POST',
+                url: 'panel',
+                data: {panelid:id},
+                success: function(response) {
+                  $(pnl).append(response)
+                  content = response;
+                }
+            });
 });
 }
 
-aj.onclick = function setCurrentPicAj(){
-  currentpic = aj;
-  changeContent();
-  $(pnl).ready(function(){
-  $(pnl).load("../public/inc/dance/load_aj.php");
-  });
+function addPass()
+{
+  $(document).ready(function(){
+    $.ajax({
+    type: 'POST',
+    url: 'newticket',
+    data: {passday:day},
+    success: function(response)
+    {
+    alert(response);
+    }
+    });
+    });
 }
 
-hw.onclick = function setCurrentPicHw(){
-currentpic = hw;
-changeContent();
-$(pnl).ready(function(){
-$(pnl).load("../public/inc/dance/load_hw.php");
-});
+function smoothAnimation(element)
+{
+  var counter = 100;
+  element.style.opacity = 0;
+  var intervalid = setInterval(function()
+  {
+  var opacity = counter / 1000;
+  element.style.opacity = opacity;
+  counter+= 100;
+  if (counter == 1100)
+  clearInterval(intervalid);
+  }, 50);
 }
 
-avb.onclick = function setCurrentPicAvb(){
-currentpic = avb;
-changeContent();
-$(pnl).ready(function(){
-$(pnl).load("../public/inc/dance/load_avb.php");
-});
+function showPics(pics)
+{
+for (p in pics)
+{
+$(pics[p]).show();
+smoothAnimation(pics[p]);
+}
 }
 
-mx.onclick = function setCurrentPicMx(){
-currentpic = mx;
-changeContent();
-$(pnl).ready(function(){
-$(pnl).load("../public/inc/dance/load_mx.php");
-});
+function hidePAll()
+{
+$(pass).hide();
+$(padding).hide();
 }
 
-t.onclick = function setCurrentPicT(){
-currentpic = t;
-changeContent();
-$(pnl).ready(function(){
-$(pnl).load("../public/inc/dance/load_t.php");
-});
+function showPass()
+{
+$(pass).show();
+smoothAnimation(pass);
 }
 
-function changeContent() { //makes the panel show up, and the selection images hidden
-nr.style.display = 'none';
-t.style.display = 'none';
-aj.style.display = 'none';
-hw.style.display = 'none';
-avb.style.display = 'none';
-mx.style.display = 'none';
-if (pnl.style.display == "none") {
-    pnl.style.display = "block";
-} else {
-    pnl.style.display = "none";
+function showPicturePadding()
+{
+$(padding).show();
 }
+
+function getPics(){
+for (i = 0; i < piccount; i++)
+{
+var pic = document.getElementById('pic' + (i+1));
+hidePic(pic);
+pics.push(pic); 
+}
+}
+
+function hidePic(pic)
+{
+$(pic).hide();
 }
 
 window.onload = function() {
-document.getElementById('pnl').style.display = 'none';
-};
+$(pnl).hide();
+}
+
+selection.onchange = function getValueDropdown(){
+day = selection.options[selection.selectedIndex].value;
+}

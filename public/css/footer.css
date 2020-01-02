@@ -1,0 +1,22 @@
+footer h4{
+padding-left: 42%;
+position: absolute;
+bottom: 0;
+}
+
+footer{
+background-color: lightsteelblue;
+width: 1920px;
+position: absolute;
+}
+
+footer #socials{
+margin-top: 10px;
+padding-left: 25%;
+position: absolute;
+}
+
+footer #logo{
+float: right;
+padding-right: 25%;
+}

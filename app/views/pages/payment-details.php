@@ -67,6 +67,14 @@ $data['total'] = 0;?>
 
                     <?php if($item->getEventType() == 'Haarlem Dance') : ?>
                     <img height="50px" width="50px" src="<?php echo URLROOT; ?>/img/dance.jpg">
+                    <?php       
+                    echo $item->getEventType(). "<br> ".
+                    date_format(date_create($item->getDate()),"d F Y") . ', ' . date_format(date_create($item->getTime()),"H:i") . " uur<br>
+                    Artist: " . $item->getArtist() . '<br>
+                    Ticket type: ' . $item->printTicketType(). "<br>
+                    Amount: " . $item->getAmount(). ", Price: " . ($item->getPrice() * $item->getAmount()). ' <br><br>';
+                    $data['total'] += $item->getPrice() * $item->getAmount();
+                ?>
                     <?php endif; ?>
 
                     <?php if($item->getEventType() == 'Haarlem Historic') : ?>

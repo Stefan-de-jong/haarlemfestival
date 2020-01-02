@@ -5,6 +5,7 @@ class Cart extends Controller{
         $this->cartitemModel = $this->model('CartItem');
         $this->historicItemModel = $this->model('HistoricCartItem');
         $this->foodModel = $this->model('FoodCartItem');
+        $this->danceModel = $this->model('DanceCartItem');
     }
 
     public function index()
@@ -84,9 +85,19 @@ class Cart extends Controller{
                 }
 
                 // creating cart items for dance tickets (if set)
-                //dance
-                //dance
-                //dance
+                if(!empty($_SESSION['cart'][$id]['dance_ticket'])){
+                    $general = $_SESSION['cart'][$id]['dance_ticket'];
+                    $type = 'dance_ticket';
+                    $cart_item = $this->cartitemRepo->findDance($id, $general, $type);
+                    $cart_items[] = $cart_item;
+                }
+
+                if(!empty($_SESSION['cart'][$id]['all_access'])){
+                    $general = $_SESSION['cart'][$id]['all_access'];
+                    $type = 'all_access';
+                    $cart_item = $this->cartitemRepo->findDance($id, $general, $type);
+                    $cart_items[] = $cart_item;
+                }
             }
             $data = [                
                 'cart_items' => $cart_items

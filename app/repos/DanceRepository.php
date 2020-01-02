@@ -17,7 +17,13 @@ class DanceRepository{
         FROM artist'
         );
        $results = $this->db->resultSet();
-       return $results;
+       $artists = array();
+       foreach ($results as $result)
+       {
+       $artist = new Artist($result->id, $result->name, $result->bio, $result->style);
+       array_push($artists, $artist);
+       }
+       return $artists;
     }
 
     public function getAllEvents(){ //gets all events
@@ -25,15 +31,29 @@ class DanceRepository{
         FROM danceevent'
         );
        $results = $this->db->resultSet();
-       return $results;
+       $events = array(); 
+       foreach ($results as $result)
+       {
+       $event = new EventData($result->id, $result->artist, $result->location, $result->session);
+       array_push($events, $event);
+       }
+       return $events;
     }
 
     public function getEventData(){ //assuming that dance eventtype = 1, it gets all event data associated with dance events
-        $this->db->query('SELECT *
-        FROM event WHERE event_type = 1'
-        );
+        $this->db->query('SELECT event.*, 
+        tickettype.price 
+        FROM event LEFT JOIN tickettype 
+        ON tickettype.id = event.id 
+        WHERE event_type = 1');
         $results = $this->db->resultSet();
-        return $results;
+        $eventdata = array();
+        foreach ($results as $result)
+        {
+        $event = new DanceEvent($result->id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->n_tickets, $result->price);
+        array_push($eventdata, $event);    
+        }
+        return $eventdata;
     }
 
     public function getVenues(){
@@ -41,7 +61,13 @@ class DanceRepository{
         FROM venue'
         );
         $results = $this->db->resultSet();
-        return $results;
+        $venues = array();
+        foreach ($results as $result)
+        {
+        $venue = new Venue($result->id, $result->name, $result->address);
+        array_push($venues, $venue);
+        }
+        return $venues;
     }
 
     public function getStyles(){
@@ -49,7 +75,13 @@ class DanceRepository{
         FROM style'
         );
         $results = $this->db->resultSet();
-        return $results;
+        $styles = array();
+        foreach ($results as $result)
+        {
+        $style = new Styles($result->id, $result->name);
+        array_push($styles, $style);
+        }
+        return $styles;
     }
-}
+} 
 ?>
