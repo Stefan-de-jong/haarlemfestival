@@ -118,7 +118,7 @@
             $stringdate = '28-07-2020';
             break;
             case 'all';
-            $stringdate = '00-00-00';
+            $stringdate = '00-00-0000';
             break;
             }
             $date = DateTime::createFromFormat('d-m-Y', $stringdate);
