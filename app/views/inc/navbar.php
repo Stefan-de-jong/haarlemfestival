@@ -1,7 +1,8 @@
 <?php $url = $_SERVER['REQUEST_URI'];
 $color = " darksalmon";
 $title = "Haarlem Festival";
-if (strpos($url, 'food'))
+if (strpos($url, 'search')) {} //als een zoekopdracht een naam van een van de thema's bevat veranderde de kleur dus dit voorkomt dat
+else if (strpos($url, 'food'))
 {$color = "rgb(152,255,153)";
 $title = $title . " - Food";
 }
@@ -36,6 +37,11 @@ else if (strpos($url, 'program'))
     <img style="float:right; margin-top: 15px; margin-right: 25px" onclick="" src="<?php echo URLROOT; ?>/img/header/en_flag.png">
     <img style="float: right; margin-top: 15px; margin-right: 5px" onclick="" src="<?php echo URLROOT; ?>/img/header/nl_flag.png">
     <img height="103px" width="120px" style="float:right; margin-top: 75px; margin-right: -135px" onclick="location.href='<?php echo URLROOT;?>/cart/index'" src="<?php echo URLROOT; ?>/img/cart.png">
+    <form class="searchbar" action="<?php echo URLROOT?>/pages/search">
+     <input style="margin-top: 60px; margin-left: 210px;" type="text" placeholder="Search the events!" name="q">
+     <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+</div>
 
     <nav style="clear:both;">
         <a style="background-color: rgb(255,104,104)" href="<?php echo URLROOT;?>/dance/index">Dance</a>

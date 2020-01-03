@@ -80,7 +80,7 @@ require APPROOT . '/views/inc/header.php';
                 </td>
             </tr>
             <tr>
-                <td><?php if(strpos($item->getTicketType(), "all_access") !== false){if ($item->getEventId() != 117){echo date_format($date,"d F Y");}else{echo "No specific date";}} else{echo date_format($time, "H:i") . "<br>". date_format($date,"d F Y");} ?>
+                <td><?php if(strpos($item->getTicketType(), "all_access") !== false){if (substr($item->getTicketType(), -3) != 'all'){echo date_format($date,"d F Y");}else{echo "No specific date";}} else{echo date_format($time, "H:i") . "<br>". date_format($date,"d F Y");} ?>
                 </td>;
                 <td><?php if(strpos($item->getTicketType(), "dance_ticket") !== false){echo $item->getVenue() . "<br>" . $item->getAddress();}?>
                 </td>
@@ -89,7 +89,7 @@ require APPROOT . '/views/inc/header.php';
             </tr>
             <tr>
                 <td>
-                    <?php $item->printTicketType() . " "; if($item->getTicketType() == 114){echo "Friday";}else if($item->getEventId() == 115){echo "Saturday";}else if($item->getEventId() == 116){echo "Sunday";}else if($item->getEventId() == 117){echo "All festival days";}?>
+                    <?php $item->printTicketType() . " "; if(substr($item->getTicketType(), -3) == 'fri'){echo "Friday";}else if(substr($item->getTicketType(), -3) == 'sat'){echo "Saturday";}else if(substr($item->getTicketType(), -3) == 'sun'){echo "Sunday";}else if(substr($item->getTicketType(), -3) == 'all'){echo "All festival days";}?>
                 </td>
                 <td colspan="2" align="right">
                     <form method="post">

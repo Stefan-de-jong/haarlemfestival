@@ -1,6 +1,7 @@
 
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
+        <section class="text-center">
 <section class="text-center" style="background-color: rgb(162,22,220); padding-left: 15px; padding-right: 15px; padding-bottom: 15px">
 <div style="float:left;">
           <a href="<?php echo URLROOT; ?>"><span>Home</span></a> >
@@ -23,5 +24,4 @@
     </div>
 
 </section>
-
 <?php require APPROOT . '/views/inc/footer.php'; ?>
