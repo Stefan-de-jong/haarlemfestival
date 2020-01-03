@@ -15,8 +15,8 @@ if (isset($_GET['q']))
 $query = $_GET['q'];
 }
 echo
-"<section style='margin-left: 40%;'>
-<form action='";
+"<section style='background-color: cyan; padding-bottom: 20px; margin-bottom: -30px; padding-left: 30%'>
+<form  action='";
 if(isset($query))
 {
 echo $url . '/pages/search/' . $query;

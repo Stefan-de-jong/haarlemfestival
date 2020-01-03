@@ -34,7 +34,10 @@ class Payment extends Controller{
             // ToDo add check for emailaddress match 2nd emailaddress
             // emailcheck ....
 
-            $email = trim($_POST['emailaddress']);
+            if(!empty($_SESSION['customer_email']))
+                $email = $_SESSION['customer_email'];
+            else
+                $email = trim($_POST['emailaddress']);
             $cartitems = $this->getCartItems();
             $amount = 0;
             foreach ($cartitems as $item) {
