@@ -14,7 +14,7 @@
     // Database parameters LOCAL Stefan
     define('DB_HOST', 'localhost');
     define('DB_USER', 'root');
-    define('DB_PASSWORD', '123456');
+    define('DB_PASSWORD', '');
     define('DB_NAME', 'hfa4_HF');
 
     // //database parameters LOCAL Jim

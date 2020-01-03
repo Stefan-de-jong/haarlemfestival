@@ -69,7 +69,7 @@ class Payment extends Controller{
                 $this->eventRepo->updateTickets($item->getEventId(), $item->getTicketType());
                 switch ($item->getEventType()) {
                     case 'Haarlem Dance':
-                        $ticket = new DanceTicket($item->getEventId(),$item->getTicketType(),$item->getPrice(),$data['customer_email'], $item->getEventType(), $item->getDate(), $item->getTime(), $item->getPrice(), $item->getVenue());
+                        $ticket = new DanceTicket($item->getEventId(),$item->getTicketType(),$item->getPrice(),$data['customer_email'], $item->getEventType(), $item->getDate(), $item->getTime(), $item->getPrice(), $item->getVenue(), $item->getArtist());
                         break;
                     case 'Haarlem Food':
                         $ticket = new FoodTicket($item->getEventId(),$item->getTicketType(),$item->getPrice(),$data['customer_email'], $item->getEventType(), $item->getDate(), $item->getTime(), $item->getRestName(), $item->getSession());
@@ -82,7 +82,7 @@ class Payment extends Controller{
                         break;                        
                 } 
                 if($this->ticketRepo->save($ticket)){
-                    // die($ticket->getTicketId()); Werkt, tickets komt dus in DB en ID is gezet in ticket object                               
+                    die($ticket->getTicketId()); //Werkt, tickets komt dus in DB en ID is gezet in ticket object                               
                     $tickets[] = $ticket;
                 } else {
                     die('Something went wrong');
