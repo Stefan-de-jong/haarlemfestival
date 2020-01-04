@@ -22,6 +22,7 @@ li a:hover {
 
 #profile_body
 {
+    overflow: scroll;
     height: 435px;
     background-color: cornflowerblue;
     padding-left: 10%;

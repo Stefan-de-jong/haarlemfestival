@@ -17,19 +17,26 @@
                     <?php
                     break;
                 case "ticket":
-                    ?>
-                    <h1>Ticket</h1>
-                    <?php
-                    foreach ($data['ticket'] as $ticket)
-                    {
-                        echo $ticket->getTicketId() . $ticket->getTicketType(). $ticket->getEventType(). $ticket->getDate(). $ticket->getTime(). "<br>";
+                    if (!empty($data['foodTicket'])) {
+                        echo "<h4> Food tickets:</h4>";
+                        foreach ($data['foodTicket'] as $ticket) {
+                            $date = date_create($ticket->getDate());
+                            echo "Ticket type: " . $ticket->printTicketType() . "<br> 
+                        Restaurant: " . $ticket->getRestName() . "<br> Date: " . date_format($date, "d F Y") . " Session: " . $ticket->getSession() . "<br>
+                        <br>";
+                        }
                     }
+                    //historic
+                    //dance
                     break;
                 case "favorite":
-                    ?>
-                    <h1>Favorite</h1>
-
-                    <?php
+                    if (!empty($data['foodFavorite'])) {
+                    echo "<h4> Food favorites:</h4>";
+                        foreach (  $data['foodFavorite'] as $favorite) {
+                            $date = date_create($favorite->getDate());
+                            echo  "Date: ".date_format($date, "d F Y")."<br>Restaurant: ". $favorite->getRestName() ."<br>Session: ". $favorite->getSession()."<br><br>";
+                        }
+                    }
                     break;
             }
         ?>
