@@ -80,7 +80,7 @@ require APPROOT . '/views/inc/header.php';
                 </td>
             </tr>
             <tr>
-                <td><?php if(strpos($item->getTicketType(), "all_access") !== false){if (substr($item->getTicketType(), -3) != 'all'){echo date_format($date,"d F Y");}else{echo "No specific date";}} else{echo date_format($time, "H:i") . "<br>". date_format($date,"d F Y");} ?>
+                <td><?php if(strpos($item->getTicketType(), "all_access") !== false){if (substr($item->getTicketType(), 3, -3) == 'all'){echo date_format($date,"d F Y");}else{echo "No specific date";}} else{echo date_format($time, "H:i") . "<br>". date_format($date,"d F Y");} ?>
                 </td>;
                 <td><?php if(strpos($item->getTicketType(), "dance_ticket") !== false){echo $item->getVenue() . "<br>" . $item->getAddress();}?>
                 </td>
