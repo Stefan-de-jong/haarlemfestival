@@ -39,50 +39,50 @@ at the southern tip of the island.
 After the English capture of New Netherland in 1664, the new English colonial administration renamed both the colony and its principal city "New York," but left the name of Haarlem more or less unchanged. The spelling changed to Harlem 
 in keeping with contemporary English usage, and the district grew (as part of the borough of Manhattan) into the vibrant centre of African American culture in New York City and the United States generally by the 20th century.';
 $page = "historic/about";
-if(isset($query) && $query = ""){$search->executeQuery($string, $page, $query);}
+if(isset($query) && $query != ""){$search->executeQuery($string, $page, $query);}
 $string = 'Post your own pictures on Instagram, along with #HaarlemHistoric #HaarlemFestival and a hashtag corresponding to your location, and you might win a dinner for two at one of our partner restaurants!';
 $page = "historic";
 //food begint hier
-if(isset($query) && $query = ""){$search->executeQuery($string, $page, $query);}
+if(isset($query) && $query != ""){$search->executeQuery($string, $page, $query);}
 $page = "food/info/1";
 $string = "Mr & Mrs is a 4 star Dutch, fish and seafood, European restaurant.";
-if(isset($query) && $query = ""){$search->executeQuery($string, $page, $query);}
+if(isset($query) && $query != ""){$search->executeQuery($string, $page, $query);}
 $page = "food/info/2";
 $string = "Ratatouille is a 4 star French, fish and seafood, European restaurant. Reservations are mandatory.";
-if(isset($query) && $query = ""){$search->executeQuery($string, $page, $query);}
+if(isset($query) && $query != ""){$search->executeQuery($string, $page, $query);}
 $page = "food/info/3";
 $string = "Fris is a 4 star Dutch, French, European restaurant.";
-if(isset($query) && $query = ""){$search->executeQuery($string, $page, $query);}
+if(isset($query) && $query != ""){$search->executeQuery($string, $page, $query);}
 $page = "food/info/4";
 $string = "Specktakel is a 3 star Europees, Internationaal, Aziatisch restaurant.";
-if(isset($query) && $query = ""){$search->executeQuery($string, $page, $query);}
+if(isset($query) && $query != ""){$search->executeQuery($string, $page, $query);}
 $page = "food/info/5";
 $string = "Grand cafe Brinkman is a 3 star Dutch, European, Modern restaurant.";
-if(isset($query) && $query = ""){$search->executeQuery($string, $page, $query);}
+if(isset($query) && $query != ""){$search->executeQuery($string, $page, $query);}
 $page = "food/info/6";
 $string = "Urban frenchy bistro toujours is a 3 star Dutch, fish and seafood, European restaurant.";
-if(isset($query) && $query = ""){$search->executeQuery($string, $page, $query);}
+if(isset($query) && $query != ""){$search->executeQuery($string, $page, $query);}
 $page = "food/info/7";
 $string = "The golden bull is a 3 star Steakhouse, Argentinian, European restaurant.";
-if(isset($query) && $query = ""){$search->executeQuery($string, $page, $query);}
+if(isset($query) && $query != ""){$search->executeQuery($string, $page, $query);}
 $page = "food/info/8";
 $string = "Restaurant ML is a 4 star Dutch, fish and seafood, European restaurant.";
-if(isset($query) && $query = ""){$search->executeQuery($string, $page, $query);}
+if(isset($query) && $query != ""){$search->executeQuery($string, $page, $query);}
 //dance begint hier
 $page = "dance/purchase";
 $string = "Nick Rotteveel (Dutch pronunciation: [nik rɔtəvel fɑn χɔtʏm]; born 6 January 1989), professionally known as Nicky Romero, is a Dutch musician, DJ, record producer and remixer from Amerongen.[1] 
 He has worked with, and received support from DJs, such as Tiësto, Fedde le Grand, Sander van Doorn, David Guetta, Calvin Harris, Armand Van Helden, Avicii and Hardwell.[3] He currently ranks at number 43
 on DJ Mag's annual Top 100 DJs poll.[4] He is known for his viral hit song 'Toulouse'.";
-if(isset($query) && $query = ""){$search->executeQuery($string, $page, $query);}
+if(isset($query) && $query != ""){$search->executeQuery($string, $page, $query);}
 $string = "Tiësto, stage name of Tijs Michiel Verwest, is a Dutch disc jockey and music producer who often performs at major dance events. He has been voted best DJ in the world several times.";
-if(isset($query) && $query = ""){$search->executeQuery($string, $page, $query);}
+if(isset($query) && $query != ""){$search->executeQuery($string, $page, $query);}
 $string = "Nick van de Wall (Dutch: [ˈnɪk fɑn də ˈʋɑl]; born September 9, 1987), professionally known as Afrojack, is a Dutch DJ, music programmer, record producer and remixer from Spijkenisse. ... Afrojack
  regularly features as one of the ten best artists in the Top 100 DJs published by DJ Mag. He is also the CEO of LDH Europe.";
- if(isset($query) && $query = ""){$search->executeQuery($string, $page, $query);}
+ if(isset($query) && $query != ""){$search->executeQuery($string, $page, $query);}
  $string = "Robbert Van de Corput was born on 7 January 1988 in Breda, to Anneke and Cor van de Corput. At the age of four he began taking piano lessons and attended a music school. At the age of twelve, he produced his first songs in the field of electro, while performing as a hip-hop-DJ.";
- if(isset($query) && $query = ""){$search->executeQuery($string, $page, $query);}
+ if(isset($query) && $query != ""){$search->executeQuery($string, $page, $query);}
  $string = "Born on December 25, 1976 in Leiden, Holland, van Buuren became interested in music at an early age (his father was an avid record buyer). A close friend introduced him to the world of dance music, and the Dutch DJ and remixer Ben Liebrand quickly became his main inspiration.";
- if(isset($query) && $query = ""){$search->executeQuery($string, $page, $query);}
+ if(isset($query) && $query != ""){$search->executeQuery($string, $page, $query);}
  $string = "Martin Garrix was born as Martijn Gerard Garritsen on May 14, 1996 in Amstelveen, a municipality in the province of North Holland, Netherlands, to Gerard and Karin Garritsen. He has a sister, Laura. He graduated from the 'Herman Brood Academie' in 2013 with the MBO diploma in 'artistic pop music'";
 //jazz begint hier
 
