@@ -68,7 +68,7 @@
                             INNER JOIN danceevent as DE
                             ON DE.id = event.id
                             INNER JOIN artist
-                            ON artist.id = DE.artist                               
+                            ON artist.artist_id = DE.artist                               
                             WHERE event_type = :event_type
                             AND event.id = :id');
             $this->db->bind(':event_type', 1);
@@ -100,7 +100,7 @@
             $location = $this->db->single();
             if (strpos($ticket_type, 'dance_ticket') !== false)
             {
-            $cartItem = new DanceCartItem($event->id, $event->event_type, $ticket_type, $amount, $event->date, $event->begin_time, $event->name, $ticket->price, $location->name, $location->address);
+            $cartItem = new DanceCartItem($event->id, $event->event_type, $ticket->id, $amount, $event->date, $event->begin_time, $event->artist_name, $ticket->price, $event->artist_id, $location->venue_name, $location->address);
             }
             else if (strpos($ticket_type, 'all_access') !== false)
             {

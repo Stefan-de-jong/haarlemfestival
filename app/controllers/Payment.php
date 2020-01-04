@@ -92,7 +92,7 @@ class Payment extends Controller{
         // get tickets in data
         $data['tickets'] = $tickets;
         $this->createPDF($data);
-        //$this->view('payment/process', $data);        
+        $this->view('payment/process', $data);        
     }
 
     public function createPDF($data){

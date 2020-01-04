@@ -42,10 +42,29 @@
         <table id="danceTable" style="font-size: 10px" border="1">
             <tr>
                 <th width='75px'>Dance</th>
-                <?php for($i = 10; $i < 25; $i++)
+                <?php 
+                $used_artist = "";
+                $artist_count = 0;
+                $artists = array();
+                foreach($data['danceEvent'] as $artist)
                 {
+                    if (!in_array($artist->getArtist(), $artists, true))
+                    {array_push($artists, $artist->getArtist());}
+                }
+                $artist = $data['danceEvent'];
+                for($i = 0; $i < count($artists); $i++)
+                {
+                    if($used_artist == $artist[$i]->getArtist())
+                    continue;
+                    echo "<tr><td width='75px' height='30px'>".$artist[$i]->getArtist()."</td>";
+                for ($j = 10; $j < 25; $j++) {
                     echo "<td width='75px'></td>";
-                }?>
+                }
+                echo "</tr>";
+                $artist_count+=1;
+                $used_artist = $artist[$i]->getArtist();
+            }
+                ?>
             </tr>
         </table>
         <table id="foodTable" border="1" style="font-size: 10px; table-layout: fixed">
@@ -118,9 +137,11 @@
                             //voor iedere kolom (tijden 10u tot 24u) wordt er gekeken is er een event???-> geeft de goede datum en een tijd mee
                         <?php for ($i = 1; $i < 16; $i++):?>
 
-                            //dance table vullen
-                            <?php $danceEvent = "dance event dag 1"; ?>//      get($data['danceEvent'], "2020-07-26", ($i+9));   //TO DO maak getter voor event met datum en tijd en return een div met daarin data over event ->zie food                            
-                            danceTable.rows[0].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";
+                            //dance heeft niks op 2020-07-23
+                            <?php for ($id = 1; $id <= $artist_count; $id++):?>
+                                <?php $danceEvent = "No events"; ?>
+                                danceTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent; ?>"
+                            <?php endfor; ?>
 
                             //food table vullen
                             <?php for ($id = 1; $id <= $rest_count; $id++):?>
@@ -142,8 +163,11 @@
                         <?php for ($i = 1; $i < 16; $i++):?>
 
                             //dance table vullen
-                            <?php $danceEvent = "dance event dag 2"; ?>//      get($data['danceEvent'], "2020-07-26", ($i+9));   //TO DO maak getter voor event met datum en tijd en return een div met daarin data over event ->zie food                            
-                            danceTable.rows[0].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";
+                            <?php for ($id = 1; $id <= $artist_count; $id++):?>
+                                <?php $danceEvent = getEvent($data['danceEvent'], $date, ($i + 9), $id); ?>
+                                danceTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent; ?>"
+                            <?php endfor; ?>
+
 
                             //food table vullen
                             <?php for ($id = 1; $id <= $rest_count; $id++):?>
@@ -164,9 +188,10 @@
                         <?php $date = '2020-07-25'; ?>
                         <?php for ($i = 1; $i < 16; $i++):?>
 
-                            //dance table vullen
-                            <?php $danceEvent = "dance event dag 3"; ?>//      get($data['danceEvent'], "2020-07-26", ($i+9));   //TO DO maak getter voor event met datum en tijd en return een div met daarin data over event ->zie food                            
-                            danceTable.rows[0].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";
+                            <?php for ($id = 1; $id <= $artist_count; $id++):?>
+                                <?php $danceEvent = getEvent($data['danceEvent'], $date, ($i + 9), $id); ?>
+                                danceTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent; ?>"
+                            <?php endfor; ?>
 
                             //food table vullen
                             <?php for ($id = 1; $id <= $rest_count; $id++):?>
@@ -187,9 +212,10 @@
                         <?php $date = '2020-07-26'; ?>
                         <?php for ($i = 1; $i < 16; $i++):?>
 
-                            //dance table vullen
-                            <?php $danceEvent = "dance event dag 4"; ?>//      get($data['danceEvent'], "2020-07-26", ($i+9));   //TO DO maak getter voor event met datum en tijd en return een div met daarin data over event ->zie food                            
-                            danceTable.rows[0].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";
+                            <?php for ($id = 1; $id <= $artist_count; $id++):?>
+                                <?php $danceEvent = getEvent($data['danceEvent'], $date, ($i + 9), $id); ?>
+                                danceTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent; ?>"
+                            <?php endfor; ?>
 
                             //food table vullen
                             <?php for ($id = 1; $id <= $rest_count; $id++):?>
@@ -219,7 +245,10 @@ function getEvent($events, $date, $time, $id){
     foreach ($events as $event){
         switch ($event->getEventType()){
             case "1";
-                //dance make div
+            if ($event->getDate() == $date && $event->getBeginTime() == $time && $event->getArtistId() == $id)
+            {
+            $eventToShow = getDanceShowDiv($event);
+            }
                 break;
             case "2";
                 if ($event->getDate() == $date && ($event->getBeginTime() == $time.":00:00"|| $event->getBeginTime() == $time.":30:00" ) && $event->getId() == $id){
@@ -241,6 +270,29 @@ function getEvent($events, $date, $time, $id){
         }    
     }
     return $eventToShow;
+}
+
+function getDanceShowDiv($event){
+$id = $event->getId();
+$start = $event->getBeginTime();
+$end = $event->getEndTime();
+if (substr($start, 0, 1) != "0") //look if starting time has a leading 0, which means we only need the second digit
+{$beginhour = substr($start, 0, 2);}
+else if ((substr($start, 0, 1) == "0")) //if not we need both leading digits
+{$beginhour = substr($start, 0, 1);}
+if (substr($end, 0, 1) != "0") //do the same for ending time
+{$endhour = substr($end, 0, 2);}
+else if (substr($end, 0, 1) == "0")
+{$endhour = substr($start, 0, 1);}
+$duration = $endhour - $beginhour; //get the difference of the endhour and beginning hour
+if ($duration < 0) //in some cases, for example a show that goes past 24:00, the duration will be negative. We need to check on this.
+{$duration = $duration + 24;} //if the duration is negative, make it positive.
+if (substr($end, 3, 1) == "3") //if the 4th character is a 3 we know it's half an hour
+{$duration += 0.5;} //add half an hour to the duration
+$eventShow =
+"<div id='rest_div' style='background-color: red; margin-left:0%; width: ".($duration * 100)."%; height: 100%; '> " . $event->getVenue() . "<br></div>";
+
+return $eventShow;
 }
 
 function getFoodShowDiv($event, $time_path){
