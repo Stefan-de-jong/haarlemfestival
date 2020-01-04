@@ -285,13 +285,12 @@ if (substr($end, 0, 1) != "0") //do the same for ending time
 else if (substr($end, 0, 1) == "0")
 {$endhour = substr($start, 0, 1);}
 $duration = $endhour - $beginhour; //get the difference of the endhour and beginning hour
-if ($duration < 0) //in some cases, for example a show that goes past 24:00, the duration will be negative. We need to check on this.
+if ($duration < 0) //in some cases, for example a show that goes past 24:00, the duration will be negative.
 {$duration = $duration + 24;} //if the duration is negative, make it positive.
 if (substr($end, 3, 1) == "3") //if the 4th character is a 3 we know it's half an hour
 {$duration += 0.5;} //add half an hour to the duration
 $eventShow =
 "<div id='rest_div' style='background-color: red; margin-left:0%; width: ".($duration * 100)."%; height: 100%; '> " . $event->getVenue() . "<br></div>";
-
 return $eventShow;
 }
 
