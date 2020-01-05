@@ -97,5 +97,48 @@ class DanceRepository{
         }
         return $passes;
     }
+
+    public function saveArtist(Artist $artist){
+        try{
+        $this->db->query('INSERT INTO artist VALUES (:id, :name, :bio, :style)');
+        $this->db->bind(':id', $artist->getId());
+        $this->db->bind(':name', $artist->getName());
+        $this->db->bind(':bio', $artist->getBio());
+
+        $this->db->execute();
+        }
+        catch (Exception $e)
+        {
+        echo "Something went wrong: " . $e->getMessage();
+        }
+    }
+
+    public function updateArtist(Artist $artist){
+        try{
+        $this->db->query('UPDATE artist SET artist_id = :id, artist_name = :name, bio = :bio, style = :style WHERE artist_id = :id');
+        $this->db->bind(':id', $artist->getId());
+        $this->db->bind(':name', $artist->getName());
+        $this->db->bind(':bio', $artist->getBio());
+
+        $this->db->execute();
+        }
+        catch (Exception $e)
+        {
+        echo "Something went wrong: " . $e->getMessage();
+        }
+    }
+
+    public function RemoveArtist($id){
+        try{
+        $this->db->query('DELETE FROM artist WHERE artist_id = :id');
+        $this->db->bind(':id', $id);
+
+        $this->db->execute();
+        }
+        catch (Exception $e)
+        {
+        echo "Something went wrong: " . $e->getMessage();
+        }
+    }
 } 
 ?>
