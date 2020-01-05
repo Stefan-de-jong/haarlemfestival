@@ -4,11 +4,11 @@ if (!isset($_POST['panelid'])) //if someone tries to access the panel using the 
 header('Location:index');
 }
 $dance_id = $_POST['panelid'];
-$artists = $data['artists'];
-$events = $data['events'];
-$eventdata = $data['eventdata'];
-$venues = $data['venues'];
-$styles = $data['styles'];
+$artists = $data['artists']; //get artists
+$events = $data['events']; //get eventdata (dance specific)
+$eventdata = $data['eventdata']; //get eventdata (general)
+$venues = $data['venues']; //get venues
+$styles = $data['styles']; //get styles
 $artist_style = $artists[$dance_id-1]->getStyle();
 foreach ($styles as $st)
 {

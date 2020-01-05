@@ -3,8 +3,7 @@
 
 if (!isset($_POST['venue']) && (!isset($_POST['passday']))) //if someone tries to access the panel using the website URL in the browser they will be redirected
 {
-    echo "nope, doet het niet";
-    var_dump($_POST['passday']);
+header('Location:index');
 }
 else
 {
