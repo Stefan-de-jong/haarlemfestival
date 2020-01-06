@@ -19,7 +19,7 @@ else
 
                 <?php if($logedIn == true){
                     echo "<h3> Hi ". $_SESSION['customer_firstname'] ."</h3>";
-                    echo "<h4>The tickets will be send to:</h4><h4 name='emailaddress'> ".$_SESSION['customer_email']."</h4><br><br>";
+                    echo "<h4>The tickets will be send to: ".$_SESSION['customer_email']."</h4><br><br>";
                     echo "<h4>Wrong person? -> <button onclick=\"location.href='". URLROOT ."/customers/logout'\">Logout</button></h4>";
                 }else{?>
                 Do you have an account?<br>

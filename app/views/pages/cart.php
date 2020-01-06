@@ -119,10 +119,10 @@ require APPROOT . '/views/inc/header.php';
             <tr>
                 <td rowspan="3"><img height="200px" width="200px" src="<?php echo URLROOT; ?>/img/food.jpg"></td>
                 <td width="450px"><?php echo $item->getEventType(); ?></td>
-                <td width="450px"><?php echo $item->getTicketType(); ?></td>
+                <td width="450px"><?php echo $item->printTicketType(); ?></td>
                 <td width="100px">
                     <form method="post">
-                        <?php if($item->getTicketType() == "Regular ticket")
+                        <?php if($item->printTicketType() == "Regular ticket")
                                           $name = "regularTicket_amount" . $item->getEventId();
                                           else
                                               $name = "kidsTicket_amount" . $item->getEventId();
