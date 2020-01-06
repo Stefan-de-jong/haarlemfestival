@@ -82,7 +82,7 @@ class Payment extends Controller{
                         break;                        
                 } 
                 if($this->ticketRepo->save($ticket)){
-                    die($ticket->getTicketId()); //Werkt, tickets komt dus in DB en ID is gezet in ticket object                               
+                    //die($ticket->getTicketId()); //Werkt, tickets komt dus in DB en ID is gezet in ticket object                               
                     $tickets[] = $ticket;
                 } else {
                     die('Something went wrong');
@@ -100,6 +100,7 @@ class Payment extends Controller{
         $pdf = new TCPDF();
 
         foreach($data['tickets'] as $ticket) {
+            $ticketTypePrinted = $ticket->printTicketType();
             $ticketId = $ticket->getTicketId();
             $eventId = $ticket->getEventID();
             $ticketType = $ticket->getTicketType();
@@ -108,22 +109,21 @@ class Payment extends Controller{
             $eventDate = date_format(date_create($ticket->getDate()),"d F Y");
             $eventTime = date_format(date_create($ticket->getTime()),"H:i") . ' uur';
             
-            if($eventType == 'Haarlem Dance'){
-                if (strpos($ticketType, 'dance_ticket') !== false)          
-                {$eventArtist = $ticket->getArtist();
-                $eventVenue = $ticket->getVenue();}
-                else if (strpos($ticketType, 'all-access') !== false)
-                {$eventArtist = "Multiple artist"; $eventVenue = "Multiple venues";}
+            if($eventType == 'Haarlem Dance'){   
+                if (strpos($ticketType, 'dance_ticket') !== false)
+                {$eventArtist = $ticket->getArtist(); $eventVenue = $ticket->getVenue();}     
+                else if (strpos($ticketType, 'all_access') !== false)
+                {$eventArtist = "Multiple artist"; $eventVenue = "Multiple venues"; $eventTime = "No specific time";}
                 $html = "
                         <ul>
                             <li>Ticket ID: {$ticketId}</li>
                             <li>Event ID: {$eventId}</li>
                             <li>Name: {$eventType}</li>
-                            <li>Type: {$ticketType}</li>
+                            <li>Type: {$ticketTypePrinted}</li>
                             <li>Date: {$eventDate}</li>
                             <li>Time: {$eventTime}</li>
-                            <li>Artist: {$eventRestaurant}</li>
-                            <li>Venue: {$eventSession}</li>
+                            <li>Artist: {$eventArtist}</li>
+                            <li>Venue: {$eventVenue}</li>
                             <li>Price: € {$ticketPrice}</li>
                         </ul>
                         <style>
@@ -212,7 +212,8 @@ class Payment extends Controller{
             $pdf->write2DBarcode($qrcode, 'QRCODE,H', 20, 210, 50, 50, $style, 'N');
         }
         ob_clean();
-        $attachment = $pdf->Output('tickets.pdf', 'S');
+        
+        $attachment = $pdf->Output('tickets.pdf', 'I');
         $data['attachment'] = $attachment;
         unset($_SESSION['cart']);
         $this->view('payment/succes', $data);

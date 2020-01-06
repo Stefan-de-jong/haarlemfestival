@@ -71,6 +71,7 @@
             $event = $this->db->single();
             }
             $ticket_type = $ticket_type . "_" . $id;
+            echo $ticket_type;
             if (strpos($ticket_type, 'dance_ticket') !== false)
             {
             $this->db->query('SELECT *
@@ -90,7 +91,7 @@
             $ticket = $this->db->single();
             if (strpos($ticket_type, 'dance_ticket') !== false)
             {
-            $cartItem = new DanceCartItem($event->id, $event->event_type, $ticket->id, $amount, $event->date, $event->begin_time, $event->artist_name, $ticket->price, $event->venue_name, $event->address);
+            $cartItem = new DanceCartItem($event->id, $event->event_type, $ticket_type, $amount, $event->date, $event->begin_time, $event->artist_name, $ticket->price, $event->venue_name, $event->address);
             //$event_id, $event_type, $ticket_type, $amount, $date, $time, $artist, $price, $venue, $address
             }
             else if (strpos($ticket_type, 'all_access') !== false)
