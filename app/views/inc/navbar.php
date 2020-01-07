@@ -37,7 +37,7 @@ else if (strpos($url, 'program'))
     <img style="float:right; margin-top: 15px; margin-right: 25px" onclick="" src="<?php echo URLROOT; ?>/img/header/en_flag.png">
     <img style="float: right; margin-top: 15px; margin-right: 5px" onclick="" src="<?php echo URLROOT; ?>/img/header/nl_flag.png">
     <img height="103px" width="120px" style="float:right; margin-top: 75px; margin-right: -135px" onclick="location.href='<?php echo URLROOT;?>/cart/index'" src="<?php echo URLROOT; ?>/img/cart.png">
-    <form class="searchbar" action="<?php echo URLROOT?>/pages/search">
+    <form class="searchbar" action="http://localhost/haarlemfestival/search.php">
      <input style="margin-top: 60px; margin-left: 210px;" type="text" placeholder="Search the events!" name="q">
      <button type="submit"><i class="fa fa-search"></i></button>
 </form>
