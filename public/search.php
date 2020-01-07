@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="../haarlemfestival/css/loader.css">
 <?php
 
 //I am thinking of transfering this file to view/pages but then the crawl_page function might not work correctly anymore
@@ -11,13 +12,12 @@ if (!isset($crawler))
 {$crawler = new Crawler();}
 $pages = array();
 $dom = new DOMDocument('1.0');
-echo "<section style='padding:100%; background-color: white;'></section>"; //<- make everything white so costumer does not see the pages being load (sloppy, but effective)
-echo "<section id=historic>";
+echo "<section id=historic style='opacity:0;'>";
 $page = "historic";
-echo "<section id=historic_crawler>"; //I add a section crawler to more easily get specific content later
+echo "<section id=historic_crawler style='opacity:0;'>"; //I add a section crawler to more easily get specific content later
 $crawler->crawl_page("http://localhost/haarlemfestival/$page", 2);
 echo "</section>";
-echo "<section id=food_crawler>";
+echo "<section id=food_crawler style='opacity:0'>";
 $page = "food";
 $crawler->crawl_page("http://localhost/haarlemfestival/$page", 2);
 echo "</section>";
