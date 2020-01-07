@@ -30,7 +30,7 @@ $query = $_GET['q'];
 
 class Crawler
 {
-    function crawl_page($url, $depth = 5) //this function crawls through the pages of the event(s) you requested
+    function crawl_page($url, $depth = 5) //this function crawls throught all the pages with $page in their name, if there are links of them at the requested URL
     {
     static $seen = array();
     if (isset($seen[$url]) || $depth === 0) {
