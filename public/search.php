@@ -67,7 +67,7 @@ class Crawler
     }
     }
     global $page;
-    if (strpos($url, $page)) //I added this so it will only echo pages that are part of your requested page (otherwise it will index more than needed)
+    if (strpos($url, $page)) //I added this so it will only echo pages that are part of your requested page (otherwise it makes it hard to seperate pages into categories)
     {echo "URL:",$url,PHP_EOL,"CONTENT:",PHP_EOL,$dom->saveHTML(),PHP_EOL,PHP_EOL;}
 }
 }
