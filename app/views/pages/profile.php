@@ -12,9 +12,9 @@
             {
                 case "index":
                     ?>
-                    <h1>Profile</h1>
-                    <p>On your profile you can find the tickets you bought an the favorites you have saved.</p>
-                    <?php
+        <h1>Profile</h1>
+        <p>On your profile you can find the tickets you bought an the favorites you have saved.</p>
+        <?php
                     break;
                 case "ticket":
                     if (!empty($data['foodTicket'])) {
@@ -26,7 +26,15 @@
                         <br>";
                         }
                     }
-                    //historic
+                    if (!empty($data['historicTicket'])) {
+                        echo "<h4> Historic tickets:</h4>";
+                        foreach ($data['historicTicket'] as $ticket) {
+                            $date = date_create($ticket->getDate());
+                            echo "Ticket type: " . $ticket->printTicketType() . "<br> 
+                        Language: " . $ticket->getLanguage() . "<br> Date: " . date_format(date_create($ticket->getDate()), "d F Y") . ", Time: " . date_format(date_create($ticket->getTime()), "H:i") . "<br>
+                        <br>";
+                        }
+                    }
                     //dance
                     break;
                 case "favorite":

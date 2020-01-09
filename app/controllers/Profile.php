@@ -25,12 +25,12 @@ class Profile extends Controller
     public function ticket()
     {
         $foodTickets = $this->profileRepository->getAllFoodTickets($_SESSION['customer_email']);
-        //$historicTickets = $this->profileRepository->getAllHistoricTickets($_SESSION['customer_email']);
+        $historicTickets = $this->profileRepository->getAllHistoricTickets($_SESSION['customer_email']);
         //$danceTickets = $this->profileRepository->getAllDanceTickets($_SESSION['customer_email']);
         $data = [
             'content' => "ticket",
-            'foodTicket' => $foodTickets
-            //'historicTicket' => $historicTickets,
+            'foodTicket' => $foodTickets,
+            'historicTicket' => $historicTickets
             //'danceTicket' => $danceTickets
         ];
 
