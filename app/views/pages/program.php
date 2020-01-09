@@ -1,9 +1,9 @@
 <?php
-require APPROOT . '/views/inc/header.php';
-$dance = true;
-$food = true;
-$historic = true;
-
+    require APPROOT . '/views/inc/header.php';
+    $dance = true;
+    $food = true;
+    $historic = true;
+    $favorite = true;
 ?>
 <div class="program_body">
     <div class="program_container" style="height: auto">
@@ -20,6 +20,8 @@ $historic = true;
         <input onchange="selectChange(this)" type="checkbox" name="historic" value="historic"
             <?php if(!$historic == false) echo "checked";?>>Historic<br>
         <input onchange="selectChange(this)" type="checkbox" name="jazz" value="jazz" checked>Jazz<br>
+        <input onchange="selectChange(this)" type="checkbox" name="favorite" value="favorite"
+            <?php if(!$favorite == false) echo "checked";?>>Favorites<br>
         <script>
             function selectChange(option) {
                 if (option.checked == false) {
@@ -31,9 +33,6 @@ $historic = true;
                 }
             }
         </script>
-
-
-        <h1 id="title">title</h1>
         <table border="1" style="font-size: 16px; table-layout: fixed">
             <tr>
                 <th width='75px'></th>
@@ -103,6 +102,29 @@ $historic = true;
                 }?>
             </tr>
         </table>
+        <table id="favoriteTable" border="1" style="font-size: 10px; table-layout: fixed">
+            <tr>
+                <th width='75px'>Favorite</th>
+            </tr>
+            <?php
+            $used_res = "";
+            $fav_rest_count = 0;
+            $fav_restaurants = array();
+            foreach ($data['foodFavorite'] as $restaurant)
+            {
+                if($used_res == $restaurant->getRestName())
+                    continue;
+                echo "<tr><td width='75px' height='30px'>".$restaurant->getRestName()."</td>";
+                for ($i = 10; $i < 25; $i++) {
+                    echo "<td width='75px'></td>";
+                }
+                echo "</tr>";
+                $fav_rest_count+=1;
+                $used_res = $restaurant->getRestName();
+                array_push($fav_restaurants, $restaurant->getId());
+            }
+            ?>
+        </table>
         <br>
         <script>
             /* beautify preserve:start */ // This comment is needed to leave PHP code intact inside this JS script tag (due to vs code addon beautify)
@@ -114,6 +136,8 @@ $historic = true;
                 var danceTable = document.getElementById('danceTable');
                 var foodTable = document.getElementById('foodTable');
                 var historicTable = document.getElementById('historicTable');
+
+                var favoriteTable = document.getElementById('favoriteTable');
 
                 //afhankelijk van de datum wordt een event gezocht....
                 switch (date) {
@@ -129,15 +153,19 @@ $historic = true;
                             //food table vullen
                             <?php for ($id = 1; $id <= $rest_count; $id++):?>
                                 <?php $foodEvent = getEvent($data['foodEvent'], $date, ($i + 9), $id); ?>
-                                foodTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent; ?>"
+                                foodTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent; ?>";
                             <?php endfor; ?>
 
                             //historic table vullen                            
                             <?php for ($langId = 1; $langId <= $language_count; $langId++):?>
                                 <?php $historicEvent = getEvent($data['historicEvent'], $date, ($i + 9), $langId); ?>
-                                historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>"
+                                historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>";
                             <?php endfor; ?>
 
+                             <?php for ($id = 1; $id <= $fav_rest_count; $id++):?>
+                                <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9), $fav_restaurants[($id - 1)]); ?>
+                                favoriteTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite; ?>";
+                            <?php endfor; ?>
                         <?php endfor; ?>
                         break;
 
@@ -152,15 +180,18 @@ $historic = true;
                             //food table vullen
                             <?php for ($id = 1; $id <= $rest_count; $id++):?>
                                 <?php $foodEvent = getEvent($data['foodEvent'], $date, ($i + 9), $id); ?>
-                                foodTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent; ?>"
+                                foodTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent; ?>";
                             <?php endfor; ?>
 
                             //historic table vullen
                             <?php for ($langId = 1; $langId <= $language_count; $langId++):?>
                                 <?php $historicEvent = getEvent($data['historicEvent'], $date, ($i + 9), $langId); ?>
-                                historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>"
+                                historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>";
                             <?php endfor; ?>
-
+                            <?php for ($id = 1; $id <= $fav_rest_count; $id++):?>
+                                <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9), $fav_restaurants[($id - 1)]); ?>
+                                favoriteTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite; ?>";
+                            <?php endfor; ?>
                         <?php endfor; ?>
                         break;
 
@@ -175,15 +206,18 @@ $historic = true;
                             //food table vullen
                             <?php for ($id = 1; $id <= $rest_count; $id++):?>
                                 <?php $foodEvent = getEvent($data['foodEvent'], $date, ($i + 9), $id); ?>
-                                foodTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent; ?>"
+                                foodTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent; ?>";
                             <?php endfor; ?>
 
                             //historic table vullen                            
                             <?php for ($langId = 1; $langId <= $language_count; $langId++):?>
                                 <?php $historicEvent = getEvent($data['historicEvent'], $date, ($i + 9), $langId); ?>
-                                historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>"
+                                historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>";
                             <?php endfor; ?>
-
+                            <?php for ($id = 1; $id <= $fav_rest_count; $id++):?>
+                                <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9), $fav_restaurants[($id - 1)]); ?>
+                                favoriteTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite; ?>";
+                            <?php endfor; ?>
                         <?php endfor; ?>
                         break;
 
@@ -198,15 +232,18 @@ $historic = true;
                             //food table vullen
                             <?php for ($id = 1; $id <= $rest_count; $id++):?>
                                 <?php $foodEvent = getEvent($data['foodEvent'], $date, ($i + 9), $id); ?>
-                                foodTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent; ?>"
+                                foodTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent; ?>";
                             <?php endfor; ?>
 
                             //historic table vullen                            
                             <?php for ($langId = 1; $langId <= $language_count; $langId++):?>
                                 <?php $historicEvent = getEvent($data['historicEvent'], $date, ($i + 9), $langId); ?>
-                                historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>"
+                                historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>";
                             <?php endfor; ?>
-
+                            <?php for ($id = 1; $id <= $fav_rest_count; $id++):?>
+                                <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9), $fav_restaurants[($id - 1)]); ?>
+                                favoriteTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite; ?>";
+                            <?php endfor; ?>
                         <?php endfor; ?>
                         break;
                 }

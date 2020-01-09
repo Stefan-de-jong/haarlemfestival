@@ -83,5 +83,19 @@ class DanceRepository{
         }
         return $styles;
     }
+
+    public function getAllPasses(){
+        $this->db->query('SELECT *
+        FROM tickettype WHERE tickettype.name LIKE "all_access%"'
+        );
+        $results = $this->db->resultSet();
+        $passes = array();
+        foreach ($results as $result)
+        {
+        $pass = new Pass($result->id, $result->name, $result->price);
+        array_push($passes, $pass);
+        }
+        return $passes;
+    }
 } 
 ?>

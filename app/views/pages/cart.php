@@ -2,7 +2,7 @@
 require APPROOT . '/views/inc/header.php';
 ?>
 <div class="payment_body">
-    <div class="cart_container">
+    <div class="cart_container" style="padding-bottom: 40px">
         ---------------------------------------------------------statisch
         voorbeeld---------------------------------------------------------------------------------------
         <table border="1">
@@ -80,7 +80,7 @@ require APPROOT . '/views/inc/header.php';
                 </td>
             </tr>
             <tr>
-                <td><?php if(strpos($item->getTicketType(), "all_access") !== false){if ($item->getEventId() != 117){echo date_format($date,"d F Y");}else{echo "No specific date";}} else{echo date_format($time, "H:i") . "<br>". date_format($date,"d F Y");} ?>
+                <td><?php if(strpos($item->getTicketType(), "all_access") !== false){if (substr($item->getTicketType(), -3) != 'all'){echo date_format($date,"d F Y");}else{echo "No specific date";}} else{echo date_format($time, "H:i") . "<br>". date_format($date,"d F Y");} ?>
                 </td>;
                 <td><?php if(strpos($item->getTicketType(), "dance_ticket") !== false){echo $item->getVenue() . "<br>" . $item->getAddress();}?>
                 </td>
@@ -89,7 +89,7 @@ require APPROOT . '/views/inc/header.php';
             </tr>
             <tr>
                 <td>
-                    <?php $item->printTicketType() . " "; if($item->getTicketType() == 114){echo "Friday";}else if($item->getEventId() == 115){echo "Saturday";}else if($item->getEventId() == 116){echo "Sunday";}else if($item->getEventId() == 117){echo "All festival days";}?>
+                    <?php $item->printTicketType() . " "; if(substr($item->getTicketType(), -3) == 'fri'){echo "Friday";}else if(substr($item->getTicketType(), -3) == 'sat'){echo "Saturday";}else if(substr($item->getTicketType(), -3) == 'sun'){echo "Sunday";}else if(substr($item->getTicketType(), -3) == 'all'){echo "All festival days";}?>
                 </td>
                 <td colspan="2" align="right">
                     <form method="post">
@@ -119,10 +119,10 @@ require APPROOT . '/views/inc/header.php';
             <tr>
                 <td rowspan="3"><img height="200px" width="200px" src="<?php echo URLROOT; ?>/img/food.jpg"></td>
                 <td width="450px"><?php echo $item->getEventType(); ?></td>
-                <td width="450px"><?php echo $item->getTicketType(); ?></td>
+                <td width="450px"><?php echo $item->printTicketType(); ?></td>
                 <td width="100px">
                     <form method="post">
-                        <?php if($item->getTicketType() == "Regular ticket")
+                        <?php if($item->printTicketType() == "Regular ticket")
                                           $name = "regularTicket_amount" . $item->getEventId();
                                           else
                                               $name = "kidsTicket_amount" . $item->getEventId();
@@ -290,12 +290,3 @@ require APPROOT . '/views/inc/header.php';
 <?php
 require APPROOT . '/views/inc/footer.php'; ?>
 
-<script>
-    function destroy() {
-        <
-        ?
-        php
-            //session_destroy();
-        ; ? >
-    }
-</script>

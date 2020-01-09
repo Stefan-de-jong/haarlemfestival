@@ -2,6 +2,7 @@
 $artists = $data['artists'];
 $pic_count = 0;
 ?>
+<style> footer{margin-top: <?php $pxadjustment ?>}</style>
     <section id="bg-image" style="position: absolute;"><img src="<?php echo URLROOT; ?>/img/dance/bg-left.png" style="position: absolute;"><img style="position: absolute;margin-left: 1539px;" src="<?php echo URLROOT; ?>/img/dance/bg-right.png"></section>
     <section class="text-left" id="main-content" style="position: absolute;background-color: rgb(255,104,104);width: 1156px;height: 979px;margin-left: 384px;">
         <ol class="breadcrumb" style="background-color: rgb(255,255,255);">
@@ -41,6 +42,6 @@ $pic_count = 0;
 </div><button id='pass-button' class="btn btn-primary" type="button" style="position: relative;margin-top: -105px;margin-left: 1100px;height: 50px;" onclick = "addPass()">BUY ALL ACCESS-PASS</button>
 </section>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
-<style> footer{margin-top: <?php $pxadjustment ?>}</style>
+
 <script src="<?php echo URLROOT; ?>/js/image_click.js"></script>
 <script> var piccount = '<?php echo $count?>'; </script>

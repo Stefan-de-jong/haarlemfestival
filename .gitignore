@@ -6,3 +6,5 @@
 .idea/**/shelf
 .idea/vcs.xml
 .idea/workspace.xml
+
+.idea/deployment.xml

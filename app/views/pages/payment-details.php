@@ -1,15 +1,28 @@
 <?php
 require APPROOT . '/views/inc/header.php';
-$data['total'] = 0;?>
 
-<div class="payment_body">
+if(empty($data['total']))
+    $data['total'] = 0;
+if(!empty($_SESSION['customer_id']))
+    $logedIn = true;
+else
+    $logedIn = false;
+?>
+<div class="payment_body" style="margin-top: -20px">
     <div class='container pt-3'><?php flash('emptyCart_alert'); ?></div>
     <form action="<?php echo URLROOT;?>/payment" method="post">
-        <div class="cart_container" style="  display: flex;  flex-wrap: wrap; height: auto;">
+        <div class="cart_container"
+            style="  display: flex;  flex-wrap: wrap; height: auto; padding-bottom: 20px;overflow:hidden;">
             <div style="width: 33.3%; padding-left: 10px">
                 <h3> ❶ Email or login </h3>
                 <hr style="background-color: white">
                 <div style="background-color: azure; float:right; width: 1px; height: 100%"></div>
+
+                <?php if($logedIn == true){
+                    echo "<h3> Hi ". $_SESSION['customer_firstname'] ."</h3>";
+                    echo "<h4>The tickets will be send to: ".$_SESSION['customer_email']."</h4><br><br>";
+                    echo "<h4>Wrong person? -> <button onclick=\"location.href='". URLROOT ."/customers/logout'\">Logout</button></h4>";
+                }else{?>
                 Do you have an account?<br>
                 Login-> <input type="button" onclick="location.href='<?php echo URLROOT;?>/customers/login'"
                     value="Login"><br>
@@ -33,20 +46,22 @@ $data['total'] = 0;?>
                 E-mail: <input style="float: right; margin-right: 15px" type="email" name="emailaddress"><br>
                 <br>
                 Re-enter e-mail: <input style="float: right; margin-right: 15px" type="email"><br>
-
+                <?php }?>
             </div>
 
             <div style="width: 33.3%; padding-left: 10px">
                 <h3>❷ Choose payment method</h3>
                 <hr style="background-color: white">
-                <div style="background-color: azure; float:right; width: 1px; height: 100%"></div>
+                <div style="background-color: azure; float:right; width: 1px; height: 100%">
+                    <hr style="background-color: white">
+                </div>
 
                 <input type="radio" name="pay_method" checked>Mollie<br>
             </div>
 
             <div style="width: 33.3%; padding-left: 10px">
                 <h3>❸ Check your order and pay</h3>
-                <hr style="background-color: white">
+                <hr style="background-color: white;">
 
                 <div style="overflow: scroll; height: 600px">
                     <?php if(!empty($data['cart_items'])) : ?>
@@ -69,9 +84,8 @@ $data['total'] = 0;?>
                     <img height="50px" width="50px" src="<?php echo URLROOT; ?>/img/dance.jpg">
                     <?php       
                     echo $item->getEventType(). "<br> ".
-                    date_format(date_create($item->getDate()),"d F Y") . ', ' . date_format(date_create($item->getTime()),"H:i") . " uur<br>
-                    Artist: " . $item->getArtist() . '<br>
-                    Ticket type: ' . $item->printTicketType(). "<br>
+                    date_format(date_create($item->getDate()),"d F Y"); if(strpos($item->getTicketType(), 'dance_ticket') !== false){echo ', ' . date_format(date_create($item->getTime()),"H:i") . " uur";}
+                    echo ' <br> Ticket type: ' . $item->printTicketType(). "<br>
                     Amount: " . $item->getAmount(). ", Price: " . ($item->getPrice() * $item->getAmount()). ' <br><br>';
                     $data['total'] += $item->getPrice() * $item->getAmount();
                 ?>
@@ -81,7 +95,7 @@ $data['total'] = 0;?>
                     <img height="50px" width="50px" src="<?php echo URLROOT; ?>/img/historic.jpg">
                     <?php       
                     echo $item->getEventType(). "<br> ".
-                    date_format(date_create($item->getDate()),"d F Y") . ', ' . date_format(date_create($item->getTime()),"H:i") . " uur<br>
+                    date_format(date_create($item->getDate()),"d F Y") . ', ' . date_format(date_create($item->getTime()),"H:i") . "<br>
                     Language: " . $item->getLanguage() . '<br>
                     Ticket type: ' . $item->printTicketType(). "<br>
                     Amount: " . $item->getAmount(). ", Price: " . ($item->getPrice() * $item->getAmount()). ' <br><br>';
@@ -95,9 +109,9 @@ $data['total'] = 0;?>
                 Total: € <?php echo $data['total'];?><br>
                 <input type="submit" value="Pay" style="width: 100px; float: right; margin-right: 125px">
             </div>
-
         </div>
     </form>
 </div>
+
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

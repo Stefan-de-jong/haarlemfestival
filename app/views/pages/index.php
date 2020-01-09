@@ -1,10 +1,8 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <section>
-<a href="<?php echo URLROOT;?>/dance/index"><img src="<?php echo URLROOT; ?>/img/homepage/dance.png" style="position: absolute;">
-<a href="<?php echo URLROOT;?>/restaurants/index"><img src="<?php echo URLROOT; ?>/img/homepage/food.png" style="position: absolute;float: right; margin-left:960px;">
-<a href="<?php echo URLROOT;?>/historic"><img src="<?php echo URLROOT; ?>/img/homepage/history.png" style="position: absolute; margin-top: 499.992px;">
-<a href="<?php echo URLROOT;?>"><img src="<?php echo URLROOT; ?>/img/homepage/jazz.png" style="position: absolute;float: right; margin-top: 499.992px; margin-left: 960px;">
-<a href=""></a>
+<a href="<?php echo URLROOT;?>/dance/index"><img width="50%" src="<?php echo URLROOT; ?>/img/homepage/dance.png" style="float:left;">
+<a href="<?php echo URLROOT;?>/food/index"><img width="50%" src="<?php echo URLROOT; ?>/img/homepage/food.png" >
+<a href="<?php echo URLROOT;?>/historic"><img width="50%" src="<?php echo URLROOT; ?>/img/homepage/history.png" style="float: left">
+<a href="<?php echo URLROOT;?>"><img  width="50%" src="<?php echo URLROOT; ?>/img/homepage/jazz.png">
 </section>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
-<style> footer{margin-top: 979.031px;}</style>
