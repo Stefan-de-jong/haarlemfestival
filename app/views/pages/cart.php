@@ -54,9 +54,11 @@ require APPROOT . '/views/inc/header.php';
                                             $name = "all_access_amount" . $item->getEventId();
                                         ?>
                         <select name="<?php echo $name;?>" onchange="this.form.submit()">
-                            <?php for ($i = 0; $i < 12; $i++) {
+                            <?php               if(strpos($item->getTicketType(), "dance_ticket") !== false)
+                            {
+                                                for ($i = 0; $i < 12; $i++) {
                                                 echo '<option value="' . $i . '" ' . (($i == $item->getAmount()) ? 'selected="selected"' : "") . '>' . $i . '</option>';
-                                            }; ?>
+                                            } } else {echo '<option value="' . 1 . '" ' . (($i == $item->getAmount()) ? 'selected="selected"' : "") . '>' . 1 . '</option>';}?>
                         </select>
                         <?php
                                             if(isset($_POST['dance_ticket_amount'.$item->getEventId()]))

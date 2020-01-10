@@ -33,9 +33,12 @@
         <table border="1" style="font-size: 16px; table-layout: fixed">
             <tr>
                 <th width='75px'></th>
-                <?php for($i = 10; $i < 25; $i++)
+                <?php for($i = 10; $i < 27; $i++)
                 {
-                    echo "<td width='75px'>$i:00</td>";
+                    if ($i > 24)
+                    {$j = -24 + $i;}
+                    else {$j = $i;}
+                    echo "<td width='75px'>$j:00</td>";
                 }?>
             </tr>
         </table>
@@ -57,7 +60,7 @@
                     if($used_artist == $artist[$i]->getArtist())
                     continue;
                     echo "<tr><td width='75px' height='30px'>".$artist[$i]->getArtist()."</td>";
-                for ($j = 10; $j < 25; $j++) {
+                for ($j = 10; $j < 27; $j++) {
                     echo "<td width='75px'></td>";
                 }
                 echo "</tr>";
@@ -79,7 +82,7 @@
                 if($used_res == $restaurant->getRestaurant())
                     continue;
                 echo "<tr><td width='75px' height='30px'>".$restaurant->getRestaurant()."</td>";
-                for ($i = 10; $i < 25; $i++) {
+                for ($i = 10; $i < 27; $i++) {
                     echo "<td width='75px'></td>";
                 }
                 echo "</tr>";
@@ -100,7 +103,7 @@
                 if($used_languages == $historic->getLanguage())
                     continue;
                 echo "<tr><td width='75px' height='30px'>".$historic->getLanguage()."</td>";
-                for ($i = 10; $i < 25; $i++) {
+                for ($i = 10; $i < 27; $i++) {
                     echo "<td width='75px'></td>";
                 }
                 echo "</tr>";
@@ -112,7 +115,7 @@
         <table id="jazzTable" style="font-size: 10px" border="1">
             <tr>
                 <th width='75px'>Jazz</th>
-                <?php for($i = 10; $i < 25; $i++)
+                <?php for($i = 10; $i < 27; $i++)
                 {
                     echo "<td width='75px'>Jazz not implemented</td>";
                 }?>
@@ -139,7 +142,7 @@
 
                             //dance heeft niks op 2020-07-23
                             <?php for ($id = 1; $id <= $artist_count; $id++):?>
-                                <?php $danceEvent = "No events"; ?>
+                                <?php $danceEvent = ""; ?>
                                 danceTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent; ?>"
                             <?php endfor; ?>
 
@@ -287,8 +290,8 @@ else if (substr($end, 0, 1) == "0")
 $duration = $endhour - $beginhour; //get the difference of the endhour and beginning hour
 if ($duration < 0) //in some cases, for example a show that goes past 24:00, the duration will be negative.
 {$duration = $duration + 24;} //if the duration is negative, make it positive.
-if (substr($end, 3, 1) == "3") //if the 4th character is a 3 we know it's half an hour
-{$duration += 0.5;} //add half an hour to the duration
+$restduration = substr($end, 3, 1); //get 4th character to decide resting time
+{$duration += ($restduration/6);} //add the rest time
 $eventShow =
 "<div id='rest_div' style='background-color: red; margin-left:0%; width: ".($duration * 100)."%; height: 100%; '> " . $event->getVenue() . "<br></div>";
 return $eventShow;

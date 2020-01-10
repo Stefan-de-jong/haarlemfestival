@@ -71,7 +71,6 @@
             $event = $this->db->single();
             }
             $ticket_type = $ticket_type . "_" . $id;
-            echo $ticket_type;
             if (strpos($ticket_type, 'dance_ticket') !== false)
             {
             $this->db->query('SELECT *

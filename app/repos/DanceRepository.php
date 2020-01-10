@@ -140,5 +140,18 @@ class DanceRepository{
         echo "Something went wrong: " . $e->getMessage();
         }
     }
+
+    public function getHTML() //get all html from ID 100 to 200 (dance items in the database are always between 100 and 200)
+    {
+        $this->db->query('SELECT * FROM page where ID > 100 AND ID < 200');
+        $results = $this->db->resultSet();
+        $html = array();
+        foreach ($results as $result)
+        {
+        $page = new Page($result->id, $result->title, $result->html);
+        array_push($html, $page);
+        }
+        return $html;
+    }
 } 
 ?>
