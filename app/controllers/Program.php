@@ -13,7 +13,14 @@ class Program extends Controller
     }
     public function index()
     {
-        $foodFavorites = $this->profileRepository->getAllFoodFavorites($_SESSION['customer_id']);
+        //prevent error. user with id 0 is default user.
+        if(empty($_SESSION['customer_id']))
+            $customer = 0;
+        else
+            $customer = $_SESSION['customer_id'];
+
+        $foodFavorites = $this->profileRepository->getAllFoodFavorites($customer);
+
         $foodEvents = $this->programRepository->findAllFoodEvents();
         $historicEvents = $this->programRepository->findAllHistoricEvents();
         $data = [

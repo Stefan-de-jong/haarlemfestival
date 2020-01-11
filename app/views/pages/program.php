@@ -5,6 +5,11 @@
     $food = true;
     $historic = true;
     $favorite = true;
+
+    $fav_food_table_day23 = array();
+    $fav_food_table_day24 = array();
+    $fav_food_table_day25 = array();
+    $fav_food_table_day26 = array();
 ?>
 <div class="program_body">
     <div class="program_container" style="height: auto">
@@ -21,8 +26,10 @@
         <input onchange="selectChange(this)" type="checkbox" name="historic" value="historic"
             <?php if(!$historic == false) echo "checked";?>>Historic<br>
         <input onchange="selectChange(this)" type="checkbox" name="jazz" value="jazz" checked>Jazz<br>
+        <?php if(isLoggedIn()):?>
         <input onchange="selectChange(this)" type="checkbox" name="favorites" value="favorites"
             <?php if(!$favorite == false) echo "checked";?>>Favorites<br>
+        <?php endif;?>
         <script>
             function selectChange(option) {
                 if (option.checked == false) {
@@ -103,18 +110,20 @@
                 }?>
             </tr>
         </table>
-<div id ="favoritesTable">
-    Favorites
-        <table id="danceFavoriteTable" border="1" style="font-size: 10px; table-layout: fixed">
+        <div id ="favoritesTable">
+            <?php if(isLoggedIn()):?>
+                Favorites
+            <?php endif;?>
+            <table id="danceFavoriteTable" border="1" style="font-size: 10px; table-layout: fixed">
 
-        </table>
-        <table id="foodFavoriteTable" border="1" style="font-size: 10px; table-layout: fixed">
+            </table>
+            <table id="foodFavoriteTable" border="1" style="font-size: 10px; table-layout: fixed">
 
-        </table>
-        <table id="historicFavoriteTable" border="1" style="font-size: 10px; table-layout: fixed">
+            </table>
+            <table id="historicFavoriteTable" border="1" style="font-size: 10px; table-layout: fixed">
 
-        </table>
-</div>
+            </table>
+    </div>
         <br>
         <script>
             /* beautify preserve:start */ // This comment is needed to leave PHP code intact inside this JS script tag (due to vs code addon beautify)
@@ -129,29 +138,33 @@
                 historicFavoriteTable.innerHTML =  "<tr><th width='75px' height='30px'>Historic</th></tr>";
 
                 if(date == '2020-07-23') {
-                    var foodTableContent = "<?php echo fillFoodFavorite("2020-07-23", $data['foodFavorite'])[0]?>";
+                    //array: 0 = table content, 1= count of the restaurant. 2+ = al the restaurants id.
+                    <?php $fav_food_table_day23 = fillFoodFavorite("2020-07-23", $data['foodFavorite']);?>
+                    var foodTableContent = "<?php echo $fav_food_table_day23[0];?>";
                     foodFavoriteTable .innerHTML += foodTableContent;
-                    <?php $fav_restaurants = fillFoodFavorite("2020-07-23", $data['foodFavorite'])[1];?>
                 }
                 else if(date == '2020-07-24') {
-                    var foodTableContent = "<?php echo fillFoodFavorite("2020-07-24",  $data['foodFavorite'])[0];?>";
+                    <?php   $fav_food_table_day24 = fillFoodFavorite("2020-07-24", $data['foodFavorite']);?>
+                    var foodTableContent = "<?php echo $fav_food_table_day24[0];?>";
                     foodFavoriteTable .innerHTML += foodTableContent;
-                    <?php $fav_restaurants = fillFoodFavorite("2020-07-23", $data['foodFavorite'])[1];?>
                 }
                 else if(date == '2020-07-25') {
-                    var foodTableContent = "<?php echo fillFoodFavorite("2020-07-25",  $data['foodFavorite'])[0];?>";
+                    <?php   $fav_food_table_day25 = fillFoodFavorite("2020-07-25", $data['foodFavorite']);?>
+                    var foodTableContent = "<?php echo $fav_food_table_day25[0];?>";
                     foodFavoriteTable .innerHTML += foodTableContent;
-                    <?php $fav_restaurants = fillFoodFavorite("2020-07-23", $data['foodFavorite'])[1];?>
                 }
                 else if(date == '2020-07-26') {
-                    var foodTableContent= "<?php echo fillFoodFavorite("2020-07-26",  $data['foodFavorite'])[0];?>";
+                    <?php $fav_food_table_day26 = fillFoodFavorite("2020-07-26", $data['foodFavorite']);?>
+                    var foodTableContent = "<?php echo $fav_food_table_day26[0];?>";
                     foodFavoriteTable .innerHTML += foodTableContent;
-                    <?php $fav_restaurants = fillFoodFavorite("2020-07-23", $data['foodFavorite'])[1];?>
                 }
             }
             showTable("2020-07-23");
+
             function showTable(date) {
+                <?php if(isLoggedIn() == true):?>
                 createFavoriteTable(date);
+                <?php endif;?>
                 //als er op een button gedrukt wordt, word deze datum meegegeven...
                 var title = document.getElementById("title");
                 var danceTable = document.getElementById('danceTable');
@@ -182,8 +195,8 @@
                                 historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>";
                             <?php endfor;?>
 
-                            <?php for($id = 1; $id <= 5; $id++):?>
-                                <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9), $fav_restaurants[($id - 1)]);?>
+                            <?php for($id = 1; $id <= $fav_food_table_day23[1]; $id++):?>
+                                <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9), $fav_food_table_day23[($id+1)]);?>
                                 foodFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite;?>";
                             <?php endfor; ?>
                     <?php endfor; ?>
@@ -209,13 +222,11 @@
                                 historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>";
                             <?php endfor; ?>
 
+                            <?php for($id = 1; $id <= $fav_food_table_day24[1]; $id++):?>
+                                <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9), $fav_food_table_day24[($id+1)]);?>
+                                foodFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite;?>";
+                            <?php endfor; ?>
 
-                    <?php for($id = 1; $id <= 5; $id++):?>
-                        if(rows > <?php echo $id;?>) {
-                            <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9), $fav_restaurants[($id - 1)]);?>
-                            foodFavoriteTable .rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite;?>";
-                        }
-                    <?php endfor; ?>
                         <?php endfor; ?>
                         break;
 
@@ -239,12 +250,10 @@
                                 historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>";
                             <?php endfor; ?>
 
-                    <?php for($id = 1; $id <= 5; $id++):?>
-                        if(rows > <?php echo $id;?>) {
-                            <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9), $fav_restaurants[($id - 1)]);?>
-                            foodFavoriteTable .rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite;?>";
-                        }
-                    <?php endfor; ?>
+                            <?php for($id = 1; $id <= $fav_food_table_day25[1]; $id++):?>
+                                <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9), $fav_food_table_day25[($id+1)]);?>
+                                foodFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite;?>";
+                            <?php endfor; ?>
 
                     <?php endfor; ?>
                         break;
@@ -269,13 +278,10 @@
                                 historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>";
                             <?php endfor; ?>
 
-                    <?php for($id = 1; $id <= 5; $id++):?>
-                        if(rows > <?php echo $id;?>) {
-                            <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9), $fav_restaurants[($id - 1)]);?>
-                            foodFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite;?>";
-                        }
-                    <?php endfor; ?>
-
+                            <?php for($id = 1; $id <= $fav_food_table_day26[1]; $id++):?>
+                                <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9), $fav_food_table_day26[($id+1)]);?>
+                                foodFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite;?>";
+                            <?php endfor; ?>
                         <?php endfor; ?>
                         break;
                 }

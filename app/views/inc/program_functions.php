@@ -1,11 +1,14 @@
 <?php
 function fillFoodFavorite($date, $restauarnts)
 {
+    //array: 0 = table content, 1= count of the restaurant. 2+ = al the restaurants id.
     $used_rest = "";
-    $fav_rest_count = 0;
-    $fav_restaurant_ids = array();
+    $fav_restaurant_info = array();
     $tableString = "";
-    $returnResults = array();
+
+    $fav_restaurant_info[0] = "";
+    $fav_restaurant_info[1] = 0;
+
 
     foreach ($restauarnts as $restaurant) {
         if ($restaurant->getDate() != $date) {continue;}
@@ -18,13 +21,12 @@ function fillFoodFavorite($date, $restauarnts)
         }
         $tableString = $tableString . "</tr>";
         $used_rest = $restaurant->getRestName();
-        $fav_rest_count += 1;
-        array_push($fav_restaurant_ids, $restaurant->getId());
+        $fav_restaurant_info[1] += 1;
+        array_push($fav_restaurant_info, $restaurant->getId());
     }
-    array_push($returnResults, $tableString);
-    array_push($returnResults, $fav_restaurant_ids);
-    array_push($returnResults, $fav_rest_count);
-    return $returnResults;
+    $fav_restaurant_info[0] = $tableString;
+
+    return $fav_restaurant_info;
 }
 
 function fillHistoricFavorites($date, $languages)
