@@ -34,14 +34,20 @@ else if (strpos($url, 'program'))
     <img style="margin-left: 35px; margin-top: 50px" onclick="location.href='<?php echo URLROOT;?>/program/index'" src="<?php echo URLROOT; ?>/img/header/programme.png">
     <h1 style="float:left; margin-left: 100px; margin-top: 75px"> <?php echo $title; ?> </h1>
     <img style="margin-left: 150px; margin-top: 50px" onclick="location.href='<?php echo URLROOT;?>/customers/login'" src="<?php echo URLROOT; ?>/img/header/log%20in.png">
-    <img style="float:right; margin-top: 15px; margin-right: 25px" onclick="" src="<?php echo URLROOT; ?>/img/header/en_flag.png">
-    <img style="float: right; margin-top: 15px; margin-right: 5px" onclick="" src="<?php echo URLROOT; ?>/img/header/nl_flag.png">
+    <div id="google_translate_element" style="padding-top: 50px"></div>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<p>You can translate the content of this page by selecting a language in the select box.</p>
+</form>
+</div>
     <img height="103px" width="120px" style="float:right; margin-top: 75px; margin-right: -135px" onclick="location.href='<?php echo URLROOT;?>/cart/index'" src="<?php echo URLROOT; ?>/img/cart.png">
     <form class="searchbar" action="http://localhost/haarlemfestival/search.php">
      <input style="margin-top: 60px; margin-left: 210px;" type="text" placeholder="Search the events!" name="q">
      <button type="submit"><i class="fa fa-search"></i></button>
-</form>
-</div>
 
     <nav style="clear:both;">
         <a style="background-color: rgb(255,104,104)" href="<?php echo URLROOT;?>/dance/index">Dance</a>
