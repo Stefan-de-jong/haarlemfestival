@@ -20,6 +20,7 @@ class Program extends Controller
             $customer = $_SESSION['customer_id'];
 
         $foodFavorites = $this->profileRepository->getAllFoodFavorites($customer);
+        $historicFavorites = $this->profileRepository->getAllHistoricFavorites($customer);
 
         $foodEvents = $this->programRepository->findAllFoodEvents();
         $historicEvents = $this->programRepository->findAllHistoricEvents();
@@ -27,7 +28,8 @@ class Program extends Controller
             'title' => 'Program',
             'foodEvent' => $foodEvents,
             'historicEvent' => $historicEvents,
-            'foodFavorite' => $foodFavorites
+            'foodFavorite' => $foodFavorites,
+            'historicFavorite' => $historicFavorites
         ];
         $this->view('pages/program', $data);
     }

@@ -6,6 +6,7 @@
             $this->tourRepo = $this->repo('TourRepository');
             $this->eventModel = $this->model('Event');
             $this->historicEventModel = $this->model('HistoricEvent');
+            $this->favoriteRepository = $this->repo('FavoriteRepository');
         }
 
         public function index(){
@@ -27,7 +28,7 @@
             $this->view('historic/about', $data);
         }
         
-        public function tickets(){
+        public function tickets(){            
             if(isset($_GET['tourdate'])){
                 $tourdate = $_GET['tourdate'];
             } else{
@@ -44,7 +45,7 @@
             $this->view('historic/tickets', $data);
         }
 
-        public function order(){            
+        public function order(){                                      
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $data =[
                 'tour_date' => trim($_POST['selected_day']),
@@ -53,47 +54,49 @@
                 'single_tickets' => trim($_POST['selected_singleTickets']),
                 'fam_tickets' => trim($_POST['selected_famTickets']),
                 'amount_error' => ''
-            ];
+            ];            
 
-            if($data['single_tickets'] == 0 && $data['fam_tickets'] == 0){
-                flash('ticketNotAdded_alert', 'Please select a number of tickets', 'alert alert-danger');
-                redirect('historic/tickets');
-            }
-            else{
-                $tour = $this->tourRepo->find($data['tour_date'], $data['tour_time'], $data['tour_language']); // ToDo als gekozen id meegegeven kan worden vanuit tickets page -> zoeken naar ID
+            $tour = $this->tourRepo->find($data['tour_date'], $data['tour_time'], $data['tour_language']); // ToDo als gekozen id meegegeven kan worden vanuit tickets page -> zoeken naar ID
             
-                if($tour != null){                                                             
-                    // Check if ordered single tickets and fam tickets combined are not more then the available ammount for tour
-                    if($tour->getNTickets() < ($data['single_tickets']+($data['fam_tickets']*4))){
-                        // not enough tickets available
-                        flash('ticketNotAdded_alert', 'Not enough tickets available', 'alert alert-danger');
-                        redirect('historic/tickets');
-                    } else{
-                        $id = $tour->getId();
-                        $n_single = $data['single_tickets'];
-                        $n_fam = $data['fam_tickets'];
-                        $cart_item = array(
-                            'historic_single_ticket' => $n_single,
-                            'historic_fam_ticket' => $n_fam
-                        );
+            if($tour != null){                           
+                if(isset($_POST['historicFav'])) {
+                    $this->favoriteRepository->addFavorite($_SESSION['customer_id'],$tour->getId());
+                    flash('addedToFav_alert', 'Added to favourites', 'alert alert-success');
+                    redirect('historic/tickets');
+                }
+                elseif($data['single_tickets'] == 0 && $data['fam_tickets'] == 0){
+                    flash('ticketNotAdded_alert', 'Please select a number of tickets', 'alert alert-danger');
+                    redirect('historic/tickets');
+                }
+                elseif($tour->getNTickets() < ($data['single_tickets']+($data['fam_tickets']*4))){
+                    flash('ticketNotAdded_alert', 'Not enough tickets available', 'alert alert-danger');
+                    redirect('historic/tickets');
+                }
+                else{
+                    $id = $tour->getId();
+                    $n_single = $data['single_tickets'];
+                    $n_fam = $data['fam_tickets'];
+                    $cart_item = array(
+                        'historic_single_ticket' => $n_single,
+                        'historic_fam_ticket' => $n_fam
+                    );
 
-                        if(!isset($_SESSION['cart'])){
-                            $_SESSION['cart'] = array();
-                        }
-
-                        if(!array_key_exists($id, $_SESSION['cart'])){
-                            $_SESSION['cart'][$id]=$cart_item;
-                            flash('ticketAdded_succes', 'Ticket(s) added to cart', 'alert alert-success');
-                            redirect('historic/tour');
-                        } else {
-                            // ToDo check if ordered tickets + cart tickets are nog more then available
-                            $_SESSION['cart'][$id]['historic_single_ticket']+=$cart_item['historic_single_ticket'];
-                            $_SESSION['cart'][$id]['historic_fam_ticket']+=$cart_item['historic_fam_ticket'];
-                            flash('ticketAdded_succes', 'Ticket(s) added to cart', 'alert alert-success');
-                            redirect('historic/tour');
-                        }
+                    if(!isset($_SESSION['cart'])){
+                        $_SESSION['cart'] = array();
                     }
-                }      
+
+                    if(!array_key_exists($id, $_SESSION['cart'])){
+                        $_SESSION['cart'][$id]=$cart_item;
+                        flash('ticketAdded_succes', 'Ticket(s) added to cart', 'alert alert-success');
+                        redirect('historic/tour');
+                    } else {
+                        // ToDo check if ordered tickets + cart tickets are nog more then available
+                        $_SESSION['cart'][$id]['historic_single_ticket']+=$cart_item['historic_single_ticket'];
+                        $_SESSION['cart'][$id]['historic_fam_ticket']+=$cart_item['historic_fam_ticket'];
+                        flash('ticketAdded_succes', 'Ticket(s) added to cart', 'alert alert-success');
+                        redirect('historic/tour');
+                    }
+                }                                  
             }                     
         }
     }

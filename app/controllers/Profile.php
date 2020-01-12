@@ -7,6 +7,7 @@ class Profile extends Controller
         $this->favoriteRepository = $this->repo('FavoriteRepository');
         $this->favoriteModel = $this->model('Favorite');
         $this->ffavoriteModel = $this->model('FoodFavorite');
+        $this->hfavoriteModel = $this->model('HistoricFavorite');
 
         $this->ticketModel = $this->model('Ticket');
         $this->hticketModel = $this->model('HistoricTicket');
@@ -40,10 +41,12 @@ class Profile extends Controller
     public function favorite()
     {
         $foodFavorites = $this->profileRepository->getAllFoodFavorites($_SESSION['customer_id']);
+        $historicFavorites = $this->favoriteRepository->getAllHistoricFavorites($_SESSION['customer_id']);
 
         $data = [
             'content' => "favorite",
-            'foodFavorite' => $foodFavorites
+            'foodFavorite' => $foodFavorites,
+            'historicFavorite' => $historicFavorites
         ];
 
         $this->view('pages/profile', $data);
