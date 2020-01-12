@@ -4,7 +4,9 @@ class Profile extends Controller
     public function __construct()
     {
         $this->profileRepository = $this->repo('ProfileRepository');
+        $this->ticketRepository = $this->repo('TicketRepository');
         $this->favoriteRepository = $this->repo('FavoriteRepository');
+
         $this->favoriteModel = $this->model('Favorite');
         $this->ffavoriteModel = $this->model('FoodFavorite');
         $this->hfavoriteModel = $this->model('HistoricFavorite');
@@ -26,9 +28,9 @@ class Profile extends Controller
     }
     public function ticket()
     {
-        $foodTickets = $this->profileRepository->getAllFoodTickets($_SESSION['customer_email']);
-        $historicTickets = $this->profileRepository->getAllHistoricTickets($_SESSION['customer_email']);
-        //$danceTickets = $this->profileRepository->getAllDanceTickets($_SESSION['customer_email']);
+        $foodTickets = $this->ticketRepository->getAllFoodTickets($_SESSION['customer_email']);
+        $historicTickets = $this->ticketRepository->getAllHistoricTickets($_SESSION['customer_email']);
+        //$danceTickets = $this->ticketRepository->getAllDanceTickets($_SESSION['customer_email']);
         $data = [
             'content' => "ticket",
             'foodTicket' => $foodTickets,
@@ -40,7 +42,7 @@ class Profile extends Controller
     }
     public function favorite()
     {
-        $foodFavorites = $this->profileRepository->getAllFoodFavorites($_SESSION['customer_id']);
+        $foodFavorites = $this->favoriteRepository->getAllFoodFavorites($_SESSION['customer_id']);
         $historicFavorites = $this->favoriteRepository->getAllHistoricFavorites($_SESSION['customer_id']);
 
         $data = [

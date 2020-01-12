@@ -145,8 +145,12 @@ require APPROOT . '/views/inc/header.php';
                                         //als delete wordt gedrukt dan wordt de id meegegeven, dit id wordt gebruikt om de cart item te deleten samen met het type
                                         if(isset($_POST['delete'.$item->getEventId()]))
                                         {
+                                            if($item->getTicketType() == 200)
+                                                $type = "food_regular_ticket";
+                                            if($item->getTicketType() == 201)
+                                                $type = "food_kids_ticket";
                                             $id = $item->getEventId();
-                                            unset($_SESSION['cart'][$id][$item->getTicketType()."_ticket"]);
+                                            unset($_SESSION['cart'][$id][$type]);
                                             echo "<meta http-equiv=\"refresh\" content=\"0\">";
                                         }
                                         ?>

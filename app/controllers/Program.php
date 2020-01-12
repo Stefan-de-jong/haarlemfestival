@@ -3,6 +3,7 @@ class Program extends Controller
 {
     public function __construct(){
     $this->programRepository = $this->repo('ProgramRepository');
+    $this->favoriteRepository = $this->repo('FavoriteRepository');
     $this->eventModel = $this->model('Event');
     $this->foodEventModel = $this->model('FoodEvent');
     $this->historicEventModel = $this->model('HistoricEvent');
@@ -19,7 +20,7 @@ class Program extends Controller
         else
             $customer = $_SESSION['customer_id'];
 
-        $foodFavorites = $this->profileRepository->getAllFoodFavorites($customer);
+        $foodFavorites = $this->favoriteRepository->getAllFoodFavorites($customer);
         $historicFavorites = $this->profileRepository->getAllHistoricFavorites($customer);
 
         $foodEvents = $this->programRepository->findAllFoodEvents();
