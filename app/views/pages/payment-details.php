@@ -43,9 +43,9 @@ else
                 <br>
                 Zip-code: <input style="float: right; margin-right: 15px" type="text"><br>
                 <br>
-                E-mail: <input style="float: right; margin-right: 15px" type="email" name="emailaddress"><br>
+                E-mail: <input style="float: right; margin-right: 15px" type="email" name="emailaddress" required><br>
                 <br>
-                Re-enter e-mail: <input style="float: right; margin-right: 15px" type="email"><br>
+                Re-enter e-mail: <input style="float: right; margin-right: 15px" type="email" required><br>
                 <?php }?>
             </div>
 
@@ -106,10 +106,10 @@ else
                     <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
-                Total ex BTW  : € <?php echo $data['total'];?><br>
-                BTW           : € <?php echo $data['total'] * 0.21;?><br>
-                <?php $data['totalInclBtw'] = $data['total'] * 1.21;?><br>
-                Total incl BTW: € <?php echo $data['totalInclBtw'];?>
+                Total ex BTW : € <?php echo $data['total'];?><br>
+                BTW : € <?php echo number_format($data['total'] * 0.09, 2);?><br>
+                <?php $data['totalInclBtw'] = $data['total'] * 1.09;?><br>
+                Total incl BTW: € <?php echo number_format($data['totalInclBtw'], 2);?>
                 <input type="submit" value="Pay" style="width: 100px; float: right; margin-right: 125px">
             </div>
         </div>
