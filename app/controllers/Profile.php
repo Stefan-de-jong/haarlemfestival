@@ -4,6 +4,7 @@ class Profile extends Controller
     public function __construct()
     {
         $this->profileRepository = $this->repo('ProfileRepository');
+        $this->favoriteRepository = $this->repo('FavoriteRepository');
         $this->favoriteModel = $this->model('Favorite');
         $this->ffavoriteModel = $this->model('FoodFavorite');
 
@@ -46,6 +47,11 @@ class Profile extends Controller
         ];
 
         $this->view('pages/profile', $data);
+    }
+    public function deleteFavorite($event)
+    {
+        $this->favoriteRepository->deleteFavorite($_SESSION['customer_id'], $event);
+        $this->favorite();
     }
 }
 ?>

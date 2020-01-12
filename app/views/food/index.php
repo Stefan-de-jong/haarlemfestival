@@ -42,7 +42,7 @@ $rest_kitchens = array("dutch", "french", "asian", "argentinian", "fish", "steak
 foreach($data['restaurants'] as $restaurant) :?>
     <div>
         <img class="rest_img_overview" src="<?php echo URLROOT.$restaurant->getRestImg(); ?>">
-        <?php echo $restaurant->name;?>
+        <?php echo $restaurant->getName();?>
         <br>
         <br>
         Stars:
@@ -56,7 +56,7 @@ foreach($data['restaurants'] as $restaurant) :?>
         <br>
         Cuisine:
         <img class="cuisineImg" src="<?php echo URLROOT; ?>/img/food/<?php echo $rest_kitchens[($restaurant->getKitchen1()) -1 ];?>.png">
-        <?php if($restaurant->kitchen2 != null){?><img class="cuisineImg" src="<?php echo URLROOT; ?>/img/food/<?php echo $rest_kitchens[($restaurant->getKitchen2()) -1 ];?>.png"> <?php }?>
+        <?php if($restaurant->getKitchen2() != null){?><img class="cuisineImg" src="<?php echo URLROOT; ?>/img/food/<?php echo $rest_kitchens[($restaurant->getKitchen2()) -1 ];?>.png"> <?php }?>
 
         <br>
         <br>

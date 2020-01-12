@@ -28,8 +28,8 @@ class RestaurantRepository
     public function findRestaurantById($id)
     {
         try {
-            $this->db->query('SELECT * FROM `restaurant` where id ='. $id);
-            //$this->db->bind(':id', $id);
+            $this->db->query('SELECT * FROM `restaurant` where id =:id');
+            $this->db->bind(':id', $id);
             $this->db->execute();
             if($this->db->rowCount() == 0)
                 return false;
@@ -135,8 +135,6 @@ class RestaurantRepository
         }
     }
 //--------------------------------------------CMS functions-----------------------------------------------------------------------------
-// test user---->$test = new Restaurant(9,"name", 1,1,4,10,1,"address",1);
-
     public function updateRestaurant(Restaurant $restaurant)
     {
         try {

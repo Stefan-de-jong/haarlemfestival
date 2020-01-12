@@ -42,7 +42,8 @@
                     echo "<h4> Food favorites:</h4>";
                         foreach (  $data['foodFavorite'] as $favorite) {
                             $date = date_create($favorite->getDate());
-                            echo  "Date: ".date_format($date, "d F Y")."<br>Restaurant: ". $favorite->getRestName() ."<br>Session: ". $favorite->getSession()."<br><br>";
+                            echo  "Date: ".date_format($date, "d F Y")."<br>Restaurant: ". $favorite->getRestName() ."<br>Session: ". $favorite->getSession()."<br>";
+                            echo "<button onclick=location.href='".URLROOT."/profile/deleteFavorite/".$favorite->getEventId()."'>Delete favorite</button><br><br>";
                         }
                     }
                     break;

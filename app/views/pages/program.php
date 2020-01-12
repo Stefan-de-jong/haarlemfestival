@@ -129,7 +129,7 @@
                 var danceFavoriteTable = document.getElementById('danceFavoriteTable');
                 var historicFavoriteTable = document.getElementById('historicFavoriteTable');
 
-                foodFavoriteTable .innerHTML = "<tr><th width='75px' height='30px'>Food</th></tr>";
+                foodFavoriteTable.innerHTML = "<tr><th width='75px' height='30px'>Food</th></tr>";
                 danceFavoriteTable.innerHTML =  "<tr><th width='75px' height='30px'>Dance</th></tr>";
                 historicFavoriteTable.innerHTML =  "<tr><th width='75px' height='30px'>Historic</th></tr>";
 
