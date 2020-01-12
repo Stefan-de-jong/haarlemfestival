@@ -3,35 +3,10 @@ require APPROOT . '/views/inc/header.php';
 ?>
 <div class="payment_body">
     <div class="cart_container" style="padding-bottom: 40px">
-        ---------------------------------------------------------statisch
-        voorbeeld---------------------------------------------------------------------------------------
-        <table border="1">
-            <tr>
-                <td rowspan="3" width="200px" height="200px">Foto</td>
-                <td width="450px">Naam</td>
-                <td width="450px">Datum</td>
-                <td width="100px">
-                    <select>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Plaats</td>
-                <td>Tijd</td>
-                <td>Bedrag</td>
-            </tr>
-            <tr>
-                <td>Opmerking</td>
-                <td colspan="2" align="right">Verwijderen</td>
-            </tr>
-        </table>
-        ---------------------------------------------------------------hieronder
-        dynamisch------------------------------------------------
+     <br>
+        <?php if(empty($data['cart_items'])):?>
+            <h2>You have no cart items to show.</h2>
+        <?php endif; ?>
 
         <?php if(!empty($data['cart_items'])) : ?>
         <?php foreach($data['cart_items'] as $item) : ?>
@@ -170,13 +145,8 @@ require APPROOT . '/views/inc/header.php';
                                         //als delete wordt gedrukt dan wordt de id meegegeven, dit id wordt gebruikt om de cart item te deleten samen met het type
                                         if(isset($_POST['delete'.$item->getEventId()]))
                                         {
-                                            if($item->getTicketType() == "Regular ticket")
-                                                $type = "food_regular_ticket";
-                                            else if($item->getTicketType() == "Kids ticket")
-                                                $type = "food_kids_ticket";
-
                                             $id = $item->getEventId();
-                                            unset($_SESSION['cart'][$id][$type]);
+                                            unset($_SESSION['cart'][$id][$item->getTicketType()."_ticket"]);
                                             echo "<meta http-equiv=\"refresh\" content=\"0\">";
                                         }
                                         ?>
@@ -278,9 +248,8 @@ require APPROOT . '/views/inc/header.php';
         <?php endforeach; ?>
         <?php endif; ?>
 
-        <button onclick="window.location.href='<?php echo URLROOT;?>/cart/paymentdetails'" style="float: right">Continue
-            to
-            order</button>
+        <button onclick="window.location.href='<?php echo URLROOT;?>/cart/paymentdetails'" style="float: right" <?php if(empty($data['cart_items'])):?> disabled <?php
+        endif; ?>>Continue to order</button>
     </div>
 </div>
 

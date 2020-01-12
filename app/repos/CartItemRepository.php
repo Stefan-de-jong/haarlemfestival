@@ -54,7 +54,7 @@
             $this->db->bind(':ticket_type', $ticket_type);
             $ticket = $this->db->single();
 
-            $cartItem = new FoodCartItem($event->eventId, $event->event_type, $ticket->id, $amount, $event->date, $event->begin_time, $ticket->price, $request, $event->name, $event->session);
+            $cartItem = new FoodCartItem($event->eventId, $event->event_type, $ticket->name, $amount, $event->date, $event->begin_time, $ticket->price, $request, $event->name, $event->session);
             return $cartItem;
         }
 

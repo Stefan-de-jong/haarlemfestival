@@ -9,9 +9,7 @@ $page = $data['page'];?>
     <div class="food_breadcrums"><a href="<?php echo URLROOT;?>">Home </a> >  <a href="<?php echo URLROOT;?>/food/index">Restaurant overview </a> > Info & reservate</div>
     <article>
       <img class="rest_img" src="<?php echo URLROOT.$page->url; ?>">
-<?php
-  echo $page->html;
-?>
+        <?php echo $page->html; ?>
         <br>
         <button onclick="toggleReservationPanel()">Make your reservation</button>
       </section>
@@ -95,12 +93,11 @@ $page = $data['page'];?>
   <br>
   Special request? (allergies, wheelchair etc.)
   <textarea maxlength="55" name="specialRequest"></textarea>
-<br>
-  <button style="margin-left: 75px">Add to favorites</button>
-  <button type="submit"  style="margin-left: 150px">Add to cart</button>
+    <br>
+        <button style="margin-left: 75px" name="favorite" <?php if(isLoggedIn() == false):?>disabled<?php endif?>>Add to favorites</button>
+        <button style="float: right; margin-right: 100px" name="reservation">Add to cart</button>
     </form>
 </div>
-
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 <script>
@@ -139,11 +136,12 @@ $page = $data['page'];?>
       switch (date) {
           case "2020-07-23":
           <?php
+          $date = "2020-07-23";
           for($r = 0; $r < 3; $r++)
           {
           foreach ($events as $event)
           {
-              if($event->getDate() == "2020-07-23" && $event->getSession() == ($r + 1))
+              if($event->getDate() == $date && $event->getSession() == ($r + 1))
               {
                   $begin_time = date_create($event->getBeginTime());
                   $end_time = date_create($event->getEndTime());
@@ -156,11 +154,12 @@ $page = $data['page'];?>
               break;
           case "2020-07-24":
           <?php
+          $date = "2020-07-24";
           for($r = 0; $r < 3; $r++)
           {
           foreach ($events as $event)
           {
-              if($event->getDate() == "2020-07-24" && $event->getSession() == ($r + 1))
+              if($event->getDate() == $date && $event->getSession() == ($r + 1))
               {
                   $begin_time = date_create($event->getBeginTime());
                   $end_time = date_create($event->getEndTime());
@@ -173,11 +172,12 @@ $page = $data['page'];?>
               break;
           case "2020-07-25":
           <?php
+          $date = "2020-07-25";
           for($r = 0; $r < 3; $r++)
           {
           foreach ($events as $event)
           {
-              if($event->getDate() == "2020-07-25" && $event->getSession() == ($r + 1))
+              if($event->getDate() == $date && $event->getSession() == ($r + 1))
               {
                   $begin_time = date_create($event->getBeginTime());
                   $end_time = date_create($event->getEndTime());
@@ -190,11 +190,12 @@ $page = $data['page'];?>
               break;
           case "2020-07-26":
           <?php
+          $date = "2020-07-26";
           for($r = 0; $r < 3; $r++)
           {
           foreach ($events as $event)
           {
-              if($event->getDate() == "2020-07-26" && $event->getSession() == ($r + 1))
+              if($event->getDate() == $date && $event->getSession() == ($r + 1))
               {
                   $begin_time = date_create($event->getBeginTime());
                   $end_time = date_create($event->getEndTime());
