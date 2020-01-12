@@ -20,14 +20,12 @@
             return $snippets;
         }
 
-
-
-
-        public function save(Location $location){
-            $this->db->query('INSERT INTO tourlocation (name, description) VALUES (:name, :description)');
+        public function save(Snippet $snippet){
+            $this->db->query('INSERT INTO snippets (snippet_page, snippet_name, snippet_text) VALUES (:page, :name, :text)');
             // Bind values
-            $this->db->bind(':name', $location->getName());
-            $this->db->bind(':description', $location->getDescription());
+            $this->db->bind(':page', $snippet->getPage());
+            $this->db->bind(':name', $snippet->getName());
+            $this->db->bind(':text', $snippet->getText());
             // Execute statement
             if($this->db->execute()){
                 return true;
@@ -36,13 +34,13 @@
             }
         }
 
-        public function update(Location $location){
-            $this->db->query('UPDATE tourlocation SET name = :name, description = :description WHERE id = :id');
+        public function update(Snippet $snippet){
+            $this->db->query('UPDATE snippets SET snippet_page = :page, snippet_name = :name, snippet_text = :text WHERE snippet_id = :id');
             // Bind values
-            $this->db->bind(':id', $tourlocation->getId());
-            $this->db->bind(':name', $tourlocation->getName());
-            $this->db->bind(':description', $tourlocation->getDescription());
-
+            $this->db->bind(':id', $snippet->getId());
+            $this->db->bind(':page', $snippet->getPage());
+            $this->db->bind(':name', $snippet->getName());
+            $this->db->bind(':text', $snippet->getText());
             // Execute statement
             if($this->db->execute()){
                 return true;
@@ -51,10 +49,10 @@
             }
         }
 
-        public function remove(Customer $tourlocation){
-            $this->db->query('DELETE from tourlocation WHERE id = :id');
+        public function remove(Snippet $snippet){
+            $this->db->query('DELETE from snippets WHERE snippet_id = :id');
             // Bind values
-            $this->db->bind(':id', $tourlocation->getId());
+            $this->db->bind(':id', $snippet->getId());
             // Execute statement
             if($this->db->execute()){
                 return true;
