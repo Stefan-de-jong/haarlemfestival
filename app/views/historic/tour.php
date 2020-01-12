@@ -18,10 +18,14 @@
                 </p>
             </div>
             <div class="col-md-4">
-                <h4>#HaarlemHistoric</h4>
-                <p>Post your own pictures on Instagram, along with #HaarlemHistoric #HaarlemFestival and a hashtag
-                    corresponding to your location, and you might win a dinner for two at one of our partner
-                    restaurants!</p>
+                <h4><?php foreach ($data['snippets'] as $snippet => $value) {
+                    if ($value->getname() == 'intro_titel')
+                        echo nl2br($value->getText());
+                } ?></h4>
+                <p><?php foreach ($data['snippets'] as $snippet => $value) {
+                    if ($value->getname() == 'intro_text')
+                        echo nl2br($value->getText());
+                } ?></p>
             </div>
         </div>
         <div class="row">

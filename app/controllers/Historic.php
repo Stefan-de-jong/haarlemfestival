@@ -7,22 +7,27 @@
             $this->eventModel = $this->model('Event');
             $this->historicEventModel = $this->model('HistoricEvent');
             $this->favoriteRepository = $this->repo('FavoriteRepository');
+            $this->snippetModel = $this->model('Snippet');
+            $this->snippetRepo = $this->repo('SnippetRepository');
         }
 
         public function index(){
             $locations = $this->locationRepo->findAll();
-            
+            $snippets = $this->snippetRepo->findByPage('haarlem_route');            
             $data = [
                 'title' => 'Historic tour',
-                'locations' => $locations
+                'locations' => $locations,
+                'snippets' => $snippets
             ];
 
             $this->view('historic/tour', $data);
         }
 
         public function about(){
+            $snippets = $this->snippetRepo->findByPage('haarlem_about');
             $data = [
-                'title' => 'About Haarlem'
+                'title' => 'About Haarlem',
+                'snippets' => $snippets
             ];
 
             $this->view('historic/about', $data);
