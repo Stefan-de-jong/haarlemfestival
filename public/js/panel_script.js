@@ -87,7 +87,6 @@ row.length = 0;
 
 function executeAjax(id, quantity) //use ajax to send the values required for a ticket to newticket.php
 {
-    console.log(id);
     $(document).ready(function(){
 
               $.ajax({

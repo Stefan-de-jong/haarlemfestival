@@ -28,7 +28,7 @@ $pic_count = 0;
     <section>
         <h1 style="position: relative;width: 400px; margin-top:-100px;margin-left: 400px;">ALL-ACCESS PASS</h1>
     </section>
-    <p style="position: relative;margin-top: -50px;margin-left: 754px;width: 250px;">Get access to all venues!<br>Select a day:</p><div id=dropdown>
+    <p id='pricebox' style="position: relative;margin-top: -50px;margin-left: 754px;width: 250px;">Get access to all venues!<br>Select a day:</p><div id=dropdown>
 <div id=dal>
 <dropdown style = "margin-left: 950px; margin-top: -57px; position: absolute;">
     <select style = "padding: 7.5px;" id="pass-select">

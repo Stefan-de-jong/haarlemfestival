@@ -5,6 +5,7 @@ class Dance extends Controller{
     {   $this->danceModel = $this->model('Artist');
         $this->danceModel = $this->model('Venue');
         $this->danceModel = $this->model('EventData');
+        $this->danceModel = $this->model('Page');
         $this->danceModel = $this->model('Styles');
         $this->eventModel = $this->model('Event');
         $this->eventModel = $this->model('Pass');
@@ -25,8 +26,12 @@ class Dance extends Controller{
     }
 
     public function index(){
+
+        $pages = $this->DanceRepository->getHTML();
+
         $data =[
-            'title' => 'dance'
+            'title' => 'dance',
+            'pages' => $pages
         ];
         $this->view('pages/dance/dance_info', $data);
         }

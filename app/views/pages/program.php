@@ -41,19 +41,41 @@
         <table border="1" style="font-size: 16px; table-layout: fixed">
             <tr>
                 <th width='75px'></th>
-                <?php for($i = 10; $i < 25; $i++)
+                <?php for($i = 10; $i < 27; $i++)
                 {
-                    echo "<td width='75px'>$i:00</td>";
+                    if ($i > 24)
+                    {$j = -24 + $i;}
+                    else {$j = $i;}
+                    echo "<td width='75px'>$j:00</td>";
                 }?>
             </tr>
         </table>
         <table id="danceTable" style="font-size: 10px" border="1">
             <tr>
                 <th width='75px'>Dance</th>
-                <?php for($i = 10; $i < 25; $i++)
+                <?php 
+                $used_artist = "";
+                $artist_count = 0;
+                $artists = array();
+                foreach($data['danceEvent'] as $artist)
                 {
+                    if (!in_array($artist->getArtist(), $artists, true))
+                    {array_push($artists, $artist->getArtist());}
+                }
+                $artist = $data['danceEvent'];
+                for($i = 0; $i < count($artists); $i++)
+                {
+                    if($used_artist == $artist[$i]->getArtist())
+                    continue;
+                    echo "<tr><td width='75px' height='30px'>".$artist[$i]->getArtist()."</td>";
+                for ($j = 10; $j < 27; $j++) {
                     echo "<td width='75px'></td>";
-                }?>
+                }
+                echo "</tr>";
+                $artist_count+=1;
+                $used_artist = $artist[$i]->getArtist();
+            }
+                ?>
             </tr>
         </table>
         <table id="foodTable" border="1" style="font-size: 10px; table-layout: fixed">
@@ -68,7 +90,7 @@
                 if($used_res == $restaurant->getRestaurant())
                     continue;
                 echo "<tr><td width='75px' height='30px'>".$restaurant->getRestaurant()."</td>";
-                for ($i = 10; $i < 25; $i++) {
+                for ($i = 10; $i < 27; $i++) {
                     echo "<td width='75px'></td>";
                 }
                 echo "</tr>";
@@ -89,7 +111,7 @@
                 if($used_languages == $historic->getLanguage())
                     continue;
                 echo "<tr><td width='75px' height='30px'>".$historic->getLanguage()."</td>";
-                for ($i = 10; $i < 25; $i++) {
+                for ($i = 10; $i < 27; $i++) {
                     echo "<td width='75px'></td>";
                 }
                 echo "</tr>";
@@ -101,7 +123,7 @@
         <table id="jazzTable" style="font-size: 10px" border="1">
             <tr>
                 <th width='75px'>Jazz</th>
-                <?php for($i = 10; $i < 25; $i++)
+                <?php for($i = 10; $i < 27; $i++)
                 {
                     echo "<td width='75px'>Jazz not implemented</td>";
                 }?>
@@ -176,9 +198,12 @@
                         <?php $date = '2020-07-23'; ?>
                             //voor iedere kolom (tijden 10u tot 24u) wordt er gekeken is er een event???-> geeft de goede datum en een tijd mee
                         <?php for ($i = 1; $i < 16; $i++):?>
-                            //dance table vullen
-                            <?php $danceEvent = "dance event dag 1"; ?>//      get($data['danceEvent'], "2020-07-26", ($i+9));   //TO DO maak getter voor event met datum en tijd en return een div met daarin data over event ->zie food                            
-                            danceTable.rows[0].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";
+
+                            //dance heeft niks op 2020-07-23
+                            <?php for ($id = 1; $id <= $artist_count; $id++):?>
+                                <?php $danceEvent = ""; ?>
+                                danceTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent; ?>"
+                            <?php endfor; ?>
 
                             //food table vullen
                             <?php for ($id = 1; $id <= $rest_count; $id++):?>
@@ -204,8 +229,11 @@
                         <?php for ($i = 1; $i < 16; $i++):?>
 
                             //dance table vullen
-                            <?php $danceEvent = "dance event dag 2"; ?>//      get($data['danceEvent'], "2020-07-26", ($i+9));   //TO DO maak getter voor event met datum en tijd en return een div met daarin data over event ->zie food                            
-                            danceTable.rows[0].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";
+                            <?php for ($id = 1; $id <= $artist_count; $id++):?>
+                                <?php $danceEvent = getEvent($data['danceEvent'], $date, ($i + 9), $id); ?>
+                                danceTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent; ?>"
+                            <?php endfor; ?>
+
 
                             //food table vullen
                             <?php for ($id = 1; $id <= $rest_count; $id++):?>
@@ -231,9 +259,10 @@
                         <?php $date = '2020-07-25'; ?>
                         <?php for ($i = 1; $i < 16; $i++):?>
 
-                            //dance table vullen
-                            <?php $danceEvent = "dance event dag 3"; ?>//      get($data['danceEvent'], "2020-07-26", ($i+9));   //TO DO maak getter voor event met datum en tijd en return een div met daarin data over event ->zie food                            
-                            danceTable.rows[0].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";
+                            <?php for ($id = 1; $id <= $artist_count; $id++):?>
+                                <?php $danceEvent = getEvent($data['danceEvent'], $date, ($i + 9), $id); ?>
+                                danceTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent; ?>"
+                            <?php endfor; ?>
 
                             //food table vullen
                             <?php for ($id = 1; $id <= $rest_count; $id++):?>
@@ -259,9 +288,10 @@
                         <?php $date = '2020-07-26'; ?>
                         <?php for ($i = 1; $i < 16; $i++):?>
 
-                            //dance table vullen
-                            <?php $danceEvent = "dance event dag 4"; ?>//      get($data['danceEvent'], "2020-07-26", ($i+9));   //TO DO maak getter voor event met datum en tijd en return een div met daarin data over event ->zie food                            
-                            danceTable.rows[0].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";
+                            <?php for ($id = 1; $id <= $artist_count; $id++):?>
+                                <?php $danceEvent = getEvent($data['danceEvent'], $date, ($i + 9), $id); ?>
+                                danceTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent; ?>"
+                            <?php endfor; ?>
 
                             //food table vullen
                             <?php for ($id = 1; $id <= $rest_count; $id++):?>

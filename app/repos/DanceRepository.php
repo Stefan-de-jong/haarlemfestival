@@ -20,7 +20,7 @@ class DanceRepository{
        $artists = array();
        foreach ($results as $result)
        {
-       $artist = new Artist($result->id, $result->name, $result->bio, $result->style);
+       $artist = new Artist($result->artist_id, $result->artist_name, $result->bio, $result->style);
        array_push($artists, $artist);
        }
        return $artists;
@@ -41,16 +41,16 @@ class DanceRepository{
     }
 
     public function getEventData(){ //assuming that dance eventtype = 1, it gets all event data associated with dance events
-        $this->db->query('SELECT event.*, 
-        tickettype.price 
-        FROM event LEFT JOIN tickettype 
-        ON tickettype.id = event.id 
-        WHERE event_type = 1');
+        $this->db->query('SELECT * FROM EVENT
+        INNER JOIN danceevent ON event.id = danceevent.id
+        INNER JOIN (SELECT * FROM artist as a) a ON a.artist_id = danceevent.artist
+        INNER JOIN (SELECT * FROM venue as v) v ON v.id = danceevent.location
+        INNER JOIN (SELECT * FROM tickettype as t) t on t.id = event.id');
         $results = $this->db->resultSet();
         $eventdata = array();
         foreach ($results as $result)
         {
-        $event = new DanceEvent($result->id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->n_tickets, $result->price);
+        $event = new DanceEvent($result->id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->n_tickets, $result->price, $result->artist_name, $result->artist_id, $result->venue_name, $result->address);
         array_push($eventdata, $event);    
         }
         return $eventdata;
@@ -64,7 +64,7 @@ class DanceRepository{
         $venues = array();
         foreach ($results as $result)
         {
-        $venue = new Venue($result->id, $result->name, $result->address);
+        $venue = new Venue($result->id, $result->venue_name, $result->address);
         array_push($venues, $venue);
         }
         return $venues;
@@ -96,6 +96,62 @@ class DanceRepository{
         array_push($passes, $pass);
         }
         return $passes;
+    }
+
+    public function saveArtist(Artist $artist){
+        try{
+        $this->db->query('INSERT INTO artist VALUES (:id, :name, :bio, :style)');
+        $this->db->bind(':id', $artist->getId());
+        $this->db->bind(':name', $artist->getName());
+        $this->db->bind(':bio', $artist->getBio());
+
+        $this->db->execute();
+        }
+        catch (Exception $e)
+        {
+        echo "Something went wrong: " . $e->getMessage();
+        }
+    }
+
+    public function updateArtist(Artist $artist){
+        try{
+        $this->db->query('UPDATE artist SET artist_id = :id, artist_name = :name, bio = :bio, style = :style WHERE artist_id = :id');
+        $this->db->bind(':id', $artist->getId());
+        $this->db->bind(':name', $artist->getName());
+        $this->db->bind(':bio', $artist->getBio());
+
+        $this->db->execute();
+        }
+        catch (Exception $e)
+        {
+        echo "Something went wrong: " . $e->getMessage();
+        }
+    }
+
+    public function RemoveArtist($id){
+        try{
+        $this->db->query('DELETE FROM artist WHERE artist_id = :id');
+        $this->db->bind(':id', $id);
+
+        $this->db->execute();
+        }
+        catch (Exception $e)
+        {
+        echo "Something went wrong: " . $e->getMessage();
+        }
+    }
+
+    public function getHTML() //get all html from ID 100 to 200 (dance items in the database are always between 100 and 200)
+    {
+        $this->db->query('SELECT * FROM page where ID > 100 AND ID < 200');
+        $results = $this->db->resultSet();
+        $html = array();
+        foreach ($results as $result)
+        {
+        $page = new Page($result->id, $result->title, $result->html);
+        array_push($html, $page);
+        }
+        return $html;
     }
 } 
 ?>

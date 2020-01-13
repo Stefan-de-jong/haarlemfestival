@@ -3,8 +3,8 @@
         private $artist;
         private $venue;
 
-        public function __construct($event_id, $ticket_type, $ticket_price, $buyer_email, $event_type, $date, $time, $price, $venue){
-            parent::__construct($event_id, $event_type, $ticket_type, $amount, $date, $time, $price);                     
+        public function __construct($event_id, $ticket_type, $ticket_price, $buyer_email, $event_type, $date, $time, $price, $venue, $artist){
+            parent::__construct($event_id, $ticket_type, $ticket_price, $buyer_email, $event_type, $date, $time);                     
             $this->artist = $artist;
             $this->venue = $venue;                       
         }        
