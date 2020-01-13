@@ -1,15 +1,15 @@
 <?php
     class Restaurant
     {
-        public $id;
-        public $name;
-        public $info_page;
-        public $kitchen1;
-        public $kitchen2;
-        public $stars;
-        public $price;
-        public $address;
-        public $rest_img;
+        private $id;
+        private $name;
+        private $info_page;
+        private $kitchen1;
+        private $kitchen2;
+        private $stars;
+        private $price;
+        private $address;
+        private $rest_img;
 
         public function __construct($id, $name, $info_page, $kitchen1, $kitchen2, $stars, $price, $address, $rest_img)
         {

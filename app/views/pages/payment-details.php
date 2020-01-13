@@ -15,7 +15,7 @@ else
             style="  display: flex;  flex-wrap: wrap; height: auto; padding-bottom: 20px;overflow:hidden;">
             <div style="width: 33.3%; padding-left: 10px">
                 <h3> ❶ Email or login </h3>
-                <hr style="background-color: white">
+                <hr style="background-color: white; margin-top: 50px">
                 <div style="background-color: azure; float:right; width: 1px; height: 100%"></div>
 
                 <?php if($logedIn == true){
@@ -43,9 +43,9 @@ else
                 <br>
                 Zip-code: <input style="float: right; margin-right: 15px" type="text"><br>
                 <br>
-                E-mail: <input style="float: right; margin-right: 15px" type="email" name="emailaddress"><br>
+                E-mail: <input style="float: right; margin-right: 15px" type="email" name="emailaddress" required><br>
                 <br>
-                Re-enter e-mail: <input style="float: right; margin-right: 15px" type="email"><br>
+                Re-enter e-mail: <input style="float: right; margin-right: 15px" type="email" required><br>
                 <?php }?>
             </div>
 
@@ -106,7 +106,10 @@ else
                     <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
-                Total: € <?php echo $data['total'];?><br>
+                Total ex BTW : € <?php echo $data['total'];?><br>
+                BTW : € <?php echo number_format($data['total'] * 0.09, 2);?><br>
+                <?php $data['totalInclBtw'] = $data['total'] * 1.09;?><br>
+                Total incl BTW: € <?php echo number_format($data['totalInclBtw'], 2);?>
                 <input type="submit" value="Pay" style="width: 100px; float: right; margin-right: 125px">
             </div>
         </div>
