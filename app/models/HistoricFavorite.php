@@ -14,5 +14,14 @@ class HistoricFavorite extends Favorite
     {
         return $this->language;
     }
+
+    public function getLanguageId(){
+        if($this->language == 'Nederlands'){
+            return 1;
+        } elseif($this->language == 'English'){
+            return 2;
+        } else
+        return 3;
+    }        
 }
 ?>

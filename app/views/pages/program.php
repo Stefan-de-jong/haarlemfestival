@@ -7,6 +7,7 @@
     $favorite = true;
 
     $fav_food = array();
+    $fav_hist = array();
 ?>
 <div class="program_body">
     <div class="program_container" style="height: auto">
@@ -106,9 +107,9 @@
                 }?>
             </tr>
         </table>
-        <div id ="favoritesTable">
+        <div id="favoritesTable">
             <?php if(isLoggedIn()):?>
-                Favorites
+            Favorites
             <?php endif;?>
             <table id="danceFavoriteTable" border="1" style="font-size: 10px; table-layout: fixed">
 
@@ -119,7 +120,7 @@
             <table id="historicFavoriteTable" border="1" style="font-size: 10px; table-layout: fixed">
 
             </table>
-    </div>
+        </div>
         <br>
         <script>
             /* beautify preserve:start */ // This comment is needed to leave PHP code intact inside this JS script tag (due to vs code addon beautify)
