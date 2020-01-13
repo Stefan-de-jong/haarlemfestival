@@ -81,7 +81,7 @@
                     </div>
                     <div class="row" id="single_tickets">
                         <div class="col d-xl-flex align-items-xl-center"><label class="col-form-label">Single ticket
-                                17.50</label></div>
+                                €17.50 (excl VAT)</label></div>
                         <div class="col-4 d-xl-flex align-items-xl-center"><select name="selected_singleTickets">
                                 <optgroup label="Number of single tickets">
                                     <option value="0" selected="">0</option>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="row" id="family_tickets">
                         <div class="col d-xl-flex align-items-xl-center"><label class="col-form-label">Family tickets
-                                60.00</label></div>
+                                €60.00 (excl VAT)</label></div>
                         <div class="col-4 d-xl-flex align-items-xl-center"><select name="selected_famTickets">
                                 <optgroup label="Number of family tickets">
                                     <option value="0" selected="">0</option>
@@ -113,12 +113,12 @@
                             </select></div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 text-center mt-3 mx-auto">
+                        <div class="col-md-6 text-center mt-3 mx-auto mb-5">
                             <input type="submit" name="historicFav" value="Add to favourites"
                                 class="btn btn-primary btn-block btn-lg"
                                 <?php if(isLoggedIn() == false):?>disabled<?php endif?>>
                         </div>
-                        <div class="col-md-6 text-center mt-3 mx-auto">
+                        <div class="col-md-6 text-center mt-3 mx-auto mb-5">
                             <input type="submit" name="historicOrder" value="Continue"
                                 class="btn btn-primary btn-block btn-lg">
                         </div>

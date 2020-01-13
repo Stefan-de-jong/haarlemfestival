@@ -12,7 +12,7 @@
         }
 
         public function index(){
-            $locations = $this->locationRepo->findAll();
+            $locations = $this->locationRepo->findAll();            
             $snippets = $this->snippetRepo->findByPage('haarlem_route');            
             $data = [
                 'title' => 'Historic tour',
@@ -21,6 +21,37 @@
             ];
 
             $this->view('historic/tour', $data);
+        }
+
+        public function select(){
+            if(isset($_POST['location_id'])){
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $locationId = $_POST['location_id'];
+                $output = '';                
+                $location = $this->locationRepo->findById($locationId);
+                
+                $output .= '                    
+                        <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                            <p class="text-justify">' . $location->getDescription() . '</p>
+                        </div>';
+
+                if ($location->getURL1() != '') {
+                    $output .= '
+                        <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                            <img src="' . URLROOT . '\\/img/' . $location->getURL1() . '"
+                            class="rounded shadow-sm img-fluid">
+                        </div>';
+                }
+
+                if ($location->getURL2() != '') {
+                    $output .= '
+                        <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                            <img src="' . URLROOT . '\\/img/' . $location->getURL2() . '"
+                            class="rounded shadow-sm img-fluid">
+                        </div>';
+                }
+                echo $output;
+            }
         }
 
         public function about(){
