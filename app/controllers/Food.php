@@ -6,6 +6,7 @@ class Food extends Controller
         $this->restaurantModel= $this->model('Restaurant');
         $this->ticketModel= $this->model('Ticket');
         $this->restaurantRepository = $this->repo('RestaurantRepository');
+        $this->favoriteRepository = $this->repo('FavoriteRepository');
         $this->eventModel = $this->model('Event');
         $this->foodEventModel = $this->model('FoodEvent');
     }
@@ -85,6 +86,11 @@ class Food extends Controller
         else if(!$date == '2020-07-26' || !$date == '2020-07-27' || !$date == '2020-07-28' || !$date == '2020-07-29')
         {
             $this->message = "❗ Select a choosable date";
+            $this->info($restaurant);
+        }
+        else if (isset($_POST['favorite'])) {
+            $this->favoriteRepository->addFavorite( $_SESSION['customer_id'],$event->getId());
+            $this->message = "Your favorite food event has been added to your favorites";
             $this->info($restaurant);
         }
         else {

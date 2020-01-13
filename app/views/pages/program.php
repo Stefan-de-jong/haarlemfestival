@@ -1,8 +1,13 @@
 <?php
+    require APPROOT . '/views/inc/program_functions.php';
     require APPROOT . '/views/inc/header.php';
     $dance = true;
     $food = true;
     $historic = true;
+    $favorite = true;
+
+    $fav_food = array();
+    $fav_hist = array();
 ?>
 <div class="program_body">
     <div class="program_container" style="height: auto">
@@ -11,7 +16,6 @@
         <button onclick="showTable(this.value)" value="2020-07-24">Friday 24 july</button>
         <button onclick="showTable(this.value)" value="2020-07-25">Saturday 25 july</button>
         <button onclick="showTable(this.value)" value="2020-07-26">Sunday 26 july</button><br>
-
         <input onchange="selectChange(this)" type="checkbox" name="dance" value="dance"
             <?php if(!$dance == false) echo "checked";?>>Dance<br>
         <input onchange="selectChange(this)" type="checkbox" name="food" value="food"
@@ -19,6 +23,10 @@
         <input onchange="selectChange(this)" type="checkbox" name="historic" value="historic"
             <?php if(!$historic == false) echo "checked";?>>Historic<br>
         <input onchange="selectChange(this)" type="checkbox" name="jazz" value="jazz" checked>Jazz<br>
+        <?php if(isLoggedIn()):?>
+        <input onchange="selectChange(this)" type="checkbox" name="favorites" value="favorites"
+            <?php if(!$favorite == false) echo "checked";?>>Favorites<br>
+        <?php endif;?>
         <script>
             function selectChange(option) {
                 if (option.checked == false) {
@@ -99,25 +107,75 @@
                 }?>
             </tr>
         </table>
+        <div id="favoritesTable">
+            <?php if(isLoggedIn()):?>
+            Favorites
+            <?php endif;?>
+            <table id="danceFavoriteTable" border="1" style="font-size: 10px; table-layout: fixed">
+
+            </table>
+            <table id="foodFavoriteTable" border="1" style="font-size: 10px; table-layout: fixed">
+
+            </table>
+            <table id="historicFavoriteTable" border="1" style="font-size: 10px; table-layout: fixed">
+
+            </table>
+        </div>
         <br>
         <script>
             /* beautify preserve:start */ // This comment is needed to leave PHP code intact inside this JS script tag (due to vs code addon beautify)
+            function createFavoriteTable(date)
+            {
+                var foodFavoriteTable = document.getElementById('foodFavoriteTable');
+                var danceFavoriteTable = document.getElementById('danceFavoriteTable');
+                var historicFavoriteTable = document.getElementById('historicFavoriteTable');
 
+                foodFavoriteTable.innerHTML = "<tr><th width='75px' height='30px'>Food</th></tr>";
+                danceFavoriteTable.innerHTML =  "<tr><th width='75px' height='30px'>Dance</th></tr>";
+                historicFavoriteTable.innerHTML =  "<tr><th width='75px' height='30px'>Historic</th></tr>";
+
+                if(date == '2020-07-23') {
+                    //array: 0 = table content, 1= count of the restaurant. 2+ = al the restaurants id.
+                    <?php $fav_food['day23']= fillFoodFavorite("2020-07-23", $data['foodFavorite']);?>
+                    var foodTableContent = "<?php echo $fav_food['day23'][0];?>";
+                    foodFavoriteTable .innerHTML += foodTableContent;
+                }
+                else if(date == '2020-07-24') {
+                    <?php   $fav_food['day24'] = fillFoodFavorite("2020-07-24", $data['foodFavorite']);?>
+                    var foodTableContent = "<?php echo $fav_food['day24'][0];?>";
+                    foodFavoriteTable .innerHTML += foodTableContent;
+                }
+                else if(date == '2020-07-25') {
+                    <?php   $fav_food['day25'] = fillFoodFavorite("2020-07-25", $data['foodFavorite']);?>
+                    var foodTableContent = "<?php echo $fav_food['day25'][0];?>";
+                    foodFavoriteTable .innerHTML += foodTableContent;
+                }
+                else if(date == '2020-07-26') {
+                    <?php $fav_food['day26'] = fillFoodFavorite("2020-07-26", $data['foodFavorite']);?>
+                    var foodTableContent = "<?php echo $fav_food['day26'][0];?>";
+                    foodFavoriteTable .innerHTML += foodTableContent;
+                }
+            }
             showTable("2020-07-23");
+
             function showTable(date) {
+                <?php if(isLoggedIn() == true):?>
+                createFavoriteTable(date);
+                <?php endif;?>
                 //als er op een button gedrukt wordt, word deze datum meegegeven...
                 var title = document.getElementById("title");
                 var danceTable = document.getElementById('danceTable');
                 var foodTable = document.getElementById('foodTable');
                 var historicTable = document.getElementById('historicTable');
+                var foodFavoriteTable  = document.getElementById('foodFavoriteTable');
 
+               var rows = document.getElementById('foodFavoriteTable').rows.length;
                 //afhankelijk van de datum wordt een event gezocht....
                 switch (date) {
                     case "2020-07-23":
                         <?php $date = '2020-07-23'; ?>
                             //voor iedere kolom (tijden 10u tot 24u) wordt er gekeken is er een event???-> geeft de goede datum en een tijd mee
                         <?php for ($i = 1; $i < 16; $i++):?>
-
                             //dance table vullen
                             <?php $danceEvent = "dance event dag 1"; ?>//      get($data['danceEvent'], "2020-07-26", ($i+9));   //TO DO maak getter voor event met datum en tijd en return een div met daarin data over event ->zie food                            
                             danceTable.rows[0].cells[<?php echo $i;?>].innerHTML = "<?php echo $danceEvent;?>";
@@ -125,16 +183,20 @@
                             //food table vullen
                             <?php for ($id = 1; $id <= $rest_count; $id++):?>
                                 <?php $foodEvent = getEvent($data['foodEvent'], $date, ($i + 9), $id); ?>
-                                foodTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent; ?>"
+                                foodTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent; ?>";
                             <?php endfor; ?>
 
                             //historic table vullen                            
                             <?php for ($langId = 1; $langId <= $language_count; $langId++):?>
                                 <?php $historicEvent = getEvent($data['historicEvent'], $date, ($i + 9), $langId); ?>
-                                historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>"
-                            <?php endfor; ?>
+                                historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>";
+                            <?php endfor;?>
 
-                        <?php endfor; ?>
+                            <?php for($id = 1; $id <= $fav_food['day23'][1]; $id++):?>
+                                <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9),$fav_food['day23'][($id+1)]);?>
+                                foodFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite;?>";
+                            <?php endfor; ?>
+                    <?php endfor; ?>
                         break;
 
                     case "2020-07-24":
@@ -148,13 +210,18 @@
                             //food table vullen
                             <?php for ($id = 1; $id <= $rest_count; $id++):?>
                                 <?php $foodEvent = getEvent($data['foodEvent'], $date, ($i + 9), $id); ?>
-                                foodTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent; ?>"
+                                foodTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent; ?>";
                             <?php endfor; ?>
 
                             //historic table vullen
                             <?php for ($langId = 1; $langId <= $language_count; $langId++):?>
                                 <?php $historicEvent = getEvent($data['historicEvent'], $date, ($i + 9), $langId); ?>
-                                historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>"
+                                historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>";
+                            <?php endfor; ?>
+
+                            <?php for($id = 1; $id <= $fav_food['day24'][1]; $id++):?>
+                                <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9), $fav_food['day24'][($id+1)]);?>
+                                foodFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite;?>";
                             <?php endfor; ?>
 
                         <?php endfor; ?>
@@ -171,16 +238,21 @@
                             //food table vullen
                             <?php for ($id = 1; $id <= $rest_count; $id++):?>
                                 <?php $foodEvent = getEvent($data['foodEvent'], $date, ($i + 9), $id); ?>
-                                foodTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent; ?>"
+                                foodTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent; ?>";
                             <?php endfor; ?>
 
                             //historic table vullen                            
                             <?php for ($langId = 1; $langId <= $language_count; $langId++):?>
                                 <?php $historicEvent = getEvent($data['historicEvent'], $date, ($i + 9), $langId); ?>
-                                historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>"
+                                historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>";
                             <?php endfor; ?>
 
-                        <?php endfor; ?>
+                            <?php for($id = 1; $id <= $fav_food['day25'][1]; $id++):?>
+                                <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9), $fav_food['day25'][($id+1)]);?>
+                                foodFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite;?>";
+                            <?php endfor; ?>
+
+                    <?php endfor; ?>
                         break;
 
                     case "2020-07-26":
@@ -194,15 +266,19 @@
                             //food table vullen
                             <?php for ($id = 1; $id <= $rest_count; $id++):?>
                                 <?php $foodEvent = getEvent($data['foodEvent'], $date, ($i + 9), $id); ?>
-                                foodTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent; ?>"
+                                foodTable.rows[<?php echo ($id);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodEvent; ?>";
                             <?php endfor; ?>
 
                             //historic table vullen                            
                             <?php for ($langId = 1; $langId <= $language_count; $langId++):?>
                                 <?php $historicEvent = getEvent($data['historicEvent'], $date, ($i + 9), $langId); ?>
-                                historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>"
+                                historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>";
                             <?php endfor; ?>
 
+                            <?php for($id = 1; $id <= $fav_food['day26'][1]; $id++):?>
+                                <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9), $fav_food['day26'][($id+1)]);?>
+                                foodFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite;?>";
+                            <?php endfor; ?>
                         <?php endfor; ?>
                         break;
                 }
@@ -212,102 +288,6 @@
     </div>
 </div>
 
-<?php require APPROOT . '/views/inc/footer.php';
-
-function getEvent($events, $date, $time, $id){    
-    $eventToShow = "";
-    foreach ($events as $event){
-        switch ($event->getEventType()){
-            case "1";
-                //dance make div
-                break;
-            case "2";
-                if ($event->getDate() == $date && ($event->getBeginTime() == $time.":00:00"|| $event->getBeginTime() == $time.":30:00" ) && $event->getId() == $id){
-                    if( $event->getBeginTime() == $time.":30:00")
-                    $eventToShow = getFoodShowDiv($event, 1);
-                    else
-                    $eventToShow = getFoodShowDiv($event, 0);
-                }
-                break;
-            case "3";
-                //kijken of er een event begint op het tijdstip
-                if ($event->getDate() == $date && $event->getBeginTime() == $time.":00:00" && $event->getLanguageId() == $id){
-                    $eventToShow = getHistShowDiv($event);            
-                }
-                break;
-            case "4";
-                //dance make div
-                break;
-        }    
-    }
-    return $eventToShow;
-}
-
-function getFoodShowDiv($event, $time_path){
-    //base background kleur maken
-    $bgColor = "white";
-    $duration = 1.5;
-    //restuarant ophalen om de achtergond kleur te kunnen bepalen
-    $restaurant = $event->getId();
-    switch ($restaurant)
-    {
-        case "1":
-            $bgColor = "orange";
-            break;
-        case "2":
-            $duration = 2;
-            $bgColor = "hotpink";
-            break;
-        case "3":
-            $duration = 2;
-            $bgColor = "red";
-            break;
-        case "4":
-            $bgColor = "blue";
-            break;
-        case "5":
-            $bgColor = "black";
-            break;
-        case "6":
-            $bgColor = "green";
-            break;
-        case "7":
-            $bgColor = "brown";
-            break;
-        case "8":
-            $bgColor = "purple";
-            break;
-    }
-    //aanmaken van de div
-    $margin = 0;
-    if($time_path == 1)
-        $margin = 50;
-
-    $eventShow =
-        "<div id='rest_div' style='background-color: " . $bgColor . "; margin-left:".$margin."%; width: ".($duration * 103)."% '>Session: ".$event->getSession()."<br></div>";
-
-    return $eventShow;
-}
-function getHistShowDiv($event){    
-    $duration = 1.5;    
-    $language = $event->getLanguage();
-    switch ($language){
-        case "Nederlands":
-            $bgColor = "orange";
-            $textColor = "black";        
-            break;
-        case "English":
-            $bgColor = "blue";
-            $textColor = "white";
-            break;
-        case "Chinese":
-            $bgColor = "red";
-            $textColor = "white";
-            break;        
-    }    
-    $margin = 0;
-    $eventShow = "<div id='rest_div' style='background-color: " . $bgColor . "; color: " . $textColor . "; margin-left:".$margin."%; width: ".($duration * 103)."% '>Guide: ".$event->getGuide()."<br></div>";
-    return $eventShow;
-}
-
+<?php
+require APPROOT . '/views/inc/footer.php';
 ?>

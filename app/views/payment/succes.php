@@ -18,6 +18,7 @@
     $mail->Body = 
     "Thank you for purchasing tickets for the Haarlem Festival.
     You can find your tickets below as an attachment.";
+    $mail->addStringAttachment($data['invoice'], "Invoice.pdf");
     $mail->addStringAttachment($data['attachment'], "YourTickets.pdf");
 
     try {

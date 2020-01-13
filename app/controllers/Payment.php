@@ -34,19 +34,28 @@ class Payment extends Controller{
             // ToDo add check for emailaddress match 2nd emailaddress
             // emailcheck ....
 
-            $email = trim($_POST['emailaddress']);
+            if(!empty($_SESSION['customer_email']))
+                $email = $_SESSION['customer_email'];
+            else
+                $email = trim($_POST['emailaddress']);
             $cartitems = $this->getCartItems();
-            $amount = 0;
+
+            $price = 0;
             foreach ($cartitems as $item) {
-                $amount += $item->getPrice() * $item->getAmount();
+                $price += $item->getPrice() * $item->getAmount();
             }
+
+            $vatPercentage = 9;
+            $vat = number_format(($vatPercentage / 100) * $price, 2);
+            $totalPrice = number_format($vat + $price, 2);
             
             // Init data everytime a payment is started
             $data = [
                 'customer_email' => $email,
                 'cart_items' => $cartitems,
-                'tickets' => '',
-                'total_price' => $amount
+                'price' => $price,
+                'vat' => $vat,
+                'total_price' => $totalPrice
             ];           
 
             // ToDo Thijs -> omdat deze variabele na iedere request wordt geinitialiseerd nu in session, kan dit anders?
@@ -90,13 +99,56 @@ class Payment extends Controller{
             }
         }        
         // get tickets in data
-        $data['tickets'] = $tickets;
-        $this->createPDF($data);
-        //$this->view('payment/process', $data);        
+        $data['tickets'] = $tickets;        
+        $this->createInvoice($data);       
     }
 
-    public function createPDF($data){
+    public function createInvoice($data){
         $customerEmail = $data['customer_email'];
+        $numberOfTickets = count($data['tickets']);
+        $price = $data['price'];        
+        $vat = $data['vat'];
+        $totalPrice = $data['total_price'];
+
+        $pdf = new TCPDF();
+        $html = "
+                <h1>Invoice</h1>
+                <h3>Customer email: {$customerEmail}</h3>
+                <ul>                    
+                    <li>Number of tickets: {$numberOfTickets}</li>
+                    <li>Price: € {$price}</li>                    
+                    <li>VAT: € {$vat}</li>                                  
+                    <li>Total price: € {$totalPrice}</li>
+                </ul>
+                <style>
+                ul {
+                    list-style-type: none;
+                    padding: 0;
+                    margin: 0;
+                }
+                </style>
+                ";
+
+        $pdf->addPage();        
+        $qrcode = "{$ticketId} {$eventId} {$eventType}";    
+
+        //line spacing
+        $pdf->Ln(2);
+
+        //write html
+        $pdf->writeHTML($html);
+
+        //line spacing
+        $pdf->Ln(2);     
+
+        ob_clean();
+        $invoice = $pdf->Output('invoice.pdf', 'S');
+        
+        $data['invoice'] = $invoice;
+        $this->createTickets($data);                
+    }
+
+    public function createTickets($data){        
         $pdf = new TCPDF();
 
         foreach($data['tickets'] as $ticket) {
@@ -187,7 +239,7 @@ class Payment extends Controller{
             }
 
             $pdf->addPage();        
-            $qrcode = "{$ticketId} {$eventId} {$customerEmail}";    
+            $qrcode = "{$ticketId} {$eventId} {$eventType}";    
 
             //line spacing
             $pdf->Ln(2);

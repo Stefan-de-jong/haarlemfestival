@@ -192,7 +192,7 @@
     public function createCustomerSession($customer){
         $_SESSION['customer_id'] = $customer->id;
         $_SESSION['customer_firstname'] = $customer->first_name;
-        $_SESSION['customer_lastname'] = $customer->last_ame;
+        $_SESSION['customer_lastname'] = $customer->last_name;
         $_SESSION['customer_email'] = $customer->email;
         redirect('pages/index');
     }
