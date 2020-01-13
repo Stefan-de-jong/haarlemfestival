@@ -4,6 +4,8 @@ class Program extends Controller
     public function __construct(){
     $this->programRepository = $this->repo('ProgramRepository');
     $this->favoriteRepository = $this->repo('FavoriteRepository');
+    $this->eventRepository = $this->repo('eventRepository');
+
     $this->eventModel = $this->model('Event');
     $this->foodEventModel = $this->model('FoodEvent');
     $this->historicEventModel = $this->model('HistoricEvent');
@@ -25,8 +27,8 @@ class Program extends Controller
         $foodFavorites = $this->favoriteRepository->getAllFoodFavorites($customer);
         $historicFavorites = $this->favoriteRepository->getAllHistoricFavorites($customer);
 
-        $foodEvents = $this->programRepository->findAllFoodEvents();
-        $historicEvents = $this->programRepository->findAllHistoricEvents();
+        $foodEvents = $this->eventRepository->findAllFoodEvents();
+        $historicEvents = $this->eventRepository->findAllHistoricEvents();
         $danceEvents = $this->programRepository->findAllDanceEvents();
 
         $data = [
