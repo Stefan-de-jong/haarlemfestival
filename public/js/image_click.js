@@ -109,4 +109,27 @@ $(pnl).hide();
 
 selection.onchange = function getValueDropdown(){
 day = selection.options[selection.selectedIndex].value;
+var displaydate;
+var price;
+switch(day)
+{
+case 'fri':
+price = 125;
+displaydate = "Friday";
+break;
+case 'sat':
+price = 150;
+displaydate = "Saturday";
+break;
+case 'sun':
+price = 150;
+displaydate = "Sunday";
+break;
+case 'all':
+price = 250;
+displaydate = "all days";
+break;
+}
+var pricebox = document.getElementById('pricebox');
+pricebox.innerHTML = "This pass costs € " + price + "<br> and is for " + displaydate;
 }
