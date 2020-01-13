@@ -34,7 +34,7 @@ class Program extends Controller
             'foodEvent' => $foodEvents,
             'historicEvent' => $historicEvents,
             'foodFavorite' => $foodFavorites,
-            'historicFavorite' => $historicFavorites
+            'historicFavorite' => $historicFavorites,
             'danceEvent' => $danceEvents
         ];
         $this->view('pages/program', $data);
