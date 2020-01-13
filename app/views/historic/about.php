@@ -28,7 +28,7 @@
                 } ?></p>
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-5">
             <div class="col align-self-center">
                 <p class="text-justify"><?php foreach ($data['snippets'] as $snippet => $value) {
                     if ($value->getname() == 'about_p3')

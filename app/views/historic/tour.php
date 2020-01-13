@@ -47,8 +47,23 @@
 </div>
 <div class="container">
 
-    <!-- Div below with container loaded AJAX content -->
-    <div class="row" id="location_details">
+    <!-- Div below will contain loaded AJAX content -->
+    <div class="row mb-5" id="location_details">
+        <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+            <p class="text-justify"><?php echo $data['locations'][0]->getDescription(); ?></p>
+        </div>
+        <?php if($location->getURL1() != '') : ?>
+        <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+            <img src="<?php echo URLROOT;?>/img/<?php echo $data['locations'][0]->getURL1(); ?>"
+                class="rounded shadow-sm img-fluid">
+        </div>
+        <?php endif; ?>
+        <?php if($location->getURL1() != '') : ?>
+        <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+            <img src="<?php echo URLROOT;?>/img/<?php echo $data['locations'][0]->getURL2(); ?>"
+                class="rounded shadow-sm img-fluid">
+        </div>
+        <?php endif; ?>
     </div>
 
 </div>
