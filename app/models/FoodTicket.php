@@ -9,6 +9,14 @@ class FoodTicket extends Ticket
         $this->rest_name = $name;
         $this->session = $session;
     }
+    public function printTicketType(){
+        if($this->ticket_type == 200){
+            return 'Regular ticket';
+        } elseif($this->ticket_type == 201){
+            return 'Kids ticket';
+        } else
+            return $this->ticket_type;
+    }
 
     public function getRestName()
     {

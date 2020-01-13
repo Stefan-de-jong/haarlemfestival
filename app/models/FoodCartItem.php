@@ -12,9 +12,12 @@ Class FoodCartItem extends CartItem{
     }
 
     public function getTicketType(){
-        if($this->ticket_type == 'food_regular'){
+        return $this->ticket_type;
+    }
+    public function printTicketType(){
+        if($this->ticket_type == "200"){
             return 'Regular ticket';
-        } elseif($this->ticket_type == 'food_kids'){
+        } elseif($this->ticket_type == "201"){
             return 'Kids ticket';
         } else
             return $this->ticket_type;

@@ -50,7 +50,7 @@ function googleTranslateElementInit() {
 
     <nav style="clear:both;">
         <a style="background-color: rgb(255,104,104)" href="<?php echo URLROOT;?>/dance/index">Dance</a>
-        <a style="background-color: rgb(152,255,153)" href="<?php echo URLROOT;?>/food/index">Food</a>
+        <a style="background-color: rgb(152,255,153)" href="<?php echo URLROOT;?>/food">Food</a>
         <a style="background-color: #ffff99" href="<?php echo URLROOT;?>/historic">Historic</a>
         <a style="background-color: #2C88BF" href="<?php echo URLROOT;?>">Jazz</a>
         <a style="background-color: rgb(162,22,174)" href="<?php echo URLROOT;?>/volunteer/index">Volunteer</a>
