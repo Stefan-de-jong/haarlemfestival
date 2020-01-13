@@ -28,8 +28,7 @@ class ProgramRepository
         }
     }
 
-    public function findAllHistoricEvents()
-    {
+    public function findAllHistoricEvents(){
         $events = array();
         $this->db->query('SELECT *,
                             historicevent.id as id,

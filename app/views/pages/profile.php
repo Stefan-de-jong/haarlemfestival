@@ -46,6 +46,15 @@
                             echo "<button onclick=location.href='".URLROOT."/profile/deleteFavorite/".$favorite->getEventId()."'>Delete favorite</button><br><br>";
                         }
                     }
+                    if (!empty($data['historicFavorite'])) {
+                    echo "<h4> Historic favorites:</h4>";
+                        foreach (  $data['historicFavorite'] as $favorite) {
+                            $date = date_create($favorite->getDate());
+                            echo "Date: " . date_format(date_create($favorite->getDate()), "d F Y") . ", Time: " . date_format(date_create($favorite->getBeginTime()), "H:i") . "<br>
+                            Language: " . $favorite->getLanguage() ."<br>";
+                            echo "<button onclick=location.href='".URLROOT."/profile/deleteFavorite/".$favorite->getEventId()."'>Delete favorite</button><br><br>";
+                        }
+                    }
                     break;
             }
         ?>

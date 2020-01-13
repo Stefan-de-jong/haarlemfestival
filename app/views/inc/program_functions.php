@@ -29,9 +29,8 @@ function fillFoodFavorite($date, $restauarnts)
     return $fav_restaurant_info;
 }
 
-function fillHistoricFavorites($date, $languages)
-{
-
+function fillHistoricFavorites($date, $favorites){
+    
 }
 
 function fillDanceFavorites($date, $artist)

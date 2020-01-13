@@ -11,6 +11,7 @@
         <div class="row">
             <div class="col">
                 <?php flash('ticketNotAdded_alert'); ?>
+                <?php flash('addedToFav_alert'); ?>
             </div>
         </div>
     </section>
@@ -37,8 +38,7 @@
 
                         <script>
                             /* beautify preserve:start */
-                            function selectedOption(value)
-                            {
+                            function selectedOption(value){
                                 if (value == 0)
                                     location.href = '<?php echo URLROOT;?>/historic/tickets';
                                 else {
@@ -46,8 +46,7 @@
                                     location.href = '<?php echo URLROOT;?>/historic/tickets?tourdate=' +<?php echo $tourdate;?>;
                                 }
                             }
-
-                    /* beautify preserve:end */
+                            /* beautify preserve:end */
                         </script>
 
 
@@ -82,7 +81,7 @@
                     </div>
                     <div class="row" id="single_tickets">
                         <div class="col d-xl-flex align-items-xl-center"><label class="col-form-label">Single ticket
-                                17.50</label></div>
+                                €17.50 (excl VAT)</label></div>
                         <div class="col-4 d-xl-flex align-items-xl-center"><select name="selected_singleTickets">
                                 <optgroup label="Number of single tickets">
                                     <option value="0" selected="">0</option>
@@ -103,7 +102,7 @@
                     </div>
                     <div class="row" id="family_tickets">
                         <div class="col d-xl-flex align-items-xl-center"><label class="col-form-label">Family tickets
-                                60.00</label></div>
+                                €60.00 (excl VAT)</label></div>
                         <div class="col-4 d-xl-flex align-items-xl-center"><select name="selected_famTickets">
                                 <optgroup label="Number of family tickets">
                                     <option value="0" selected="">0</option>
@@ -114,9 +113,15 @@
                             </select></div>
                     </div>
                     <div class="row">
-
-                        <div class="col-md-4 text-center mx-auto"><input type="submit" value="Continue"
-                                class="btn btn-primary btn-block btn-lg"></div>
+                        <div class="col-md-6 text-center mt-3 mx-auto mb-5">
+                            <input type="submit" name="historicFav" value="Add to favourites"
+                                class="btn btn-primary btn-block btn-lg"
+                                <?php if(isLoggedIn() == false):?>disabled<?php endif?>>
+                        </div>
+                        <div class="col-md-6 text-center mt-3 mx-auto mb-5">
+                            <input type="submit" name="historicOrder" value="Continue"
+                                class="btn btn-primary btn-block btn-lg">
+                        </div>
                     </div>
                 </div>
             </form>

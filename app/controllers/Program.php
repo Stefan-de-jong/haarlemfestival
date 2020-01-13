@@ -11,6 +11,7 @@ class Program extends Controller
     $this->profileRepository = $this->repo('ProfileRepository');
     $this->favoriteModel = $this->model('Favorite');
     $this->foodFavoriteModel = $this->model('FoodFavorite');
+    $this->historicFavoriteModel = $this->model('HistoricFavorite');
     }
     public function index()
     {
@@ -21,6 +22,7 @@ class Program extends Controller
             $customer = $_SESSION['customer_id'];
 
         $foodFavorites = $this->favoriteRepository->getAllFoodFavorites($customer);
+        $historicFavorites = $this->favoriteRepository->getAllHistoricFavorites($customer);
 
         $foodEvents = $this->programRepository->findAllFoodEvents();
         $historicEvents = $this->programRepository->findAllHistoricEvents();
@@ -28,7 +30,8 @@ class Program extends Controller
             'title' => 'Program',
             'foodEvent' => $foodEvents,
             'historicEvent' => $historicEvents,
-            'foodFavorite' => $foodFavorites
+            'foodFavorite' => $foodFavorites,
+            'historicFavorite' => $historicFavorites
         ];
         $this->view('pages/program', $data);
     }
