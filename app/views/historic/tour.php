@@ -12,11 +12,7 @@
     <h1><?php echo $data['title']?></h1>
     <div class="row">
         <div class="col">
-            <p class="text-justify"><?php 
-                if(!empty($_SESSION['cart'])){
-                    print_r($_SESSION['cart']);
-                    };?>
-            </p>
+            <!-- ToDo add snippet explaining Historic -->
         </div>
         <div class="col-md-4">
             <h4><?php foreach ($data['snippets'] as $snippet => $value) {
