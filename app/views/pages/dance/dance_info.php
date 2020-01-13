@@ -1,5 +1,25 @@
 
-<?php require_once APPROOT . '/views/inc/header.php'; ?>
+<?php require_once APPROOT . '/views/inc/header.php';
+$pages = $data['pages'];
+$friday = '';
+$saturday = '';
+$sunday = '';
+foreach ($pages as $page)
+{
+switch ($page->getTitle())
+{
+case 'friday':
+$friday = $page->getHtml();
+break;
+case 'saturday':
+$saturday = $page->getHtml();
+break;
+case 'sunday';
+$sunday = $page->getHtml();
+break;
+}
+}
+?>
 <style> footer{margin-top: 979.031px;}</style>
 <container class="text-center" style="width: 100%">
     <section id="bg-image" style="position: absolute;"><img src="<?php echo URLROOT; ?>/img/dance/bg-left.png" style="position: absolute;"><img style="position: absolute;margin-left: 1536px;" src="<?php echo URLROOT; ?>/img/dance/bg-right.png"></section>
@@ -15,17 +35,17 @@
         <section><img src="<?php echo URLROOT; ?>/img/dance/artist%20image.png" style="position: absolute;width: 537px;"></section>
         <section>
             <h4 class="text-left" style="background-color: rgb(255,62,62);width: 464px;margin-left: 66px;margin-bottom: 0px;">Friday</h4>
-            <h4 class="text-left" style="background-color: rgb(255,255,255);width: 464px;margin-left: 66px;margin-top: 0px;margin-bottom: 0px;">On Friday Nicky Romero, Tiësto, Hardwell, Armin van Buuren and Afrojack will perform.</h4>
+            <h4 class="text-left" style="background-color: rgb(255,255,255);width: 464px;margin-left: 66px;margin-top: 0px;margin-bottom: 0px;"><?php echo $friday; ?></h4>
             <section style="background-color: #ffffff;margin-top: 0px;width: 464px;margin-left: 66px;"><button class="btn btn-primary" type="button" style="margin-right: 328px;margin-top: 20px;margin-bottom: 20px;"><a class="btn_url" href="<?php echo URLROOT; ?>/dance/purchase">BUY TICKETS</a></button></section>
 </form></button></section>
             <section style="margin-top: 20px;">
                 <h4 class="text-left" style="background-color: rgb(255,62,62);width: 464px;margin-left: 66px;margin-bottom: 0px;">Saturday</h4>
-                <h4 class="text-left" style="background-color: rgb(255,255,255);width: 464px;margin-left: 66px;margin-top: 0px;margin-bottom: 0px;">On Saturday Hardwell, Martin Garrix, Armin van Buuren, Afrojack, Tiësto and Nicky Romoro will perform.</h4>
+                <h4 class="text-left" style="background-color: rgb(255,255,255);width: 464px;margin-left: 66px;margin-top: 0px;margin-bottom: 0px;"><?php echo $saturday; ?></h4>
                 <section style="background-color: #ffffff;margin-top: 0px;width: 464px;margin-left: 66px;"><button class="btn btn-primary" type="button" style="margin-right: 328px;margin-top: 20px;margin-bottom: 20px;"><a class="btn_url" href="<?php echo URLROOT; ?>/dance/purchase">BUY TICKETS</a></button></section>
             </section>
             <section style="margin-top: 20px;">
                 <h4 class="text-left" style="background-color: rgb(255,62,62);width: 464px;margin-left: 66px;margin-bottom: 0px;">Sunday</h4>
-                <h4 class="text-left" style="background-color: rgb(255,255,255);width: 464px;margin-left: 66px;margin-top: 0px;margin-bottom: 0px;">On Sunday Afrojack, Tiësto, Nicky Remero, Armin van Buuren, Hardwell and Martin Garrix will perform.</h4>
+                <h4 class="text-left" style="background-color: rgb(255,255,255);width: 464px;margin-left: 66px;margin-top: 0px;margin-bottom: 0px;"><?php echo $sunday; ?></h4>
                 <section style="background-color: #ffffff;margin-top: 0px;width: 464px;margin-left: 66px;"><button class="btn btn-primary" type="button" style="margin-right: 328px;margin-top: 20px;margin-bottom: 20px;"><a class="btn_url" href="<?php echo URLROOT; ?>/dance/purchase">BUY TICKETS</a></button></section>
             </section>
         </section>

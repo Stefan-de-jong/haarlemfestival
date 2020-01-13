@@ -29,9 +29,11 @@ require APPROOT . '/views/inc/header.php';
                                             $name = "all_access_amount" . $item->getEventId();
                                         ?>
                         <select name="<?php echo $name;?>" onchange="this.form.submit()">
-                            <?php for ($i = 0; $i < 12; $i++) {
+                            <?php               if(strpos($item->getTicketType(), "dance_ticket") !== false)
+                            {
+                                                for ($i = 0; $i < 12; $i++) {
                                                 echo '<option value="' . $i . '" ' . (($i == $item->getAmount()) ? 'selected="selected"' : "") . '>' . $i . '</option>';
-                                            }; ?>
+                                            } } else {echo '<option value="' . 1 . '" ' . (($i == $item->getAmount()) ? 'selected="selected"' : "") . '>' . 1 . '</option>';}?>
                         </select>
                         <?php
                                             if(isset($_POST['dance_ticket_amount'.$item->getEventId()]))
@@ -55,7 +57,7 @@ require APPROOT . '/views/inc/header.php';
                 </td>
             </tr>
             <tr>
-                <td><?php if(strpos($item->getTicketType(), "all_access") !== false){if (substr($item->getTicketType(), -3) != 'all'){echo date_format($date,"d F Y");}else{echo "No specific date";}} else{echo date_format($time, "H:i") . "<br>". date_format($date,"d F Y");} ?>
+                <td><?php if(strpos($item->getTicketType(), "all_access") !== false){if (substr($item->getTicketType(), 3, -3) == 'all'){echo date_format($date,"d F Y");}else{echo "No specific date";}} else{echo date_format($time, "H:i") . "<br>". date_format($date,"d F Y");} ?>
                 </td>;
                 <td><?php if(strpos($item->getTicketType(), "dance_ticket") !== false){echo $item->getVenue() . "<br>" . $item->getAddress();}?>
                 </td>

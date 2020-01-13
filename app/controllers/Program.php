@@ -9,6 +9,7 @@ class Program extends Controller
     $this->eventModel = $this->model('Event');
     $this->foodEventModel = $this->model('FoodEvent');
     $this->historicEventModel = $this->model('HistoricEvent');
+    $this->danceEventModel = $this->model('DanceEvent');
 
     $this->profileRepository = $this->repo('ProfileRepository');
     $this->favoriteModel = $this->model('Favorite');
@@ -28,12 +29,15 @@ class Program extends Controller
 
         $foodEvents = $this->eventRepository->findAllFoodEvents();
         $historicEvents = $this->eventRepository->findAllHistoricEvents();
+        $danceEvents = $this->programRepository->findAllDanceEvents();
+
         $data = [
             'title' => 'Program',
             'foodEvent' => $foodEvents,
             'historicEvent' => $historicEvents,
             'foodFavorite' => $foodFavorites,
-            'historicFavorite' => $historicFavorites
+            'historicFavorite' => $historicFavorites,
+            'danceEvent' => $danceEvents
         ];
         $this->view('pages/program', $data);
     }
