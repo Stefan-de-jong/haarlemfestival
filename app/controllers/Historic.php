@@ -68,7 +68,7 @@
             if(isset($_GET['tourdate'])){
                 $tourdate = $_GET['tourdate'];
             } else{
-                $tourdate = '2020-07-24';
+                $tourdate = '2020-07-23';
             }
             
             $tours = $this->tourRepo->findByDate($tourdate);            

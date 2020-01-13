@@ -160,6 +160,8 @@ class Payment extends Controller{
             $eventType = $ticket->getEventType();
             $eventDate = date_format(date_create($ticket->getDate()),"d F Y");
             $eventTime = date_format(date_create($ticket->getTime()),"H:i") . ' uur';
+            $vat = number_format($ticketPrice * 0.09, 2);
+            $priceInclVat = number_format($ticketPrice +  $vat, 2);
             
             if($eventType == 'Haarlem Dance'){   
                 if (strpos($ticketType, 'dance_ticket') !== false)
@@ -176,7 +178,9 @@ class Payment extends Controller{
                             <li>Time: {$eventTime}</li>
                             <li>Artist: {$eventArtist}</li>
                             <li>Venue: {$eventVenue}</li>
-                            <li>Price: € {$ticketPrice}</li>
+                            <li>Price (excl. VAT): € {$ticketPrice}</li>
+                            <li>VAT: € {$vat}</li>
+                            <li>Price (incl. VAT): € {$priceInclVat}</li>
                         </ul>
                         <style>
                         ul {
@@ -200,7 +204,9 @@ class Payment extends Controller{
                             <li>Time: {$eventTime}</li>
                             <li>Restaurant: {$eventRestaurant}</li>
                             <li>Session: {$eventSession}</li>
-                            <li>Price: € {$ticketPrice}</li>
+                            <li>Price (excl. VAT): € {$ticketPrice}</li>
+                            <li>VAT: € {$vat}</li>
+                            <li>Price (incl. VAT): € {$priceInclVat}</li>
                         </ul>
                         <style>
                         ul {
@@ -223,7 +229,9 @@ class Payment extends Controller{
                             <li>Date: {$eventDate}</li>
                             <li>Time: {$eventTime}</li>
                             <li>Language: {$eventLanguage}</li>
-                            <li>Price: € {$ticketPrice}</li>
+                            <li>Price (excl. VAT): € {$ticketPrice}</li>
+                            <li>VAT: € {$vat}</li>
+                            <li>Price (incl. VAT): € {$priceInclVat}</li>
                         </ul>
                         <style>
                         ul {
@@ -265,7 +273,7 @@ class Payment extends Controller{
         }
         ob_clean();
         
-        $attachment = $pdf->Output('tickets.pdf', 'I');
+        $attachment = $pdf->Output('tickets.pdf', 'S');
         $data['attachment'] = $attachment;
         unset($_SESSION['cart']);
         $this->view('payment/succes', $data);

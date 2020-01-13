@@ -114,7 +114,7 @@ function getFoodShowDiv($event, $time_path){
     return $eventShow;
 }
 function getHistShowDiv($event){
-    $duration = 1.5;
+    $duration = 2.5;
     $language = $event->getLanguage();
     switch ($language){
         case "Nederlands":
