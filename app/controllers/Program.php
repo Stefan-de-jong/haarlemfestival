@@ -29,15 +29,15 @@ class Program extends Controller
 
         $foodEvents = $this->eventRepository->findAllFoodEvents();
         $historicEvents = $this->eventRepository->findAllHistoricEvents();
-        $danceEvents = $this->programRepository->findAllDanceEvents();
+        //$danceEvents = $this->programRepository->findAllDanceEvents();
 
         $data = [
             'title' => 'Program',
             'foodEvent' => $foodEvents,
             'historicEvent' => $historicEvents,
             'foodFavorite' => $foodFavorites,
-            'historicFavorite' => $historicFavorites,
-            'danceEvent' => $danceEvents
+            'historicFavorite' => $historicFavorites
+            //'danceEvent' => $danceEvents
         ];
         $this->view('pages/program', $data);
     }
