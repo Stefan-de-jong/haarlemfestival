@@ -161,21 +161,37 @@
                     <?php $fav_food['day23']= fillFoodFavorite("2020-07-23", $data['foodFavorite']);?>
                     var foodTableContent = "<?php echo $fav_food['day23'][0];?>";
                     foodFavoriteTable .innerHTML += foodTableContent;
+
+                    <?php $fav_hist['day23']= fillHistoricFavorites("2020-07-23", $data['historicFavorite']);?>
+                    var historicTableContent = "<?php echo $fav_hist['day23'][0];?>";
+                    historicFavoriteTable .innerHTML += historicTableContent;
                 }
                 else if(date == '2020-07-24') {
                     <?php   $fav_food['day24'] = fillFoodFavorite("2020-07-24", $data['foodFavorite']);?>
                     var foodTableContent = "<?php echo $fav_food['day24'][0];?>";
                     foodFavoriteTable .innerHTML += foodTableContent;
+
+                    <?php $fav_hist['day24']= fillHistoricFavorites("2020-07-24", $data['historicFavorite']);?>
+                    var historicTableContent = "<?php echo $fav_hist['day24'][0];?>";
+                    historicFavoriteTable .innerHTML += historicTableContent;
                 }
                 else if(date == '2020-07-25') {
                     <?php   $fav_food['day25'] = fillFoodFavorite("2020-07-25", $data['foodFavorite']);?>
                     var foodTableContent = "<?php echo $fav_food['day25'][0];?>";
                     foodFavoriteTable .innerHTML += foodTableContent;
+
+                    <?php $fav_hist['day25']= fillHistoricFavorites("2020-07-25", $data['historicFavorite']);?>
+                    var historicTableContent = "<?php echo $fav_hist['day25'][0];?>";
+                    historicFavoriteTable .innerHTML += historicTableContent;
                 }
                 else if(date == '2020-07-26') {
                     <?php $fav_food['day26'] = fillFoodFavorite("2020-07-26", $data['foodFavorite']);?>
                     var foodTableContent = "<?php echo $fav_food['day26'][0];?>";
                     foodFavoriteTable .innerHTML += foodTableContent;
+
+                    <?php $fav_hist['day26']= fillHistoricFavorites("2020-07-26", $data['historicFavorite']);?>
+                    var historicTableContent = "<?php echo $fav_hist['day26'][0];?>";
+                    historicFavoriteTable .innerHTML += historicTableContent;
                 }
             }
             showTable("2020-07-23");
@@ -190,6 +206,7 @@
                 var foodTable = document.getElementById('foodTable');
                 var historicTable = document.getElementById('historicTable');
                 var foodFavoriteTable  = document.getElementById('foodFavoriteTable');
+                var historicFavoriteTable  = document.getElementById('historicFavoriteTable');
 
                var rows = document.getElementById('foodFavoriteTable').rows.length;
                 //afhankelijk van de datum wordt een event gezocht....
@@ -217,10 +234,18 @@
                                 historicTable.rows[<?php echo ($langId);?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicEvent; ?>";
                             <?php endfor;?>
 
+                            //food fav table vullen 
                             <?php for($id = 1; $id <= $fav_food['day23'][1]; $id++):?>
                                 <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9),$fav_food['day23'][($id+1)]);?>
                                 foodFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite;?>";
                             <?php endfor; ?>
+
+                            //historic fav table vullen 
+                            <?php for($id = 1; $id <= $fav_hist['day23'][1]; $id++):?>
+                                <?php $historicFavorite = getEvent($data['historicFavorite'], $date, ($i + 9),$fav_hist['day23'][($id+1)]);?>
+                                historicFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicFavorite;?>";
+                            <?php endfor; ?>
+
                     <?php endfor; ?>
                         break;
 
@@ -252,6 +277,12 @@
                                 foodFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite;?>";
                             <?php endfor; ?>
 
+                            //historic fav table vullen 
+                            <?php for($id = 1; $id <= $fav_hist['day24'][1]; $id++):?>
+                                <?php $historicFavorite = getEvent($data['historicFavorite'], $date, ($i + 9),$fav_hist['day24'][($id+1)]);?>
+                                historicFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicFavorite;?>";
+                            <?php endfor; ?>
+
                         <?php endfor; ?>
                         break;
 
@@ -279,6 +310,12 @@
                             <?php for($id = 1; $id <= $fav_food['day25'][1]; $id++):?>
                                 <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9), $fav_food['day25'][($id+1)]);?>
                                 foodFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite;?>";
+                            <?php endfor; ?>
+
+                            //historic fav table vullen 
+                            <?php for($id = 1; $id <= $fav_hist['day25'][1]; $id++):?>
+                                <?php $historicFavorite = getEvent($data['historicFavorite'], $date, ($i + 9),$fav_hist['day25'][($id+1)]);?>
+                                historicFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicFavorite;?>";
                             <?php endfor; ?>
 
                     <?php endfor; ?>
@@ -309,6 +346,13 @@
                                 <?php $foodFavorite = getEvent($data['foodFavorite'], $date, ($i + 9), $fav_food['day26'][($id+1)]);?>
                                 foodFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $foodFavorite;?>";
                             <?php endfor; ?>
+
+                            //historic fav table vullen 
+                            <?php for($id = 1; $id <= $fav_hist['day26'][1]; $id++):?>
+                                <?php $historicFavorite = getEvent($data['historicFavorite'], $date, ($i + 9),$fav_hist['day26'][($id+1)]);?>
+                                historicFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicFavorite;?>";
+                            <?php endfor; ?>
+
                         <?php endfor; ?>
                         break;
                 }

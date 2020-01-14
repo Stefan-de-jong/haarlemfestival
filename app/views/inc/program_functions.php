@@ -30,7 +30,32 @@ function fillFoodFavorite($date, $restauarnts)
 }
 
 function fillHistoricFavorites($date, $favorites){
-    
+    //array: 0 = table content, 1= count of the restaurant. 2+ = al the restaurants id.
+    $used_lang = "";
+    $fav_historic_info = array();
+    $tableString = "";
+
+    $fav_historic_info[0] = "";
+    $fav_historic_info[1] = 0;
+
+
+    foreach ($favorites as $favorite) {
+        if ($favorite->getDate() != $date) {continue;}
+        else if ($used_lang == $favorite->getLanguage()) {continue;}
+
+        $tableString = $tableString . "<tr>";
+        $tableString = $tableString . "<td >" . $favorite->getLanguage() . "</td>";
+        for ($i = 1; $i < 16; $i++) {
+            $tableString = $tableString . "<td width='75px'></td>";
+        }
+        $tableString = $tableString . "</tr>";
+        $used_lang = $favorite->getLanguage();
+        $fav_historic_info[1] += 1;
+        array_push($fav_historic_info, $favorite->getLanguageId());
+    }
+    $fav_historic_info[0] = $tableString;
+
+    return $fav_historic_info;
 }
 
 function fillDanceFavorites($date, $artist)
@@ -114,7 +139,7 @@ function getFoodShowDiv($event, $time_path){
     return $eventShow;
 }
 function getHistShowDiv($event){
-    $duration = 1.5;
+    $duration = 2.5;
     $language = $event->getLanguage();
     switch ($language){
         case "Nederlands":

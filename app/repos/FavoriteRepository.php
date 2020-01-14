@@ -11,7 +11,8 @@ class FavoriteRepository
     public function getAllHistoricFavorites($id){       
         $favorites= array();
         $this->db->query('SELECT *,
-                            language.language as language
+                            language.language as language,
+                            guide.name as guide
                             FROM customer_favourites 
                             JOIN event
                             ON customer_favourites.event_id = event.id 
@@ -19,12 +20,14 @@ class FavoriteRepository
                             ON historicevent.id = event.id
                             JOIN language
                             ON language.id = historicevent.language   
+                            JOIN guide
+                            ON guide.id = historicevent.guide
                             WHERE customer_favourites.customer_id = :id ');
         $this->db->bind(':id', $id);
         $results = $this->db->resultSet();
 
         foreach ($results as $result){            
-            $favorite = new HistoricFavorite($result->customer_id, $result->event_id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->language);
+            $favorite = new HistoricFavorite($result->customer_id, $result->event_id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->language, $result->guide);
             array_push($favorites, $favorite);
         }
         return $favorites;        

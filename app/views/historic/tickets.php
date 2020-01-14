@@ -28,6 +28,8 @@
                             <select name="selected_day" id="daySelect" onchange="selectedOption(this.value)">
                                 <?php $tourdate = $_GET['tourdate'];?>
                                 <optgroup label="Tour day">
+                                    <option value="2020-07-23" <?php if($tourdate == "2020-07-23"){ echo "selected";}?>>
+                                        Thursday</option>
                                     <option value="2020-07-24" <?php if($tourdate == "2020-07-24"){ echo "selected";}?>>
                                         Friday</option>
                                     <option value="2020-07-25" <?php if($tourdate == "2020-07-25"){ echo "selected";}?>>
