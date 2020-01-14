@@ -2,8 +2,7 @@
 class Profile extends Controller
 {
     public function __construct()
-    {
-        $this->profileRepository = $this->repo('ProfileRepository');
+    {       
         $this->ticketRepository = $this->repo('TicketRepository');
         $this->favoriteRepository = $this->repo('FavoriteRepository');
 
@@ -21,9 +20,7 @@ class Profile extends Controller
     {
         $data = [
             'content' => "index"
-
         ];
-
         $this->view('pages/profile', $data);
     }
     public function ticket()
@@ -37,7 +34,6 @@ class Profile extends Controller
             'historicTicket' => $historicTickets
             //'danceTicket' => $danceTickets
         ];
-
         $this->view('pages/profile', $data);
     }
     public function favorite()
@@ -50,7 +46,6 @@ class Profile extends Controller
             'foodFavorite' => $foodFavorites,
             'historicFavorite' => $historicFavorites
         ];
-
         $this->view('pages/profile', $data);
     }
     public function deleteFavorite($event)
