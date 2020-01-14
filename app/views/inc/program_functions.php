@@ -16,7 +16,7 @@ function fillFoodFavorite($date, $restauarnts)
 
         $tableString = $tableString . "<tr>";
         $tableString = $tableString . "<td >" . $restaurant->getRestName() . "</td>";
-        for ($i = 1; $i < 16; $i++) {
+        for ($i = 1; $i < 18; $i++) {
             $tableString = $tableString . "<td width='75px'></td>";
         }
         $tableString = $tableString . "</tr>";

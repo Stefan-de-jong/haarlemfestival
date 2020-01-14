@@ -197,7 +197,7 @@
                     case "2020-07-23":
                         <?php $date = '2020-07-23'; ?>
                             //voor iedere kolom (tijden 10u tot 24u) wordt er gekeken is er een event???-> geeft de goede datum en een tijd mee
-                        <?php for ($i = 1; $i < 16; $i++):?>
+                        <?php for ($i = 1; $i < 18; $i++):?>
 
                             //dance heeft niks op 2020-07-23
                             <?php for ($id = 1; $id <= $artist_count; $id++):?>
@@ -226,7 +226,7 @@
 
                     case "2020-07-24":
                         <?php $date = '2020-07-24'; ?>
-                        <?php for ($i = 1; $i < 16; $i++):?>
+                        <?php for ($i = 1; $i < 18; $i++):?>
 
                             //dance table vullen
                             <?php for ($id = 1; $id <= $artist_count; $id++):?>
@@ -257,7 +257,7 @@
 
                     case "2020-07-25":
                         <?php $date = '2020-07-25'; ?>
-                        <?php for ($i = 1; $i < 16; $i++):?>
+                        <?php for ($i = 1; $i < 18; $i++):?>
 
                             <?php for ($id = 1; $id <= $artist_count; $id++):?>
                                 <?php $danceEvent = getEvent($data['danceEvent'], $date, ($i + 9), $id); ?>
@@ -286,7 +286,7 @@
 
                     case "2020-07-26":
                         <?php $date = '2020-07-26'; ?>
-                        <?php for ($i = 1; $i < 16; $i++):?>
+                        <?php for ($i = 1; $i < 18; $i++):?>
 
                             <?php for ($id = 1; $id <= $artist_count; $id++):?>
                                 <?php $danceEvent = getEvent($data['danceEvent'], $date, ($i + 9), $id); ?>

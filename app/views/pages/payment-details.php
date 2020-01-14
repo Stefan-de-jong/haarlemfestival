@@ -3,10 +3,6 @@ require APPROOT . '/views/inc/header.php';
 
 if(empty($data['total']))
     $data['total'] = 0;
-if(!empty($_SESSION['customer_id']))
-    $logedIn = true;
-else
-    $logedIn = false;
 ?>
 <div class="payment_body" style="margin-top: -20px">
     <div class='container pt-3'><?php flash('emptyCart_alert'); ?></div>
@@ -18,7 +14,7 @@ else
                 <hr style="background-color: white; margin-top: 50px">
                 <div style="background-color: azure; float:right; width: 1px; height: 100%"></div>
 
-                <?php if($logedIn == true){
+                <?php if(isLoggedIn() == true){
                     echo "<h3> Hi ". $_SESSION['customer_firstname'] ."</h3>";
                     echo "<h4>The tickets will be send to: ".$_SESSION['customer_email']."</h4><br><br>";
                     echo "<h4>Wrong person? -> <button onclick=\"location.href='". URLROOT ."/customers/logout'\">Logout</button></h4>";

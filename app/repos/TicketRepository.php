@@ -39,7 +39,7 @@
             try {
                 $tickets = array();
                 $this->db->query('SELECT event.id as event_id,ticket_type, ticket_price, buyer_email,event.event_type, event.date, event.begin_time, restaurant.name, foodevent.session 
-                            FROM `ticket` join EVENT on ticket.event_id = EVENT.id join foodevent on foodevent.id = event.id join restaurant on restaurant.id = foodevent.restaurant
+                            FROM `ticket` join event on ticket.event_id = event.id join foodevent on foodevent.id = event.id join restaurant on restaurant.id = foodevent.restaurant
                             WHERE ticket.buyer_email = :email');
                 $this->db->bind(':email', $email);
                 $results = $this->db->resultSet();
@@ -64,7 +64,7 @@
                 $this->db->query('SELECT *,
                                 event.id as event_id                                
                                 FROM ticket 
-                                join EVENT 
+                                join event 
                                 on ticket.event_id = event.id 
                                 join historicevent 
                                 on historicevent.id = event.id 
