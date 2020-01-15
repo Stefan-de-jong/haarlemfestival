@@ -68,5 +68,54 @@
             }
             return $events;
         }
+
+        public function getEventByRestaurant($restaurant)
+        {
+            try {
+                $this->db->query('SELECT * FROM event
+                            JOIN foodevent
+                            on event.id = foodevent.id
+                            where foodevent.restaurant = :restaurant'
+                );
+                $this->db->bind(':restaurant', $restaurant);
+                $results = $this->db->resultSet();
+                $events = array();
+                foreach ($results as $result)
+                {
+                    //$id, $date, $begin_time, $end_time, $event_type, $price, $n_tickets, $restaurant, $session
+                    $event = new FoodEvent($result->id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->n_tickets, $result->restaurant, $result->session);
+                    array_push($events, $event);
+                }
+
+                return $events;
+            }
+            catch (Exception $e) {
+                echo 'Caught exception: ',  $e->getMessage(), "\n";
+            }
+        }
+
+        public function getEventByInfo($date, $session, $restaurant)
+        {
+            try {
+                $this->db->query('SELECT * FROM event
+                            JOIN foodevent
+                            on event.id = foodevent.id
+                            where foodevent.restaurant = :restaurant 
+                            AND event.date = "'.$date.'"
+                            AND foodevent.session = :session'
+                );
+                $this->db->bind(':restaurant', $restaurant);
+                $this->db->bind(':session', $session);
+
+                $result = $this->db->single();
+
+                $event = new FoodEvent($result->id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->n_tickets, $result->restaurant, $result->session);
+
+                return $event;
+            }
+            catch (Exception $e) {
+                echo 'Caught exception: ',  $e->getMessage(), "\n";
+            }
+        }
     }
 ?>

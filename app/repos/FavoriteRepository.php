@@ -63,7 +63,7 @@ class FavoriteRepository
         try {
             $favorites= array();
             $this->db->query('SELECT * FROM customer_favourites 
-                                join EVENT on customer_favourites.event_id = EVENT.id join foodevent on foodevent.id = event.id
+                                join event on customer_favourites.event_id = event.id join foodevent on foodevent.id = event.id
                                 JOIN restaurant on restaurant.id = foodevent.restaurant
                                 WHERE customer_favourites.customer_id = :id ');
             $this->db->bind(':id', $id);
