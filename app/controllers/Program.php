@@ -27,7 +27,7 @@ class Program extends Controller
 
         $foodEvents = $this->eventRepository->findAllFoodEvents();
         $historicEvents = $this->eventRepository->findAllHistoricEvents();
-        //$danceEvents = $this->programRepository->findAllDanceEvents();
+        $danceEvents = $this->eventRepository->findAllDanceEvents();
 
         $data = [
             'title' => 'Program',
