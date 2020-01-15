@@ -69,8 +69,7 @@
             return $events;
         }
 
-        public function getEventByRestaurant($restaurant)
-        {
+        public function getEventByRestaurant($restaurant){
             try {
                 $this->db->query('SELECT * FROM event
                             JOIN foodevent
@@ -94,8 +93,7 @@
             }
         }
 
-        public function getEventByInfo($date, $session, $restaurant)
-        {
+        public function getEventByInfo($date, $session, $restaurant){
             try {
                 $this->db->query('SELECT * FROM event
                             JOIN foodevent
@@ -118,22 +116,20 @@
             }
         }
 
-    public function findAllDanceEvents()
-    {
-    $events = array();
-    $this->db->query('SELECT * FROM event
-    INNER JOIN danceevent ON event.id = danceevent.id
-    INNER JOIN (SELECT * FROM artist as a) a ON a.artist_id = danceevent.artist
-    INNER JOIN (SELECT * FROM venue as v) v ON v.id = danceevent.location
-    INNER JOIN (SELECT * FROM tickettype as t) t on t.id = event.id');
-    $results = $this->db->resultSet();
-    foreach ($results as $result)
-    {
-    $event = new DanceEvent($result->id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->n_tickets, $result->price, $result->artist_name, $result->artist_id, $result->venue_name, $result->address);
-    array_push($events, $event);
-    }
-    return $events;
-    }
+        public function findAllDanceEvents(){
+            $events = array();
+            $this->db->query('SELECT * FROM event
+                        INNER JOIN danceevent ON event.id = danceevent.id
+                        INNER JOIN (SELECT * FROM artist as a) a ON a.artist_id = danceevent.artist
+                        INNER JOIN (SELECT * FROM venue as v) v ON v.id = danceevent.location
+                        INNER JOIN (SELECT * FROM tickettype as t) t on t.id = event.id');
+            $results = $this->db->resultSet();
+            foreach ($results as $result){
+                $event = new DanceEvent($result->id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->n_tickets, $result->price, $result->artist_name, $result->artist_id, $result->venue_name, $result->address);
+                array_push($events, $event);
+            }
+            return $events;
+        }
 }
 
 ?>
