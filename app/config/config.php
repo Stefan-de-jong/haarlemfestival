@@ -33,7 +33,7 @@
     // App Root
     define('APPROOT', dirname(dirname(__FILE__)));
     // URL Root
-    define('URLROOT', 'http://hfa4.infhaarlem.nl');
+    define('URLROOT', 'http://localhost/haarlemfestival');
     // Site Name
     define('SITENAME', 'Haarlem Festival');
 
