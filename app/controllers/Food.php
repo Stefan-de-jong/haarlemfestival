@@ -6,31 +6,39 @@ class Food extends Controller
         $this->restaurantModel= $this->model('Restaurant');
         $this->ticketModel= $this->model('Ticket');
         $this->restaurantRepository = $this->repo('RestaurantRepository');
+
         $this->favoriteRepository = $this->repo('FavoriteRepository');
+        $this->eventRepository = $this->repo('EventRepository');
+
         $this->eventModel = $this->model('Event');
         $this->foodEventModel = $this->model('FoodEvent');
+
+        $this->snippetModel = $this->model('Snippet');
+        $this->snippetRepo = $this->repo('SnippetRepository');
     }
 
     public function index()
     {
         $restaurants = $this->restaurantRepository->findAllRestaurants();
-
+        $snippets = $this->snippetRepo->findByPage('haarlem_food');
         $data = [
-            'restaurants' => $restaurants
+            'restaurants' => $restaurants,
+            'snippets' => $snippets
         ];
 
         $this->view('food/index', $data);
     
     }
-
     public function filter()
     {
         $kitchen = $_GET['kitchen'];
 
         $restaurants = $this->restaurantRepository->findAllRestaurantsBySpecificKitchen($kitchen);
+        $snippets = $this->snippetRepo->findByPage('haarlem_food');
 
         $data = [
-            'restaurants' => $restaurants
+            'restaurants' => $restaurants,
+            'snippets' => $snippets
         ];
 
         $this->view('food/index', $data);
@@ -42,7 +50,7 @@ class Food extends Controller
             $this->index();
 
         $page = $this->restaurantRepository->getRestaurantInfoPage($restaurant);
-        $events = $this->restaurantRepository->getEventByRestaurant($restaurant);
+        $events = $this->eventRepository ->getEventByRestaurant($restaurant);
         $data = [
             'page' => $page,
             'event'=> $events,
@@ -66,7 +74,7 @@ class Food extends Controller
         if($specialRequest == "")
             $specialRequest = "No special request";
 
-        $event = $this->restaurantRepository->getEventByInfo($date, $session, $restaurant);
+        $event = $this->eventRepository ->getEventByInfo($date, $session, $restaurant);
         
         if($regularTickets == 0 && $childTickets == 0)
         {

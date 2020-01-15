@@ -1,4 +1,7 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
+<?php
+isUserPermissed();
+require APPROOT . '/views/inc/header.php';
+?>
 
 <section id="profile_body">
     <ul>

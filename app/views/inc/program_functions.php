@@ -16,7 +16,7 @@ function fillFoodFavorite($date, $restauarnts)
 
         $tableString = $tableString . "<tr>";
         $tableString = $tableString . "<td >" . $restaurant->getRestName() . "</td>";
-        for ($i = 1; $i < 16; $i++) {
+        for ($i = 1; $i < 18; $i++) {
             $tableString = $tableString . "<td width='75px'></td>";
         }
         $tableString = $tableString . "</tr>";
@@ -69,7 +69,10 @@ function getEvent($events, $date, $time, $id){
     foreach ($events as $event){
         switch ($event->getEventType()){
             case "1";
-                //dance make div
+            if ($event->getDate() == $date && $event->getBeginTime() == $time && $event->getArtistId() == $id)
+            {
+            $eventToShow = getDanceShowDiv($event);
+            }
                 break;
             case "2";
                 if ($event->getDate() == $date && ($event->getBeginTime() == $time.":00:00"|| $event->getBeginTime() == $time.":30:00" ) && $event->getId() == $id){
@@ -159,4 +162,26 @@ function getHistShowDiv($event){
     $eventShow = "<div id='rest_div' style='background-color: " . $bgColor . "; color: " . $textColor . "; margin-left:".$margin."%; width: ".($duration * 103)."% '>Guide: ".$event->getGuide()."<br></div>";
     return $eventShow;
 }
+
+function getDanceShowDiv($event){
+    $id = $event->getId();
+    $start = $event->getBeginTime();
+    $end = $event->getEndTime();
+    if (substr($start, 0, 1) != "0") //look if starting time has a leading 0, which means we only need the second digit
+    {$beginhour = substr($start, 0, 2);}
+    else if ((substr($start, 0, 1) == "0")) //if not we need both leading digits
+    {$beginhour = substr($start, 0, 1);}
+    if (substr($end, 0, 1) != "0") //do the same for ending time
+    {$endhour = substr($end, 0, 2);}
+    else if (substr($end, 0, 1) == "0")
+    {$endhour = substr($start, 0, 1);}
+    $duration = $endhour - $beginhour; //get the difference of the endhour and beginning hour
+    if ($duration < 0) //in some cases, for example a show that goes past 24:00, the duration will be negative.
+    {$duration = $duration + 24;} //if the duration is negative, make it positive.
+    $restduration = substr($end, 3, 1); //get 4th character to decide resting time
+    {$duration += ($restduration/6);} //add the rest time
+    $eventShow =
+    "<div id='rest_div' style='background-color: red; margin-left:0%; width: ".($duration * 100)."%; height: 100%; '> " . $event->getVenue() . "<br></div>";
+    return $eventShow;
+    }
 ?>

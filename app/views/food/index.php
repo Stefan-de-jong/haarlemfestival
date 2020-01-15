@@ -3,11 +3,16 @@
     <div class="food_container">
     <div class="food_breadcrums"><a href="<?php echo URLROOT;?>">Home </a> > Restaurant overview</div>
     <article class="food_intro">
-        <h2>Haarlem culinaire is al about the culiniare activity!</h2>
+        <h2><?php foreach ($data['snippets'] as $snippet) {
+                if ($snippet->getname() == 'intro_title')
+                    echo $snippet->getText();
+            } ?></h2>
         <br>
         <p>
-            During the festival, multiple restaurant participate to show their culinair style. Each restaurant has serveral sessions a day that are bookable. It's a great opportunity to have a nice evening and
-            explore the special cuisines with your friend(s), husband, kids or familiy.
+            <?php foreach ($data['snippets'] as $snippet) {
+                if ($snippet->getname() == 'intro_text')
+                    echo $snippet->getText();
+            } ?>
         </p>
         Filter cuisine:
         <select onchange="selectedOption(this.value)">

@@ -41,6 +41,11 @@
         }
     }
 
+    function isUserPermissed()
+    {
+        if(isLoggedIn() == false)
+            redirect("index.php");
+    }
     
 
 
