@@ -5,12 +5,14 @@ class Dance extends Controller{
     {   $this->danceModel = $this->model('Artist');
         $this->danceModel = $this->model('Venue');
         $this->danceModel = $this->model('EventData');
-        $this->danceModel = $this->model('Page');
         $this->danceModel = $this->model('Styles');
         $this->eventModel = $this->model('Event');
         $this->eventModel = $this->model('Pass');
         $this->danceEventModel = $this->model('DanceEvent');
         $this->DanceRepository = $this->repo('DanceRepository');
+        $this->snippetModel = $this->model('Snippet');
+        $this->snippetRepo = $this->repo('SnippetRepository');
+        $this->favoriteRepository = $this->repo('FavoriteRepository');
     }
 
     public function purchase()
@@ -27,11 +29,10 @@ class Dance extends Controller{
 
     public function index(){
 
-        $pages = $this->DanceRepository->getHTML();
-
+        $snippets = $this->snippetRepo->findByPage('haarlem_dance');
         $data =[
             'title' => 'dance',
-            'pages' => $pages
+            'snippets' => $snippets
         ];
         $this->view('pages/dance/dance_info', $data);
         }
@@ -67,5 +68,16 @@ class Dance extends Controller{
             ];
     
         $this->view('pages/dance/inc/newticket', $data);
+        }
+
+        public function newfavorite()
+        {
+            $favorite = $this->repo('FavoriteRepository');
+            $data =[
+                'title' => 'newfavorite',
+                'favorite' => $favorite
+            ];
+    
+        $this->view('pages/dance/inc/newfavorite', $data);
         }
     }

@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="../haarlemfestival/css/loader.css">
 <?php
 
 //I am thinking of transfering this file to view/pages but then the crawl_page function might not work correctly anymore
@@ -15,15 +14,15 @@ $dom = new DOMDocument('1.0');
 echo "<section id=historic style='opacity:0;'>";
 $page = "historic";
 echo "<section id=historic_crawler style='opacity:0;'>"; //I add a section crawler to more easily get specific content later
-$crawler->crawl_page("http://localhost/haarlemfestival/$page", 2);
+$crawler->crawl_page("http://hfa4.infhaarlem.nl/$page", 2);
 echo "</section>";
-echo "<section id=food_crawler style='opacity:0'>";
+echo "<section id=food_crawler style='opacity:0;'>";
 $page = "food";
-$crawler->crawl_page("http://localhost/haarlemfestival/$page", 2);
+$crawler->crawl_page("http://hfa4.infhaarlem.nl/$page", 2);
 echo "</section>";
-echo "<section id=dance_crawler>";
+echo "<section id=dance_crawler style='opacity:0;'>";
 $page = "dance";
-$crawler->crawl_page("http://localhost/haarlemfestival/$page", 2);
+$crawler->crawl_page("http://hfa4.infhaarlem.nl/$page", 2);
 echo "</section>";
 $query = $_GET['q'];
 
@@ -78,7 +77,8 @@ class Crawler
 
 ?>
 
-<script src="../haarlemfestival/js/crawler.js"></script>
+<script src="../public/js/crawler.js"></script>
+<script src="../public/js/jquery.min.js"></script>
 <script>
 var q = '<?php echo $query; ?>'; //get the requested query
 var historic = document.getElementById('historic_crawler'); //get the correct webpage

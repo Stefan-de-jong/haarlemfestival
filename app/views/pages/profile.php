@@ -58,6 +58,14 @@ require APPROOT . '/views/inc/header.php';
                             echo "<button onclick=location.href='".URLROOT."/profile/deleteFavorite/".$favorite->getEventId()."'>Delete favorite</button><br><br>";
                         }
                     }
+                    if (!empty($data['danceFavorite'])) {
+                        echo "<h4> Dance favorites:</h4>";
+                            foreach (  $data['danceFavorite'] as $favorite) {
+                                $date = date_create($favorite->getDate());
+                                echo  "Date: ".date_format($date, "d F Y")."<br>Artist: ". $favorite->getArtist() ."<br>Venue: ". $favorite->getVenue()."<br>";
+                                echo "<button onclick=location.href='".URLROOT."/profile/deleteFavorite/".$favorite->getEventId()."'>Delete favorite</button><br><br>";
+                            }
+                        }
                     break;
             }
         ?>

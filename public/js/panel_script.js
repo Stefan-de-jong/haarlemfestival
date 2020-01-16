@@ -115,3 +115,32 @@ function executeAjax(id, quantity) //use ajax to send the values required for a 
             });
 });
 }
+
+
+window.onload = getStars();
+function getStars()
+{
+if (row.length != 0)
+localStorage.setItem("row", row);
+var srow = localStorage.getItem("row");
+var ids = new Array();
+ids = srow.split(',');
+var stars = document.getElementsByClassName("fa fa-star");
+var i = 0;
+var data = new Array();
+for (i; i < stars.length; i++)
+{
+stars[i].onclick = function(){ var id = ids[this.id]; $(document).ready(function(){
+
+    $.ajax({
+      type: 'POST',
+      url: 'newfavorite',
+      data: {favoriteid:id},
+      success: function(response) {
+          alert(response);
+      }
+  });
+});};}
+}
+
+
