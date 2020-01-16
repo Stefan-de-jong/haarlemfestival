@@ -1,0 +1,24 @@
+footer h4{
+    float: left;
+    margin-left: 300px;
+    margin-top: 10px;
+}
+
+footer{
+background-color: #E4E4E4;
+width: 100%;
+height: 50px;
+    color: black;
+}
+
+footer #socials{
+    float: left;
+    margin-left: 90px;
+    padding-top: 5px;
+}
+
+footer #logo{
+float: right;
+margin-right: 100px;
+    height: 50px;
+}

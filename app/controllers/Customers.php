@@ -128,6 +128,7 @@
 
             // Check is customer/email exists in db
             // ToDo: Thijs -> of een 'login object' beter is hier, ivm verdere abstractie tussen app en db.
+            // ToDo: Mag zo laten, aanpassen kan.
             if($this->repo->findByEmail($data['email'])){
                 // Customer found
             } else{
@@ -191,7 +192,7 @@
     public function createCustomerSession($customer){
         $_SESSION['customer_id'] = $customer->id;
         $_SESSION['customer_firstname'] = $customer->first_name;
-        $_SESSION['customer_lastname'] = $customer->last_ame;
+        $_SESSION['customer_lastname'] = $customer->last_name;
         $_SESSION['customer_email'] = $customer->email;
         redirect('pages/index');
     }

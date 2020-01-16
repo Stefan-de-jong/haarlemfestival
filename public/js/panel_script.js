@@ -1,20 +1,13 @@
 var id = 0;
 var quantity = 0;
-var pay = 0;
+var info = document.getElementById('artistinfo');
 
 var back = document.getElementById('back');
 back.onclick = function goBack(){ //when someone presses the back button hide the panel
-nr.style.display = 'block';
-t.style.display = 'block';
-aj.style.display = 'block';
-hw.style.display = 'block';
-avb.style.display = 'block';
-mx.style.display = 'block';
-if (pnl.style.display == "block") {
-pnl.style.display = "none";
-} else {
-pnl.style.display = "block";
-}
+showPass();
+hidePanel();
+showPicturePadding();
+showPics(pics);
 }
 
 window.onload = getAmountOfRows(); //count the amount of rows on window load
@@ -35,18 +28,31 @@ initButtons(i);
 }
 }
 
+function hidePanel() {
+    $(pnl).hide();
+    $(pnl).empty(content);
+    }
+
+    
 function initButtons(number){ //for every dropdown make sure that if the selection of the dropdown is changed a warning is returned if necessary
-window.onload = disableButton(number, "SELECT YOUR TICKETS");
+
+var amount = document.getElementById('q' + number).innerHTML;
 var selection = document.getElementById('s' + number);
+if (amount == 0)
+{
+disableButton(number, "INSUFFICIENT TICKETS");
+selection.disabled = true;
+}
 selection.onchange = function getValueDropdown(){
 var selected = selection.options[selection.selectedIndex].value;
-var amount = document.getElementById('q' + number).innerHTML;
-var price = document.getElementById('p' + number).innerHTML;
-id = row[number];
-quantity = amount;
-pay = price;
-console.log(id, quantity, price);
-var difference = quantity - selected;
+if (row.length != 0)
+localStorage.setItem("row", row);
+var srow = localStorage.getItem("row");
+var ids = new Array();
+ids = srow.split(',');
+id = ids[number];
+quantity = selected;
+var difference = amount - selected;
 if (difference < 0)
 {
 alert("The requested amount of tickets is greater than the amount of tickets available");
@@ -70,26 +76,71 @@ var button = document.getElementById('b' + number);
 button.innerHTML = "ADD TO CART";
 button.disabled = false;
 button.onclick = function changeButtonText(){
-danceid = row[number];
 $(document).ready(function () {
 button.innerHTML = "ADDED TO CART";
-executeAjax(id, quantity, pay);
+executeAjax(id, quantity);
+row.length = 0;
 });
 }
 }
 
 
-function executeAjax(id, quantity, pay) //use ajax to send the values required for a ticket to newticket.php
+function executeAjax(id, quantity) //use ajax to send the values required for a ticket to newticket.php
 {
     $(document).ready(function(){
 
               $.ajax({
                 type: 'POST',
-                url: '../public/inc/dance/newticket.php',
-                data: {venue:id, amount:quantity, price:pay},
+                url: 'newticket',
+                data: {venue:id, amount:quantity},
                 success: function(response) {
-                    alert(response);
+                    if (response == 'true')
+                    {
+                    alert("Ticket was added");
+                    }
+                    else if (response == 'false')
+                    {
+                        var txt;
+                        var r = confirm("It seems this ticket is already in your cart. Do you want to replace it with this new ticket?");
+                        if (r == true) {
+                            $.ajax({
+                            type: 'POST',
+                            url: 'newticket',
+                            data: {venue:id, amount:quantity, remove:r},
+                            })
+                            alert("Ticket was updated!");
+}
+                    }
                 }
             });
 });
 }
+
+
+window.onload = getStars();
+function getStars()
+{
+if (row.length != 0)
+localStorage.setItem("row", row);
+var srow = localStorage.getItem("row");
+var ids = new Array();
+ids = srow.split(',');
+var stars = document.getElementsByClassName("fa fa-star");
+var i = 0;
+var data = new Array();
+for (i; i < stars.length; i++)
+{
+stars[i].onclick = function(){ var id = ids[this.id]; $(document).ready(function(){
+
+    $.ajax({
+      type: 'POST',
+      url: 'newfavorite',
+      data: {favoriteid:id},
+      success: function(response) {
+          alert(response);
+      }
+  });
+});};}
+}
+
+

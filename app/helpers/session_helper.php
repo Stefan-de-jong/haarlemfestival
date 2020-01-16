@@ -1,4 +1,10 @@
 <?php
+    require_once APPROOT . '/models/CartItem.php';
+    require_once APPROOT . '/models/DanceCartItem.php';
+    require_once APPROOT . '/models/FoodCartItem.php';
+    require_once APPROOT . '/models/HistoricCartItem.php';
+
+
     session_start();
 
     // Flash message helper
@@ -28,13 +34,18 @@
     }
 
     function isLoggedIn(){
-        if(isset($_SESSION['user_id'])){
+        if(isset($_SESSION['customer_id'])){
             return true;
         } else {
             return false;
         }
     }
 
+    function isUserPermissed()
+    {
+        if(isLoggedIn() == false)
+            redirect("index.php");
+    }
     
 
 

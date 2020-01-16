@@ -1,0 +1,31 @@
+
+.program_body {
+    background: url("../img/cart_background.png") no-repeat center center fixed;
+    width: 100%;
+    color: white;
+    font-size: 20px;
+}
+#rest_div
+{
+    float: left;
+    height: 30px;
+    text-align: center;
+    padding-top: 8px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+}
+
+.program_container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 75px;
+    width: 90%;
+    background-color: #3C2381;
+    opacity: 90%;
+}
+#title
+{
+    margin-left: 10%;
+}
+

@@ -1,5 +1,8 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
-<h1><?php echo $data['title']?></h1>
-<p>Welcome to Haarlem Festival</p>
-
+<section>
+<a href="<?php echo URLROOT;?>/dance/index"><img width="50%" src="<?php echo URLROOT; ?>/img/homepage/dance.png" style="float:left;">
+<a href="<?php echo URLROOT;?>/food/index"><img width="50%" src="<?php echo URLROOT; ?>/img/homepage/food.png" >
+<a href="<?php echo URLROOT;?>/historic"><img width="50%" src="<?php echo URLROOT; ?>/img/homepage/history.png" style="float: left">
+<a href="<?php echo URLROOT;?>"><img  width="50%" src="<?php echo URLROOT; ?>/img/homepage/jazz.png">
+</section>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

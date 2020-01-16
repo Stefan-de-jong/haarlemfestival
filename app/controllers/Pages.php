@@ -51,22 +51,13 @@
 
             $this->view('pages/CMS/Content_testpages/test1', $data);
         }
-       
 
-        public function food(){
+        public function search(){
             $data = [
-                'title' => 'Restaurant overview'
+                'title' => 'search'
             ];
 
-            $this->view('pages/food/index', $data);
-        }
-
-        public function foodInfo(){
-            $data = [
-                'title' => 'Restaurant info'
-            ];
-
-            $this->view('pages/food/info', $data);
+            $this->view('pages/search', $data);
         }
     }
 ?>

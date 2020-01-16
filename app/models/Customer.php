@@ -37,6 +37,12 @@
         public function setLastname($lastname){
             $this->lastname = $lastname;
         }
+        public function setEmail($email){
+            $this->email = $email;
+        }
+        public function setPassword($password){
+            $this->password = password_hash($data['password'], PASSWORD_DEFAULT);
+        }
     }
 
 ?>
