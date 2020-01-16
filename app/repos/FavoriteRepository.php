@@ -86,9 +86,10 @@ public function getAllDanceFavorites($id)
 {
     $favorites= array();
     $this->db->query('SELECT * FROM customer_favourites
-     INNER JOIN danceevent ON customer_favourites.event_id = danceevent.id
-     INNER JOIN (SELECT * FROM artist as a) a ON a.artist_id = danceevent.artist
-     INNER JOIN (SELECT * FROM venue as v) v ON v.id = danceevent.location WHERE customer_favourites.customer_id = :id');
+    INNER JOIN danceevent ON customer_favourites.event_id = danceevent.id
+    INNER JOIN (SELECT * FROM artist as a) a ON a.artist_id = danceevent.artist
+    INNER JOIN (SELECT * FROM event as e) e on e.id = danceevent.id
+    INNER JOIN (SELECT * FROM venue as v) v ON v.id = danceevent.location WHERE customer_favourites.customer_id = :id');
     $this->db->bind(':id', $id);
     $results = $this->db->resultSet();
 
