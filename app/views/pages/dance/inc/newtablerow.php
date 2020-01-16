@@ -17,7 +17,7 @@ foreach ($events as $e) //loop through each event
         }
         foreach ($eventdata as $ed) //select the right eventdata
         {
-        if ($ed->getId() == $e->getId())
+        if ($ed->getId() == $e->getId() && $ed->getArtistId() == $dance_id)
         {
         $date[] = $ed->getDate(); $time_b[] = substr($ed->getBeginTime(), 0, 5); $time_e[] = substr($ed->getEndTime(), 0, 5); $price[] = $ed->getPrice(); $quantity[] = $ed->getNTickets(); $id[] = $ed->getId();
         }
@@ -32,7 +32,7 @@ foreach ($events as $e) //loop through each event
                                     <td><?php echo $place[$count];?></td>
                                     <td><?php echo $address[$count];?></td>
                                     <td id = <?php echo "q" . $count;?>><?php echo $quantity[$count];?></td>
-                                    <td><?php echo $price[$count];?></td>
+                                    <td><?php echo $price[$count] . ".00";?></td>
                                     <?php $count++; ?>
                                 </tr>
 <script>

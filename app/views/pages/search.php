@@ -1,4 +1,3 @@
-<script src="<?php echo URLROOT; ?>/js/jquery.min.js"></script>
 <?php
 //uitleg variabelen: $string is de string die je wilt doorzoeken met $query, de $page is de pagina waar je klanten heen wilt sturen als er zoekresultaten gevonden zijn
 require_once APPROOT . '/views/inc/header.php';
@@ -11,13 +10,13 @@ if (!isset($search))
 {
 $search = new search();
 }
-$url = "localhost/haarlemfestival";
+$url = "http://hfa4.infhaarlem.nl";
 echo
 "<section style='background-color: cyan; padding-bottom: 20px; margin-bottom: -30px; padding-left: 30%'>
 <form  action='";
 if(isset($query))
 {
-echo '../haarlemfestival/search.php';
+echo 'http://hfa4.infhaarlem.nl/search.php';
 }
 echo
  "'>Search the website!<br>
@@ -58,7 +57,7 @@ class search{
     echo "..." . $searchresults[$i] . "..." . " char:" . $linenumber[$i];
     echo '<br>';
     }   
-    echo '<a href=../haarlemfestival/' . $page . '>Go to ' . $page . '</a>';
+    echo '<a href=http://hfa4.infhaarlem.nl/' . $page . '>Go to ' . $page . '</a>';
     echo '<br>'; 
     }
     }

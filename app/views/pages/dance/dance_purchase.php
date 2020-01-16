@@ -24,7 +24,7 @@ $pic_count = 0;
     <?php $adjustment = $rows_2_photos - 3; if ($adjustment < 1) {$pxadjustment = 124 + ($adjustment * 250.86);} else {$pxadjustment = $adjustment * 250.86;}?>
     <section id = "padding"; style = "background-color: rgb(255,104,104); padding-left: 200px; padding-right: 578px; padding-top:<?php echo $pxadjustment; ?>px; padding-bottom:<?php echo $pxadjustment?>px; margin-top: 979px; position: block;">
     </section>
-    <section id='pass'>
+    <section id='pass' style='padding-top: 15px;'>
     <section>
         <h1 style="position: relative;width: 400px; margin-top:-100px;margin-left: 400px;">ALL-ACCESS PASS</h1>
     </section>
@@ -39,7 +39,7 @@ $pic_count = 0;
     </select>
 </dropdown>
 </div>
-</div><button id='pass-button' class="btn btn-primary" type="button" style="position: relative;margin-top: -105px;margin-left: 1100px;height: 50px;" onclick = "addPass()">BUY ALL ACCESS-PASS</button>
+</div><button id='pass-button' class="btn btn-primary" type="button" style="position: relative;margin-top: -100px;margin-left: 1100px;height: 50px;" onclick = "addPass()">BUY ALL ACCESS-PASS</button>
 </section>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 

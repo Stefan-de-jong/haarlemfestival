@@ -41,7 +41,7 @@ class DanceRepository{
     }
 
     public function getEventData(){ //assuming that dance eventtype = 1, it gets all event data associated with dance events
-        $this->db->query('SELECT * FROM EVENT
+        $this->db->query('SELECT * FROM event
         INNER JOIN danceevent ON event.id = danceevent.id
         INNER JOIN (SELECT * FROM artist as a) a ON a.artist_id = danceevent.artist
         INNER JOIN (SELECT * FROM venue as v) v ON v.id = danceevent.location
@@ -139,19 +139,6 @@ class DanceRepository{
         {
         echo "Something went wrong: " . $e->getMessage();
         }
-    }
-
-    public function getHTML() //get all html from ID 100 to 200 (dance items in the database are always between 100 and 200)
-    {
-        $this->db->query('SELECT * FROM page where ID > 100 AND ID < 200');
-        $results = $this->db->resultSet();
-        $html = array();
-        foreach ($results as $result)
-        {
-        $page = new Page($result->id, $result->title, $result->html);
-        array_push($html, $page);
-        }
-        return $html;
     }
 } 
 ?>

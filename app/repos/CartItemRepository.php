@@ -63,7 +63,7 @@
         public function findDance($id, $amount, $ticket_type){
             if (strpos($ticket_type, 'dance_ticket') !== false)
             {
-            $this->db->query('SELECT * FROM EVENT
+            $this->db->query('SELECT * FROM event
             INNER JOIN danceevent ON event.id = danceevent.id
             INNER JOIN (SELECT * FROM artist as a) a ON a.artist_id = danceevent.artist
             INNER JOIN (SELECT * FROM venue as v) v ON v.id = danceevent.location
