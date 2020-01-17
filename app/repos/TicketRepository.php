@@ -86,9 +86,10 @@
                 echo 'Caught exception: ',  $e->getMessage(), "\n";
             }
         }
-        public function getAllDanceTickets($email)
+        public function getAllDanceTickets($email) //if an event has multiple artist this method will add a ticket for each of the artists playing, thus more tickets may be displayed than actually ordered
         {
             try {
+                $artist_count = 0;
                 $tickets = array();
                 $this->db->query('SELECT * FROM ticket
                 INNER JOIN event ON event.id = ticket.event_id
@@ -99,7 +100,6 @@
                 WHERE ticket.buyer_email = :email');
                 $this->db->bind(':email', $email);
                 $tickets = $this->db->resultSet();
-
                 foreach ($tickets as $ticket)
                 {
                                                     //$event_id, $ticket_type, $ticket_price, $buyer_email, $event_type, $date, $time, $price, $venue, $artist, $ticket_name
