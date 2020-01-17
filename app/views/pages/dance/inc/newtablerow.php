@@ -17,7 +17,7 @@ foreach ($events as $e) //loop through each event
         }
         foreach ($eventdata as $ed) //select the right eventdata
         {
-        if ($ed->getId() == $e->getId() && $ed->getArtistId() == $dance_id)
+        if ($ed->getId() == $e->getId() && $ed->getArtistId() == $dance_id) //check if the right id is selected and if the id of the artist is the same as the $dance_id (necesarry because some venues have multiple artist)
         {
         $date[] = $ed->getDate(); $time_b[] = substr($ed->getBeginTime(), 0, 5); $time_e[] = substr($ed->getEndTime(), 0, 5); $price[] = $ed->getPrice(); $quantity[] = $ed->getNTickets(); $id[] = $ed->getId();
         }
