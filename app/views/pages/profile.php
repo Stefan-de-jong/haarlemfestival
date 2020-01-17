@@ -40,7 +40,7 @@ require APPROOT . '/views/inc/header.php';
                     }
                     if (!empty($data['danceTicket']))
                     {
-                    echo "Currently unavailable";
+                    echo "Currently not supported for dance tickets";
                     }
                     // if (!empty($data['danceTicket'])) { does NOT work. The methods of model "Ticket" are undefined (getDate doesn't work) Not sure what causes this problem
                     //     echo "<h4> Dance tickets:</h4>";
