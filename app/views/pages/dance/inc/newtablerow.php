@@ -36,8 +36,12 @@ foreach ($events as $e) //loop through each event
                                     <?php $count++; ?>
                                 </tr>
 <script>
-if (row == undefined || row.length == 3)
-{var row = []}
+var srow = localStorage.getItem('row'); //get the localStorage row (made in panel_script.js)
+var ids = new Array(); //make a new array
+ids = srow.split(','); //get the ids stored in local storage and fill them in the new array
+var count = ids.length; //get the length of the array
+if (row == undefined || row.length == count) //make a new row if there is not already a row, or if the row.length is greater than the length of the localStorage row
+{var row = []}                               //if we do not check for the length of the row, the localStorage row will never be reset and will keep adding values to itself
 var string = '<?php echo $id[$count-1] ;?>';
 var number = parseInt(string);
 row.push(number);
