@@ -90,16 +90,21 @@
         {
             try {
                 $tickets = array();
-                $this->db->query('');
+                $this->db->query('SELECT * FROM ticket
+                INNER JOIN event ON event.id = ticket.event_id
+                INNER JOIN (SELECT * FROM danceevent as de) de ON de.id = ticket.event_id
+                INNER JOIN (SELECT * FROM venue as v) v on de.location = v.id
+                INNER JOIN (SELECT * FROM artist as a) a on de.artist = a.artist_id
+                INNER JOIN (SELECT * FROM tickettype as t) t on t.id = ticket.event_id
+                WHERE ticket.buyer_email = :email');
                 $this->db->bind(':email', $email);
-                $results = $this->db->resultSet();
+                $tickets = $this->db->resultSet();
 
-                foreach ($results as $result)
+                foreach ($tickets as $ticket)
                 {
-
-                    //$event_id, $ticket_type, $ticket_price, $buyer_email, $event_type, $date, $time, $name, $session
-
-                    //array_push($tickets, $ticket);
+                                                    //$event_id, $ticket_type, $ticket_price, $buyer_email, $event_type, $date, $time, $price, $venue, $artist, $ticket_name
+                    $ticket = new DanceTicket($ticket->event_id, $ticket->ticket_type, $ticket->ticket_price, $ticket->buyer_email, $ticket->event_type, $ticket->date, $ticket->begin_time, $ticket->ticket_price, $ticket->venue_name, $ticket->artist_name, $ticket->name);
+                    array_push($tickets, $ticket);
                 }
                 return $tickets;
             }

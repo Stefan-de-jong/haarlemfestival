@@ -81,7 +81,7 @@ if(empty($data['total']))
                     <?php       
                     echo $item->getEventType(). "<br> ".
                     date_format(date_create($item->getDate()),"d F Y"); if(strpos($item->getTicketName(), 'dance_ticket') !== false){echo ', ' . date_format(date_create($item->getTime()),"H:i") . " uur";}
-                    echo ' <br> Ticket type: ' . $item->printTicketType(). "<br>
+                    echo ' <br> Ticket type: ' . $item->printTicketType($item->getTicketName()). "<br>
                     Amount: " . $item->getAmount(). ", Price: " . ($item->getPrice() * $item->getAmount()). ' <br><br>';
                     $data['total'] += $item->getPrice() * $item->getAmount();
                 ?>

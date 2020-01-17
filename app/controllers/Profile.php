@@ -28,12 +28,12 @@ class Profile extends Controller
     {
         $foodTickets = $this->ticketRepository->getAllFoodTickets($_SESSION['customer_email']);
         $historicTickets = $this->ticketRepository->getAllHistoricTickets($_SESSION['customer_email']);
-        //$danceTickets = $this->ticketRepository->getAllDanceTickets($_SESSION['customer_email']);
+        $danceTickets = $this->ticketRepository->getAllDanceTickets($_SESSION['customer_email']);
         $data = [
             'content' => "ticket",
             'foodTicket' => $foodTickets,
-            'historicTicket' => $historicTickets
-            //'danceTicket' => $danceTickets
+            'historicTicket' => $historicTickets,
+            'danceTicket' => $danceTickets
         ];
         $this->view('pages/profile', $data);
     }

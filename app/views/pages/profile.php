@@ -38,7 +38,15 @@ require APPROOT . '/views/inc/header.php';
                         <br>";
                         }
                     }
-                    //dance
+                    if (!empty($data['danceTicket'])) { //does NOT work. The methods that of model "Ticket" are undefined (getDate doesn't work)
+                        echo "<h4> Dance tickets:</h4>";
+                        foreach ($data['danceTicket'] as $ticket) {
+                            $date = date_create($ticket->getDate());
+                            echo "Ticket type: " . $ticket->printTicketType() . "<br> 
+                        Artist: " . $ticket->getArtist() . "<br> Date: " . date_format(date_create($ticket->getDate()), "d F Y") . ", Time: " . date_format(date_create($ticket->getTime()), "H:i") . "<br>
+                        <br>";
+                        }
+                    }
                     break;
                 case "favorite":
                     if (!empty($data['foodFavorite'])) {

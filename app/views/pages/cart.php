@@ -66,7 +66,7 @@ require APPROOT . '/views/inc/header.php';
             </tr>
             <tr>
                 <td>
-                    <?php $item->printTicketType() . " "; if(substr($item->getTicketName(), -3) == 'fri'){echo "Friday";}else if(substr($item->getTicketName(), -3) == 'sat'){echo "Saturday";}else if(substr($item->getTicketName(), -3) == 'sun'){echo "Sunday";}else if(substr($item->getTicketName(), -3) == 'all'){echo "All festival days";}?>
+                    <?php $item->printTicketType($item->getTicketType()) . " "; if(substr($item->getTicketName(), -3) == 'fri'){echo "Friday";}else if(substr($item->getTicketName(), -3) == 'sat'){echo "Saturday";}else if(substr($item->getTicketName(), -3) == 'sun'){echo "Sunday";}else if(substr($item->getTicketName(), -3) == 'all'){echo "All festival days";}?>
                 </td>
                 <td colspan="2" align="right">
                     <form method="post">

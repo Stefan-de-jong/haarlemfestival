@@ -96,12 +96,12 @@
             {$name = "Multiple Artist";}
             else
             {$name = $event->artist_name;}
-            if (strpos($ticket_type, 'dance_ticket') !== false)
+            if (strpos($ticket->name, 'dance_ticket') !== false)
             {
             $cartItem = new DanceCartItem($event->id, $event->event_type, $ticket->id, $amount, $event->date, $event->begin_time, $name, $ticket->price, $event->venue_name, $event->address, $ticket->name);
             //$event_id, $event_type, $ticket_type, $amount, $date, $time, $artist, $price, $venue, $address
             }
-            else if (strpos($ticket_type, 'all_access') !== false)
+            else if (strpos($ticket->name, 'all_access') !== false)
             {
             $stringdate = "";
             {

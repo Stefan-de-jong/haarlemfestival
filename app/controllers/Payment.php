@@ -78,7 +78,7 @@ class Payment extends Controller{
                 $this->eventRepo->updateTickets($item->getEventId(), $item->getTicketType());
                 switch ($item->getEventType()) {
                     case 'Haarlem Dance':
-                        $ticket = new DanceTicket($item->getEventId(),$item->getTicketType(),$item->getPrice(),$data['customer_email'], $item->getEventType(), $item->getDate(), $item->getTime(), $item->getPrice(), $item->getVenue(), $item->getArtist());
+                        $ticket = new DanceTicket($item->getEventId(),$item->getTicketType(),$item->getPrice(),$data['customer_email'], $item->getEventType(), $item->getDate(), $item->getTime(), $item->getPrice(), $item->getVenue(), $item->getArtist(), $item->getTicketName());
                         break;
                     case 'Haarlem Food':
                         $ticket = new FoodTicket($item->getEventId(),$item->getTicketType(),$item->getPrice(),$data['customer_email'], $item->getEventType(), $item->getDate(), $item->getTime(), $item->getRestName(), $item->getSession());
@@ -163,10 +163,11 @@ class Payment extends Controller{
             $vat = number_format($ticketPrice * 0.09, 2);
             $priceInclVat = number_format($ticketPrice +  $vat, 2);
             
-            if($eventType == 'Haarlem Dance'){   
-                if (strpos($ticketType, 'dance_ticket') !== false)
+            if($eventType == 'Haarlem Dance'){  
+                $ticketName = $ticket->getTicketName(); 
+                if (strpos($ticketName, 'dance_ticket') !== false)
                 {$eventArtist = $ticket->getArtist(); $eventVenue = $ticket->getVenue();}     
-                else if (strpos($ticketType, 'all_access') !== false)
+                else if (strpos($ticketName, 'all_access') !== false)
                 {$eventArtist = "Multiple artist"; $eventVenue = "Multiple venues"; $eventTime = "No specific time";}
                 $html = "
                         <ul>

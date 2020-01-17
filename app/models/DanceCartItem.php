@@ -3,6 +3,7 @@
         private $artist;
         private $venue;
         private $address;
+        private $ticket_name;
 
         public function __construct($event_id, $event_type, $ticket_type, $amount, $date, $time, $artist, $price, $venue, $address, $ticket_name){
             parent::__construct($event_id, $event_type, $ticket_type, $amount, $date, $time, $price);                     
@@ -16,18 +17,18 @@
             return $this->ticket_type;
         }
 
-        public function printTicketType(){
-            if(strpos($this->ticket_type, "dance_ticket") !== false)
+        public function printTicketType($ticket_type){
+            if(strpos($ticket_type, "dance_ticket") !== false)
             {
                 return 'Dance Ticket';
             }
-            else if(strpos($this->ticket_type, 'all_access') !== false)
+            else if(strpos($ticket_type, 'all_access') !== false)
             {
                 return 'All-Access';
             }
             else
             {
-            return $this->ticket_type;
+            return "Ticket for dance";
             }
         }        
 
