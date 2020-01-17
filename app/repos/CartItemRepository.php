@@ -122,7 +122,7 @@
             }
             $date = DateTime::createFromFormat('d-m-Y', $stringdate);
             $time = DateTime::createFromFormat('H:i:s', '00:00:00');
-            $cartItem = new DanceCartItem($id, 1, $ticket->name, $amount, $date->format('d-m-Y'), $time->format('H:i:s'), "Multiple Artist", $ticket->price, 0, 0);
+            $cartItem = new DanceCartItem($id, 1, $ticket->id, $amount, $date->format('d-m-Y'), $time->format('H:i:s'), "Multiple Artist", $ticket->price, 0, 0, $ticket->name);
             //$event_id, $event_type, $ticket_type, $amount, $date, $time, $artist, $price, $venue, $address
             }
         }
