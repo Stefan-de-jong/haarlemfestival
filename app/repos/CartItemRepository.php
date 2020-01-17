@@ -61,16 +61,18 @@
 
 
         public function findDance($id, $amount, $ticket_type){
+            $artist_count = 0;
             if (strpos($ticket_type, 'dance_ticket') !== false)
             {
             $this->db->query('SELECT * FROM event
             INNER JOIN danceevent ON event.id = danceevent.id
             INNER JOIN (SELECT * FROM artist as a) a ON a.artist_id = danceevent.artist
             INNER JOIN (SELECT * FROM venue as v) v ON v.id = danceevent.location
-            INNER JOIN (SELECT * FROM tickettype as t) t on t.id = event.id');
+            INNER JOIN (SELECT * FROM tickettype as t) t on t.id = event.id WHERE event.id = :id AND event_type = :event_type');
             $this->db->bind(':event_type', 1);
             $this->db->bind(':id', $id);
             $event = $this->db->single();
+            $artist_count = $this->db->rowCount();
             }
             $ticket_type = $ticket_type . "_" . $id;
             if (strpos($ticket_type, 'dance_ticket') !== false)
@@ -90,9 +92,13 @@
             $this->db->bind(':ticket_type', $id);
             }
             $ticket = $this->db->single();
+            if ($artist_count > 1)
+            {$name = "Multiple Artist";}
+            else
+            {$name = $event->artist_name;}
             if (strpos($ticket_type, 'dance_ticket') !== false)
             {
-            $cartItem = new DanceCartItem($event->id, $event->event_type, $ticket_type, $amount, $event->date, $event->begin_time, $event->artist_name, $ticket->price, $event->venue_name, $event->address);
+            $cartItem = new DanceCartItem($event->id, $event->event_type, $ticket->id, $amount, $event->date, $event->begin_time, $name, $ticket->price, $event->venue_name, $event->address, $ticket->name);
             //$event_id, $event_type, $ticket_type, $amount, $date, $time, $artist, $price, $venue, $address
             }
             else if (strpos($ticket_type, 'all_access') !== false)

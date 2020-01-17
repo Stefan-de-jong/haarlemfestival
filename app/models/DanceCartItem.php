@@ -4,11 +4,12 @@
         private $venue;
         private $address;
 
-        public function __construct($event_id, $event_type, $ticket_type, $amount, $date, $time, $artist, $price, $venue, $address){
+        public function __construct($event_id, $event_type, $ticket_type, $amount, $date, $time, $artist, $price, $venue, $address, $ticket_name){
             parent::__construct($event_id, $event_type, $ticket_type, $amount, $date, $time, $price);                     
             $this->artist = $artist;
             $this->venue = $venue;        
-            $this->address = $address;                
+            $this->address = $address;     
+            $this->ticket_name = $ticket_name;           
         }        
         
         public function getTicketType(){            
@@ -40,6 +41,11 @@
 
         public function getAddress(){
             return $this->address;
+        }
+
+        public function getTicketName()
+        {
+            return $this->ticket_name;
         }
   
     }
