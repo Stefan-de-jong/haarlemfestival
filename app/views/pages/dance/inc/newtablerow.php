@@ -4,7 +4,6 @@ if (!isset($count))
 $date = array(); $time_b = array(); $time_e = array(); $price = array(); $quantity = array(); $place = array(); $address = array(); $id = array();
 foreach ($events as $e) //loop through each event
 {
-    $save = $e->getId();
     if ($e->getArtist() == $dance_id) //if at an event the current selected artist plays...
     {
         foreach ($venues as $v)//loop through each venue
