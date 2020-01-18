@@ -2,7 +2,7 @@
 $artists = $data['artists'];
 $pic_count = 0;
 ?>
-<style> footer{margin-top: <?php $pxadjustment ?>}</style>
+<style> footer{margin-top: <?php $pxadjustment; ?>}</style>
     <section id="bg-image" style="position: absolute;"><img src="<?php echo URLROOT; ?>/img/dance/bg-left.png" style="position: absolute;"><img style="position: absolute;margin-left: 1539px;" src="<?php echo URLROOT; ?>/img/dance/bg-right.png"></section>
     <section class="text-left" id="main-content" style="position: absolute;background-color: rgb(255,104,104);width: 1156px;height: 979px;margin-left: 384px;">
         <ol class="breadcrumb" style="background-color: rgb(255,255,255);">
@@ -13,11 +13,11 @@ $pic_count = 0;
         <h4 class="text-center">Click an artist to view information and tickets.
         <br></h4>
         <section class="text-center"></section>
-        <?php $x = 0; $y = 0; $count = 0; $rows_2_photos = 0;?>
+        <?php $x = 0; $y = 0; $count = 0; $rows_2_photos = 0; //x is used for top-margin, y for left-margin ?>
         <?php foreach ($data['artists'] as $artist) :?>
-        <?php $rows_2_photos = intval($count / 2); $x = 250.86 * $rows_2_photos; ?>
+        <?php $rows_2_photos = intval($count / 2); $x = 250.86 * $rows_2_photos; //look how many rows of 2 pictures there are, increase x with the amount of rows?>
         <img id="pic<?php echo $artist->getId();?>" src="<?php echo URLROOT; ?>/img/dance/artist_image_<?php echo $artist->getId();?>.png" style="position: absolute; width: 578px; margin-top: <?php echo $x ?>px; margin-left: <?php echo $y ?>px;" onclick = "loadPanel(<?php echo $artist->getId();?>)"> <?php $count++; ?>
-        <?php if ($y == 0) {$y = 578;} else {$y = 0;} ?>
+        <?php if ($y == 0) {$y = 578;} else {$y = 0;} //if y = 0 make it 578px else make it 0px (it is necessary to do this, since the picture after this picture is either on the left of the previous picture or on the right) ?>
          <?php endforeach; ?>
             <div class="container text-left visible" id="pnl" style="width: 1152px;height: 750px;display: block;margin-left: 50px; margin-right: 0px;">
     </section>
