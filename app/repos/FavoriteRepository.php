@@ -94,7 +94,7 @@ public function getAllDanceFavorites($id)
     $results = $this->db->resultSet();
 
     foreach ($results as $result){            
-        $favorite = new DanceFavorite($result->customer_id, $result->event_id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->artist_name, $result->venue_name, $result->address);
+        $favorite = new DanceFavorite($result->customer_id, $result->event_id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->artist_name, $result->venue_name, $result->address, $result->artist_id);
         array_push($favorites, $favorite);
     }
     return $favorites;        
