@@ -26,7 +26,6 @@ $crawler->crawl_page("http://hfa4.infhaarlem.nl/$page", 2);
 echo "</section>";
 $query = $_GET['q'];
 
-
 class Crawler
 {
     function crawl_page($url, $depth = 5) //this function crawls throught all the pages with $page in their name, if there are links of them at the requested URL
