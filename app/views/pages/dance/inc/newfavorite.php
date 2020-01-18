@@ -9,4 +9,5 @@ if (isset($_POST['favoriteid']))
 $favoriteid = $_POST['favoriteid'];
 }
 $favorites->addFavorite($_SESSION['customer_id'], $favoriteid);
+echo "Favorite was added";
 ?>
