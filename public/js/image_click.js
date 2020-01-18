@@ -5,12 +5,9 @@ var content;
 var day;
 var padding = document.getElementById("padding");
 var pass = document.getElementById("pass");
-var footer = document.getElementsByTagName('footer');
 var selection = document.getElementById("pass-select");
 
 function loadPanel(id){ //set clicked picture as the current picture, then execute the function ChangeContent to hide elements and show the panel
-$(footer).hide();
-setTimeout(function(){$(footer).show();}, 100); //footer needs some time to change it's position
 hidePAll();
 getPics();
 $(pnl).ready(function(){
