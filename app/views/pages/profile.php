@@ -42,15 +42,15 @@ require APPROOT . '/views/inc/header.php';
                     {
                     echo "Currently not supported for dance tickets";
                     }
-                    // if (!empty($data['danceTicket'])) { does NOT work. The methods of model "Ticket" are undefined (getDate doesn't work) Not sure what causes this problem
-                    //     echo "<h4> Dance tickets:</h4>";
-                    //     foreach ($data['danceTicket'] as $ticket) {
-                    //         $date = date_create($ticket->getDate());
-                    //         echo "Ticket type: " . $ticket->printTicketType($ticket->getTicketType()) . "<br> 
-                    //     Artist: " . $ticket->getArtist() . "<br> Date: " . date_format(date_create($ticket->getDate()), "d F Y") . ", Time: " . date_format(date_create($ticket->getTime()), "H:i") . "<br>
-                    //     <br>";
-                    //     }
-                    // }
+                    if (!empty($data['danceTicket'])) {
+                        echo "<h4> Dance tickets:</h4>";
+                        foreach ($data['danceTicket'] as $ticket) {
+                            $date = date_create($ticket->getDate());
+                            echo "Ticket type: " . $ticket->printTicketType($ticket->getTicketType()) . "<br> 
+                        Artist: " . $ticket->getArtist() . "<br> Date: " . date_format(date_create($ticket->getDate()), "d F Y") . ", Time: " . date_format(date_create($ticket->getTime()), "H:i") . "<br>
+                        <br>";
+                        }
+                    }
                     break;
                 case "favorite":
                     if (!empty($data['foodFavorite'])) {

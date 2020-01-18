@@ -17,7 +17,7 @@
             return $this->ticket_type;
         }
 
-        public function printTicketType($ticket_type){
+        public function printTicketType($ticket_type){ //for some reason getting the ticket type from the class itself did not work so I pass ticket_type as a param
             if(strpos($ticket_type, "dance_ticket") !== false)
             {
                 return 'Dance Ticket';
