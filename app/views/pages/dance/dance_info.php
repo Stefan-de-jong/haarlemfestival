@@ -16,18 +16,27 @@
         <section><img src="<?php echo URLROOT; ?>/img/dance/artist%20image.png" style="position: absolute;width: 537px;"></section>
         <section>
             <h4 class="text-left" style="background-color: rgb(255,62,62);width: 464px;margin-left: 66px;margin-bottom: 0px;">Friday</h4>
-            <h4 class="text-left" style="background-color: rgb(255,255,255);width: 464px;margin-left: 66px;margin-top: 0px;margin-bottom: 0px;"><?php foreach ($data['snippets'] as $snippet){if (strpos($snippet->getName(), "friday") !== false){echo $snippet->getText();}} ?></h4>
-            <section style="background-color: #ffffff;margin-top: 0px;width: 464px;margin-left: 66px;"><button class="btn btn-primary" type="button" style="margin-right: 328px;margin-top: 20px;margin-bottom: 20px;"><a class="btn_url" href="<?php echo URLROOT; ?>/dance/purchase">BUY TICKETS</a></button></section>
-</form></button></section>
+            <h4 class="text-left" style="background-color: rgb(255,255,255);width: 464px;margin-left: 66px;margin-top: 0px;margin-bottom: 0px;">
+            <?php foreach ($data['snippets'] as $snippet){if (strpos($snippet->getName(), "friday") !== false){echo $snippet->getText();}} ?></h4>
+            <section style="background-color: #ffffff;margin-top: 0px;width: 464px;margin-left: 66px;">
+            <button class="btn btn-primary" type="button" style="margin-right: 328px;margin-top: 20px;margin-bottom: 20px;">
+            <a class="btn_url" href="<?php echo URLROOT; ?>/dance/purchase">BUY TICKETS</a></button></section>
+            </form></button></section>
             <section style="margin-top: 20px;">
                 <h4 class="text-left" style="background-color: rgb(255,62,62);width: 464px;margin-left: 66px;margin-bottom: 0px;">Saturday</h4>
-                <h4 class="text-left" style="background-color: rgb(255,255,255);width: 464px;margin-left: 66px;margin-top: 0px;margin-bottom: 0px;"><?php foreach ($data['snippets'] as $snippet){if (strpos($snippet->getName(), "saturday") !== false){echo $snippet->getText();}} ?></h4>
-                <section style="background-color: #ffffff;margin-top: 0px;width: 464px;margin-left: 66px;"><button class="btn btn-primary" type="button" style="margin-right: 328px;margin-top: 20px;margin-bottom: 20px;"><a class="btn_url" href="<?php echo URLROOT; ?>/dance/purchase">BUY TICKETS</a></button></section>
+                <h4 class="text-left" style="background-color: rgb(255,255,255);width: 464px;margin-left: 66px;margin-top: 0px;margin-bottom: 0px;">
+                <?php foreach ($data['snippets'] as $snippet){if (strpos($snippet->getName(), "saturday") !== false){echo $snippet->getText();}} ?></h4>
+                <section style="background-color: #ffffff;margin-top: 0px;width: 464px;margin-left: 66px;">
+                <button class="btn btn-primary" type="button" style="margin-right: 328px;margin-top: 20px;margin-bottom: 20px;">
+                <a class="btn_url" href="<?php echo URLROOT; ?>/dance/purchase">BUY TICKETS</a></button></section>
             </section>
             <section style="margin-top: 20px;">
                 <h4 class="text-left" style="background-color: rgb(255,62,62);width: 464px;margin-left: 66px;margin-bottom: 0px;">Sunday</h4>
-                <h4 class="text-left" style="background-color: rgb(255,255,255);width: 464px;margin-left: 66px;margin-top: 0px;margin-bottom: 0px;"><?php foreach ($data['snippets'] as $snippet){if (strpos($snippet->getName(), "sunday") !== false){echo $snippet->getText();}} ?></h4>
-                <section style="background-color: #ffffff;margin-top: 0px;width: 464px;margin-left: 66px;"><button class="btn btn-primary" type="button" style="margin-right: 328px;margin-top: 20px;margin-bottom: 20px;"><a class="btn_url" href="<?php echo URLROOT; ?>/dance/purchase">BUY TICKETS</a></button></section>
+                <h4 class="text-left" style="background-color: rgb(255,255,255);width: 464px;margin-left: 66px;margin-top: 0px;margin-bottom: 0px;">
+                <?php foreach ($data['snippets'] as $snippet){if (strpos($snippet->getName(), "sunday") !== false){echo $snippet->getText();}} ?></h4>
+                <section style="background-color: #ffffff;margin-top: 0px;width: 464px;margin-left: 66px;">
+                <button class="btn btn-primary" type="button" style="margin-right: 328px;margin-top: 20px;margin-bottom: 20px;">
+                <a class="btn_url" href="<?php echo URLROOT; ?>/dance/purchase">BUY TICKETS</a></button></section>
             </section>
         </section>
     </section>

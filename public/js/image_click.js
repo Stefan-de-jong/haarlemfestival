@@ -1,3 +1,4 @@
+//init GLOBAL variables
 var pnl = document.getElementById("pnl");
 pics = [];
 var content;
@@ -18,7 +19,7 @@ $(pnl).show();
 smoothAnimation(pnl);
 });
 }
-function sendIDWithAjax(id)
+function sendIDWithAjax(id) //send the artist ID to the panel, which used the ID to load the correct artist
 {
     $(document).ready(function(){
 
@@ -34,7 +35,7 @@ function sendIDWithAjax(id)
 });
 }
 
-function addPass()
+function addPass() //add a all-access pass to the cart using AJAX
 {
   $(document).ready(function(){
     $.ajax({
@@ -49,7 +50,7 @@ function addPass()
     });
 }
 
-function smoothAnimation(element)
+function smoothAnimation(element) //make the transition a little bit smoother
 {
   var counter = 100;
   element.style.opacity = 0;
@@ -63,7 +64,7 @@ function smoothAnimation(element)
   }, 50);
 }
 
-function showPics(pics)
+function showPics(pics) //show all the pics
 {
 for (p in pics)
 {
@@ -72,24 +73,24 @@ smoothAnimation(pics[p]);
 }
 }
 
-function hidePAll()
+function hidePAll() //hide the pass and picture padding
 {
 $(pass).hide();
 $(padding).hide();
 }
 
-function showPass()
+function showPass() //show the pass
 {
 $(pass).show();
 smoothAnimation(pass);
 }
 
-function showPicturePadding()
+function showPicturePadding() //show the picture padding
 {
 $(padding).show();
 }
 
-function getPics(){
+function getPics(){ //get all the pics from the page, and add them to the 'pic' array
 for (i = 0; i < piccount; i++)
 {
 var pic = document.getElementById('pic' + (i+1));
@@ -98,16 +99,16 @@ pics.push(pic);
 }
 }
 
-function hidePic(pic)
+function hidePic(pic) //hide all the pics
 {
 $(pic).hide();
 }
 
-window.onload = function() {
+window.onload = function() { //when the panel loads, hide the panel until it is ready to be shown to the user
 $(pnl).hide();
 }
 
-selection.onchange = function getValueDropdown(){
+selection.onchange = function getValueDropdown(){ //get the value of the dropdown of the all-access-pass
 day = selection.options[selection.selectedIndex].value;
 var displaydate;
 var price;
@@ -131,5 +132,5 @@ displaydate = "all days";
 break;
 }
 var pricebox = document.getElementById('pricebox');
-pricebox.innerHTML = "This pass costs € " + price + "<br> and is for " + displaydate;
+pricebox.innerHTML = "This pass costs € " + price + "<br> and is for " + displaydate; //display the current day and price in the element 'pricebox'
 }
