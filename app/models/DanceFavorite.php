@@ -2,9 +2,9 @@
 
 class DanceFavorite extends Favorite
 {
-    private $restaurant;
-    private $session;
-    private $rest_name;
+    private $artist;
+    private $venue;
+    private $location;
 
     public function __construct($customer_id, $event_id, $date, $begin_time, $end_time, $event_type, $artist, $venue, $location)
     {
