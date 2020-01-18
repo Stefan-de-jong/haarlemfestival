@@ -27,21 +27,20 @@
     </div>
 </div>
 
-<div class="row mt-3 mb-5">
-    <div class="col-md-10 d-flex flex-grow-1 mx-auto">
-        <ul class=" list-unstyled d-flex flex-grow-1 justify-content-between" id="tour-route">
-            <?php foreach($data['locations'] as $location) : ?>
+<div class="row mt-3 mb-3">
+    <div id="tour-buttons" class="mx-auto">
 
-            <li class="route-location">
-                <input type="button" name="view" value="<?php echo $location->getName(); ?>"
-                    id="<?php echo $location->getId(); ?>" class="btn btn-info btn-xs view_data">
-            </li>
+        <?php foreach($data['locations'] as $location) : ?>
+        <div class="button-wrapper">
+            <p><?php echo $location->getName();?></p>
+            <a href="#" id="<?php echo $location->getId();?>"
+                class="tour-btn view_data <?php if($location->getId() == 1){ echo "active";}?>"></a>
+        </div>
+        <?php endforeach; ?>
 
-            <?php endforeach; ?>
-        </ul>
     </div>
 </div>
-<div class="container">
+<div class=" container">
 
     <!-- Div below will contain loaded AJAX content -->
     <div class="row mb-5" id="location_details">
@@ -54,7 +53,7 @@
                 class="rounded shadow-sm img-fluid">
         </div>
         <?php endif; ?>
-        <?php if($location->getURL1() != '') : ?>
+        <?php if($location->getURL2() != '') : ?>
         <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
             <img src="<?php echo URLROOT;?>/img/<?php echo $data['locations'][0]->getURL2(); ?>"
                 class="rounded shadow-sm img-fluid">
@@ -78,6 +77,18 @@ $(document).ready(function(){
         });
     });
 });
-/* beautify preserve:end */
+</script>
+<script>
+    // Add active class to the current button (highlight it)
+    var header = document.getElementById("tour-buttons");
+    var btns = header.getElementsByClassName("tour-btn");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function () {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
+    }
+    /* beautify preserve:end */
 </script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
