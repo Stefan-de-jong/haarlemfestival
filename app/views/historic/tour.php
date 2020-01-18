@@ -28,7 +28,7 @@
 </div>
 
 <div class="row mt-3 mb-3">
-    <div id="tour-buttons" class="mx-auto">
+    <div id="tour-buttons" class="tour-route mx-auto">
 
         <?php foreach($data['locations'] as $location) : ?>
         <div class="button-wrapper">

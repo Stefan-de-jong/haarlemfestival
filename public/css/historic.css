@@ -21,8 +21,8 @@
     padding-right: 15px;
 }
 
-#tour-route {
-    background-color: #ffff99;
+.tour-route {
+    background-color: #fafaa7;
     border-radius: 10px;
     padding: 15px;
 }
@@ -63,7 +63,7 @@ h5 {
 
 .active,
 .tour-btn:hover {
-    background: #ffff99;
+    background: #fcfc75;
 }
 
 .button-wrapper {
