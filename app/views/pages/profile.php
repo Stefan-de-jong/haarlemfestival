@@ -38,10 +38,6 @@ require APPROOT . '/views/inc/header.php';
                         <br>";
                         }
                     }
-                    if (!empty($data['danceTicket']))
-                    {
-                    echo "Currently not supported for dance tickets";
-                    }
                     if (!empty($data['danceTicket'])) {
                         echo "<h4> Dance tickets:</h4>";
                         foreach ($data['danceTicket'] as $ticket) {
