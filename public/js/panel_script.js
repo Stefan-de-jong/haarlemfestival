@@ -11,7 +11,8 @@ showPicturePadding();
 showPics(pics);
 }
 
-window.onload = function(){getAmountOfRows(); getStars();} //count the amount of rows on window load and init stars
+window.onload = getAmountOfRows();
+window.onload = getStars();
 
 function getAmountOfRows() //gets the amount of dropdowns
 {
