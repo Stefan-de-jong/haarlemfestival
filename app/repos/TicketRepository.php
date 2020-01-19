@@ -86,20 +86,25 @@
                 echo 'Caught exception: ',  $e->getMessage(), "\n";
             }
         }
-        public function getAllDanceTickets($email)
+        public function getAllDanceTickets($email) //if an event has multiple artist this method will add a ticket for each of the artists playing, thus more tickets may be displayed than actually ordered
         {
             try {
+                $artist_count = 0;
                 $tickets = array();
-                $this->db->query('');
+                $this->db->query('SELECT * FROM ticket
+                INNER JOIN event ON event.id = ticket.event_id
+                INNER JOIN (SELECT * FROM danceevent as de) de ON de.id = ticket.event_id
+                INNER JOIN (SELECT * FROM venue as v) v on de.location = v.id
+                INNER JOIN (SELECT * FROM artist as a) a on de.artist = a.artist_id
+                INNER JOIN (SELECT * FROM tickettype as t) t on t.id = ticket.event_id
+                WHERE ticket.buyer_email = :email');
                 $this->db->bind(':email', $email);
-                $results = $this->db->resultSet();
-
-                foreach ($results as $result)
+                $sql = $this->db->resultSet();
+                foreach ($sql as $result)
                 {
-
-                    //$event_id, $ticket_type, $ticket_price, $buyer_email, $event_type, $date, $time, $name, $session
-
-                    //array_push($tickets, $ticket);
+                                                    //$event_id, $ticket_type, $ticket_price, $buyer_email, $event_type, $date, $time, $price, $venue, $artist, $ticket_name
+                    $ticket = new DanceTicket($result->event_id, $result->ticket_type, $result->ticket_price, $result->buyer_email, $result->event_type, $result->date, $result->begin_time, $result->ticket_price, $result->venue_name, $result->artist_name, $result->name);
+                    array_push($tickets, $ticket);
                 }
                 return $tickets;
             }

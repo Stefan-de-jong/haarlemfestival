@@ -12,7 +12,7 @@ $search = new search();
 }
 $url = "http://hfa4.infhaarlem.nl";
 echo
-"<section style='background-color: cyan; padding-bottom: 20px; margin-bottom: -30px; padding-left: 30%'>
+"<section style='padding-bottom: 20px; margin-bottom: -30px; padding-left: 40%'>
 <form  action='";
 if(isset($query))
 {

@@ -58,9 +58,34 @@ function fillHistoricFavorites($date, $favorites){
     return $fav_historic_info;
 }
 
-function fillDanceFavorites($date, $artist)
+function fillDanceFavorites($date, $favorites)
 {
+    //array: 0 = table content, 1= count of the restaurant. 2+ = al the restaurants id.
+    $used_artist = "";
+    $fav_dance_info = array();
+    $tableString = "";
 
+    $fav_dance_info[0] = "";
+    $fav_dance_info[1] = 0;
+
+
+    foreach ($favorites as $favorite) {
+        if ($favorite->getDate() != $date) {continue;}
+        else if ($used_artist == $favorite->getArtist()) {continue;}
+
+        $tableString = $tableString . "<tr>";
+        $tableString = $tableString . "<td >" . $favorite->getArtist() . "</td>";
+        for ($i = 1; $i < 16; $i++) {
+            $tableString = $tableString . "<td width='75px'></td>";
+        }
+        $tableString = $tableString . "</tr>";
+        $used_artist = $favorite->getArtist();
+        $fav_dance_info[1] += 1;
+        array_push($fav_dance_info, $favorite->getArtistId());
+    }
+    $fav_dance_info[0] = $tableString;
+
+    return $fav_dance_info;
 }
 
 

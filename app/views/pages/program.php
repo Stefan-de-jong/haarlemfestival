@@ -6,6 +6,8 @@
     $historic = true;
     $favorite = true;
     $fav_hist = array();
+    $fav_food = array();
+    $fav_dance = array();
 ?>
 <div class="program_body">
     <div class="program_container" style="height: auto">
@@ -160,6 +162,9 @@
                     <?php $fav_hist['day23']= fillHistoricFavorites("2020-07-23", $data['historicFavorite']);?>
                     var historicTableContent = "<?php echo $fav_hist['day23'][0];?>";
                     historicFavoriteTable .innerHTML += historicTableContent;
+                    <?php $fav_dance['day23']= fillDanceFavorites("2020-07-23", $data['danceFavorite']);?>
+                    var danceTableContent = "<?php echo $fav_dance['day23'][0];?>";
+                    danceFavoriteTable .innerHTML += danceTableContent;
                 }
                 else if(date == '2020-07-24') {
                     <?php   $fav_food['day24'] = fillFoodFavorite("2020-07-24", $data['foodFavorite']);?>
@@ -168,6 +173,9 @@
                     <?php $fav_hist['day24']= fillHistoricFavorites("2020-07-24", $data['historicFavorite']);?>
                     var historicTableContent = "<?php echo $fav_hist['day24'][0];?>";
                     historicFavoriteTable .innerHTML += historicTableContent;
+                    <?php $fav_dance['day24']= fillDanceFavorites("2020-07-24", $data['danceFavorite']);?>
+                    var danceTableContent = "<?php echo $fav_dance['day24'][0];?>";
+                    danceFavoriteTable .innerHTML += danceTableContent;
                 }
                 else if(date == '2020-07-25') {
                     <?php   $fav_food['day25'] = fillFoodFavorite("2020-07-25", $data['foodFavorite']);?>
@@ -176,6 +184,9 @@
                     <?php $fav_hist['day25']= fillHistoricFavorites("2020-07-25", $data['historicFavorite']);?>
                     var historicTableContent = "<?php echo $fav_hist['day25'][0];?>";
                     historicFavoriteTable .innerHTML += historicTableContent;
+                    <?php $fav_dance['day25']= fillDanceFavorites("2020-07-25", $data['danceFavorite']);?>
+                    var danceTableContent = "<?php echo $fav_dance['day25'][0];?>";
+                    danceFavoriteTable .innerHTML += danceTableContent;
                 }
                 else if(date == '2020-07-26') {
                     <?php $fav_food['day26'] = fillFoodFavorite("2020-07-26", $data['foodFavorite']);?>
@@ -184,6 +195,9 @@
                     <?php $fav_hist['day26']= fillHistoricFavorites("2020-07-26", $data['historicFavorite']);?>
                     var historicTableContent = "<?php echo $fav_hist['day26'][0];?>";
                     historicFavoriteTable .innerHTML += historicTableContent;
+                    <?php $fav_dance['day26']= fillDanceFavorites("2020-07-26", $data['danceFavorite']);?>
+                    var danceTableContent = "<?php echo $fav_dance['day26'][0];?>";
+                    danceFavoriteTable .innerHTML += danceTableContent;
                 }
             }
             showTable("2020-07-23");
