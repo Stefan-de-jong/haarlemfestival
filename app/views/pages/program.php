@@ -244,7 +244,6 @@
                                 <?php $historicFavorite = getEvent($data['historicFavorite'], $date, ($i + 9),$fav_hist['day23'][($id+1)]);?>
                                 historicFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicFavorite;?>";
                             <?php endfor; ?>
-                            //dance fav table vullen -> bugged, when ID is given of artist that is favorited the program crashes
                     <?php endfor; ?>
                         break;
                     case "2020-07-24":
@@ -274,7 +273,6 @@
                                 <?php $historicFavorite = getEvent($data['historicFavorite'], $date, ($i + 9),$fav_hist['day24'][($id+1)]);?>
                                 historicFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicFavorite;?>";
                             <?php endfor; ?>
-                             //dance fav table vullen -> bugged, when ID is given of artist that is favorited the program crashes
                         <?php endfor; ?>
                         break;
                     case "2020-07-25":
@@ -303,7 +301,6 @@
                                 <?php $historicFavorite = getEvent($data['historicFavorite'], $date, ($i + 9),$fav_hist['day25'][($id+1)]);?>
                                 historicFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicFavorite;?>";
                             <?php endfor; ?>
-                             //dance fav table vullen -> bugged, when ID is given of artist that is favorited the program crashes
                     <?php endfor; ?>
                         break;
                     case "2020-07-26":
@@ -332,7 +329,6 @@
                                 <?php $historicFavorite = getEvent($data['historicFavorite'], $date, ($i + 9),$fav_hist['day26'][($id+1)]);?>
                                 historicFavoriteTable.rows[<?php echo $id;?>].cells[<?php echo $i;?>].innerHTML = "<?php echo $historicFavorite;?>";
                             <?php endfor; ?>
-                             //dance fav table vullen -> bugged, when ID is given of artist that is favorited the program crashes
                         <?php endfor; ?>
                         break;
                 }
