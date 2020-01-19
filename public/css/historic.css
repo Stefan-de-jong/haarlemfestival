@@ -21,8 +21,8 @@
     padding-right: 15px;
 }
 
-#tour-route {
-    background-color: #ffff99;
+.tour-route {
+    background-color: #fafaa7;
     border-radius: 10px;
     padding: 15px;
 }
@@ -45,10 +45,30 @@ h5 {
     margin-bottom: 10px;
 }
 
-/* .abs {
-    position: absolute;
-    right: 0;
-    top: 10;
-    bottom: 0;
-    z-index: 1;
-} */
+.tour-btn {
+    display: inline-block;
+    text-decoration: none;
+    background: lightgray;
+    color: #FFF;
+    width: 40px;
+    height: 40px;
+    line-height: 120px;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    overflow: hidden;
+    transition: .4s;
+    border: #000 solid 1px;
+}
+
+.active,
+.tour-btn:hover {
+    background: #fcfc75;
+}
+
+.button-wrapper {
+    text-align: center;
+    display: inline-block;
+    margin: 10px;
+    width: 140px;
+}
