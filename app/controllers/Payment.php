@@ -24,27 +24,25 @@ class Payment extends Controller{
         }
         if(!count($_SESSION['cart'])>0){
             flash('emptyCart_alert', 'Your cart is empty, no items to checkout', 'alert alert-danger');
-            redirect('cart/paymentdetails'); // waarheen?            
+            redirect('cart/paymentdetails');           
         }
 
-        if($_SERVER['REQUEST_METHOD']=== 'POST'){            
-            // Sanitize customer inputs
+        if($_SERVER['REQUEST_METHOD']=== 'POST'){                       
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             
-            // ToDo add check for emailaddress match 2nd emailaddress
-            // emailcheck ....
-
-            if(!empty($_SESSION['customer_email']))
+            if(isLoggedIn()){
+                // get email functie op customer id
                 $email = $_SESSION['customer_email'];
-            else
-                $email = trim($_POST['emailaddress']);
-            $cartitems = $this->getCartItems();
-
+            }
+            else{                                     
+                $email = (string)trim($_POST['emailaddress']);
+            }
+            
+            $cartitems = $this->getCartItems();            
             $price = 0;
             foreach ($cartitems as $item) {
                 $price += $item->getPrice() * $item->getAmount();
             }
-
             $vatPercentage = 9;
             $vat = number_format(($vatPercentage / 100) * $price, 2);
             $totalPrice = number_format($vat + $price, 2);

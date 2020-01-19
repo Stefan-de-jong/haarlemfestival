@@ -8,18 +8,23 @@
     public function register(){
         // Check for POST
         if($_SERVER['REQUEST_METHOD']=== 'POST'){
-            // process form
-
-            // Sanitize customer inputs
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            // Sanitize customer inputs         
+            $sanitizeFilters = array(
+                'firstname' => FILTER_SANITIZE_STRING,
+                'lastname' => FILTER_SANITIZE_STRING,
+                'email' => FILTER_SANITIZE_EMAIL,
+                'password' => FILTER_SANITIZE_STRING,
+                'confirm_password' => FILTER_SANITIZE_STRING
+            );
+            $_POST = filter_input_array(INPUT_POST, $sanitizeFilters);
 
             // Init data
             $data =[
-                'firstname' => trim($_POST['firstname']),
-                'lastname' => trim($_POST['lastname']),
-                'email' => trim($_POST['email']),
-                'password' => trim($_POST['password']),
-                'confirm_password' => trim($_POST['confirm_password']),
+                'firstname' => (string)trim($_POST['firstname']),
+                'lastname' => (string)trim($_POST['lastname']),
+                'email' => (string)trim($_POST['email']),
+                'password' => (string)trim($_POST['password']),
+                'confirm_password' => (string)trim($_POST['confirm_password']),
                 'firstname_error' => '',
                 'lastname_error' => '',
                 'email_error' => '',
@@ -30,10 +35,12 @@
             // Validation
             if(empty($data['email'])){
                 $data['email_error'] = 'Please enter email';
-            } else{
-                // Check if email exists in db
-                if($this->repo->findByEmail($data['email'])){
+            } else{if($this->repo->findByEmail($data['email'])){
                     $data['email_error'] = 'Email is already taken';
+                }
+                else{if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                        $data['email_error'] = 'This is not a valid email address';
+                    }
                 }
             }
 
@@ -60,9 +67,7 @@
             }
 
             // Process only if there are no errors
-            if(empty($data['email_error']) && empty($data['firstname_error']) && empty($data['lastname_error']) && empty($data['password_error']) && empty($data['confirm_password_error'])){
-                // no errors
-
+            if(empty($data['email_error']) && empty($data['firstname_error']) && empty($data['lastname_error']) && empty($data['password_error']) && empty($data['confirm_password_error'])){                
                 // Hash password
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
@@ -74,12 +79,10 @@
                 } else {
                     die('Something went wrong');
                 }
-
             } else{
                 // Load view with error messages
                 $this->view('customers/register', $data);
             }
-
 
         } else{
             // Init data
@@ -104,41 +107,38 @@
     public function login(){
         // Check for POST
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            // process form
-            // Sanitize customer inputs
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            // Sanitize inputs
+            $sanitizeFilters = array(                
+                'email' => FILTER_SANITIZE_EMAIL,
+                'password' => FILTER_SANITIZE_STRING
+            );
+            $_POST = filter_input_array(INPUT_POST, $sanitizeFilters);
 
-            // Init data
             $data =[                 
-                'email' => trim($_POST['email']),
-                'password' => trim($_POST['password']),
+                'email' => (string)trim($_POST['email']),
+                'password' => (string)trim($_POST['password']),
                 'email_error' => '',
-                'password_error' => '',
-
+                'password_error' => ''
             ];
 
             // Validation
             if(empty($data['email'])){
                 $data['email_error'] = 'Please enter email';
             }
-
             if(empty($data['password'])){
                 $data['password_error'] = 'Please enter password';
             }
 
-            // Check is customer/email exists in db
-            // ToDo: Thijs -> of een 'login object' beter is hier, ivm verdere abstractie tussen app en db.
-            // ToDo: Mag zo laten, aanpassen kan.
+            // Check is customer/email exists in db            
             if($this->repo->findByEmail($data['email'])){
                 // Customer found
             } else{
                 // Customer not found
-                $data['email_error'] = 'Customer not found';
+                $data['email_error'] = 'There is no account registered with that email';
             }
 
             // Process only if there are no errors
             if(empty($data['email_error']) && empty($data['password_error'])){
-                // No errors
                 // Check and set logged in customer
                 $loggedInCustomer = $this->repo->login($data['email'], $data['password']);
 
@@ -157,15 +157,13 @@
 
 
         } else{
-            // Init data
+            // Not a post, so load the view with 'empty' data
             $data =[
                 'email' => '',
                 'password' => '',                
                 'email_error' => '',
                 'password_error' => ''
-            ];
-
-            // Load view
+            ];           
             $this->view('customers/login', $data);
         }
     }
@@ -186,7 +184,6 @@
 
         // NOT POST
             // load forgotpass form
-
     }
 
     public function createCustomerSession($customer){
@@ -199,9 +196,9 @@
 
     public function logout(){
         unset($_SESSION['customer_id']);
+        unset($_SESSION['customer_firstname']);
+        unset($_SESSION['customer_lastname']);
         unset($_SESSION['customer_email']);
-        unset($_SESSION['customer_name']);
-        unset($_SESSION['customer_role']);
         session_destroy();
         redirect('customers/login');
     }    
