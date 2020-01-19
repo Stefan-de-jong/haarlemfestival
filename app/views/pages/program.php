@@ -59,21 +59,15 @@
                 $artists = array();
                 foreach($data['danceEvent'] as $artist)
                 {
-                    if (!in_array($artist->getArtist(), $artists, true))
-                    {array_push($artists, $artist->getArtist());}
-                }
-                $artist = $data['danceEvent'];
-                for($i = 0; $i < count($artists); $i++)
-                {
-                    if($used_artist == $artist[$i]->getArtist())
+                    if($used_artist == $artist->getArtist())
                     continue;
-                    echo "<tr><td width='75px' height='30px'>".$artist[$i]->getArtist()."</td>";
+                    echo "<tr><td width='75px' height='30px'>".$artist->getArtist()."</td>";
                 for ($j = 10; $j < 27; $j++) {
                     echo "<td width='75px'></td>";
                 }
                 echo "</tr>";
                 $artist_count+=1;
-                $used_artist = $artist[$i]->getArtist();
+                $used_artist = $artist->getArtist();
             }
                 ?>
             </tr>
