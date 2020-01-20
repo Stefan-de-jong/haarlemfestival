@@ -13,6 +13,7 @@ class Program extends Controller
     $this->favoriteModel = $this->model('Favorite');
     $this->foodFavoriteModel = $this->model('FoodFavorite');
     $this->historicFavoriteModel = $this->model('HistoricFavorite');
+    $this->danceFavoriteModel = $this->model('DanceFavorite');
     }
     public function index()
     {
@@ -24,18 +25,20 @@ class Program extends Controller
 
         $foodFavorites = $this->favoriteRepository->getAllFoodFavorites($customer);
         $historicFavorites = $this->favoriteRepository->getAllHistoricFavorites($customer);
+        $danceFavorites = $this->favoriteRepository->getAllDanceFavorites($customer);
 
         $foodEvents = $this->eventRepository->findAllFoodEvents();
         $historicEvents = $this->eventRepository->findAllHistoricEvents();
-        //$danceEvents = $this->programRepository->findAllDanceEvents();
+        $danceEvents = $this->eventRepository->findAllDanceEvents();
 
         $data = [
             'title' => 'Program',
             'foodEvent' => $foodEvents,
             'historicEvent' => $historicEvents,
             'foodFavorite' => $foodFavorites,
-            'historicFavorite' => $historicFavorites
-            //'danceEvent' => $danceEvents
+            'historicFavorite' => $historicFavorites,
+            'danceEvent' => $danceEvents,
+            'danceFavorite' => $danceFavorites
         ];
         $this->view('pages/program', $data);
     }

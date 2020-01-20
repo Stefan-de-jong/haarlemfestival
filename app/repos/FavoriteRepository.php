@@ -81,6 +81,25 @@ class FavoriteRepository
             echo 'Caught exception: ',  $e->getMessage(), "\n";
         }
     }
+
+public function getAllDanceFavorites($id)
+{
+    $favorites= array();
+    $this->db->query('SELECT * FROM customer_favourites
+    INNER JOIN danceevent ON customer_favourites.event_id = danceevent.id
+    INNER JOIN (SELECT * FROM artist as a) a ON a.artist_id = danceevent.artist
+    INNER JOIN (SELECT * FROM event as e) e on e.id = danceevent.id
+    INNER JOIN (SELECT * FROM venue as v) v ON v.id = danceevent.location WHERE customer_favourites.customer_id = :id');
+    $this->db->bind(':id', $id);
+    $results = $this->db->resultSet();
+
+    foreach ($results as $result){            
+        $favorite = new DanceFavorite($result->customer_id, $result->event_id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->artist_name, $result->venue_name, $result->address, $result->artist_id);
+        array_push($favorites, $favorite);
+    }
+    return $favorites;        
+}
+
 }
 
 ?>

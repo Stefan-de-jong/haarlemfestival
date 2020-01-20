@@ -19,14 +19,13 @@
                 'locations' => $locations,
                 'snippets' => $snippets
             ];
-
             $this->view('historic/tour', $data);
         }
 
         public function select(){
-            if(isset($_POST['location_id'])){
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-                $locationId = $_POST['location_id'];
+            if(isset($_POST['location_id'])){                
+                $locationId = filter_var($_POST['location_id'], FILTER_SANITIZE_NUMBER_INT);       
+
                 $output = '';                
                 $location = $this->locationRepo->findById($locationId);
                 
@@ -64,35 +63,89 @@
             $this->view('historic/about', $data);
         }
         
-        public function tickets(){            
+        public function tickets(){     
             if(isset($_GET['tourdate'])){
                 $tourdate = $_GET['tourdate'];
             } else{
                 $tourdate = '2020-07-23';
             }
             
-            $tours = $this->tourRepo->findByDate($tourdate);            
-        
+            $tours = $this->tourRepo->findByDate($tourdate);                    
             $data = [
                 'title' => 'Tickets',
                 'tours' => $tours                
             ];
-
             $this->view('historic/tickets', $data);
-        }
-
-        public function order(){                                      
+        } 
+       
+        public function order(){            
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            $data =[
-                'tour_date' => trim($_POST['selected_day']),
-                'tour_time' => trim($_POST['selected_time']),
-                'tour_language' => trim($_POST['selected_language']),
-                'single_tickets' => trim($_POST['selected_singleTickets']),
-                'fam_tickets' => trim($_POST['selected_famTickets']),
-                'amount_error' => ''
-            ];            
 
-            $tour = $this->tourRepo->find($data['tour_date'], $data['tour_time'], $data['tour_language']); // ToDo als gekozen id meegegeven kan worden vanuit tickets page -> zoeken naar ID
+            switch ($_POST['selected_day']) {
+                case '2020-07-23':
+                case '2020-07-24':
+                case '2020-07-25':
+                case '2020-07-26':
+                    $selectedDay = (string)trim($_POST['selected_day']);
+                    break;                
+                default:
+                    echo 'Invalid day selection';                    
+            }
+            switch ($_POST['selected_time']) {
+                case '10:00:00':
+                case '13:00:00':
+                case '16:00:00':
+                    $selectedTime = (string)trim($_POST['selected_time']);
+                    break;                
+                default:
+                    echo 'Invalid time selection';                    
+            }
+            switch ($_POST['selected_language']) {
+                case 'Nederlands':
+                case 'English':
+                case 'Chinese':
+                    $selectedLanguage = (string)trim($_POST['selected_language']);
+                    break;                
+                default:
+                    echo 'Invalid language selection';                    
+            }
+            switch ($_POST['selected_singleTickets']) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                case 10:
+                case 11:
+                case 12:
+                    $singleTickets = (int)trim($_POST['selected_singleTickets']);
+                    break;                
+                default:
+                    echo 'Invalid language selection';                    
+            }
+            switch ($_POST['selected_famTickets']) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                    $famTickets = (int)trim($_POST['selected_famTickets']);
+                    break;                
+                default:
+                    echo 'Invalid language selection';                    
+            }            
+            $data =[
+                'tour_date' => $selectedDay,
+                'tour_time' => $selectedTime,
+                'tour_language' => $selectedLanguage,
+                'single_tickets' => $singleTickets,
+                'fam_tickets' => $famTickets       
+            ];                        
+            $tour = $this->tourRepo->find($data['tour_date'], $data['tour_time'], $data['tour_language']);
             
             if($tour != null){                           
                 if(isset($_POST['historicFav'])) {
@@ -133,7 +186,10 @@
                         redirect('historic/tour');
                     }
                 }                                  
-            }                     
+            }else{
+                flash('tourNotFound_alert', 'This tour is no longer available', 'alert alert-danger');
+                redirect('historic/tickets');
+            }
         }
     }
 ?>

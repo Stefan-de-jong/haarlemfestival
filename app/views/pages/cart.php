@@ -23,13 +23,13 @@ require APPROOT . '/views/inc/header.php';
                 <td width="450px"><?php echo $item->getArtist(); ?></td>
                 <td width="100px">
                     <form method="post">
-                        <?php if(strpos($item->getTicketType(), "dance_ticket") !== false)
+                        <?php if(strpos($item->getTicketName(), "dance_ticket") !== false)
                                             $name = "dance_ticket_amount" . $item->getEventId();
-                                        else if (strpos($item->getTicketType(), "all_access") !== false)
+                                        else if (strpos($item->getTicketName(), "all_access") !== false)
                                             $name = "all_access_amount" . $item->getEventId();
                                         ?>
                         <select name="<?php echo $name;?>" onchange="this.form.submit()">
-                            <?php               if(strpos($item->getTicketType(), "dance_ticket") !== false)
+                            <?php               if(strpos($item->getTicketName(), "dance_ticket") !== false)
                             {
                                                 for ($i = 0; $i < 12; $i++) {
                                                 echo '<option value="' . $i . '" ' . (($i == $item->getAmount()) ? 'selected="selected"' : "") . '>' . $i . '</option>';
@@ -57,16 +57,16 @@ require APPROOT . '/views/inc/header.php';
                 </td>
             </tr>
             <tr>
-                <td><?php if(strpos($item->getTicketType(), "all_access") !== false){if (substr($item->getTicketType(), 3, -3) == 'all'){echo date_format($date,"d F Y");}else{echo "No specific date";}} else{echo date_format($time, "H:i") . "<br>". date_format($date,"d F Y");} ?>
+                <td><?php if(strpos($item->getTicketName(), "all_access") !== false){if (substr($item->getTicketName(), 3, -3) == 'all'){echo date_format($date,"d F Y");}else{echo "No specific date";}} else{echo date_format($time, "H:i") . "<br>". date_format($date,"d F Y");} ?>
                 </td>;
-                <td><?php if(strpos($item->getTicketType(), "dance_ticket") !== false){echo $item->getVenue() . "<br>" . $item->getAddress();}?>
+                <td><?php if(strpos($item->getTicketName(), "dance_ticket") !== false){echo $item->getVenue() . "<br>" . $item->getAddress();}?>
                 </td>
                 <td><?php echo 'p/s: ' . $item->getPrice() . '<br>'; ?>
                     <?php echo 'total: ' . $item->getSubTotal(); ?></td>
             </tr>
             <tr>
                 <td>
-                    <?php $item->printTicketType() . " "; if(substr($item->getTicketType(), -3) == 'fri'){echo "Friday";}else if(substr($item->getTicketType(), -3) == 'sat'){echo "Saturday";}else if(substr($item->getTicketType(), -3) == 'sun'){echo "Sunday";}else if(substr($item->getTicketType(), -3) == 'all'){echo "All festival days";}?>
+                    <?php $item->printTicketType($item->getTicketType()) . " "; if(substr($item->getTicketName(), -3) == 'fri'){echo "Friday";}else if(substr($item->getTicketName(), -3) == 'sat'){echo "Saturday";}else if(substr($item->getTicketName(), -3) == 'sun'){echo "Sunday";}else if(substr($item->getTicketName(), -3) == 'all'){echo "All festival days";}?>
                 </td>
                 <td colspan="2" align="right">
                     <form method="post">

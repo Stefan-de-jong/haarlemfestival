@@ -11,6 +11,7 @@
         <div class="row">
             <div class="col">
                 <?php flash('ticketNotAdded_alert'); ?>
+                <?php flash('tourNotFound_alert'); ?>
                 <?php flash('addedToFav_alert'); ?>
             </div>
         </div>
@@ -20,7 +21,7 @@
 
             <form action="<?php echo URLROOT;?>/historic/order" method="post">
                 <div class="col-auto mx-auto">
-                    <div class="row">
+                    <div class="row <?php echo (!empty($data['date_error'])) ? 'is-invalid' : '' ;?>" id="tour_day">
                         <div class="col d-xl-flex align-items-xl-center"><label class="col-form-label">Which day would
                                 you
                                 like to take the tour?</label></div>
@@ -36,7 +37,8 @@
                                         Saturday</option>
                                     <option value="2020-07-26" <?php if($tourdate == "2020-07-26"){ echo "selected";}?>>
                                         Sunday</option>
-                            </select></div>
+                            </select>
+                        </div>
 
                         <script>
                             /* beautify preserve:start */
@@ -50,14 +52,15 @@
                             }
                             /* beautify preserve:end */
                         </script>
-
+                        <span class="invalid-feedback"><?php echo $data['date_error']; ?></span>
 
                     </div>
-                    <div class="row">
+                    <div class="row <?php echo (!empty($data['time_error'])) ? 'is-invalid' : '' ;?>" id="tour_time">
                         <div class="col d-xl-flex align-items-xl-center"><label class="col-form-label">What time would
                                 you
                                 like to take the tour?</label></div>
-                        <div class="col-4 d-xl-flex align-items-xl-center"><select name="selected_time">
+                        <div class="col-4 d-xl-flex align-items-xl-center">
+                            <select name="selected_time">
                                 <optgroup label="Tour time">
                                     <!-- ToDo pakt id van tour die overeenkomt met dag,tijd,taal na OnChange -->
                                     <!-- ToDo id vervolgens gebruiken om betreffende tour mee te geven bij POST naar order -->
@@ -65,13 +68,17 @@
                                     <option value="13:00:00">13:00</option>
                                     <option value="16:00:00">16:00</option>
                                 </optgroup>
-                            </select></div>
+                            </select>
+                            <span class="invalid-feedback"><?php echo $data['time_error']; ?></span>
+                        </div>
                     </div>
-                    <div class="row">
+                    <div class="row <?php echo (!empty($data['language_error'])) ? 'is-invalid' : '' ;?>"
+                        id="tour_language">
                         <div class="col d-xl-flex align-items-xl-center"><label class="col-form-label">What language
                                 would
                                 you like the tour to be?</label></div>
-                        <div class="col-4 d-xl-flex align-items-xl-center"><select name="selected_language">
+                        <div class="col-4 d-xl-flex align-items-xl-center">
+                            <select name="selected_language">
                                 <optgroup label="Tour language">
                                     <!-- ToDo pakt id van tour die overeenkomt met dag,tijd,taal na OnChange -->
                                     <!-- ToDo id vervolgens gebruiken om betreffende tour mee te geven bij POST naar order -->
@@ -79,12 +86,16 @@
                                     <option value="English">English</option>
                                     <option value="Chinese">Chinese</option>
                                 </optgroup>
-                            </select></div>
+                            </select>
+                        </div>
+                        <span class="invalid-feedback"><?php echo $data['language_error']; ?></span>
                     </div>
-                    <div class="row" id="single_tickets">
+                    <div class="row <?php echo (!empty($data['single_error'])) ? 'is-invalid' : '' ;?>"
+                        id="single_tickets">
                         <div class="col d-xl-flex align-items-xl-center"><label class="col-form-label">Single ticket
                                 €17.50 (excl VAT)</label></div>
-                        <div class="col-4 d-xl-flex align-items-xl-center"><select name="selected_singleTickets">
+                        <div class="col-4 d-xl-flex align-items-xl-center">
+                            <select name="selected_singleTickets">
                                 <optgroup label="Number of single tickets">
                                     <option value="0" selected="">0</option>
                                     <option value="1">1</option>
@@ -100,19 +111,25 @@
                                     <option value="11">11</option>
                                     <option value="12">12</option>
                                 </optgroup>
-                            </select></div>
+                            </select>
+                        </div>
+                        <span class="invalid-feedback"><?php echo $data['single_error']; ?></span>
                     </div>
-                    <div class="row" id="family_tickets">
+                    <div class="row <?php echo (!empty($data['fam_error'])) ? 'is-invalid' : '' ;?>"
+                        id="family_tickets">
                         <div class="col d-xl-flex align-items-xl-center"><label class="col-form-label">Family tickets
                                 €60.00 (excl VAT)</label></div>
-                        <div class="col-4 d-xl-flex align-items-xl-center"><select name="selected_famTickets">
+                        <div class="col-4 d-xl-flex align-items-xl-center">
+                            <select name="selected_famTickets">
                                 <optgroup label="Number of family tickets">
                                     <option value="0" selected="">0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                 </optgroup>
-                            </select></div>
+                            </select>
+                        </div>
+                        <span class="invalid-feedback"><?php echo $data['fam_error']; ?></span>
                     </div>
                     <div class="row">
                         <div class="col-md-6 text-center mt-3 mx-auto mb-5">

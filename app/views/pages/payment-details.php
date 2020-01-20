@@ -39,9 +39,11 @@ if(empty($data['total']))
                 <br>
                 Zip-code: <input style="float: right; margin-right: 15px" type="text"><br>
                 <br>
-                E-mail: <input style="float: right; margin-right: 15px" type="email" name="emailaddress" required><br>
+                E-mail: <input style="float: right; margin-right: 15px" type="email" name="emailaddress" id="email"
+                    required><br>
                 <br>
-                Re-enter e-mail: <input style="float: right; margin-right: 15px" type="email" required><br>
+                Re-enter e-mail: <input style="float: right; margin-right: 15px" type="email"
+                    name="confirm_emailaddress" id="confirm_email" required><br>
                 <?php }?>
             </div>
 
@@ -80,8 +82,8 @@ if(empty($data['total']))
                     <img height="50px" width="50px" src="<?php echo URLROOT; ?>/img/dance.jpg">
                     <?php       
                     echo $item->getEventType(). "<br> ".
-                    date_format(date_create($item->getDate()),"d F Y"); if(strpos($item->getTicketType(), 'dance_ticket') !== false){echo ', ' . date_format(date_create($item->getTime()),"H:i") . " uur";}
-                    echo ' <br> Ticket type: ' . $item->printTicketType(). "<br>
+                    date_format(date_create($item->getDate()),"d F Y"); if(strpos($item->getTicketName(), 'dance_ticket') !== false){echo ', ' . date_format(date_create($item->getTime()),"H:i") . " uur";}
+                    echo ' <br> Ticket type: ' . $item->printTicketType($item->getTicketName()). "<br>
                     Amount: " . $item->getAmount(). ", Price: " . ($item->getPrice() * $item->getAmount()). ' <br><br>';
                     $data['total'] += $item->getPrice() * $item->getAmount();
                 ?>
@@ -111,6 +113,22 @@ if(empty($data['total']))
         </div>
     </form>
 </div>
+
+<script>
+    var email = document.getElementById("email"),
+        confirm_email = document.getElementById("confirm_email");
+
+    function validateEmail() {
+        if (email.value != confirm_email.value) {
+            confirm_email.setCustomValidity("Emails Don't Match");
+        } else {
+            confirm_email.setCustomValidity('');
+        }
+    }
+
+    email.onchange = validateEmail;
+    confirm_email.onkeyup = validateEmail;
+</script>
 
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

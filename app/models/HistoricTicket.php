@@ -14,9 +14,9 @@ class HistoricTicket extends Ticket
     }
 
     public function printTicketType(){
-        if($this->ticket_type == 'historic_single_ticket'){
+        if($this->ticket_type == '300'){
             return 'Single ticket';
-        } elseif($this->ticket_type == 'historic_fam_ticket'){
+        } elseif($this->ticket_type == '301'){
             return 'Family ticket';
         } else
         return $this->ticket_type;

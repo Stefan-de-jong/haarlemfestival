@@ -20,7 +20,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3"><label for="password" class="col-form-label">Password: *</label></div>
-                        <div class="col"><input type="text" name="password"
+                        <div class="col"><input type="password" name="password"
                                 class="form-control <?php echo (!empty($data['password_error'])) ? 'is-invalid' : '' ;?>"
                                 value="<?php echo $data['password'];?>">
                             <span class="invalid-feedback"><?php echo $data['password_error']; ?></span></div>

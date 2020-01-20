@@ -34,7 +34,7 @@ if ($e->getArtist() == $dance_id)
 }
 ?>
 <section id = artistinfo>
-<link rel="stylesheet" type="text/css" href="../public/css/d_panel.css">
+<link rel="stylesheet" type="text/css" href="http://hfa4.infhaarlem.nl/public/css/d_panel.css">
 <img style="position: absolute;width: 576px;height: 250px;" src="../img/dance/artist_image_<?php echo $pic_id;?>.png" width="250px" height="250px">
 <h5 style="margin-left:600px;">  <?php if(isset($name)){echo $name;}?> <h5>
 <p style="position: absolute;margin-left: 600px;margin-bottom: 600px;"><?php if(isset($bio)&&(isset($style))){echo $bio . " Style: " . $style;} ?></p>
@@ -49,7 +49,7 @@ if ($e->getArtist() == $dance_id)
                                     <th>Venue</th>
                                     <th>Address</th>
                                     <th>Tickets</th>
-                                    <th>Price</th>
+                                    <th> &euro; </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -63,6 +63,6 @@ if ($e->getArtist() == $dance_id)
                     <div>
 <button class="btn btn-primary" id="back" type="button" style="background-color: rgb(255,184,2);">RETURN TO ARTIST PAGE</button></section>
             </div>
-<script src="../public/js/panel_script.js"> </script>
+<script src="http://hfa4.infhaarlem.nl/public/js/panel_script.js"> </script>
 </section>
 <style> footer{margin-top: 979.031px;}</style>

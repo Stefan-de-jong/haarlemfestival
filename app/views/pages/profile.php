@@ -38,7 +38,15 @@ require APPROOT . '/views/inc/header.php';
                         <br>";
                         }
                     }
-                    //dance
+                    if (!empty($data['danceTicket'])) {
+                        echo "<h4> Dance tickets:</h4>";
+                        foreach ($data['danceTicket'] as $ticket) {
+                            $date = date_create($ticket->getDate());
+                            echo "Ticket type: " . $ticket->printTicketType($ticket->getTicketType()) . "<br> 
+                        Artist: " . $ticket->getArtist() . "<br> Date: " . date_format(date_create($ticket->getDate()), "d F Y") . ", Time: " . date_format(date_create($ticket->getTime()), "H:i") . "<br>
+                        <br>";
+                        }
+                    }
                     break;
                 case "favorite":
                     if (!empty($data['foodFavorite'])) {
@@ -58,6 +66,14 @@ require APPROOT . '/views/inc/header.php';
                             echo "<button onclick=location.href='".URLROOT."/profile/deleteFavorite/".$favorite->getEventId()."'>Delete favorite</button><br><br>";
                         }
                     }
+                    if (!empty($data['danceFavorite'])) {
+                        echo "<h4> Dance favorites:</h4>";
+                            foreach (  $data['danceFavorite'] as $favorite) {
+                                $date = date_create($favorite->getDate());
+                                echo  "Date: ".date_format($date, "d F Y")."<br>Artist: ". $favorite->getArtist() ."<br>Venue: ". $favorite->getVenue()."<br>";
+                                echo "<button onclick=location.href='".URLROOT."/profile/deleteFavorite/".$favorite->getEventId()."'>Delete favorite</button><br><br>";
+                            }
+                        }
                     break;
             }
         ?>

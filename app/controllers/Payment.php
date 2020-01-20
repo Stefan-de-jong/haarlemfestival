@@ -24,27 +24,25 @@ class Payment extends Controller{
         }
         if(!count($_SESSION['cart'])>0){
             flash('emptyCart_alert', 'Your cart is empty, no items to checkout', 'alert alert-danger');
-            redirect('cart/paymentdetails'); // waarheen?            
+            redirect('cart/paymentdetails');           
         }
 
-        if($_SERVER['REQUEST_METHOD']=== 'POST'){            
-            // Sanitize customer inputs
+        if($_SERVER['REQUEST_METHOD']=== 'POST'){                       
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             
-            // ToDo add check for emailaddress match 2nd emailaddress
-            // emailcheck ....
-
-            if(!empty($_SESSION['customer_email']))
+            if(isLoggedIn()){
+                // get email functie op customer id
                 $email = $_SESSION['customer_email'];
-            else
-                $email = trim($_POST['emailaddress']);
-            $cartitems = $this->getCartItems();
-
+            }
+            else{                                     
+                $email = (string)trim($_POST['emailaddress']);
+            }
+            
+            $cartitems = $this->getCartItems();            
             $price = 0;
             foreach ($cartitems as $item) {
                 $price += $item->getPrice() * $item->getAmount();
             }
-
             $vatPercentage = 9;
             $vat = number_format(($vatPercentage / 100) * $price, 2);
             $totalPrice = number_format($vat + $price, 2);
@@ -78,7 +76,7 @@ class Payment extends Controller{
                 $this->eventRepo->updateTickets($item->getEventId(), $item->getTicketType());
                 switch ($item->getEventType()) {
                     case 'Haarlem Dance':
-                        $ticket = new DanceTicket($item->getEventId(),$item->getTicketType(),$item->getPrice(),$data['customer_email'], $item->getEventType(), $item->getDate(), $item->getTime(), $item->getPrice(), $item->getVenue(), $item->getArtist());
+                        $ticket = new DanceTicket($item->getEventId(),$item->getTicketType(),$item->getPrice(),$data['customer_email'], $item->getEventType(), $item->getDate(), $item->getTime(), $item->getPrice(), $item->getVenue(), $item->getArtist(), $item->getTicketName());
                         break;
                     case 'Haarlem Food':
                         $ticket = new FoodTicket($item->getEventId(),$item->getTicketType(),$item->getPrice(),$data['customer_email'], $item->getEventType(), $item->getDate(), $item->getTime(), $item->getRestName(), $item->getSession());
@@ -163,10 +161,11 @@ class Payment extends Controller{
             $vat = number_format($ticketPrice * 0.09, 2);
             $priceInclVat = number_format($ticketPrice +  $vat, 2);
             
-            if($eventType == 'Haarlem Dance'){   
-                if (strpos($ticketType, 'dance_ticket') !== false)
+            if($eventType == 'Haarlem Dance'){  
+                $ticketName = $ticket->getTicketName(); 
+                if (strpos($ticketName, 'dance_ticket') !== false)
                 {$eventArtist = $ticket->getArtist(); $eventVenue = $ticket->getVenue();}     
-                else if (strpos($ticketType, 'all_access') !== false)
+                else if (strpos($ticketName, 'all_access') !== false)
                 {$eventArtist = "Multiple artist"; $eventVenue = "Multiple venues"; $eventTime = "No specific time";}
                 $html = "
                         <ul>

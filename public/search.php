@@ -1,12 +1,6 @@
-<link rel="stylesheet" type="text/css" href="../haarlemfestival/css/loader.css">
 <?php
 
-//I am thinking of transfering this file to view/pages but then the crawl_page function might not work correctly anymore
-//Things I consider improving: -> Hide the pages that are being loaded instead of placing a white background over them
-//GET->request to POST->request is not really fancy, don't know a better way but would like to implement something else if possible
-
-
-//code from: https://stackoverflow.com/questions/2313107/how-do-i-make-a-simple-crawler-in-php by "hobodave"
+//code partly from: https://stackoverflow.com/questions/2313107/how-do-i-make-a-simple-crawler-in-php by "hobodave"
 
 if (!isset($crawler))
 {$crawler = new Crawler();}
@@ -14,23 +8,22 @@ $pages = array();
 $dom = new DOMDocument('1.0');
 echo "<section id=historic style='opacity:0;'>";
 $page = "historic";
-echo "<section id=historic_crawler style='opacity:0;'>"; //I add a section crawler to more easily get specific content later
-$crawler->crawl_page("http://localhost/haarlemfestival/$page", 2);
+echo "<section id=historic_crawler style='opacity:0;'>"; //add a section crawler to more easily get specific content later
+$crawler->crawl_page("http://hfa4.infhaarlem.nl/$page", 3);
 echo "</section>";
-echo "<section id=food_crawler style='opacity:0'>";
+echo "<section id=food_crawler style='opacity:0;'>";
 $page = "food";
-$crawler->crawl_page("http://localhost/haarlemfestival/$page", 2);
+$crawler->crawl_page("http://hfa4.infhaarlem.nl/$page", 1);
 echo "</section>";
-echo "<section id=dance_crawler>";
+echo "<section id=dance_crawler style='opacity:0;'>";
 $page = "dance";
-$crawler->crawl_page("http://localhost/haarlemfestival/$page", 2);
+$crawler->crawl_page("http://hfa4.infhaarlem.nl/$page", 1);
 echo "</section>";
 $query = $_GET['q'];
 
-
 class Crawler
 {
-    function crawl_page($url, $depth = 5) //this function crawls throught all the pages with $page in their name, if there are links of them at the requested URL
+    function crawl_page($url, $depth) //this function crawls throught all the pages with $page in their name, if there are links of them at the requested URL
     {
     static $seen = array();
     if (isset($seen[$url]) || $depth === 0) {
@@ -67,18 +60,15 @@ class Crawler
     }
     }
     global $page;
-    if (strpos($url, $page)) //I added this so it will only echo pages that are part of your requested page (otherwise it makes it hard to seperate pages into categories)
+    if (strpos($url, $page)) //added this so it will only echo pages that are part of your requested page (otherwise it makes it hard to seperate pages into categories)
     {echo "URL:",$url,PHP_EOL,"CONTENT:",PHP_EOL,$dom->saveHTML(),PHP_EOL,PHP_EOL;}
 }
 }
 
-//important to note: this function should be able to load dynamic pages. Just make sure your database connection works.
-//if for some reason your dynamic pages fail to load, errors will be taken into the query
-//currently,, only text in the elements with a tag <p> will be included. Please put all important event data in here!
-
 ?>
 
-<script src="../haarlemfestival/js/crawler.js"></script>
+<script src="../public/js/crawler.js"></script>
+<script src="../public/js/jquery.min.js"></script>
 <script>
 var q = '<?php echo $query; ?>'; //get the requested query
 var historic = document.getElementById('historic_crawler'); //get the correct webpage
