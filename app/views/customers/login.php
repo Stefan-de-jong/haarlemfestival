@@ -6,6 +6,8 @@
                 <div class="row">
                     <div class="col">
                         <?php flash('register_succes'); ?>
+                        <?php flash('reset_sent_succes'); ?>
+                        <?php flash('pwreset_succes'); ?>
                         <h2>Login</h2>
                     </div>
                 </div>
@@ -27,7 +29,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3"></div>
-                        <div class="col text-left"><a href="#">Forgot password?</a></div>
+                        <div class="col text-left"><a href="<?php echo URLROOT;?>/customers/forgotpassword">Forgot
+                                password?</a></div>
                         <div class="col text-right"><span>No account? Create one&nbsp;</span><a
                                 href="<?php echo URLROOT;?>/customers/register">here.</a></div>
                     </div>
