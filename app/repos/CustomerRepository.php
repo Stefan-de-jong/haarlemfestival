@@ -86,6 +86,51 @@
             }
         }
 
-     
+
+        public function deleteToken($email){
+            $this->db->query('DELETE FROM password_reset WHERE resetEmail = :resetEmail');
+            $this->db->bind(':resetEmail', $email);
+            if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function saveToken($email, $selector, $hashedToken, $expires){
+            $this->db->query('INSERT INTO password_reset (resetEmail, resetSelector, resetToken, resetExpires) VALUES (:resetEmail, :resetSelector, :resetToken, :resetExpires)');
+            // Bind values            
+            $this->db->bind(':resetEmail', $email);
+            $this->db->bind(':resetSelector', $selector );
+            $this->db->bind(':resetToken', $hashedToken);
+            $this->db->bind(':resetExpires', $expires);
+            // Execute statement
+            if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function getToken($selector, $currentDate){
+            $this->db->query('SELECT * FROM password_reset WHERE resetSelector = :resetSelector AND resetExpires >= :currentDate');
+            $this->db->bind(':resetSelector', $selector);
+            $this->db->bind(':currentDate', $currentDate);
+            $row = $this->db->single();
+            return $row;
+        }     
+
+        public function updatePassword($email, $password){
+            $this->db->query('UPDATE customer SET password = :password WHERE email = :email');
+            // Bind values
+            $this->db->bind(':email', $email);
+            $this->db->bind(':password', $password);
+            // Execute statement
+            if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 ?>

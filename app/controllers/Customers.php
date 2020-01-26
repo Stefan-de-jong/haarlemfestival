@@ -1,4 +1,6 @@
 <?php 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
  class Customers extends Controller{
     public function __construct(){
         $this->repo = $this->repo('CustomerRepository');
@@ -35,19 +37,18 @@
             // Validation
             if(empty($data['email'])){
                 $data['email_error'] = 'Please enter email';
-            } else{if($this->repo->findByEmail($data['email'])){
+            } else{
+                if($this->repo->findByEmail($data['email'])){
                     $data['email_error'] = 'Email is already taken';
                 }
-                else{if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                elseif(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
                         $data['email_error'] = 'This is not a valid email address';
-                    }
-                }
+                }                
             }
 
             if(empty($data['firstname'])){
                 $data['firstname_error'] = 'Please enter first name';
             }
-
             if(empty($data['lastname'])){
                 $data['lastname_error'] = 'Please enter last name';
             }
@@ -60,12 +61,10 @@
 
             if(empty($data['confirm_password'])){
                 $data['confirm_password_error'] = 'Please confirm password';
-            } else {
-                if($data['password'] != $data['confirm_password']){
+            } elseif($data['password'] != $data['confirm_password']){
                     $data['confirm_password_error'] = 'Passwords do not match';
-                }
             }
-
+            
             // Process only if there are no errors
             if(empty($data['email_error']) && empty($data['firstname_error']) && empty($data['lastname_error']) && empty($data['password_error']) && empty($data['confirm_password_error'])){                
                 // Hash password
@@ -169,21 +168,160 @@
     }
 
     public function forgotpassword(){
-        // ToDo: set up forgot password
-        // check for post
+        // Check for POST
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            // Sanitize inputs                    
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-        // POST
-            // sanitize input
-            // check for errors
+            $email = (string)trim($_POST['email']);
+            $selector = bin2hex(random_bytes(8));
+            $token = random_bytes(32);
+            $url = URLROOT . '/customers/createnewpw?selector=' . $selector . '&validator=' . bin2hex($token);
+            $expires = date("U") + 600;           
 
-            // NO ERRORS
-                // process and send email with passrecovlink
+            $data =[                 
+                'email' => $email,
+                'email_error' => ''
+            ];
 
-            // ERRORS
-                // load forgotpass form with error message
+            // Validation
+            if(empty($data['email'])){
+                $data['email_error'] = 'Please enter email';
+            } elseif(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                $data['email_error'] = 'This is not a valid email address';
+            }
 
-        // NOT POST
-            // load forgotpass form
+            // Check is customer/email exists in db            
+            if($this->repo->findByEmail($email)){
+                // Customer found
+            } else{
+                // Customer not found
+                $data['email_error'] = 'There is no account registered with that email';
+            }
+
+            // Process only if there are no errors
+            if(empty($data['email_error'])){
+                // delete tokens that might exist
+                $this->repo->deleteToken($email);
+                $hashedToken = password_hash($token, PASSWORD_DEFAULT);
+                $this->repo->saveToken($email, $selector, $hashedToken, $expires);
+
+                $mail = new PHPMailer(TRUE);
+
+                $mail->isSMTP();
+                $mail->Host = 'mail.smtp2go.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = '625583@student.inholland.nl';
+                $mail->Password = 'APy6jeAZ5MhM';
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 2525;
+
+                $mail->setFrom("info@haarlem-festival.nl", "Haarlem Festival"); 
+                $mail->addAddress($email, 'Dear customer');   
+                $mail->Subject = "Reset your password";
+                $mail->Body = 'We received a password reset request. If you did not request to reset your password, you can ignore this email.';
+                $mail->Body .= 'Here is your password reset link: ';
+                $mail->Body .= $url;
+
+                try {
+                    $mail->send();
+                } catch (Exception $ex) {
+                    echo $ex->getMessage();
+                } catch (\Exception $ex) {
+                    echo $ex->getMessage();
+                }
+                flash('reset_sent_succes', 'A reset link has been sent, please check your email');
+                redirect('customers/login');
+
+            } else{
+                // Load view with error messages
+                $this->view('customers/resetpw', $data);
+            }
+        
+        } else{
+            // Not a post, so load the view with 'empty' data
+            $data =[
+                'email' => '',               
+                'email_error' => ''
+            ];           
+            $this->view('customers/resetpw', $data);
+        }
+    }
+
+    public function createnewpw(){
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $selector = $_POST['selector'];
+            $validator = $_POST['validator'];
+            $password = $_POST['password'];
+            $confirm_password = $_POST['confirm_password'];
+
+            $data =[
+                'selector' => $selector,
+                'validator' => $validator,
+                'password' => (string)trim($password),
+                'confirm_password' => (string)trim($confirm_password)                
+            ];       
+            
+            if(empty($data['password'])){
+                $data['password_error'] = 'Please enter password';
+            } elseif(strlen($data['password']) < 6 ){
+                $data['password_error'] = 'Password must be at least 6 characters';
+            }
+
+            if(empty($data['confirm_password'])){
+                $data['confirm_password_error'] = 'Please confirm password';
+            } elseif($data['password'] != $data['confirm_password']){
+                    $data['confirm_password_error'] = 'Passwords do not match';
+            }
+
+            if(empty($data['password_error']) && empty($data['confirm_password_error'])){                
+                $currentDate = date("U");
+                
+                $result = $this->repo->getToken($selector, $currentDate);
+                $tokenBin = hex2bin($validator);
+                $tokenCheck = password_verify($tokenBin, $result->resetToken);
+
+                if ($tokenCheck === false) {
+                    echo 'You need to re-submit your reset request.';
+                } elseif($tokenCheck === true){
+                    $tokenEmail = $result->resetEmail;
+                    $newPasswordHash = password_hash($password, PASSWORD_DEFAULT);
+                    if($this->repo->updatePassword($tokenEmail, $newPasswordHash)){
+                        $this->repo->deleteToken($tokenEmail);
+                        flash('pwreset_succes', 'Your password has been reset!');
+                        redirect('customers/login');
+                    }
+                }
+            } else{
+                // Load view with error messages
+                $this->view('customers/createpw', $data);
+            }
+
+        } else {    
+            // Not a post, so load the view
+            $selector = $_GET['selector'];
+            $validator = $_GET['validator'];
+
+            if(empty($selector) || empty($validator)){
+                echo 'Could not validate your request';
+            } else{
+                if (ctype_xdigit($selector) !== false && ctype_xdigit($validator) !== false){
+                    $data =[
+                        'selector' => $selector,
+                        'validator' => $validator,
+                        'password' => '',
+                        'confirm_password' => '',
+                        'password_error' => '',
+                        'confirm_password_error' => '',
+                        'match_password_error' => ''
+                    ];       
+                    $this->view('customers/createpw', $data);
+                }
+            }
+        }
+
     }
 
     public function createCustomerSession($customer){
