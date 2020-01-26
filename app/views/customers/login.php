@@ -29,7 +29,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3"></div>
-                        <div class="col text-left"><a href="<?php echo URLROOT;?>/customers/forgotpassword">Forgot
+                        <div class="col text-left"><a href="#">Forgot
                                 password?</a></div>
                         <div class="col text-right"><span>No account? Create one&nbsp;</span><a
                                 href="<?php echo URLROOT;?>/customers/register">here.</a></div>
