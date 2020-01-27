@@ -178,8 +178,7 @@
                         $_SESSION['cart'][$id]=$cart_item;
                         flash('ticketAdded_succes', 'Ticket(s) added to cart', 'alert alert-success');
                         redirect('historic/tour');
-                    } else {
-                        // ToDo check if ordered tickets + cart tickets are nog more then available
+                    } else {                        
                         $_SESSION['cart'][$id]['historic_single_ticket']+=$cart_item['historic_single_ticket'];
                         $_SESSION['cart'][$id]['historic_fam_ticket']+=$cart_item['historic_fam_ticket'];
                         flash('ticketAdded_succes', 'Ticket(s) added to cart', 'alert alert-success');

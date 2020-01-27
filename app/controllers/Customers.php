@@ -167,6 +167,7 @@ use PHPMailer\PHPMailer\Exception;
         }
     }
 
+    // Not working on the server, as that PHP version can't work with random_bytes (local works)
     public function forgotpassword(){
         // Check for POST
         if($_SERVER['REQUEST_METHOD'] === 'POST'){

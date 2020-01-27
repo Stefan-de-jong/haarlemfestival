@@ -61,7 +61,7 @@ class Payment extends Controller{
 
             $this->view('payment/mollie', $data);
         }
-        else redirect('cart/paymentdetails'); // waarheen?        
+        else redirect('cart/paymentdetails');      
     }
 
     public function succes()
@@ -87,8 +87,7 @@ class Payment extends Controller{
                         //$ticket = new JazzTicket($item->getEventId(),$item->getTicketType(),$item->getPrice(),$data['customer_email'], $item->getEventType(), $item->getDate(), $item->getTime());
                         break;                        
                 } 
-                if($this->ticketRepo->save($ticket)){
-                    //die($ticket->getTicketId()); //Werkt, tickets komt dus in DB en ID is gezet in ticket object                               
+                if($this->ticketRepo->save($ticket)){                                                   
                     $tickets[] = $ticket;
                 } else {
                     die('Something went wrong');
