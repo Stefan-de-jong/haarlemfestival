@@ -24,7 +24,7 @@ $payment = $mollie->payments->create([
         "value" => "" . number_format($data['total_price'], 2)
     ],
     "description" => "Haarlem Festival Tickets",
-    "redirectUrl" => "" . URLROOT . '/payment/succes',
+    "redirectUrl" => "" . URLROOT . '/payment/succes',    
     "webhookUrl"  => "http://thijsotter.infhaarlem.nl/payment-inf2b/webhook.php",
 ]);
 

@@ -56,7 +56,7 @@ class Payment extends Controller{
                 'total_price' => $totalPrice
             ];           
 
-            // ToDo Thijs -> omdat deze variabele na iedere request wordt geinitialiseerd nu in session, kan dit anders?
+            // data stored in session, alternatively to mollie's webhook
             $_SESSION['data'] = $data;            
 
             $this->view('payment/mollie', $data);
@@ -65,8 +65,7 @@ class Payment extends Controller{
     }
 
     public function succes()
-    {   
-        // ToDo Thijs -> omdat deze variabele na iedere request wordt geinitialiseerd nu in session, kan dit anders?
+    {           
         $data = $_SESSION['data'];
                
         $tickets = [];              
