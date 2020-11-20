@@ -3,7 +3,6 @@
         public function __construct(){
 
         }
-
         public function index(){
             $data = [
                 'title' => 'Haarlem Festival'

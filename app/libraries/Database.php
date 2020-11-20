@@ -38,7 +38,6 @@
         public function query($sql){
             $this->statement = $this->dbhandler->prepare($sql);
         }
-
         // Bind values
         public function bind($parameter, $value, $type = null){
             if(is_null($type)){
@@ -56,7 +55,6 @@
                         $type = PDO::PARAM_STR;               
                 }
             }
-
             $this->statement->bindValue($parameter, $value, $type);
         }
 

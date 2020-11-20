@@ -1,114 +1,99 @@
 <?php 
  class CMS extends Controller{
-    public function __construct(){
-        $this->repo = $this->repo('UserRepository');
+    public function __construct()
+    {
+        $this->repo = $this->repo('CMSRepo');
         $this->model = $this->model('User');
     }
-    
-    public function exists($param){
-        return isset($_POST[$param]) || isset($_GET[$param]);
-    }
+    private function CMSLogin() {return 'CMS/login';}
+    private function CMSHome() {return 'CMS/home';}
+     private function CMSUsers() {return 'CMS/users';}
+     private function CMSUser() {return 'CMS/user';}
 
-    public function index(){
-        if($_SERVER['REQUEST_METHOD']=== 'GET'){
-        $this->view('CMS/login');
-        }
-        else if ($_SERVER['REQUEST_METHOD']=== 'POST') {
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            $data =[
-                'email' => trim($_POST['email']),
-                'password' => trim($_POST['password']),
-            ];
-            //attempt login
-            $user = $this->repo->login($data['email'],$data['password']);
-            if ($user ===false){
-                //Login failed
-                $this->view('CMS/login');
-            }else{
-                //login success
-                $_SESSION["cms_id"] = $user->id;
-                $_SESSION["cms_fn"] = $user->firstname;
-                $_SESSION["cms_ln"] = $user->lastname;
-                $_SESSION["cms_em"] = $user->email;
-                $_SESSION["cms_pw"] = $user->password;
-                $_SESSION["cms_role"] = $user->role;
-                $this->view('CMS/home');
-            }
-            
+     private function setLoggedIn($user){
+        $_SESSION['CMSLoggedIn'] = true;
+        $_SESSION['CMSid'] = $user->id;
+        $_SESSION['CMSfn'] = $user->firstname;
+        $_SESSION['CMSln'] = $user->lastname;
+        $_SESSION['CMSem'] = $user->email;
+        $_SESSION['CMSpass'] = $user->password;
+        $_SESSION['CMSrole'] = $user->role;
+    }
+    private function getUser(){
+        return new User($_SESSION['CMSid'],$_SESSION['CMSfn'],$_SESSION['CMSln'],$_SESSION['CMSem'],$_SESSION['CMSpass'],$_SESSION['CMSrole']);
+    }
+    private function loggedIn(){
+        if(isset($_SESSION['CMSLoggedIn'])) {
+            return $_SESSION['CMSLoggedIn'] === true;
         }
     }
+    private function redirectToLogin(){
+        redirect($this->CMSLogin());
+    }
+     private function redirectToHome(){
+         redirect($this->CMSHome());
+     }
     public function home(){
-        $data = [
-            'title' => 'CMS Home'
-        ];
-
-        $this->view('CMS/home', $data);
-    }
-
-    public function content(){
-        $data = [
-            'title' => 'Content Management'
-        ];
-
-        $this->view('CMS/content', $data);
-    }
-
-    public function users(){
-        if($_SERVER['REQUEST_METHOD']=== 'GET'){
-        $data = [
-            'title' => 'Manage Users'
-        ];
-
-        $this->view('CMS/users', null);
-    }
-    else if($_SERVER['REQUEST_METHOD']=== 'POST'){
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            $params =[$this->exists("fn") ? trim($_POST['fn']) : null,$this->exists("ln") ? trim($_POST['ln']) : null,$this->exists("id") ? trim($_POST['id']) : null,
-            $this->exists("em") ? trim($_POST['em']) : null
-            ];
-        //serach users
-        $users = $this->repo->findUsers($params);
-        if (!$users===false){
-            $this->view('CMS/users', $users);
+        if ($this->loggedIn()){
+            $this->view($this->CMSHome());
         }else{
-            $this->view('CMS/users', null);
-        }
+            $this->redirectToLogin();
         }
     }
-
+    public function index(){
+        $this->redirectToLogin();
+    }
+    public function users(){
+        try {
+            if ($this->loggedIn()) {
+                $data = [
+                    'users' => $this->repo->allUsers()
+                ];
+                $this->view($this->CMSUsers(), $data);
+            }else{
+                throw new Exception("Not logged in");
+            }
+        }
+        catch (Exception $e){
+            $this->redirectToLogin();
+        }
+    }
     public function user(){
-        if($_SERVER['REQUEST_METHOD']=== 'GET'){
-            $data = [
-                'title' => 'View User'
-            ];
-            if ($this->exists("id")){
-                $user = $this->repo->findById(addslashes($_GET["id"]));
-                if ($user==false){
-                    $this->view('CMS/home', $data);
-                }else{
-                    $this->view('CMS/user', $user);
+        try {
+            if ($this->loggedIn()) {
+                $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+                $user = $this->repo->findUser($_GET["id"]);
+                $this->view($this->CMSUser(), ['user' => $user]);
+            } else {
+                throw new Exception("Not logged in");
+            }
+        }
+        catch (Exception $e){
+            $this->redirectToLogin();
+        }
+    }
+    public function login(){
+        try {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                if (isset($_POST["email"]) and isset($_POST["password"])) {
+                    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                    if ($user = $this->repo->login(
+                        $_POST["email"],
+                        $_POST["password"]
+                    )) {
+                        $this->setLoggedIn($user);
+                        $this->redirectToHome();
+                    }else{
+                        throw new Exception("Login Failed");
+                    }
                 }
             }else{
-                $this->view('CMS/home', $data);
+                $this->view($this->CMSLogin());
             }
-        }else if ($_SERVER['REQUEST_METHOD']=== 'POST'){
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            $params =[$this->exists("fn") ? trim($_POST['fn']) : null,$this->exists("ln") ? trim($_POST['ln']) : null,$this->exists("id") ? trim($_POST['id']) : null,
-            $this->exists("em") ? trim($_POST['em']) : null,$this->exists("role") ? trim($_POST['role']) : null
-            ];
-        //edit user
-        $edit = $this->repo->updateUser($params);
-        if ($edit===false){
-            //update fail
-            $this->view('CMS/home', null);
-        }else{
-            //update success
-            $this->view('CMS/users', null);
         }
-        }
+        catch (exception $e){
+           $this->view($this->CMSLogin());
         }
     }
-
-    
- 
+    }
 ?>
