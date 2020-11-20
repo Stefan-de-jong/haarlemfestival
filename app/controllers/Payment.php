@@ -125,8 +125,7 @@ class Payment extends Controller{
                 </style>
                 ";
 
-        $pdf->addPage();        
-        $qrcode = "{$ticketId} {$eventId} {$eventType}";    
+        $pdf->addPage();
 
         //line spacing
         $pdf->Ln(2);
