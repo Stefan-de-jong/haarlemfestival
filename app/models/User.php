@@ -16,5 +16,4 @@
             $this->role = $role;
         }
     }
-
 ?>
