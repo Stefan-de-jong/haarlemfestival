@@ -6,3 +6,5 @@ echo $user->email."<br>";
 echo $user->password."<br>";
 echo $user->role."<br>";
 ?>
+
+

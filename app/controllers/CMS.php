@@ -9,6 +9,8 @@
     private function CMSHome() {return 'CMS/home';}
      private function CMSUsers() {return 'CMS/users';}
      private function CMSUser() {return 'CMS/user';}
+     private function CMSTickets() {return 'CMS/tickets';}
+     private function CMSContent() {return 'CMS/content';}
 
      private function setLoggedIn($user){
         $_SESSION['CMSLoggedIn'] = true;
@@ -70,6 +72,37 @@
         }
         catch (Exception $e){
             $this->redirectToLogin();
+        }
+    }
+    private function getAllSnippets(){
+        try {
+            $danceSnippets = $this->repo->getDanceSnippets();
+            $historicSnippets1 = $this->repo->getHistoricSnippets1();
+            $historicSnippets2 = $this->repo->getHistoricSnippets2();
+            return ["dance"=>$danceSnippets,"historicMain" => $historicSnippets1,"historicRoute" => $historicSnippets2];
+        }catch (Exception $e){
+            return [];
+        }
+    }
+    public function Content(){
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $this->view($this->CMSContent(),["data"=>$this->getAllSnippets()]);
+        }else if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $newText = $_POST['newText'];
+            $id=$_POST['ID'];
+            $cat=$_POST['cat'];
+            if ($this->repo->updateContent($cat,$id,$newText)){
+                $this->view($this->CMSContent(),["Message"=>"uccessfully updated!","data"=>$this->getAllSnippets()]);
+            }else{
+                $this->view($this->CMSContent(),["Message"=>"Failed Updating!","data"=>$this->getAllSnippets()]);
+            }
+        }
+    }
+    public function Tickets(){
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $tickets = $this->repo->getTickets();
+            $this->view($this->CMSTickets(),['tickets' => $tickets]);
         }
     }
     public function login(){
