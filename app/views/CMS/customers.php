@@ -1,16 +1,16 @@
 <?php require APPROOT . '/views/inc/CMSHeader.php'; ?>
-    CMS Users:<br>
+    Customers:<br>
 <?php
 function UserButton($id,$name){
     return "
-<form action='user' method='GET'>
+<form action='customer' method='GET'>
     <input type='hidden' value='${id}' name='id'>
     <input type='submit' value='${name}'>
 </form>
 ";
 }
 
-foreach ($data['users'] as $user){
-    echo UserButton($user->id,$user->firstname);
+foreach ($data['customers'] as $user){
+    echo UserButton($user->id,$user->first_name);
 }
 ?>

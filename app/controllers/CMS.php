@@ -12,6 +12,8 @@
      private function CMSUser() {return 'CMS/user';}
      private function CMSTickets() {return 'CMS/tickets';}
      private function CMSContent() {return 'CMS/content';}
+     private function CMSCustomers() {return 'CMS/customers';}
+     private function CMSCustomer() {return 'CMS/customer';}
 
      private function setLoggedIn($user){
         $_SESSION['CMSLoggedIn'] = true;
@@ -71,6 +73,21 @@
                 $this->view($this->CMSUser(), ['user' => $user]);
             }
     }
+     public function customers(){
+         if ($this->Authorize()) {
+             $data = [
+                 'customers' => $this->repo->allCustomers()
+             ];
+             $this->view($this->CMSCustomers(), $data);
+         }
+     }
+     public function customer(){
+         if ($this->Authorize()) {
+             $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+             $user = $this->repo->findCustomer($_GET["id"]);
+             $this->view($this->CMSCustomer(), ['customer' => $user]);
+         }
+     }
     public function Content(){
         if ($this->Authorize()) {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -81,7 +98,7 @@
                 $id = $_POST['ID'];
                 $cat = $_POST['cat'];
                 if ($this->repo->updateContent($cat, $id, $newText)) {
-                    $this->view($this->CMSContent(), ["Message" => "uccessfully updated!", "data" => $this->repo->getAllSnippets()]);
+                    $this->view($this->CMSContent(), ["Message" => "Successfully updated!", "data" => $this->repo->getAllSnippets()]);
                 } else {
                     $this->view($this->CMSContent(), ["Message" => "Failed Updating!", "data" => $this->repo->getAllSnippets()]);
                 }
@@ -111,6 +128,10 @@
             }else{
             $this->view($this->CMSLogin());
         }
+    }
+    public function logout(){
+        session_destroy();
+       $this->redirectToLogin();
     }
     }
 ?>

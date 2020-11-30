@@ -14,6 +14,30 @@
 </head>
 <script src="<?php echo URLROOT; ?>/js/CMS.js"></script>
 <?php
+function translateRow($rowName){
+        switch ($rowName) {
+            case "id":
+                return "ID";
+            case "event_id":
+                return "Item";
+            case "ticket_type":
+                return "Category";
+            case "ticket_price":
+                return "Price";
+            case "buyer_email":
+                return "Customer email";
+            case "snippet_id":
+                return "ID";
+            case "snippet_page":
+                return "Page";
+            case "snippet_name":
+                return "Name";
+            case "snippet_text":
+                return "Text";
+            default:
+                return $rowName;
+        }
+    }
 function build_table($array){
     // start table
     $html = '<table>';
@@ -41,29 +65,12 @@ function build_table($array){
     $html .= '</table>';
     return $html;
 }
-function translateRow($rowName){
-    switch ($rowName) {
-        case "id":
-            return "ID";
-        case "event_id":
-            return "Item";
-        case "ticket_Type":
-            return "Category";
-        case "ticket_price":
-            return "Price";
-        case "buyer_email":
-            return "Customer email";
-        case "snippet_id":
-            return "ID";
-        case "snippet_page":
-            return "Page";
-        case "snippet_name":
-            return "Name";
-        case "snippet_text":
-            return "Text";
-        default:
-            return $rowName;
-    }
+function backButton(){
+    $href = URLROOT."/CMS";
+    $url = $_REQUEST['url'];
+    if (strtolower($url) != strtolower('CMS/Home'))
+    echo '<a href="{$href}">Home</a><br>';
 }
+backButton();
 ?>
 <body>

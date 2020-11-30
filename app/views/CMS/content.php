@@ -6,6 +6,9 @@ $snippetsHistoric1 = $snippets['historicMain'];
 $snippetsHistoric2 = $snippets['historicRoute'];
 $snippetsFood1 = $snippets['foodMain'];
 $snippetsFood2 = $snippets['foodRestaurants'];
+if (isset($data['Message'])){
+    echo $data['Message'];
+}
 ?>
 <div class="tab">
     <button id="Start" class="tablinks" onclick="openTab(event,'Dance')">Dance</button>

@@ -7,9 +7,25 @@ class CMSRepo
     {
         $this->db = new Database;
     }
+    private function getItemName($id){
+        try{
+            $this->db->query('SELECT *  FROM tickettype WHERE id = :id');
+            $this->db->bind(':id',$id);
+            $x = $this->db->single();
+            if (!isset($x->name)){
+                return $id;
+            }else return $x->name;
+        }catch (Exception $e){
+            return $id;
+        }
+    }
     public function getTickets(){
-        $this->db->query('SELECT *  FROM ticket');
-        return $this->db->resultSet();
+        $q = $this->db->query('SELECT *  FROM ticket');
+        $res = $this->db->resultSet();
+        foreach($res as $t){
+            $t->event_id = $this->getItemName($t->event_id);
+        }
+        return $res;
     }
     public function Login($email,$password){
         $this->db->query('SELECT *  FROM user WHERE email = :email AND password = :password');
@@ -25,6 +41,15 @@ class CMSRepo
     }
     public function findUser($id){
         $this->db->query('SELECT *  FROM user WHERE id = :id');
+        $this->db->bind(':id',$id);
+        return $this->db->single();
+    }
+    public function allCustomers(){
+        $this->db->query('SELECT *  FROM customer');
+        return $this->db->resultSet();
+    }
+    public function findCustomer($id){
+        $this->db->query('SELECT *  FROM customer WHERE id = :id');
         $this->db->bind(':id',$id);
         return $this->db->single();
     }
