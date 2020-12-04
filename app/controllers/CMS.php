@@ -15,6 +15,7 @@
      private function CMSCustomers() {return 'CMS/customers';}
      private function CMSCustomer() {return 'CMS/customer';}
 
+
      private function setLoggedIn($user){
         $_SESSION['CMSLoggedIn'] = true;
         $_SESSION['CMSid'] = $user->id;
