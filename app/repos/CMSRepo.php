@@ -35,14 +35,134 @@ class CMSRepo
             return new User($result->id, $result->firstname, $result->lastname, $result->email, $result->password, $result->role);
         }
     }
-    public function allUsers(){
-        $this->db->query('SELECT *  FROM user');
-         return $this->db->resultSet();
+    public function emailTaken($email) {
+        $this->db->query('SELECT id FROM user WHERE email = :email');
+        $this->db->bind(':email', $email);
+        $row = $this->db->single();
+        if ($row) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    public function findUser($id){
-        $this->db->query('SELECT *  FROM user WHERE id = :id');
-        $this->db->bind(':id',$id);
+
+    private function randomString($length) {
+        $chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
+        $l = strlen($chars);
+        $str = "";
+        for ($i = 0; $i < $length; $i++) {
+            $str .= $chars[rand(0, $l - 1)];
+        }
+        return $str;
+    }
+
+    public function findAll(){
+        $this->db->query('SELECT * FROM user');
+        return $this->db->resultSet();
+    }
+
+    public function resetPassword($em){
+        $emailTaken = $this->emailTaken($em);
+        if ($emailTaken) {
+            $newpass = $this->randomString(4);
+            new sendamail($em,"New Password","Your new password = $newpass");
+            $this->db->query('UPDATE user SET password = :pass WHERE email = :em');
+            $this->db->bind(':pass', $newpass);
+            $this->db->bind(':em', $em);
+            $this->db->execute();
+        }
+    }
+
+    public function sendProfileUpdateConfirmationEmails($emails){
+        foreach($emails as $email){
+            try{
+                new sendamail($email, "Profile Changed", "Your Haarlem Festival CMS email has been changed from ". $emails[0] . " to " . $emails[1]);
+            }catch(Exception $e){
+
+            }
+        }
+    }
+    public function findUsers() {
+        $q = "SELECT * FROM user";
+        $this->db->query($q);
+        $rows = $this->db->resultSet();
+        if ($rows) {
+            $users = Array();
+            foreach ($rows as $row) {
+                $user = new User($row->id, $row->firstname, $row->lastname, $row->email, $row->password, $row->role);
+                array_push($users, $user);
+            }
+            return $users;
+        } else {
+            return Array();
+        }
+    }
+    public function findById($id) {
+        $this->db->query('SELECT * FROM user WHERE id = :id');
+        $this->db->bind(':id', $id);
+        $row = $this->db->single();
+        if ($row) {
+            $user = new User($row->id, $row->firstname, $row->lastname, $row->email, $row->password, $row->role);
+            return $user;
+        } else {
+            throw new Exception("Error getting user or user does not exist.");
+        }
+    }
+    public function findByIdStd($id) {
+        $this->db->query('SELECT * FROM user WHERE id = :id');
+        $this->db->bind(':id', $id);
         return $this->db->single();
+    }
+    public function deleteById($id){
+        $this->db->query('DELETE FROM user WHERE id = :id');
+        $this->db->bind(':id', $id);
+        $this->db->execute();
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function update($user) {
+        $this->db->query('UPDATE user SET firstname = :fn, lastname = :ln, email= :em, role= :role WHERE id = :id');
+        $this->db->bind(':fn', $user->getFirstName());
+        $this->db->bind(':ln', $user->getLastName());
+        $this->db->bind(':em', $user->getEmail());
+        $this->db->bind(':role', $user->getRole());
+        $this->db->bind(':id', $user->getId());
+        if ($this->db->execute()) {
+            if ($_SESSION["CMSid"]===$user->getId()){
+                $this->updateSession();
+            }
+            return true;
+        } else {
+            throw new Exception("Failed updating user.");
+        }
+    }
+    private function updateSession(){
+        $currentUser = $this->findById($_SESSION["CMSid"]);
+        $_SESSION["CMSfn"] = $currentUser->getFirstName();
+        $_SESSION["CMSln"] = $currentUser->getLastName();
+        $_SESSION["CMSem"] = $currentUser->getEmail();
+        $_SESSION["CMSpass"] = $currentUser->getPassword();
+        $_SESSION["CMSrole"] = $currentUser->getRole();
+    }
+    public function save($user) {
+        if ($this->emailTaken($user->getEmail())){
+            return false;
+        }
+        $this->db->query('INSERT INTO users (firstname, lastname, email, password, role)
+        VALUES (:fn, :ln, :em, :pass, :role)');
+        $this->db->bind(':fn', $user->getFirstName());
+        $this->db->bind(':ln', $user->getLastName());
+        $this->db->bind(':em', $user->getEmail());
+        $this->db->bind(':pass', md5($user->getPassword() . MD5SALT));
+        $this->db->bind(':role', $user->getRole());
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
     public function allCustomers(){
         $this->db->query('SELECT *  FROM customer');

@@ -14,6 +14,7 @@
      private function CMSContent() {return 'CMS/content';}
      private function CMSCustomers() {return 'CMS/customers';}
      private function CMSCustomer() {return 'CMS/customer';}
+     private function CMSResetpassword() {return 'CMS/resetPassword';}
 
 
      private function setLoggedIn($user){
@@ -33,11 +34,17 @@
             return $_SESSION['CMSLoggedIn'] === true;
         }
     }
+    private function isAnyAdmin(){
+        return strtolower($_SESSION['CMSrole']) == "admin" or strtolower($_SESSION['CMSrole']) == "superadmin";
+    }
     private function redirectToLogin(){
         redirect($this->CMSLogin());
     }
      private function redirectToHome(){
          redirect($this->CMSHome());
+     }
+     private function redirectToUsers(){
+         redirect($this->CMSUsers());
      }
      private function Authorize(){
         if (!$this->loggedIn()){
@@ -59,21 +66,192 @@
             $this->view('CMS/login');
         }
     }
-    public function users(){
-            if ($this->Authorize()) {
-                $data = [
-                    'users' => $this->repo->allUsers()
-                ];
-                $this->view($this->CMSUsers(), $data);
-            }
-    }
+     public function users(){
+         if ($this->Authorize()) {
+             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                 $users = $this->repo->findUsers();
+                 $this->view($this->CMSUsers(), ['title' => 'Manage Users','users'=> $users]);
+             }
+         }
+     }
     public function user(){
             if ($this->Authorize()) {
-                $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
-                $user = $this->repo->findUser($_GET["id"]);
-                $this->view($this->CMSUser(), ['user' => $user]);
+                if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                    if (isset($_GET["id"])) {
+                        try {
+                            if (!($_GET["id"] === $_SESSION["CMSid"])) {
+                                if (!$this->isAnyAdmin()) {
+                                    $this->redirectToHome();
+                                }
+                            }
+                            $targetuser = $this->repo->findById($_GET["id"]);
+                            $targetUserRole = array_search(strtolower($targetuser->getRole()),["user","admin","superadmin"]);
+                            $currentUserRole = array_search(strtolower($_SESSION["CMSrole"]),["user","admin","superadmin"]);
+                            if ($currentUserRole===2){
+                                //superuser bekijkt/edit iemand
+                                $this->viewPage($this->CMSUser(), ["user" => $targetuser, "canEdit" => true]);
+                            }
+                            else if ($currentUserRole === $targetUserRole){
+                                //user bekijkt/edit zichzelf
+                                $this->viewPage($this->CMSUser(), ["user" => $targetuser, "canEdit" => true]);
+                            }else if ($currentUserRole===1 && $targetUserRole>=1){
+                                //admin bekijkt andere (super)admin, maar kan niet editen
+                                $this->viewPage($this->CMSUser(), ["user" => $targetuser, "canEdit" => false]);
+                            }else if ($currentUserRole===1 && $targetUserRole===0){
+                                //admin bekijkt/edit een user
+                                $this->viewPage($this->CMSUser(), ["user" => $targetuser, "canEdit" => true]);
+                            }
+                        }
+                        catch(Exception $e) {
+                            die("Unable to get user");
+                        }
+                    } else {
+                        $this->redirectToHome();
+                    }
+                }
             }
     }
+     private function validateUserUpdateInput($p)
+     {
+         if (isset($p["fn"])) {
+             if (empty($p["fn"])) {
+                 return false;
+             }
+             if (strlen($p["fn"]) < 2) {
+                 return false;
+             }
+         } else {
+             return false;
+         }
+         if (isset($p["ln"])) {
+             if (empty($p["ln"])) {
+                 return false;
+             }
+             if (strlen($p["ln"]) < 2) {
+                 return false;
+             }
+         } else {
+             return false;
+         }
+         if (isset($p["em"])) {
+             if (empty($p["em"])) {
+                 return false;
+             }
+             if (strlen($p["em"]) == 0) {
+                 return false;
+             }
+             if (strpos($p["em"], '@') === false) {
+                 return false;
+             }
+             if (strpos($p["em"], '.') === false) {
+                 return false;
+             }
+         } else {
+             return false;
+         }
+         if (isset($p["role"])) {
+             if (empty($p["role"])) {
+                 return false;
+             }
+             if (!(in_array($p["role"], ["USER", "ADMIN", "SUPERADMIN"]))) {
+                 return false;
+             }
+         } else {
+             return false;
+         }
+         return true;
+     }
+     private function Rolecheck($currentRole, $desiredRole, $editor) {
+         $order = ["USER", "ADMIN", "SUPERADMIN"];
+         if (!in_array($currentRole, $order)) {
+             die("Bad Input");
+         }
+         if (!in_array($desiredRole, $order)) {
+             die("Bad Input");
+         }
+         if ($editor == null) {
+             //self edit
+             $indexCurrent = array_search($currentRole, $order);
+             $indexDesired = array_search($desiredRole, $order);
+             if ($indexDesired > $indexCurrent) {
+                 return $currentRole;
+             } else {
+                 return $desiredRole;
+             }
+         } else {
+             //(super)admin edits someone else
+             $indexEditor = array_search($editor, $order);
+             $indexUserDesired = array_search($desiredRole, $order);
+             if ($indexUserDesired <= $indexEditor) {
+                 return $desiredRole;
+             } else {
+                 return $currentRole;
+             }
+         }
+     }
+     public function updateUser() {
+         if ($_SERVER['REQUEST_METHOD'] === 'POST' and $this->Authorize()) {
+             if (isset($_POST["id"])) {
+                 try {
+                     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                     $inputValid = $this->validateUserUpdateInput($_POST); //check input integrity
+                     if (!$inputValid){
+                       $this->redirectToHome();
+                     }
+                     $emailChanged=false;
+                     $user = $this->repo->findById($_POST["id"]);
+                     if ($user->getEmail()!=$_POST["em"]){
+                         $emailChanged=true;
+                     }
+                     if ($emailChanged && $this->repo->emailTaken($_POST["em"])){
+                        $this->redirectToHome();
+                     }
+                     $confirmationEmailaddresses = Array();
+                     $selfEdit = true;
+                     if (!($_POST["id"] === $_SESSION["CMSid"])) {
+                         $selfEdit = false;
+                         if (!$this->isAnyAdmin()) {
+                             $this->redirectToHome();
+                         }
+                     }
+                     array_push($confirmationEmailaddresses,$user->getEmail());
+                     $currentRole = $user->getRole();
+                     $newRole = $this->Rolecheck($currentRole, $_POST["role"], ($selfEdit ? null : $_SESSION["CMSrole"]));
+                     if ($emailChanged){
+                         //email change, new email address needs confirmation as well
+                         array_push($confirmationEmailaddresses,$_POST["em"]);
+                     }
+                     $updatedUser = new User($user->getId(), $_POST["fn"], $_POST["ln"], $_POST["em"], $user->getPassword(), $newRole);
+                     $update = $this->repo->update($updatedUser);
+                     if ($emailChanged){
+                         $this->repo->sendProfileUpdateConfirmationEmails($confirmationEmailaddresses);
+                     }
+                     $this->redirectToUsers();
+                 }
+                 catch(Exception $e) {
+                     die($e->getMessage());
+                 }
+             } else {
+                 $this->redirectToHome();
+             }
+         } else {
+             $this->redirectToHome();
+         }
+     }
+     public function resetPassword() {
+          if ($this->Authorize()) {
+             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+             if (isset($_GET["email"])){
+                 try{
+                     $this->repo->resetPassword($_GET["email"]);
+                 }catch(Exception $e){
+                     die("Error sending mail.");
+                 }
+             }
+             echo "If your email is registered with us, we've sent you a new one (it's probably in your spam folder).<br>";
+             echo "<a href=".URLROOT."/CMS/Login".">Go to Login</a>";
+         }
+     }
      public function customers(){
          if ($this->Authorize()) {
              $data = [
@@ -124,6 +302,8 @@
                     )) {
                         $this->setLoggedIn($user);
                         $this->redirectToHome();
+                    }else{
+                        $this->view($this->CMSLogin());
                     }
                 }
             }else{
@@ -134,5 +314,9 @@
         session_destroy();
        $this->redirectToLogin();
     }
+     private function viewPage($title, $data) {
+         $this->view($title, $data);
+         die();
+     }
     }
 ?>
