@@ -1,6 +1,9 @@
 <?php require APPROOT . '/views/inc/CMSHeader.php'; ?>
     CMS Users:<br>
     <?php
+if (isset($data['msg'])){
+    echo $data['msg'];
+}
 if (isset($data["users"])){
 $users = $data["users"];
 foreach($users as $user){
@@ -29,7 +32,7 @@ foreach($users as $user){
       </td>
       <td>
         <?php if ($_SESSION["CMSrole"]==="SUPERADMIN"){ ?>
-        <form class="deleteform" action="<?php echo URLROOT."/CMS/user/delete";?>" method="POST">
+        <form class="deleteform" action="<?php echo URLROOT."/CMS/deleteUser";?>" method="POST">
           <input type="submit" value="delete">
           <input type="hidden" name="id" value="<?php echo $user->getId(); ?>">
         </form>

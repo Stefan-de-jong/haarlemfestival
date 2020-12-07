@@ -189,6 +189,21 @@
              }
          }
      }
+     public function deleteUser(){
+        if ($this->Authorize() and $_SERVER['REQUEST_METHOD'] === 'POST'){
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+             if ($this->repo->deleteUser($_POST['id'])){
+                if ($this->getUser()->id == $_POST['id']){
+                    $this->logout();
+                }else {
+                    $this->viewPage($this->CMSUsers(), ["msg" => "User deleted"]);
+                }
+            }else{
+                $this->viewPage($this->CMSUsers(),["msg"=>"Error deleting user"]);
+            }
+
+        }
+     }
      public function updateUser() {
          if ($_SERVER['REQUEST_METHOD'] === 'POST' and $this->Authorize()) {
              if (isset($_POST["id"])) {

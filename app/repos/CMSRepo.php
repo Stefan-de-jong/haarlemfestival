@@ -113,7 +113,7 @@ class CMSRepo
         $this->db->bind(':id', $id);
         return $this->db->single();
     }
-    public function deleteById($id){
+    public function deleteUser($id){
         $this->db->query('DELETE FROM user WHERE id = :id');
         $this->db->bind(':id', $id);
         $this->db->execute();
