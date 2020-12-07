@@ -53,7 +53,11 @@ class DanceRepository{
         $event = new DanceEvent($result->id, $result->date, $result->begin_time, $result->end_time, $result->event_type, $result->n_tickets, $result->price, $result->artist_name, $result->artist_id, $result->venue_name, $result->address);
         array_push($eventdata, $event);    
         }
-        return $eventdata;
+        if ($results) {
+            return $eventdata;
+        }else{
+            return false;
+        }
     }
 
     public function getVenues(){

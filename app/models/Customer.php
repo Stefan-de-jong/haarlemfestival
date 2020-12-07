@@ -1,10 +1,10 @@
 <?php
     class Customer{
-        private $id;
-        private $firstname;
-        private $lastname;
-        private $email;
-        private $password;
+        public $id;
+        public $firstname;
+        public $lastname;
+        public $email;
+        public $password;
 
         public function __construct($firstname, $lastname, $email, $password){
             $this->firstname = $firstname;

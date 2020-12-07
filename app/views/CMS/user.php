@@ -7,7 +7,6 @@ $user=$data["user"];
         <td>First Name</td>
         <td>Last Name</td>
         <td>Email</td>
-        <td>New Password</td>
         <td></td>
     </tr>
     <tr>

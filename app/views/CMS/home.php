@@ -3,4 +3,5 @@
 <a href="Customers">Manage Customers</a><br>
 <a href="Tickets">View Tickets</a><br>
 <a href="Content">Website Content</a><br>
+<a href="Events">Events</a><br>
 <a href="Logout">Logout</a><br>

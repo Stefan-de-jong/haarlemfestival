@@ -34,6 +34,10 @@ function translateRow($rowName){
                 return "Name";
             case "snippet_text":
                 return "Text";
+            case "begin_time":
+                return "Start";
+            case "end_time":
+                return "end";
             default:
                 return $rowName;
         }
@@ -44,7 +48,9 @@ function build_table($array){
     // header row
     $html .= '<tr>';
     foreach($array[0] as $key=>$value){
+        if ($key != 'id'){
         $html .= '<th>' .  htmlspecialchars(translateRow($key)) . '</th>';
+        }
     }
     $html .= '</tr>';
 

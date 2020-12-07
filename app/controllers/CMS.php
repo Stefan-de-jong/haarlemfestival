@@ -4,7 +4,8 @@
     {
         $this->repo = $this->repo('CMSRepo');
         $this->model = $this->model('User');
-        $this->snippetModel = $this->model('FormattedSnippet');
+        $this->customerModel = $this->model('Customer');
+        $this->model('FormattedSnippet');
     }
     private function CMSLogin() {return 'CMS/login';}
     private function CMSHome() {return 'CMS/home';}
@@ -15,6 +16,7 @@
      private function CMSCustomers() {return 'CMS/customers';}
      private function CMSCustomer() {return 'CMS/customer';}
      private function CMSResetpassword() {return 'CMS/resetPassword';}
+     private function CMSEvents() {return 'CMS/Events';}
 
 
      private function setLoggedIn($user){
@@ -46,6 +48,12 @@
      private function redirectToUsers(){
          redirect($this->CMSUsers());
      }
+     private function redirectToCustomers(){
+         redirect($this->CMSCustomers());
+     }
+     private function redirectToEvents(){
+         redirect($this->CMSEvents());
+     }
      private function Authorize(){
         if (!$this->loggedIn()){
           $this->redirectToLogin();
@@ -64,6 +72,23 @@
             $this->redirectToHome();
         }else {
             $this->view('CMS/login');
+        }
+    }
+    public function events(){
+        if ($this->Authorize()) {
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $this->view($this->CMSEvents(), ["events" => $this->repo->getEvents() or die("Error getting events")]);
+            } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $newText = $_POST['newText'];
+                $id = $_POST['ID'];
+                $cat = $_POST['cat'];
+                if ($this->repo->updateContent($cat, $id, $newText)) {
+                    $this->view($this->CMSEvents(), ["Message" => "Successfully updated!", "data" => $this->repo->getAllSnippets()]);
+                } else {
+                    $this->view($this->CMSEvents(), ["Message" => "Failed Updating!", "data" => $this->repo->getAllSnippets()]);
+                }
+            }
         }
     }
      public function users(){
@@ -111,6 +136,46 @@
                 }
             }
     }
+     private function validateCustomerUpdateInput($p)
+     {
+         if (isset($p["fn"])) {
+             if (empty($p["fn"])) {
+                 return false;
+             }
+             if (strlen($p["fn"]) < 2) {
+                 return false;
+             }
+         } else {
+             return false;
+         }
+         if (isset($p["ln"])) {
+             if (empty($p["ln"])) {
+                 return false;
+             }
+             if (strlen($p["ln"]) < 2) {
+                 return false;
+             }
+         } else {
+             return false;
+         }
+         if (isset($p["em"])) {
+             if (empty($p["em"])) {
+                 return false;
+             }
+             if (strlen($p["em"]) == 0) {
+                 return false;
+             }
+             if (strpos($p["em"], '@') === false) {
+                 return false;
+             }
+             if (strpos($p["em"], '.') === false) {
+                 return false;
+             }
+         } else {
+             return false;
+         }
+         return true;
+     }
      private function validateUserUpdateInput($p)
      {
          if (isset($p["fn"])) {
@@ -204,6 +269,62 @@
 
         }
      }
+     public function deleteCustomer(){
+         if ($this->Authorize() and $_SERVER['REQUEST_METHOD'] === 'POST'){
+             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+             if ($this->repo->deleteCustomer($_POST['id'])){
+                 $this->viewPage($this->CMSCustomers(), ["msg" => "User deleted"]);
+             }else{
+                 $this->viewPage($this->CMSCustomers(),["msg"=>"Error deleting user"]);
+             }
+
+         }
+     }
+     public function updateCustomer() {
+         if ($_SERVER['REQUEST_METHOD'] === 'POST' and $this->Authorize()) {
+             if (isset($_POST["id"])) {
+                 try {
+                     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                     $inputValid = $this->validateCustomerUpdateInput($_POST); //check input integrity
+                     if (!$inputValid){
+                         $this->redirectToHome();
+                     }
+                     $emailChanged=false;
+                     $user = $this->repo->findCustomer($_POST["id"]);
+                     if ($user->getEmail()!=$_POST["em"]){
+                         $emailChanged=true;
+                     }
+                     if ($emailChanged && $this->repo->emailTaken($_POST["em"])){
+                         $this->redirectToHome();
+                     }
+                     $confirmationEmailaddresses = Array();
+                     $selfEdit = true;
+                     array_push($confirmationEmailaddresses,$user->getEmail());
+                     if ($emailChanged){
+                         //email change, new email address needs confirmation as well
+                         array_push($confirmationEmailaddresses,$_POST["em"]);
+                     }
+                     $updatedUser = new Customer($_POST["fn"], $_POST["ln"], $_POST["em"], $user->getPassword());
+                     $updatedUser->id = $user->id;
+                     if( $this->repo->updateCustomer($updatedUser)) {
+                         if ($emailChanged) {
+                             $this->repo->sendProfileUpdateConfirmationEmails($confirmationEmailaddresses);
+                         }
+                         $this->redirectToCustomers();
+                     }else{
+                         $this->redirectToHome();
+                     }
+                 }
+                 catch(Exception $e) {
+                     die($e->getMessage());
+                 }
+             } else {
+                 $this->redirectToHome();
+             }
+         } else {
+             $this->redirectToHome();
+         }
+     }
      public function updateUser() {
          if ($_SERVER['REQUEST_METHOD'] === 'POST' and $this->Authorize()) {
              if (isset($_POST["id"])) {
@@ -259,6 +380,7 @@
              if (isset($_GET["email"])){
                  try{
                      $this->repo->resetPassword($_GET["email"]);
+                     $this->repo->resetPasswordCustomer($_GET["email"]);
                  }catch(Exception $e){
                      die("Error sending mail.");
                  }
@@ -269,19 +391,30 @@
      }
      public function customers(){
          if ($this->Authorize()) {
-             $data = [
-                 'customers' => $this->repo->allCustomers()
-             ];
-             $this->view($this->CMSCustomers(), $data);
+             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                 $users = $this->repo->allCustomers();
+                 $this->view($this->CMSCustomers(), ['title' => 'Manage Customers','customers'=> $users]);
+             }
          }
      }
      public function customer(){
          if ($this->Authorize()) {
-             $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
-             $user = $this->repo->findCustomer($_GET["id"]);
-             $this->view($this->CMSCustomer(), ['customer' => $user]);
+             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                 if (isset($_GET["id"])) {
+                     try {
+                         $user = $this->repo->findCustomer($_GET["id"]);
+                         $this->viewPage($this->CMSCustomer(),['customer'=>$user]);
+                     }
+                     catch(Exception $e) {
+                         die("Unable to get user");
+                     }
+                 } else {
+                     $this->redirectToHome();
+                 }
+             }
          }
      }
+
     public function Content(){
         if ($this->Authorize()) {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {

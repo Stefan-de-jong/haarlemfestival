@@ -39,8 +39,6 @@ function echoEditors($groupTitle,$formattedSnippets){
         echo str_replace("%val%", $v->val,
             "<form action='content' method='post' id='{$v->cat}-{$v->id}'><input type='hidden' value='{$v->cat}' name='cat'><input type='hidden' value='{$v->id}' name='ID'> <input type='submit' value='Update'></form><textarea name='newText' form='{$v->cat}-{$v->id}'>%val%</textarea>"
         );
-
-
         echo "</p>";
         }
 }

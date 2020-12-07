@@ -7,6 +7,23 @@ class CMSRepo
     {
         $this->db = new Database;
     }
+    public function getEvents(){
+        $this->db->query('SELECT *  FROM event');
+        $this->db->execute();
+       $rows =  $this->db->resultSet();
+       $editables  = array();
+        if ($rows){
+            foreach( $rows as $k=>$v){
+                $f = new FormattedSnippet();
+                $f->cat=10;
+                $f->title=$v->name;
+                $f->val=$v->price;
+                $f->id=$v->id;
+                array_push($editables,$f);
+            }
+        }
+        else return false;
+    }
     private function getItemName($id){
         try{
             $this->db->query('SELECT *  FROM tickettype WHERE id = :id');
@@ -45,7 +62,16 @@ class CMSRepo
             return false;
         }
     }
-
+    public function emailTakenCustomer($email) {
+        $this->db->query('SELECT id FROM customer WHERE email = :email');
+        $this->db->bind(':email', $email);
+        $row = $this->db->single();
+        if ($row) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     private function randomString($length) {
         $chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
         $l = strlen($chars);
@@ -64,10 +90,21 @@ class CMSRepo
     public function resetPassword($em){
         $emailTaken = $this->emailTaken($em);
         if ($emailTaken) {
-            $newpass = $this->randomString(4);
+            $newpass = $this->randomString(6);
             new sendamail($em,"New Password","Your new password = $newpass");
             $this->db->query('UPDATE user SET password = :pass WHERE email = :em');
             $this->db->bind(':pass', $newpass);
+            $this->db->bind(':em', $em);
+            $this->db->execute();
+        }
+    }
+    public function resetPasswordCustomer($em){
+        $emailTakenCustomer = $this->emailTakenCustomer($em);
+        if ($emailTakenCustomer) {
+            $newpass = $this->randomString(6);
+            new sendamail($em,"New Password","Your new password = $newpass");
+            $this->db->query('UPDATE customer SET password = :pass WHERE email = :em');
+            $this->db->bind(':pass',  password_hash($newpass, PASSWORD_DEFAULT));
             $this->db->bind(':em', $em);
             $this->db->execute();
         }
@@ -76,7 +113,7 @@ class CMSRepo
     public function sendProfileUpdateConfirmationEmails($emails){
         foreach($emails as $email){
             try{
-                new sendamail($email, "Profile Changed", "Your Haarlem Festival CMS email has been changed from ". $emails[0] . " to " . $emails[1]);
+                new sendamail($email, "Profile Changed", "Your Haarlem Festival email has been changed from ". $emails[0] . " to " . $emails[1]);
             }catch(Exception $e){
 
             }
@@ -123,6 +160,16 @@ class CMSRepo
             return false;
         }
     }
+    public function deleteCustomer($id){
+        $this->db->query('DELETE FROM customer WHERE id = :id');
+        $this->db->bind(':id', $id);
+        $this->db->execute();
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function update($user) {
         $this->db->query('UPDATE user SET firstname = :fn, lastname = :ln, email= :em, role= :role WHERE id = :id');
         $this->db->bind(':fn', $user->getFirstName());
@@ -137,6 +184,18 @@ class CMSRepo
             return true;
         } else {
             throw new Exception("Failed updating user.");
+        }
+    }
+    public function updateCustomer($user) {
+        $this->db->query('UPDATE customer SET first_name = :fn, last_name = :ln, email= :em WHERE id = :id');
+        $this->db->bind(':fn', $user->getFirstName());
+        $this->db->bind(':ln', $user->getLastName());
+        $this->db->bind(':em', $user->getEmail());
+        $this->db->bind(':id', $user->getId());
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
         }
     }
     private function updateSession(){
@@ -165,13 +224,32 @@ class CMSRepo
         }
     }
     public function allCustomers(){
-        $this->db->query('SELECT *  FROM customer');
-        return $this->db->resultSet();
+        $q = "SELECT * FROM customer";
+        $this->db->query($q);
+        $rows = $this->db->resultSet();
+        if ($rows) {
+            $users = Array();
+            foreach ($rows as $row) {
+                $user = new Customer($row->first_name, $row->last_name, $row->email, $row->password);
+                $user->id = $row->id;
+                array_push($users, $user);
+            }
+            return $users;
+        } else {
+            return Array();
+        }
     }
     public function findCustomer($id){
         $this->db->query('SELECT *  FROM customer WHERE id = :id');
         $this->db->bind(':id',$id);
-        return $this->db->single();
+        $row =  $this->db->single();
+        if ($row) {
+            $user = Array();
+                $user = new Customer($row->first_name, $row->last_name, $row->email, $row->password);
+                $user->id = $row->id;
+                return $user;
+        }
+        return false;
     }
     private function getHistoricSnippets1(){
         $this->db->query('SELECT *  FROM snippets');

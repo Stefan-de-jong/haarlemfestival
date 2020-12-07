@@ -13,8 +13,8 @@
 </div>
 <div class="login-form">
 <form action="<?php echo URLROOT;?>/CMS/login" method="post">
-<input type="text" placeholder="Email" name="email"></input><br>
-<input type="password" name="password"></input><br>
+<input type="text" value="tom@bo.comm" placeholder="Email" name="email"></input><br>
+<input type="password" value="test" name="password"></input><br>
 <input type="hidden" name="shouldLogin" value="true"></input>
 <input type="submit"></input>
 </form>
