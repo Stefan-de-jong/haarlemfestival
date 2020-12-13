@@ -26,7 +26,6 @@ if (isset($data['Message'])){
 </div>
 
 <div id="Food" class="tabcontent">
-    <?php echoEditors("Food - Restaurants",$snippetsFood2); ?>
     <?php echoEditors("Food - General",$snippetsFood1); ?>
 </div>
 

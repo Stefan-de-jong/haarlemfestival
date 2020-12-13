@@ -14,62 +14,84 @@
 </head>
 <script src="<?php echo URLROOT; ?>/js/CMS.js"></script>
 <?php
-function translateRow($rowName){
-        switch ($rowName) {
-            case "id":
-                return "ID";
-            case "event_id":
-                return "Item";
-            case "ticket_type":
-                return "Category";
-            case "ticket_price":
-                return "Price";
-            case "buyer_email":
-                return "Customer email";
-            case "snippet_id":
-                return "ID";
-            case "snippet_page":
-                return "Page";
-            case "snippet_name":
-                return "Name";
-            case "snippet_text":
-                return "Text";
-            case "begin_time":
-                return "Start";
-            case "end_time":
-                return "end";
-            default:
-                return $rowName;
+function indexInArray($entry, $array)
+{
+    for ($i=0; $i<count($array); $i++){
+        if ($array[$i]->id === $entry->id){
+            return $i;
         }
     }
-function build_table($array){
-    // start table
+    return -1;
+}
+function build_table($array,$specialFields = [],$readonlyFields= [],$groupArtists=false){
+    $skip = ['action','id','idValue'];
+    foreach ($specialFields as $spec){
+        array_push($skip,$spec);
+    }
+    if ($groupArtists){
+        $grouped = [];
+    foreach($array as $row){
+        $index = indexInArray($row,$grouped);
+        if ($index == -1){
+            array_push($grouped,$row);
+        }else{
+            $grouped[$index]->artist_name .= ", " .$row->artist_name;
+        }
+    }
+    $array = $grouped;
+    }
     $html = '<table>';
-    // header row
     $html .= '<tr>';
     foreach($array[0] as $key=>$value){
-        if ($key != 'id'){
-        $html .= '<th>' .  htmlspecialchars(translateRow($key)) . '</th>';
+        if (!in_array($key,$skip)) {
+            $html .= '<th>' . htmlspecialchars($key) . '</th>';
         }
     }
     $html .= '</tr>';
-
-    // data rows
-
     foreach( $array as $key=>$value){
-
         $html .= '<tr>';
+        $html .= formStart();
         foreach($value as $key2=>$value2){
-            $html .= '<td>' . htmlspecialchars($value2) . '</td>';
+            if (!in_array($key2,$skip)) {
+                if (in_array($key2,$readonlyFields)){
+                    $html .= '<td>' . formInputReadonly(htmlspecialchars($value2), $key2) . '</td>';
+                }else {
+                    $html .= '<td>' . formInput(htmlspecialchars($value2), $key2) . '</td>';
+                }
+            }
         }
-
+        $html .= meta($value->action,$value->idValue);
+        $html .= updateButton();
+        $html .= formEnd();
         $html .= '</tr>';
     }
-
-    // finish table and return it
-
     $html .= '</table>';
-    return $html;
+    return   $html;
+}
+function formStart(){
+    return "<form method='POST' action='".  URLROOT  ."/CMS/Process'>";
+}
+function formEnd(){
+    return "</form>";
+}
+function formInput($data,$n){
+    return str_replace('%d',$data,
+        "<input type='text' name='$n' value='%d'>"
+    );
+}
+function formInputReadonly($data,$n){
+    return str_replace('%d',$data,
+        "<input disabled style='width: 400px;' type='text' name='$n' value='%d'>"
+    );
+}
+function updateButton(){
+    return "<td><input type='submit' value='Update'></td>";
+}
+function meta($a,$id){
+    return
+        "<input type='hidden' name='action' value='{$a}'>".
+        "<input type='hidden' name='id' value='{$id}'>"
+        ;
 }
 function backButton(){
     $href = URLROOT."/CMS";

@@ -10,13 +10,12 @@
     private function CMSLogin() {return 'CMS/login';}
     private function CMSHome() {return 'CMS/home';}
      private function CMSUsers() {return 'CMS/users';}
-     private function CMSUser() {return 'CMS/user';}
-     private function CMSTickets() {return 'CMS/tickets';}
      private function CMSContent() {return 'CMS/content';}
      private function CMSCustomers() {return 'CMS/customers';}
-     private function CMSCustomer() {return 'CMS/customer';}
-     private function CMSResetpassword() {return 'CMS/resetPassword';}
      private function CMSEvents() {return 'CMS/Events';}
+     private function CMSVenues() {return 'CMS/EventVenues';}
+     private function CMSRestaurants() {return 'CMS/EventRestaurants';}
+     private function CMSDancePerformances() {return 'CMS/EventDancePerformances';}
 
 
      private function setLoggedIn($user){
@@ -61,10 +60,58 @@
             }  else{
             return true;
         }
+    }
+    public function EventVenues(){
+        if ($this->Authorize()) {
+            $editableObj = $this->repo->getEditable('venue', 'id');
+            $this->view($this->CMSVenues(), ['content' => $editableObj]);
         }
+    }
+     public function EventRestaurants(){
+         if ($this->Authorize()) {
+             $editableObj = $this->repo->getEditable('restaurant', 'id');
+             $this->view($this->CMSRestaurants(), ['content' => $editableObj]);
+         }
+     }
+     public function EventDancePerformances(){
+         if ($this->Authorize()) {
+             $editableObj = $this->repo->getEditable('event', 'id',true);
+             $this->view($this->CMSDancePerformances(), ['content' => $editableObj]);
+         }
+     }
+    public function Events(){
+        if ($this->Authorize()){
+            $this->view($this->CMSEvents(),[]);
+        }
+    }
      public function Users() {
-         $editableObj = $this->repo->getEditable('user','id');
-         $this->view($this->CMSUsers(), ['content'=>$editableObj]);
+        if ($this->Authorize()) {
+            $editableObj = $this->repo->getEditable('user', 'id');
+            $this->view($this->CMSUsers(), ['content' => $editableObj]);
+        }
+     }
+     public function Customers() {
+        if ($this->Authorize()) {
+            $editableObj = $this->repo->getEditable('customer', 'id');
+            $this->view($this->CMSCustomers(), ['content' => $editableObj]);
+        }
+     }
+     public function Content(){
+         if ($this->Authorize()) {
+             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                 $this->view($this->CMSContent(), ["data" => $this->repo->getAllSnippets()]);
+             } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                 $newText = $_POST['newText'];
+                 $id = $_POST['ID'];
+                 $cat = $_POST['cat'];
+                 if ($this->repo->updateContent($cat, $id, $newText)) {
+                     $this->view($this->CMSContent(), ["Message" => "Successfully updated!", "data" => $this->repo->getAllSnippets()]);
+                 } else {
+                     $this->view($this->CMSContent(), ["Message" => "Failed Updating!", "data" => $this->repo->getAllSnippets()]);
+                 }
+             }
+         }
      }
      public function Process(){
          if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -73,7 +120,7 @@
                  $goto = explode('haarlemfestival/', $_SERVER['HTTP_REFERER'])[1];
                  redirect($goto);
              }else{
-                 die("Error editing data");
+                die("Error editing data");
              }
          }
      }

@@ -2,3 +2,4 @@ generic db editen begin gemaakt, uitbreiden
 
 todo:
 -message teruggeven aan user
+-echte mails terugsturen (boolean)

@@ -10,7 +10,7 @@
 
     <body>
     <?php
-    echo build_table($data['content'],['password'])
+    echo build_table($data['content'],[])
     ?>
     </body>
     </html>
