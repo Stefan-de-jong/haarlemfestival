@@ -9,7 +9,7 @@
 
 <body>
 <?php
-echo build_table($data['users'])
+echo build_table($data['content'])
 ?>
 </body>
 </html>
@@ -17,7 +17,7 @@ echo build_table($data['users'])
 
 <?php
 function build_table($array){
-    $skip = ['action','id','idValue'];
+    $skip = ['action','id','idValue','snippet_id'];
     // start table
     $html = '<table>';
     // header row

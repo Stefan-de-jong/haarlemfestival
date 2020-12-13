@@ -1,42 +1,73 @@
-<?php require APPROOT . '/views/inc/CMSHeader.php'; ?>
-    CMS Users:<br>
-    <?php
-if (isset($data['msg'])){
-    echo $data['msg'];
-}
-if (isset($data["users"])){
-$users = $data["users"];
-foreach($users as $user){
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="<?php echo URLROOT."/public/css/style.css";?>">
+    <title><?php echo $data["title"];   ?></title>
+</head>
+
+<body>
+<?php
+echo build_table($data['content'])
 ?>
-    <tr>
-      <td>
-        <?php echo $user->getId();?>
-      </td>
-      <td>
-        <?php echo $user->getFirstname();?>
-      </td>
-      <td>
-        <?php echo $user->getLastName();?>
-      </td>
-      <td>
-        <?php echo $user->getEmail();?>
-      </td>
-      <td>
-        <?php echo $user->getRole();?>
-      </td>
-      <td>
-        <form class="vieweditform" action="<?php echo URLROOT."/CMS/user";?>" method="GET">
-          <input type="submit" value="view/edit">
-          <input type="hidden" name="id" value="<?php echo $user->getId(); ?>">
-        </form>
-      </td>
-      <td>
-        <?php if ($_SESSION["CMSrole"]==="SUPERADMIN"){ ?>
-        <form class="deleteform" action="<?php echo URLROOT."/CMS/deleteUser";?>" method="POST">
-          <input type="submit" value="delete">
-          <input type="hidden" name="id" value="<?php echo $user->getId(); ?>">
-        </form>
-        <?php } ?>
-      </td>
-    </tr>
-    <?php }echo "</table>";} ?>
+</body>
+</html>
+
+
+<?php
+function build_table($array){
+    $skip = ['action','id','idValue','snippet_id'];
+    // start table
+    $html = '<table>';
+    // header row
+    $html .= '<tr>';
+    foreach($array[0] as $key=>$value){
+        if (!in_array($key,$skip)) {
+            $html .= '<th>' . htmlspecialchars($key) . '</th>';
+        }
+    }
+    $html .= '</tr>';
+
+    // data rows
+
+    foreach( $array as $key=>$value){
+        $html .= '<tr>';
+        $html .= formStart();
+        foreach($value as $key2=>$value2){
+            if (!in_array($key2,$skip)) {
+                $html .= '<td>' . formInput(htmlspecialchars($value2), $key2) . '</td>';
+            }
+        }
+        $html .= meta($value->action,$value->idValue);
+        $html .= updateButton();
+        $html .= formEnd();
+        $html .= '</tr>';
+    }
+
+    // finish table and return it
+
+    $html .= '</table>';
+    return   $html;
+}
+function formStart(){
+    return "<form method='POST' action='".  URLROOT  ."/test/Process'>";
+}
+function formEnd(){
+    return "</form>";
+}
+function formInput($data,$n){
+    return str_replace('%d',$data,
+        "<input type='text' name='$n' value='%d'>"
+    );
+}
+function updateButton(){
+    return "<td><input type='submit'></td>";
+}
+function meta($a,$id){
+    return
+        "<input type='hidden' name='action' value='{$a}'>".
+        "<input type='hidden' name='id' value='{$id}'>"
+        ;
+}
+?>

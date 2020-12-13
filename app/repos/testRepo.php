@@ -7,12 +7,16 @@ class testRepo
     {
         $this->db = new Database;
     }
-    public function getusers(){
-        $this->db->query('select * from users');
+    public function getEditable($table, $idColumn){
+        $action = 0;
+        if ($table == 'users'){
+            $action=0;
+        }
+        $this->db->query('select * from ' . $table);
         $res = $this->db->resultSet();
         foreach($res as $r){
-            $r->action = '1';
-            $r->idValue = $r->id;
+            $r->action = $action;
+            $r->idValue = $r->$idColumn;
         }
         return $res;
     }
@@ -24,18 +28,28 @@ class testRepo
 
     private function getData($p){
         $updateObj = (object) [];
-        if ($p['action'] === '1'){
-            $updateObj->type = 'update';
-            $updateObj->tableName = 'users';
+        if (is_numeric($p['action'])) {
+            $action = $p['action'];
+            $updateObj->type = $this->types[$action];
+            $updateObj->tableName = $this->tablenames[$action];
             $updateObj->idColumn = 'id';
             $updateObj->idValue = $p['id'];
-            $updateObj->data = [
-                'firstname' => $p['firstname'],
-                'lastname' => $p['lastname']
-            ];
+            $columns = $this->tableData[$action];
+            $updateObj->data = [];
+            foreach ($columns as $column) {
+                $updateObj->data[$column] = $p[$column];
+            }
             return $updateObj;
         }
     }
+    private $types = ['update'];
+    private $tablenames = ['users'];
+    private $tableData = [
+        [
+            'firstname',
+            'lastname',
+        ]
+    ];
     private function buildQuery($d){
         $q = "";
         if ($d->type == 'update'){

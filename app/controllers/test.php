@@ -6,8 +6,8 @@ class test extends Controller
         $this->repo = $this->repo('testRepo');
     }
     public function index() {
-        $editableObj = $this->repo->getusers();
-        $this->view('test', ['users'=>$editableObj]);
+        $editableObj = $this->repo->getEditable('users','id');
+        $this->view('test', ['content'=>$editableObj]);
     }
     public function Process(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
