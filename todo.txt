@@ -1,5 +1,7 @@
-generic db editen begin gemaakt, uitbreiden
+dance event tijden kan je nu editen (misschien ook locaties? sowieso nog editors voor venues etc.)
 
 todo:
 -message teruggeven aan user
 -echte mails terugsturen (boolean)
+-roles aanpassen van CMS uers
+-wachtwoorden resetten
