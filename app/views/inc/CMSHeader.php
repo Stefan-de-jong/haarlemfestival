@@ -118,8 +118,7 @@ function backButton(){
     echo '<a class = "btn" href='. $href  .'>Home</a><br>';
 }
 if (isset($_SERVER['QUERY_STRING'])) {
-
-    if (if (strpos($a, 'are') !== false) ) {
+    if (!(strpos($_SERVER['QUERY_STRING'], 'login') !== false))  {
         backButton();
     }
 }
