@@ -17,6 +17,7 @@
      private function CMSRestaurants() {return 'CMS/EventRestaurants';}
      private function CMSDancePerformances() {return 'CMS/EventDancePerformances';}
      private function CMSTickets() {return 'CMS/Tickets';}
+     private function CMSGuides(){return 'CMS/EventGuides';}
 
      private function setLoggedIn($user){
         $_SESSION['CMSLoggedIn'] = true;
@@ -67,6 +68,12 @@
             $this->view($this->CMSVenues(), ['content' => $editableObj]);
         }
     }
+     public function EventGuides(){
+         if ($this->Authorize()) {
+             $editableObj = $this->repo->getEditable('g');
+             $this->view($this->CMSGuides(), ['content' => $editableObj]);
+         }
+     }
      public function EventRestaurants(){
          if ($this->Authorize()) {
              $editableObj = $this->repo->getEditable('d');

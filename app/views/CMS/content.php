@@ -10,7 +10,8 @@ if (isset($data['Message'])){
     echo $data['Message'];
 }
 ?>
-<div class="tab">
+
+<div class="tabcontent">
     <button id="Start" class="tablinks" onclick="openTab(event,'Dance')">Dance</button>
     <button class="tablinks" onclick="openTab(event,'Historic')">Historic</button>
     <button class="tablinks" onclick="openTab(event,'Food')">Food</button>

@@ -45,13 +45,15 @@ function build_table($array,$skipFields = [],$extraButtons = []){
     }
     $array = $grouped;
     }
-    $html = '<table>';
+    $html = "<table id = 'editable'>";
     $html .= '<tr>';
     foreach($array[0] as $key=>$value){
         if (!in_array($key,$skip)) {
             $html .= '<th>' . htmlspecialchars($key) . '</th>';
         }
     }
+    $html .= '<th>Update</th>';
+    $html .= '<th>Extra</th>';
     $html .= '</tr>';
     foreach( $array as $key=>$value){
         $html .= '<tr>';
@@ -113,7 +115,7 @@ function backButton(){
     $href = URLROOT."/CMS";
     $url = $_REQUEST['url'];
     if (strtolower($url) != strtolower('CMS/Home'))
-    echo '<a href="{$href}">Home</a><br>';
+    echo '<a class = "btn" href='. $href  .'>Home</a><br>';
 }
 backButton();
 ?>

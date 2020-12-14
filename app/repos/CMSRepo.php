@@ -176,7 +176,10 @@ class CMSRepo
             'f'=>['table' => 'ticket', 'updateAbles' =>  [
 
             ], 'readOnly' => true,'idColumn' => 'id','customQuery' =>
-                "select ticket.id,eventtype.type,ticket_price,buyer_email from ticket,eventtype where LEFT(ticket.ticket_type,1) = eventtype.id"]
+                "select ticket.id,eventtype.type,ticket_price,buyer_email from ticket,eventtype where LEFT(ticket.ticket_type,1) = eventtype.id"],
+        'g'=>['table' => 'guide', 'updateAbles' =>  [
+            'name',
+        ], 'readOnly' => false,'idColumn' => 'id'],
 
     ];
     private function buildQuery($d){

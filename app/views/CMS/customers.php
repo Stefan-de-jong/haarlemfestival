@@ -12,13 +12,12 @@
     <?php
     function passwordResetButton(){
         return
-            "<td>
+            "
    <form method='POST' action='".  URLROOT  ."/CMS/ResetPassword'>
     <input type='hidden' name='id' value='%id'>
     <input type='hidden' name='action' value='%action'>
     <input type='submit' value='Reset Password'>
     </form>
-    </td>
     ";
     }
     echo build_table($data['content'],['password'],[
