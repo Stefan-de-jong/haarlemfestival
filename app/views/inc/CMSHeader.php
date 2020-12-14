@@ -49,7 +49,7 @@ function build_table($array,$skipFields = [],$extraButtons = []){
     $html .= '<tr>';
     foreach($array[0] as $key=>$value){
         if (!in_array($key,$skip)) {
-            $html .= '<th>' . htmlspecialchars($key) . '</th>';
+            $html .= '<th>' . htmlspecialchars(translateRow($key)) . '</th>';
         }
     }
     $html .= '<th>Update</th>';
@@ -117,10 +117,39 @@ function backButton(){
     if (strtolower($url) != strtolower('CMS/Home'))
     echo '<a class = "btn" href='. $href  .'>Home</a><br>';
 }
+function translateRow($column){
+    $column = strtolower($column);
+    $translations = [
+            'firstname'=>'First Name',
+        'lastname' => 'Last Name',
+        'email'=>'Email',
+        'first_name'=>'First Name',
+        'last_name' => 'Last Name',
+        'artist_name' => 'Artist',
+        'venue_name' => 'Venue',
+        'date' => 'Date',
+        'begin_time' => 'Start',
+        'end_time' => 'End',
+        'address' => 'Address',
+        'name' => 'Name',
+        'type' => 'Type',
+        'ticket_price' => 'Ticket Price',
+        'buyer_email' => 'Email'
+
+    ];
+    if (isset($translations[$column])){
+        return $translations[$column];
+    }else{
+        return $column;
+    }
+}
 if (isset($_SERVER['QUERY_STRING'])) {
     if (!(strpos($_SERVER['QUERY_STRING'], 'login') !== false))  {
         backButton();
     }
+}
+if (isset($_GET['msg'])){
+    echo $_GET['msg'];
 }
 ?>
 <body>

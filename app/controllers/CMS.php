@@ -143,11 +143,15 @@
              $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
              if ($this->repo->process($_POST)){
                  $goto = explode('haarlemfestival/', $_SERVER['HTTP_REFERER'])[1];
-                 var_dump($goto);
-                 redirect($goto."?msg='Edited successfully'");
+                 if (strpos($goto, '?') !== false) {
+                     $goto = explode('?',$goto)[0];
+                 }
+                 redirect($goto."?msg=Edited successfully!");
              }else{
                 die("Error editing data");
              }
+         }else{
+             $this->redirectToHome();
          }
      }
     public function home(){
@@ -159,7 +163,7 @@
         if ($this->loggedIn()){
             $this->redirectToHome();
         }else {
-            $this->view('CMS/login');
+           $this->redirectToLogin();
         }
     }
     public function login(){
@@ -179,6 +183,11 @@
                     }
                 }
             }else{
+            if (isset($_SERVER['QUERY_STRING'])) {
+                if (!(strpos($_SERVER['QUERY_STRING'], 'login') !== false))  {
+                    $this->redirectToLogin();
+                }
+            }
             $this->view($this->CMSLogin());
         }
     }
