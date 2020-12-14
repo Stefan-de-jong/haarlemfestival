@@ -132,6 +132,7 @@ function translateRow($column){
         'end_time' => 'End',
         'address' => 'Address',
         'name' => 'Name',
+        'stars' => 'Rating',
         'type' => 'Type',
         'ticket_price' => 'Ticket Price',
         'buyer_email' => 'Email'
