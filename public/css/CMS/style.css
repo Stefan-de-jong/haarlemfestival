@@ -1,16 +1,9 @@
-
-
-textarea{
-    width: 900px;
-    height: 150px;
-}
-
 .center {
     margin: auto;
     width: 600px;
     border: 2px solid #73AD21;
     padding: 10px;
-    background-color: lightgray;
+    background-color: lightgrey;
 }
 
 #editable {
@@ -102,4 +95,59 @@ textarea{
     text-align: center;
     padding-bottom: 20px;
     margin: auto;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial;
+    background-color: #F8F8F8;
+}
+
+/* Style tab links */
+.tablink {
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 25%;
+}
+
+.tablink:hover {
+    background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+    color: white;
+    display: none;
+    padding: 100px 20px;
+    height: 100%;
+}
+
+.tabcontent h1{
+    color: black;
+}
+
+.tabcontent span{
+    color: black;
+}
+
+.txtarea{
+    margin-left: auto;
+    margin-right: auto;
+}
+.txtarea textarea{
+    width: 900px;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.update{
+    width: 900px;
 }

@@ -143,7 +143,8 @@
              $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
              if ($this->repo->process($_POST)){
                  $goto = explode('haarlemfestival/', $_SERVER['HTTP_REFERER'])[1];
-                 redirect($goto);
+                 var_dump($goto);
+                 redirect($goto."?msg='Edited successfully'");
              }else{
                 die("Error editing data");
              }

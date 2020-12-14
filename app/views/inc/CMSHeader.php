@@ -117,6 +117,11 @@ function backButton(){
     if (strtolower($url) != strtolower('CMS/Home'))
     echo '<a class = "btn" href='. $href  .'>Home</a><br>';
 }
-backButton();
+if (isset($_SERVER['QUERY_STRING'])) {
+
+    if (if (strpos($a, 'are') !== false) ) {
+        backButton();
+    }
+}
 ?>
 <body>

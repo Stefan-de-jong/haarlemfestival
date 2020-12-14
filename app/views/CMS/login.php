@@ -1,3 +1,4 @@
+<?php require APPROOT . '/views/inc/CMSHeader.php'; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,11 +8,11 @@
 </head>
 
 <body>
-<div class="login-area">
+<div class="center">
     <div class="logo">
         <img src="http://localhost/haarlemfestival/img/logo.png"></img>
 </div>
-<div class="login-form">
+<div>
 <form action="<?php echo URLROOT;?>/CMS/login" method="post">
 <input type="text" value="tom@bo.comm" placeholder="Email" name="email"></input><br>
 <input type="password" value="test" name="password"></input><br>

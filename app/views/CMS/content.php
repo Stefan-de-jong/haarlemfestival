@@ -6,27 +6,37 @@ $snippetsHistoric1 = $snippets['historicMain'];
 $snippetsHistoric2 = $snippets['historicRoute'];
 $snippetsFood1 = $snippets['foodMain'];
 $snippetsFood2 = $snippets['foodRestaurants'];
-if (isset($data['Message'])){
-    echo $data['Message'];
-}
 ?>
 
-<div class="tabcontent">
-    <button id="Start" class="tablinks" onclick="openTab(event,'Dance')">Dance</button>
-    <button class="tablinks" onclick="openTab(event,'Historic')">Historic</button>
-    <button class="tablinks" onclick="openTab(event,'Food')">Food</button>
-</div>
+    <button class="tablink" onclick="openPage('Dance', this, 'red')" id="defaultOpen">Dance</button>
+    <button class="tablink" onclick="openPage('Historic', this, 'green')">Historic</button>
+    <button class="tablink" onclick="openPage('Food', this, 'blue')">Food</button>
 
 <div id="Dance" class="tabcontent">
+    <?php
+    if (isset($data['Message'])){
+        echo "<span>{$data['Message']}</span>";
+    }
+    ?>
     <?php echoEditors("Dance",$snippetsDance); ?>
 </div>
 
 <div id="Historic" class="tabcontent">
+    <?php
+    if (isset($data['Message'])){
+        echo "<span>{$data['Message']}</span>";
+    }
+    ?>
      <?php echoEditors("Historic - Locations",$snippetsHistoric2); ?>
      <?php echoEditors("Historic - General",$snippetsHistoric1); ?>
 </div>
 
 <div id="Food" class="tabcontent">
+    <?php
+    if (isset($data['Message'])){
+        echo "<span>{$data['Message']}</span>";
+    }
+    ?>
     <?php echoEditors("Food - General",$snippetsFood1); ?>
 </div>
 
@@ -37,10 +47,10 @@ function echoEditors($groupTitle,$formattedSnippets){
         echo "<p>";
         echo "<b>{$v->title}</b>";
         echo str_replace("%val%", $v->val,
-            "<form action='content' method='post' id='{$v->cat}-{$v->id}'><input type='hidden' value='{$v->cat}' name='cat'><input type='hidden' value='{$v->id}' name='ID'> <input type='submit' value='Update'></form><textarea name='newText' form='{$v->cat}-{$v->id}'>%val%</textarea>"
+            "<div class = 'txtarea'><form action='content' method='post' id='{$v->cat}-{$v->id}'><input type='hidden' value='{$v->cat}' name='cat'><input type='hidden' value='{$v->id}' name='ID'> <input class='update' type='submit' value='Update'></form><textarea name='newText' form='{$v->cat}-{$v->id}'>%val%</textarea></div>"
         );
         echo "</p>";
         }
 }
-echo "<script>document.getElementById('Start').click()</script>";
  ?>
+
