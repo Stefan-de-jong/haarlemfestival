@@ -23,9 +23,14 @@ function indexInArray($entry, $array)
     }
     return -1;
 }
-function build_table($array,$specialFields = [],$readonlyFields= [],$groupArtists=false){
-    $skip = ['action','id','idValue'];
-    foreach ($specialFields as $spec){
+function build_table($array,$skipFields = [],$extraButtons = []){
+    $groupArtists = false;
+    $readonlyFields= ['artist_name'];
+    if ($array[0]->action == 'e'){
+        array_push($readonlyFields,'venue_name');
+    }
+    $skip = ['action','id','idValue','readOnly','editablePasswordId'];
+    foreach ($skipFields as $spec){
         array_push($skip,$spec);
     }
     if ($groupArtists){
@@ -53,7 +58,7 @@ function build_table($array,$specialFields = [],$readonlyFields= [],$groupArtist
         $html .= formStart();
         foreach($value as $key2=>$value2){
             if (!in_array($key2,$skip)) {
-                if (in_array($key2,$readonlyFields)){
+                if (in_array($key2,$readonlyFields) or $array[0]->readOnly){
                     $html .= '<td>' . formInputReadonly(htmlspecialchars($value2), $key2) . '</td>';
                 }else {
                     $html .= '<td>' . formInput(htmlspecialchars($value2), $key2) . '</td>';
@@ -61,8 +66,15 @@ function build_table($array,$specialFields = [],$readonlyFields= [],$groupArtist
             }
         }
         $html .= meta($value->action,$value->idValue);
-        $html .= updateButton();
+        $html .= updateButton($array[0]->readOnly);
         $html .= formEnd();
+        if (count($extraButtons) > 0){
+            foreach ($extraButtons as $extra){
+                $injected = str_replace('%id',$value->id,$extra);
+                $injected  = str_replace('%action',$value->action,$injected);
+                $html .= "<td>" .$injected . "</td>";
+            }
+        }
         $html .= '</tr>';
     }
     $html .= '</table>';
@@ -84,8 +96,12 @@ function formInputReadonly($data,$n){
         "<input disabled style='width: 400px;' type='text' name='$n' value='%d'>"
     );
 }
-function updateButton(){
-    return "<td><input type='submit' value='Update'></td>";
+function updateButton($readOnly){
+    if ($readOnly){
+        return "<td><input type='hidden' value='Update'></td>";
+    }else {
+        return "<td><input type='submit' value='Update'></td>";
+    }
 }
 function meta($a,$id){
     return

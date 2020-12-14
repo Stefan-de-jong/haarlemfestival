@@ -16,7 +16,7 @@
      private function CMSVenues() {return 'CMS/EventVenues';}
      private function CMSRestaurants() {return 'CMS/EventRestaurants';}
      private function CMSDancePerformances() {return 'CMS/EventDancePerformances';}
-
+     private function CMSTickets() {return 'CMS/Tickets';}
 
      private function setLoggedIn($user){
         $_SESSION['CMSLoggedIn'] = true;
@@ -63,20 +63,26 @@
     }
     public function EventVenues(){
         if ($this->Authorize()) {
-            $editableObj = $this->repo->getEditable('venue', 'id');
+            $editableObj = $this->repo->getEditable('c');
             $this->view($this->CMSVenues(), ['content' => $editableObj]);
         }
     }
      public function EventRestaurants(){
          if ($this->Authorize()) {
-             $editableObj = $this->repo->getEditable('restaurant', 'id');
+             $editableObj = $this->repo->getEditable('d');
              $this->view($this->CMSRestaurants(), ['content' => $editableObj]);
          }
      }
      public function EventDancePerformances(){
          if ($this->Authorize()) {
-             $editableObj = $this->repo->getEditable('event', 'id',true);
+             $editableObj = $this->repo->getEditable('e');
              $this->view($this->CMSDancePerformances(), ['content' => $editableObj]);
+         }
+     }
+     public function Tickets(){
+         if ($this->Authorize()) {
+             $editableObj = $this->repo->getEditable('f');
+             $this->view($this->CMSTickets(), ['content' => $editableObj]);
          }
      }
     public function Events(){
@@ -86,14 +92,26 @@
     }
      public function Users() {
         if ($this->Authorize()) {
-            $editableObj = $this->repo->getEditable('user', 'id');
+            $editableObj = $this->repo->getEditable('a');
             $this->view($this->CMSUsers(), ['content' => $editableObj]);
         }
      }
      public function Customers() {
         if ($this->Authorize()) {
-            $editableObj = $this->repo->getEditable('customer', 'id');
+            $editableObj = $this->repo->getEditable('b');
             $this->view($this->CMSCustomers(), ['content' => $editableObj]);
+        }
+     }
+     public function ResetPassword(){
+        if ($this->Authorize()){
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                if (isset($_POST['action']) and isset($_POST['id'])) {
+                    $this->repo->resetPassword($_POST['action'],$_POST['id']);
+                    $goto = explode('haarlemfestival/', $_SERVER['HTTP_REFERER'])[1];
+                    redirect($goto);
+                }
+            }
         }
      }
      public function Content(){

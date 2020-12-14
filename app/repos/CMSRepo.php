@@ -15,48 +15,98 @@ class CMSRepo
             return new User($result->id, $result->firstname, $result->lastname, $result->email, $result->password, $result->role);
         }
     }
-    public function getEditable($table, $idColumn,$customQuery = false){
-        $action = 0;
-        if ($table == 'user'){
-            $action=0;
+    public function resetPassword($action,$id){
+        if ($action == 'a'){
+            $this->resetPasswordCMSUser($id   );
         }
-        if ($table == 'customer'){
-            $action = 1;
+        if ($action == 'b'){
+            $this->resetPasswordCustomer($id);
         }
-        if ($table == 'venue'){
-            $action  = 2;
+    }
+    private function resetPasswordCMSUser($id){
+        $this->db->query('select email from user where id = :id');
+        $this->db->bind(':id',$id);
+        $em = $this->db->single()->email;
+        $emailTaken = $this->emailTakenCMSUser($em);
+        if ($emailTaken) {
+            $newpass = $this->randomString(6);
+            new sendamail($em,"New Password","Your new password = $newpass");
+            $this->db->query('UPDATE user SET password = :pass WHERE email = :em');
+            $this->db->bind(':pass', $newpass);
+            $this->db->bind(':em', $em);
+            $this->db->execute();
         }
-        if ($table == 'restaurant'){
-            $action = 3;
+    }
+    private function resetPasswordCustomer($id)
+    {
+        $this->db->query('select email from customer where id = :id');
+        $this->db->bind(':id',$id);
+        $em = $this->db->single()->email;
+        $emailTakenCustomer = $this->emailTakenCustomer($em);
+        if ($emailTakenCustomer) {
+            $newpass = $this->randomString(6);
+            new sendamail($em, "New Password", "Your new password = $newpass");
+            $this->db->query('UPDATE customer SET password = :pass WHERE email = :em');
+            $this->db->bind(':pass', password_hash($newpass, PASSWORD_DEFAULT));
+            $this->db->bind(':em', $em);
+            $this->db->execute();
         }
-        if ($table == 'event'){
-            $action = 4;
+    }
+    private function emailTakenCMSUser($email) {
+        $this->db->query('SELECT id FROM user WHERE email = :email');
+        $this->db->bind(':email', $email);
+        $row = $this->db->single();
+        if ($row) {
+            return true;
+        } else {
+            return false;
         }
-        if ($customQuery){
-            $this->db->query("SELECT event.id,artist_name, v.venue_name, date, begin_time,end_time FROM event
-        INNER JOIN danceevent ON event.id = danceevent.id
-        INNER JOIN (SELECT * FROM artist as a) a ON a.artist_id = danceevent.artist
-        INNER JOIN (SELECT * FROM venue as v) v ON v.id = danceevent.location
-        INNER JOIN (SELECT * FROM tickettype as t) t on t.id = event.id");
+    }
+    private function emailTakenCustomer($email) {
+        $this->db->query('SELECT id FROM customer WHERE email = :email');
+        $this->db->bind(':email', $email);
+        $row = $this->db->single();
+        if ($row) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function getEditable($action){
+        $meta = $this->meta[$action];
+        if (isset($meta['customQuery'])){
+            $this->db->query($meta['customQuery']);
         }else {
-            $this->db->query('select * from ' . $table);
+            $this->db->query('select * from ' . $meta['table']);
         }
         $res = $this->db->resultSet();
         foreach($res as $r){
             $r->action = $action;
-            $r->idValue = $r->$idColumn;
+            $idColumnString = $meta['idColumn'];
+            $r->idValue = $r->$idColumnString;
+            $r->readOnly = $meta['readOnly'];
+            if (isset($meta['editablePasswordId'])){
+                $r->editablePasswordId = $r->idValue;
+            }
         }
         return $res;
     }
-    public function process($p){
-        $updateObj = $this->getData($p);
-        $emailChanged = $this->checkEmailChange($updateObj);
-        $this->buildQuery($updateObj);
-        $success = $this->db->execute();
-        if ($emailChanged != false){
-            new sendamail($updateObj->data['email'],'Haarlem Festival',"Your email has been changed from {$emailChanged} to {$updateObj->data['email']}");
+    public function process($post){
+        if (!isset($post['action'])){
+            return false;
         }
-        return $success;
+        $metaData = $this->meta[$post['action']];
+        $updateObj = $this->GetData($metaData,$post);
+        $emailChanged = $this->checkEmailChange($updateObj);
+       if($this->buildQuery($updateObj)) {
+           $success = $this->db->execute();
+           if ($emailChanged != false) {
+               new sendamail($updateObj->data['email'], 'Haarlem Festival', "Your email has been changed from {$emailChanged} to {$updateObj->data['email']}");
+           }
+           return $success;
+       }else{
+           return true;
+       }
     }
 
     private function checkEmailChange($u)
@@ -77,53 +127,62 @@ class CMSRepo
         }
     }
 
-    private function getData($p){
+    private function GetData($meta,$post){
         $updateObj = (object) [];
-        if (is_numeric($p['action'])) {
-            $action = $p['action'];
             $updateObj->type = $this->types[0];
-            $updateObj->tableName = $this->tablenames[$action];
-            $updateObj->idColumn = 'id';
-            $updateObj->idValue = $p['id'];
-            $columns = $this->tableData[$action];
+            $updateObj->tableName = $meta['table'];
+            $updateObj->idColumn = $meta['idColumn'];
+            $updateObj->idValue = $post['id'];
+            $columns = $meta['updateAbles'];
             $updateObj->data = [];
             foreach ($columns as $column) {
-                if (isset($p[$column])) {
-                    $updateObj->data[$column] = $p[$column];
+                if (isset($post[$column])) {
+                    $updateObj->data[$column] = $post[$column];
                 }
             }
             return $updateObj;
-        }
     }
     private $types = ['update'];
-    private $tablenames = ['user','customer','venue','restaurant','event'];
-    private $tableData = [
-        [
-            'firstname',
-            'lastname',
-            'email',
-        ],
-        [
+    private $meta = [
+        'a'=>['table' => 'user', 'updateAbles' => [
+                'firstname',
+                'lastname',
+                'email'
+            ], 'readOnly' => false, 'idColumn' => 'id'
+        ,'editablePasswordId'=>0],
+        'b'=>['table' => 'customer', 'updateAbles' =>  [
             'first_name',
             'last_name',
-            'email',
-        ],
-        [
+            'email'
+        ], 'readOnly' => false,'idColumn' => 'id','editablePasswordId'=>0],
+        'c'=>['table' => 'venue', 'updateAbles' =>  [
             'venue_name',
             'address'
-        ],
-        [
+        ], 'readOnly' => false,'idColumn' => 'id'],
+        'd'=>['table' => 'restaurant', 'updateAbles' =>  [
             'name',
             'stars',
             'address'
-        ],
-        [
+        ], 'readOnly' => false,'idColumn' => 'id'],
+        'e'=>['table' => 'event', 'updateAbles' =>  [
             'date',
             'begin_time',
             'end_time'
-        ]
+        ], 'readOnly' => false,'idColumn' => 'id','customQuery' => "SELECT event.id,artist_name, v.venue_name, date, begin_time,end_time FROM event
+        INNER JOIN danceevent ON event.id = danceevent.id
+        INNER JOIN (SELECT * FROM artist as a) a ON a.artist_id = danceevent.artist
+        INNER JOIN (SELECT * FROM venue as v) v ON v.id = danceevent.location
+        INNER JOIN (SELECT * FROM tickettype as t) t on t.id = event.id"],
+            'f'=>['table' => 'ticket', 'updateAbles' =>  [
+
+            ], 'readOnly' => true,'idColumn' => 'id','customQuery' =>
+                "select ticket.id,eventtype.type,ticket_price,buyer_email from ticket,eventtype where LEFT(ticket.ticket_type,1) = eventtype.id"]
+
     ];
     private function buildQuery($d){
+        if (count($d->data) == 0){
+            return false;
+        }
         $q = "";
         if ($d->type == 'update'){
             $q = "UPDATE {$d->tableName} SET ";
@@ -137,9 +196,8 @@ class CMSRepo
                 $this->db->bind(':'.$col,$val);
             }
             $this->db->bind(':'.$d->idColumn,$d->idValue);
-            /*var_dump($q);
-            var_dump($d);*/
         }
+        return true;
     }
     private function getHistoricSnippets1(){
         $this->db->query('SELECT *  FROM snippets');
@@ -268,6 +326,15 @@ class CMSRepo
         }catch (Exception $e){
             return false;
         }
+    }
+    private function randomString($length) {
+        $chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
+        $l = strlen($chars);
+        $str = "";
+        for ($i = 0; $i < $length; $i++) {
+            $str .= $chars[rand(0, $l - 1)];
+        }
+        return $str;
     }
 }
 ?>

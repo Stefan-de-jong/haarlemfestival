@@ -40,6 +40,6 @@ class sendamail{
         $mail->isHTML(false);                                  // Set email format to HTML
         $mail->Subject = $subject;
         $mail->Body    = $msg;
-        //$mail->send();
+        $mail->send();
     }
 }
