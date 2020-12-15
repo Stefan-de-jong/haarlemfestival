@@ -16,10 +16,10 @@ class CMSRepo
         }
     }
     public function resetPassword($action,$id){
-        if ($action == 'a'){
+        if ($action == 'd58e3582afa99040e27b92b13c8f2280'){
             $this->resetPasswordCMSUser($id   );
         }
-        if ($action == 'b'){
+        if ($action == 'f4b1df7d1d45beb8f5529899393307a9'){
             $this->resetPasswordCustomer($id);
         }
     }
@@ -144,27 +144,27 @@ class CMSRepo
     }
     private $types = ['update'];
     private $meta = [
-        'a'=>['table' => 'user', 'updateAbles' => [
+        'd58e3582afa99040e27b92b13c8f2280'=>['table' => 'user', 'updateAbles' => [
                 'firstname',
                 'lastname',
                 'email'
             ], 'readOnly' => false, 'idColumn' => 'id'
         ,'editablePasswordId'=>0],
-        'b'=>['table' => 'customer', 'updateAbles' =>  [
+        'f4b1df7d1d45beb8f5529899393307a9'=>['table' => 'customer', 'updateAbles' =>  [
             'first_name',
             'last_name',
             'email'
         ], 'readOnly' => false,'idColumn' => 'id','editablePasswordId'=>0],
-        'c'=>['table' => 'venue', 'updateAbles' =>  [
+        'd9729feb74992cc3482b350163a1a010'=>['table' => 'venue', 'updateAbles' =>  [
             'venue_name',
             'address'
         ], 'readOnly' => false,'idColumn' => 'id'],
-        'd'=>['table' => 'restaurant', 'updateAbles' =>  [
+        '6155ea87c23c52518df731aaa1f635aa'=>['table' => 'restaurant', 'updateAbles' =>  [
             'name',
             'stars',
             'address'
         ], 'readOnly' => false,'idColumn' => 'id'],
-        'e'=>['table' => 'event', 'updateAbles' =>  [
+        '7cda127b9c7c0fa6430b710f04d0b08f'=>['table' => 'event', 'updateAbles' =>  [
             'date',
             'begin_time',
             'end_time'
@@ -173,11 +173,11 @@ class CMSRepo
         INNER JOIN (SELECT * FROM artist as a) a ON a.artist_id = danceevent.artist
         INNER JOIN (SELECT * FROM venue as v) v ON v.id = danceevent.location
         INNER JOIN (SELECT * FROM tickettype as t) t on t.id = event.id"],
-            'f'=>['table' => 'ticket', 'updateAbles' =>  [
+            'e0fe3095d33d3e33b253cb495ef3ba3f'=>['table' => 'ticket', 'updateAbles' =>  [
 
             ], 'readOnly' => true,'idColumn' => 'id','customQuery' =>
                 "select ticket.id,eventtype.type,ticket_price,buyer_email from ticket,eventtype where LEFT(ticket.ticket_type,1) = eventtype.id"],
-        'g'=>['table' => 'guide', 'updateAbles' =>  [
+        'a1df5dde9402fb786e7efa94d6f851ca'=>['table' => 'guide', 'updateAbles' =>  [
             'name',
         ], 'readOnly' => false,'idColumn' => 'id'],
 

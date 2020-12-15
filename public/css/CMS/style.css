@@ -149,5 +149,14 @@ body, html {
 }
 
 .update{
-    width: 900px;
+    display: block;
+    width: 100%;
+    height: 50px;
+    border: none;
+    background-color: #4CAF50;
+    padding: 14px 28px;
+    font-size: 25px;
+    cursor: pointer;
+    text-align: center;
+    color: white;
 }

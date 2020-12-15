@@ -64,31 +64,31 @@
     }
     public function EventVenues(){
         if ($this->Authorize()) {
-            $editableObj = $this->repo->getEditable('c');
+            $editableObj = $this->repo->getEditable('d9729feb74992cc3482b350163a1a010');
             $this->view($this->CMSVenues(), ['content' => $editableObj]);
         }
     }
      public function EventGuides(){
          if ($this->Authorize()) {
-             $editableObj = $this->repo->getEditable('g');
+             $editableObj = $this->repo->getEditable('a1df5dde9402fb786e7efa94d6f851ca');
              $this->view($this->CMSGuides(), ['content' => $editableObj]);
          }
      }
      public function EventRestaurants(){
          if ($this->Authorize()) {
-             $editableObj = $this->repo->getEditable('d');
+             $editableObj = $this->repo->getEditable('6155ea87c23c52518df731aaa1f635aa');
              $this->view($this->CMSRestaurants(), ['content' => $editableObj]);
          }
      }
      public function EventDancePerformances(){
          if ($this->Authorize()) {
-             $editableObj = $this->repo->getEditable('e');
+             $editableObj = $this->repo->getEditable('7cda127b9c7c0fa6430b710f04d0b08f');
              $this->view($this->CMSDancePerformances(), ['content' => $editableObj]);
          }
      }
      public function Tickets(){
          if ($this->Authorize()) {
-             $editableObj = $this->repo->getEditable('f');
+             $editableObj = $this->repo->getEditable('e0fe3095d33d3e33b253cb495ef3ba3f');
              $this->view($this->CMSTickets(), ['content' => $editableObj]);
          }
      }
@@ -99,13 +99,13 @@
     }
      public function Users() {
         if ($this->Authorize()) {
-            $editableObj = $this->repo->getEditable('a');
+            $editableObj = $this->repo->getEditable('d58e3582afa99040e27b92b13c8f2280');
             $this->view($this->CMSUsers(), ['content' => $editableObj]);
         }
      }
      public function Customers() {
         if ($this->Authorize()) {
-            $editableObj = $this->repo->getEditable('b');
+            $editableObj = $this->repo->getEditable('f4b1df7d1d45beb8f5529899393307a9');
             $this->view($this->CMSCustomers(), ['content' => $editableObj]);
         }
      }

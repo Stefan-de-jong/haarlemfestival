@@ -49,6 +49,17 @@ function echoEditors($groupTitle,$formattedSnippets){
         echo str_replace("%val%", $v->val,
             "<div class = 'txtarea'><form action='content' method='post' id='{$v->cat}-{$v->id}'><input type='hidden' value='{$v->cat}' name='cat'><input type='hidden' value='{$v->id}' name='ID'> <input class='update' type='submit' value='Update'></form><textarea name='newText' form='{$v->cat}-{$v->id}'>%val%</textarea></div>"
         );
+        ?>
+<script src="https://cdn.tiny.cloud/1/7a6z415bc5uf8mx9kms9qodrcmq4q1r5qsf0qs50kb4brv2o/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+</head>
+  <script>
+      tinymce.init({
+          selector: 'textarea',
+          plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+          toolbar_mode: 'floating',
+      });
+  </script>
+  <?php
         echo "</p>";
         }
 }
