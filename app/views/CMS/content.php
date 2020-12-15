@@ -6,11 +6,13 @@ $snippetsHistoric1 = $snippets['historicMain'];
 $snippetsHistoric2 = $snippets['historicRoute'];
 $snippetsFood1 = $snippets['foodMain'];
 $snippetsFood2 = $snippets['foodRestaurants'];
+$snippetsVolunteer = $snippets['volunteer'];
 ?>
 
     <button class="tablink" onclick="openPage('Dance', this, 'red')" id="defaultOpen">Dance</button>
     <button class="tablink" onclick="openPage('Historic', this, 'green')">Historic</button>
     <button class="tablink" onclick="openPage('Food', this, 'blue')">Food</button>
+    <button class="tablink" onclick="openPage('Volunteer', this, 'yellow')">Volunteer</button>
 
 <div id="Dance" class="tabcontent">
     <?php
@@ -38,6 +40,15 @@ $snippetsFood2 = $snippets['foodRestaurants'];
     }
     ?>
     <?php echoEditors("Food - General",$snippetsFood1); ?>
+</div>
+
+<div id="Volunteer" class="tabcontent">
+    <?php
+    if (isset($data['Message'])){
+        echo "<span>{$data['Message']}</span>";
+    }
+    ?>
+    <?php echoEditors("Volunteer Page",$snippetsVolunteer); ?>
 </div>
 
 <?php

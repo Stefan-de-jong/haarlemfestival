@@ -59,6 +59,10 @@
             } else {
                 return false;
             }
-        } 
+        }
+        public function volunteerSnippet(){
+            $this->db->query("select * from volunteersnippet");
+            return $this->db->single()->text;
+        }
     }
 ?>
