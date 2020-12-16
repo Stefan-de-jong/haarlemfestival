@@ -8,9 +8,9 @@ class CMSRepo
         $this->db = new Database;
         $this->meta = [
         'd58e3582afa99040e27b92b13c8f2280' =>
-            ['table' => 'user', 'updateAbles' => ['firstname', 'lastname', 'email'], 'readOnly' => false, 'idColumn' => 'id', 'editablePasswordId' => 0],
+            ['table' => 'user', 'updateAbles' => ['firstname', 'lastname', 'email'], 'readOnly' => false, 'idColumn' => 'id'],
         'f4b1df7d1d45beb8f5529899393307a9' =>
-            ['table' => 'customer', 'updateAbles' => ['first_name', 'last_name', 'email'], 'readOnly' => false, 'idColumn' => 'id', 'editablePasswordId' => 0],
+            ['table' => 'customer', 'updateAbles' => ['first_name', 'last_name', 'email'], 'readOnly' => false, 'idColumn' => 'id'],
         'd9729feb74992cc3482b350163a1a010' =>
             ['table' => 'venue', 'updateAbles' => ['venue_name', 'address'], 'readOnly' => false, 'idColumn' => 'id'],
         '6155ea87c23c52518df731aaa1f635aa' =>
@@ -177,10 +177,6 @@ class CMSRepo
             $idColumnString = $meta['idColumn'];
             $r->idValue = $r->$idColumnString;
             $r->readOnly = $meta['readOnly'];
-            if (isset($meta['editablePasswordId']))
-            {
-                $r->editablePasswordId = $r->idValue;
-            }
         }
         return $res;
     }

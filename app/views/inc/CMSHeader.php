@@ -24,8 +24,8 @@ function indexInArray($entry, $array)
     return -1;
 }
 function build_table($array,$skipFields = [],$extraButtons = []){
-    $groupArtists = false;
-    $readonlyFields= ['artist_name'];
+    $groupArtists = $array[0]->action == "7cda127b9c7c0fa6430b710f04d0b08f";
+    $readonlyFields = [];
     if ($array[0]->action == 'e'){
         array_push($readonlyFields,'venue_name');
     }
@@ -34,6 +34,7 @@ function build_table($array,$skipFields = [],$extraButtons = []){
         array_push($skip,$spec);
     }
     if ($groupArtists){
+        $readonlyFields= ['artist_name','venue_name'];
         $grouped = [];
     foreach($array as $row){
         $index = indexInArray($row,$grouped);
@@ -61,6 +62,9 @@ function build_table($array,$skipFields = [],$extraButtons = []){
         foreach($value as $key2=>$value2){
             if (!in_array($key2,$skip)) {
                 if (in_array($key2,$readonlyFields) or $array[0]->readOnly){
+                    if ($key2 == 'ticket_price'){
+                        $value2 = "€".number_format($value2,2);
+                    }
                     $html .= '<td>' . formInputReadonly(htmlspecialchars($value2), $key2) . '</td>';
                 }else {
                     $html .= '<td>' . formInput(htmlspecialchars($value2), $key2) . '</td>';
