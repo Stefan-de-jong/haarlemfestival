@@ -11,7 +11,8 @@
     <?php
     echo $data['content'];
     ?>
-
+    <br>
+    <button onclick="window.location.href = 'http://localhost/haarlemfestival/CMS/login';">Go to volunteer environment</button>
     <div class="contact-clean" style="margin-left: 500px">
         <form method="post">
             <h2 class="text-center">Volunteer now!</h2>
