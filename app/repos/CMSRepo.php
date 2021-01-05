@@ -20,10 +20,10 @@ class CMSRepo
         'e0fe3095d33d3e33b253cb495ef3ba3f' => ['table' => 'ticket', 'updateAbles' => [
 
         ], 'readOnly' => true, 'idColumn' => 'id', 'customQuery' => $this->customQueryTickets()],
-        'a1df5dde9402fb786e7efa94d6f851ca' => ['table' => 'guide', 'updateAbles' => ['name', ], 'readOnly' => false, 'idColumn' => 'id'],
-
+        'a1df5dde9402fb786e7efa94d6f851ca' => ['table' => 'guide', 'updateAbles' => ['name', ], 'readOnly' => false, 'idColumn' => 'id']
     ];
     }
+    //test
     public function Login($email, $password)
     {
         $this
