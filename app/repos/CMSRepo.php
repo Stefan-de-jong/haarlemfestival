@@ -8,7 +8,14 @@ class CMSRepo
         $this->db = new Database;
         $this->meta = [
         'd58e3582afa99040e27b92b13c8f2280' =>
-            ['table' => 'user', 'updateAbles' => ['firstname', 'lastname', 'email'], 'readOnly' => false, 'idColumn' => 'id'],
+            ['table' => 'user', 'updateAbles' => ['firstname', 'lastname', 'email'], 'readOnly' => false, 'idColumn' => 'id',
+                'adding'=>[
+                    'columns' => [['First Name','firstname'],['Last Name','lastname'],['Email','email'],['Password','password'],['Role','role']],
+                    'query' => 'default',
+                    'values' => [],
+                    'action'=>'d58e3582afa99040e27b92b13c8f2280'
+                ]
+                ],
         'f4b1df7d1d45beb8f5529899393307a9' =>
             ['table' => 'customer', 'updateAbles' => ['first_name', 'last_name', 'email'], 'readOnly' => false, 'idColumn' => 'id'],
         'd9729feb74992cc3482b350163a1a010' =>
@@ -23,7 +30,23 @@ class CMSRepo
         'a1df5dde9402fb786e7efa94d6f851ca' => ['table' => 'guide', 'updateAbles' => ['name', ], 'readOnly' => false, 'idColumn' => 'id']
     ];
     }
-    //test
+    public function defaultAddQuery($meta){
+        $tableName = $meta['table'];
+        $q = "INSERT INTO {$tableName} (";
+        foreach ($meta['adding']['columns'] as $col => $val)
+        {
+            $q .= $val[1] . ', ';
+        }
+        $q = substr($q, 0, -2);
+        $q .= ") VALUES ( ";
+        foreach ($meta['adding']['columns'] as $col => $val)
+        {
+            $q .= ':' . $val[1] . ', ';
+        }
+        $q = substr($q, 0, -2);
+        $q .= ")";
+        return $q;
+    }
     public function Login($email, $password)
     {
         $this
@@ -153,6 +176,9 @@ class CMSRepo
             return false;
         }
     }
+    public function getAddable($action){
+       return $this->meta[$action]['adding'];
+    }
     public function getEditable($action)
     {
         $meta = $this->meta[$action];
@@ -179,6 +205,36 @@ class CMSRepo
             $r->readOnly = $meta['readOnly'];
         }
         return $res;
+    }
+    public function addObject($p){
+        $action = '';
+        $m = [];
+        if (isset($p['action'])){
+            $action = $p['action'];
+            $m = $this->meta[$action];
+            if ($m == null){return false;}
+        }else{return false;}
+        $columns = $m['adding']['columns'];
+        if ($m['adding']['query'] == 'default'){
+            $q = $this->defaultAddQuery($m);
+        }
+        $this->db->query($q);
+        foreach ($columns as $col){
+            if (!isset($p[$col[1]])){
+                return false;
+            }else{
+                if (empty($p[$col[1]])){return false;}
+            }
+            $column = $col[1];
+            $value = $p[$column];
+            if ($column == 'password'){
+                $value = md5($value);
+            }
+            $this->db->bind(":{$column}",
+                "{$value}"
+            );
+        }
+        return $this->db->execute();
     }
     public function process($post)
     {

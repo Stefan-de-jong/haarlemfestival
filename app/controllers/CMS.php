@@ -65,31 +65,32 @@
     public function EventVenues(){
         if ($this->Authorize()) {
             $editableObj = $this->repo->getEditable('d9729feb74992cc3482b350163a1a010');
-            $this->view($this->CMSVenues(), ['content' => $editableObj]);
+            $addObj = $this->repo->getAddable('d9729feb74992cc3482b350163a1a010');
+            $this->view($this->CMSVenues(), ['editing' => $editableObj,'adding'=>$addObj]);
         }
     }
      public function EventGuides(){
          if ($this->Authorize()) {
              $editableObj = $this->repo->getEditable('a1df5dde9402fb786e7efa94d6f851ca');
-             $this->view($this->CMSGuides(), ['content' => $editableObj]);
+             $this->view($this->CMSGuides(), ['editing' => $editableObj]);
          }
      }
      public function EventRestaurants(){
          if ($this->Authorize()) {
              $editableObj = $this->repo->getEditable('6155ea87c23c52518df731aaa1f635aa');
-             $this->view($this->CMSRestaurants(), ['content' => $editableObj]);
+             $this->view($this->CMSRestaurants(), ['editing' => $editableObj]);
          }
      }
      public function EventDancePerformances(){
          if ($this->Authorize()) {
              $editableObj = $this->repo->getEditable('7cda127b9c7c0fa6430b710f04d0b08f');
-             $this->view($this->CMSDancePerformances(), ['content' => $editableObj]);
+             $this->view($this->CMSDancePerformances(), ['editing' => $editableObj]);
          }
      }
      public function Tickets(){
          if ($this->Authorize()) {
              $editableObj = $this->repo->getEditable('e0fe3095d33d3e33b253cb495ef3ba3f');
-             $this->view($this->CMSTickets(), ['content' => $editableObj]);
+             $this->view($this->CMSTickets(), ['editing' => $editableObj]);
          }
      }
     public function Events(){
@@ -100,13 +101,14 @@
      public function Users() {
         if ($this->Authorize()) {
             $editableObj = $this->repo->getEditable('d58e3582afa99040e27b92b13c8f2280');
-            $this->view($this->CMSUsers(), ['content' => $editableObj]);
+            $addableObj = $this->repo->getAddable('d58e3582afa99040e27b92b13c8f2280');
+            $this->view($this->CMSUsers(), ['editing' => $editableObj,'adding'=>$addableObj]);
         }
      }
      public function Customers() {
         if ($this->Authorize()) {
             $editableObj = $this->repo->getEditable('f4b1df7d1d45beb8f5529899393307a9');
-            $this->view($this->CMSCustomers(), ['content' => $editableObj]);
+            $this->view($this->CMSCustomers(), ['editing' => $editableObj]);
         }
      }
      public function ResetPassword(){
@@ -139,7 +141,7 @@
          }
      }
      public function Process(){
-         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+         if ($_SERVER['REQUEST_METHOD'] === 'POST' and $this->Authorize()) {
              $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
              if ($this->repo->process($_POST)){
                  $goto = explode('haarlemfestival/', $_SERVER['HTTP_REFERER'])[1];
@@ -150,6 +152,24 @@
              }else{
                 die("Error editing data");
              }
+         }else{
+             $this->redirectToHome();
+         }
+     }
+     public function AddObject(){
+         if ($_SERVER['REQUEST_METHOD'] === 'POST' and $this->Authorize()) {
+             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+             $msg = '';
+             if ($this->repo->addObject($_POST)){
+                 $msg = 'Added succesfully!';
+             }else{
+                 $msg = 'Error adding object!';
+             }
+             $goto = explode('haarlemfestival/', $_SERVER['HTTP_REFERER'])[1];
+             if (strpos($goto, '?') !== false) {
+                 $goto = explode('?',$goto)[0];
+             }
+             redirect($goto."?msg={$msg}");
          }else{
              $this->redirectToHome();
          }

@@ -20,7 +20,7 @@
     </form>
     ";
     }
-    echo build_table($data['content'],['password'],[
+    echo build_table($data['editing'],['password'],[
             passwordResetButton()
     ])
     ?>

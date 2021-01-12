@@ -89,6 +89,9 @@ function build_table($array,$skipFields = [],$extraButtons = []){
 function formStart(){
     return "<form method='POST' action='".  URLROOT  ."/CMS/Process'>";
 }
+function formStartAdd(){
+    return "<form method='POST' action='".  URLROOT  ."/CMS/AddObject'>";
+}
 function formEnd(){
     return "</form>";
 }
@@ -108,6 +111,9 @@ function updateButton($readOnly){
     }else {
         return "<td><input type='submit' value='Update'></td>";
     }
+}
+function addButton(){
+        return "<td><input type='submit' value='Add'></td>";
 }
 function meta($a,$id){
     return
@@ -153,6 +159,29 @@ if (isset($_SERVER['QUERY_STRING'])) {
         backButton();
     }
 }
+function build_table_add($array){
+    $html = "<table id = 'addable'>";
+    $html .= '<tr>';
+    foreach($array['columns'] as $key=>$value){
+            $html .= '<th>' . htmlspecialchars($value[0]) . '</th>';
+    }
+    $html .= '</tr>';
+    $html .= '<tr>';
+    foreach( $array['columns'] as $value){
+
+        $html .= formStartAdd();
+        $html .= '<td>' . formInput('', $value[1]) . '</td>';
+
+    }
+    $html .= meta($array['action'],'');
+    $html .=  addButton();
+    $html .= formEnd();
+    $html .= '</tr>';
+    $html .= '</table>';
+    return   $html;
+}
+
+
 if (isset($_GET['msg'])){
     echo $_GET['msg'];
 }

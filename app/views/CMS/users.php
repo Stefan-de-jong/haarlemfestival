@@ -19,9 +19,11 @@ function passwordResetButton(){
     </form>
     ";
 }
-echo build_table($data['content'],['password','role'], [
+echo build_table($data['editing'],['password','role'], [
         passwordResetButton()
-])
+]);
+
+echo build_table_add($data['adding']);
 ?>
 </body>
 </html>

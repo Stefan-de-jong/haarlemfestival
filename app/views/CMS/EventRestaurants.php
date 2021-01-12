@@ -10,7 +10,7 @@
 
     <body>
     <?php
-    echo build_table($data['content'],['kitchen1','kitchen2','price','info_page','rest_img'])
+    echo build_table($data['editing'],['kitchen1','kitchen2','price','info_page','rest_img'])
     ?>
     </body>
     </html>
