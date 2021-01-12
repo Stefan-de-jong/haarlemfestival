@@ -108,7 +108,8 @@
      public function Customers() {
         if ($this->Authorize()) {
             $editableObj = $this->repo->getEditable('f4b1df7d1d45beb8f5529899393307a9');
-            $this->view($this->CMSCustomers(), ['editing' => $editableObj]);
+            $addableObj = $this->repo->getAddable('f4b1df7d1d45beb8f5529899393307a9');
+            $this->view($this->CMSCustomers(), ['editing' => $editableObj,'adding'=>$addableObj]);
         }
      }
      public function ResetPassword(){
@@ -164,6 +165,24 @@
                  $msg = 'Added succesfully!';
              }else{
                  $msg = 'Error adding object!';
+             }
+             $goto = explode('haarlemfestival/', $_SERVER['HTTP_REFERER'])[1];
+             if (strpos($goto, '?') !== false) {
+                 $goto = explode('?',$goto)[0];
+             }
+             redirect($goto."?msg={$msg}");
+         }else{
+             $this->redirectToHome();
+         }
+     }
+     public function DeleteObject(){
+         if ($_SERVER['REQUEST_METHOD'] === 'POST' and $this->Authorize()) {
+             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+             $msg = '';
+             if ($this->repo->deleteObject($_POST)){
+                 $msg = 'Deleted succesfully!';
+             }else{
+                 $msg = 'Error deleting object!';
              }
              $goto = explode('haarlemfestival/', $_SERVER['HTTP_REFERER'])[1];
              if (strpos($goto, '?') !== false) {

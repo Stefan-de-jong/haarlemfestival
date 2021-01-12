@@ -10,14 +10,20 @@ class CMSRepo
         'd58e3582afa99040e27b92b13c8f2280' =>
             ['table' => 'user', 'updateAbles' => ['firstname', 'lastname', 'email'], 'readOnly' => false, 'idColumn' => 'id',
                 'adding'=>[
-                    'columns' => [['First Name','firstname'],['Last Name','lastname'],['Email','email'],['Password','password'],['Role','role']],
+                    'columns' => [['First Name','firstname'],['Last Name','lastname'],['Email','email'],['Password','password']],
                     'query' => 'default',
                     'values' => [],
                     'action'=>'d58e3582afa99040e27b92b13c8f2280'
                 ]
                 ],
         'f4b1df7d1d45beb8f5529899393307a9' =>
-            ['table' => 'customer', 'updateAbles' => ['first_name', 'last_name', 'email'], 'readOnly' => false, 'idColumn' => 'id'],
+            ['table' => 'customer', 'updateAbles' => ['first_name', 'last_name', 'email'], 'readOnly' => false, 'idColumn' => 'id',
+                'adding'=>[
+                    'columns' => [['First Name','first_name'],['Last Name','last_name'],['Email','email'],['Password','password']],
+                    'query' => 'default',
+                    'values' => [],
+                    'action'=>'f4b1df7d1d45beb8f5529899393307a9'
+                ]],
         'd9729feb74992cc3482b350163a1a010' =>
             ['table' => 'venue', 'updateAbles' => ['venue_name', 'address'], 'readOnly' => false, 'idColumn' => 'id'],
         '6155ea87c23c52518df731aaa1f635aa' =>
@@ -45,6 +51,11 @@ class CMSRepo
         }
         $q = substr($q, 0, -2);
         $q .= ")";
+        return $q;
+    }
+    public function defaultRemoveQuery($meta, $id){
+        $tableName = $meta['table'];
+        $q = "DELETE FROM {$tableName} WHERE {$meta['idColumn']} = {$id}";
         return $q;
     }
     public function Login($email, $password)
@@ -228,12 +239,29 @@ class CMSRepo
             $column = $col[1];
             $value = $p[$column];
             if ($column == 'password'){
-                $value = md5($value);
+                if ($action == 'f4b1df7d1d45beb8f5529899393307a9'){
+                    $value = password_hash($value,PASSWORD_DEFAULT);
+                }else {
+                    $value = md5($value);
+                }
             }
             $this->db->bind(":{$column}",
                 "{$value}"
             );
         }
+        return $this->db->execute();
+    }
+    public function deleteObject($p){
+        $action = '';
+        $m = [];
+        if (isset($p['action'])){
+            $action = $p['action'];
+            $m = $this->meta[$action];
+            if ($m == null){return false;}
+        }else{return false;}
+        $columns = $m['adding']['columns'];
+        $q = $this->defaultRemoveQuery($m,$p['id']);
+        $this->db->query($q);
         return $this->db->execute();
     }
     public function process($post)
