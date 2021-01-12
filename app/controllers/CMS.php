@@ -139,7 +139,7 @@
          }
      }
      public function Process(){
-         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+         if ($_SERVER['REQUEST_METHOD'] === 'POST' and $this->Authorize()) {
              $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
              if ($this->repo->process($_POST)){
                  $goto = explode('haarlemfestival/', $_SERVER['HTTP_REFERER'])[1];
@@ -149,6 +149,38 @@
                  redirect($goto."?msg=Edited successfully!");
              }else{
                 die("Error editing data");
+             }
+         }else{
+             $this->redirectToHome();
+         }
+     }
+     public function AddObject(){
+         if ($_SERVER['REQUEST_METHOD'] === 'POST' and $this->Authorize()) {
+             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+             if ($this->repo->addObject($_POST)){
+                 $goto = explode('haarlemfestival/', $_SERVER['HTTP_REFERER'])[1];
+                 if (strpos($goto, '?') !== false) {
+                     $goto = explode('?',$goto)[0];
+                 }
+                 redirect($goto."?msg=Added successfully!");
+             }else{
+                 die("Error adding data");
+             }
+         }else{
+             $this->redirectToHome();
+         }
+     }
+     public function DeleteObject(){
+         if ($_SERVER['REQUEST_METHOD'] === 'POST' and $this->Authorize()) {
+             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+             if ($this->repo->deleteObject($_POST)){
+                 $goto = explode('haarlemfestival/', $_SERVER['HTTP_REFERER'])[1];
+                 if (strpos($goto, '?') !== false) {
+                     $goto = explode('?',$goto)[0];
+                 }
+                 redirect($goto."?msg=Deleted successfully!");
+             }else{
+                 die("Error deleting data");
              }
          }else{
              $this->redirectToHome();

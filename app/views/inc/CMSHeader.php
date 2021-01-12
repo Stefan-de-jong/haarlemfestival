@@ -23,6 +23,23 @@ function indexInArray($entry, $array)
     }
     return -1;
 }
+function build_addTable($content){
+     ?>
+    <form action="<?php echo URLROOT . "/CMS/AddObject"?>" method="post">
+        <?php
+        foreach($content[0] as $k=>$v){
+         ?>
+            <input type="text" name="<?php echo $v; ?>" placeholder="<?php echo $v ?>">
+        <?php
+        }?>
+        <input type="hidden" name="action" value="<?php echo $content['action']  ?>">
+        <input type="submit" value="Add">
+        <?php
+        ?>
+    </form>
+<?php
+}
+
 function build_table($array,$skipFields = [],$extraButtons = []){
     $groupArtists = $array[0]->action == "7cda127b9c7c0fa6430b710f04d0b08f";
     $readonlyFields = [];

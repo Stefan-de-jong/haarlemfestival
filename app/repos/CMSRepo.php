@@ -8,7 +8,9 @@ class CMSRepo
         $this->db = new Database;
         $this->meta = [
         'd58e3582afa99040e27b92b13c8f2280' =>
-            ['table' => 'user', 'updateAbles' => ['firstname', 'lastname', 'email'], 'readOnly' => false, 'idColumn' => 'id'],
+            ['table' => 'user', 'updateAbles' => ['firstname', 'lastname', 'email'], 'readOnly' => false, 'idColumn' => 'id',
+            'addables' => [ 'firstname','lastname','email','password' ]
+            ],
         'f4b1df7d1d45beb8f5529899393307a9' =>
             ['table' => 'customer', 'updateAbles' => ['first_name', 'last_name', 'email'], 'readOnly' => false, 'idColumn' => 'id'],
         'd9729feb74992cc3482b350163a1a010' =>
@@ -23,7 +25,7 @@ class CMSRepo
         'a1df5dde9402fb786e7efa94d6f851ca' => ['table' => 'guide', 'updateAbles' => ['name', ], 'readOnly' => false, 'idColumn' => 'id']
     ];
     }
-    //test
+
     public function Login($email, $password)
     {
         $this
@@ -153,6 +155,10 @@ class CMSRepo
             return false;
         }
     }
+    public function getAddables($action){
+        $meta = $this->meta[$action];
+        return $meta['addables'];
+    }
     public function getEditable($action)
     {
         $meta = $this->meta[$action];
@@ -187,7 +193,7 @@ class CMSRepo
             return false;
         }
         $metaData = $this->meta[$post['action']];
-        $updateObj = $this->GetData($metaData, $post);
+        $updateObj = $this->GetData($metaData, $post,$this->types[0]);
         $emailChanged = $this->checkEmailChange($updateObj);
         if ($this->buildQuery($updateObj))
         {
@@ -203,6 +209,46 @@ class CMSRepo
         else
         {
             return true;
+        }
+    }
+    public function addObject($post){
+        if (!isset($post['action']))
+        {
+            return false;
+        }
+        $action = $post['action'];
+        $metaData = $this->meta[$post['action']];
+        $updateObj = $this->GetData($metaData, $post,$this->types[1]);
+        if (hasCustomQuery($action)){
+            $this->buildQuery($this->getCustomQueryAdd($action));
+        }else{
+            $this->buildQuery($updateObj);
+        }
+        try {
+            $this->db->execute();
+            return true;
+        }
+        catch (Exception $e){
+            return false;
+        }
+    }
+    public function deleteObject($post){
+        if (!isset($post['action']) or !isset($post['id']))
+        {
+            return false;
+        }
+        $meta = $this->meta[$post['action']];
+        $q = "DELETE FROM {$meta['table']} WHERE {$meta['idColumn']} = :id";
+        $query = $this
+            ->db
+            ->query($q);
+        $this->db->bind(':id',$post['id']);
+        try {
+            $this->db->execute();
+            return true;
+        }
+        catch (Exception $e){
+            return false;
         }
     }
 
@@ -236,14 +282,21 @@ class CMSRepo
         }
     }
 
-    private function GetData($meta, $post)
+    private function GetData($meta, $post,$type)
     {
         $updateObj = (object)[];
-        $updateObj->type = $this->types[0];
+        $updateObj->type = array_search($type,$this->types);
         $updateObj->tableName = $meta['table'];
         $updateObj->idColumn = $meta['idColumn'];
-        $updateObj->idValue = $post['id'];
-        $columns = $meta['updateAbles'];
+        if ($type != $this->types[1]) {
+            $updateObj->idValue = $post['id'];
+        }
+        if ($type == $this->types[0]) {
+            $columns = $meta['updateAbles'];
+        }
+        if ($type == $this->types[1]) {
+            $columns = $meta['addables'];
+        }
         $updateObj->data = [];
         foreach ($columns as $column)
         {
@@ -265,8 +318,19 @@ class CMSRepo
     private function customQueryTickets(){
         return "select ticket.id,eventtype.type,ticket_price,buyer_email from ticket,eventtype where LEFT(ticket.ticket_type,1) = eventtype.id";
     }
-
-    private $types = ['update'];
+    private function getCustomQueryAdd($action){
+        if ($action == 'd58e3582afa99040e27b92b13c8f2280') {
+            return "INSERT INTO user (firstname,lastname,email,password,role) VALUES (:firstname, :lastname, :email, :password, 'USER')";
+        }
+        return "";
+    }
+    private function hasCustomQuery($action){
+        if ($action == 'd58e3582afa99040e27b92b13c8f2280') {
+            return true;
+        }
+        return false;
+    }
+    private $types = ['update','add','delete'];
 
     private function buildQuery($d)
     {
@@ -284,6 +348,31 @@ class CMSRepo
             }
             $q = substr($q, 0, -2);
             $q .= " WHERE " . $d->idColumn . " = :" . $d->idColumn;
+            $query = $this
+                ->db
+                ->query($q);
+            foreach ($d->data as $col => $val)
+            {
+                $this
+                    ->db
+                    ->bind(':' . $col, $val);
+            }
+            $this
+                ->db
+                ->bind(':' . $d->idColumn, $d->idValue);
+        }else if ($d->type == 'add'){
+            $q = "INSERT INTO {$d->tableName} (";
+            foreach ($d->data as $col => $val)
+            {
+                $q .= $col . ', ';
+            }
+            $q = substr($q, 0, -2);
+            $q .= ") VALUES (";
+            foreach ($d->data as $col => $val)
+            {
+                $q .= ':' . $col . ', ';
+            }
+            $q .= ")";
             $query = $this
                 ->db
                 ->query($q);
